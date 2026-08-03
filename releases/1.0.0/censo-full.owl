@@ -1,0 +1,1176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:dcterms="http://purl.org/dc/terms/"
+   xmlns:foaf="http://xmlns.com/foaf/0.1/"
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+   xmlns:vann="http://purl.org/vocab/vann/"
+>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b55">
+    <rdf:first rdf:resource="https://w3id.org/censo/ClassBoundaryThreshold"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/derivedFromRecord">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">derived from record</rdfs:label>
+    <rdfs:comment xml:lang="en">Links an observation to the source file, sheet and cell it was extracted from, so every assertion is traceable.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://www.w3.org/ns/sosa/Observation"/>
+    <rdfs:range rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#wasDerivedFrom"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b69">
+    <rdf:first rdf:resource="https://w3id.org/censo/UnresolvedObservation"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/limitUnit">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">limit unit</rdfs:label>
+    <rdfs:comment xml:lang="en">Unit of LOD and LOQ. Mandatory: a bare limit is not comparable to anything.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/AnalyticalMethod"/>
+    <rdfs:range rdf:resource="http://qudt.org/schema/qudt/Unit"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/ApplicabilityCondition">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Applicability condition</rdfs:label>
+    <rdfs:comment xml:lang="en">A condition that must hold before a threshold may be applied to an observation.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/belowThreshold">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">below threshold</rdfs:label>
+    <rdfs:comment xml:lang="en">Materialised when resultUpperBound &lt;= thresholdValue.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://www.w3.org/ns/sosa/Observation"/>
+    <rdfs:range rdf:resource="https://w3id.org/censo/Threshold"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/censo/assessableAgainst"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/Compliant">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Compliant</rdfs:label>
+    <rdfs:comment xml:lang="en">Compliance is established: it holds for every value consistent with the observation.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/censo/ComplianceOutcome"/>
+    <owl:equivalentClass rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b13"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/MassSpectrometryTransition">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Mass spectrometry transition</rdfs:label>
+    <rdfs:comment xml:lang="en">An LC-MS/MS multiple-reaction-monitoring transition —
+precursor and product ion, retention time and the voltages that select them.
+It identifies the measurement channel that produced a result, and hence which
+detection limit applies. This is the level at which analytical provenance
+actually lives, and it is absent from every water ontology surveyed.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/censo/AnalyticalMethod"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/Threshold">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Threshold</rdfs:label>
+    <rdfs:comment xml:lang="en">A concentration limit set by a regulation, together with the conditions under which it may lawfully be applied.</rdfs:comment>
+    <rdfs:subClassOf rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b40"/>
+    <rdfs:subClassOf rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b41"/>
+    <rdfs:subClassOf rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b42"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/thresholdValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:label xml:lang="en">threshold value</rdfs:label>
+    <rdfs:comment xml:lang="en">The numeric limit, meaningful only with its unit and applicability conditions.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/Threshold"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/CensoredObservation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Censored observation</rdfs:label>
+    <rdfs:comment xml:lang="en">The analyte was sought and not detected. Asserts only that the
+true concentration lies in [0, LOD]. It does NOT assert absence. Storing such an
+observation as 0 destroys the distinction and biases every derived aggregate
+downwards.</rdfs:comment>
+    <rdfs:subClassOf rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b27"/>
+    <rdfs:subClassOf rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b28"/>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/sosa/Observation"/>
+    <skos:definition xml:lang="en">Observation whose result is below the method's limit of detection.</skos:definition>
+    <skos:example xml:lang="en">Atrazine sought and not detected by a method whose limit of detection is 0.02 µg/L: the concentration lies in [0, 0.02], which is not the same claim as zero.</skos:example>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b27">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.0</owl:hasValue>
+    <owl:onProperty rdf:resource="https://w3id.org/censo/resultLowerBound"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/thresholdUnit">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">threshold unit</rdfs:label>
+    <rdfs:comment xml:lang="en">Unit of the threshold; must be commensurable with the observation unit before comparison.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/Threshold"/>
+    <rdfs:range rdf:resource="http://qudt.org/schema/qudt/Unit"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/inForceFrom">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">in force from</rdfs:label>
+    <rdfs:comment xml:lang="en">Date of entry into force. Observations predating it can still be assessed against the package, but the result is counterfactual and must be labelled as such.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/reg/RegulationPackage"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/ns/prov#wasDerivedFrom">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">was derived from</rdfs:label>
+    <rdfs:comment xml:lang="en">Reused from PROV-O; declared here only so that this standalone distribution is self-describing.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <rdfs:range rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/ns/sosa/Observation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Observation</rdfs:label>
+    <rdfs:comment xml:lang="en">Reused from SOSA; declared here only so that this standalone distribution is self-describing.</rdfs:comment>
+    <owl:hasKey rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b43"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b46">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+    <owl:members rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b47"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/transcriptionStatus">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">transcription status</rdfs:label>
+    <rdfs:comment xml:lang="en">Whether a value has been verified against the primary legal
+text. Machine-readable so that unverified values can be excluded from analysis
+rather than trusted by default.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/Threshold"/>
+    <rdfs:range rdf:resource="https://w3id.org/censo/reg/TranscriptionStatus"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b66">
+    <rdf:first rdf:resource="https://w3id.org/censo/CensoredObservation"/>
+    <rdf:rest rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b67"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/ns/sosa/FeatureOfInterest">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Feature of interest</rdfs:label>
+    <rdfs:comment xml:lang="en">Reused from SOSA; declared here only so that this standalone distribution is self-describing.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b59">
+    <rdf:first rdf:resource="https://w3id.org/censo/belowThreshold"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/requiresCondition">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">requires condition</rdfs:label>
+    <rdfs:comment xml:lang="en">A precondition of the threshold. Unmet preconditions yield no verdict, not a default pass.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/Threshold"/>
+    <rdfs:range rdf:resource="https://w3id.org/censo/ApplicabilityCondition"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b31">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onClass rdf:resource="https://w3id.org/censo/reg/AggregationFunction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/censo/reg/aggregationFunction"/>
+    <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/ns/sosa/ObservableProperty">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Observable property</rdfs:label>
+    <rdfs:comment xml:lang="en">Reused from SOSA; declared here only so that this standalone distribution is self-describing.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/definesThreshold">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">defines threshold</rdfs:label>
+    <rdfs:comment xml:lang="en">Links a package to the thresholds it establishes. The inverse direction (threshold to package) goes through censo:definedBy.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/reg/RegulationPackage"/>
+    <rdfs:range rdf:resource="https://w3id.org/censo/Threshold"/>
+    <owl:inverseOf rdf:resource="https://w3id.org/censo/definedBy"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/MethodInsufficient">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Method insufficient</rdfs:label>
+    <rdfs:comment xml:lang="en">Case (b): limitOfQuantification &gt; thresholdValue.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/censo/IndeterminateCompliance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/IndeterminateCompliance">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Indeterminate compliance</rdfs:label>
+    <rdfs:comment xml:lang="en">No compliance statement is supportable. Arises when
+(a) no threshold exists for the analyte in this matrix;
+(b) the method's LOQ exceeds the threshold, so compliance cannot be demonstrated
+    even in principle;
+(c) a precondition is unmet — unknown fraction, missing bioavailability
+    covariates, unknown hardness class;
+(d) the observation is censored and the threshold lies inside [0, LOD].
+
+Case (b) is the sharpest: a laboratory can report "not detected" for a substance
+whose LOQ is a hundredfold above the legal limit, and a closed-world system
+records that as compliance.
+
+NOTE ON INFERENCE. This class cannot be defined as "none of the other three",
+because under the open-world assumption an unasserted property is not a false
+one. It is materialised under a locally closed world; see censo-shapes.ttl.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/censo/ComplianceOutcome"/>
+    <skos:example xml:lang="en">Imidacloprid measured by a method quantifying at 2.065 µg/L against an EU annual-average standard of 0.0068 µg/L: no result the method could return would decide compliance.</skos:example>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/AnalyticalMethod">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Analytical method</rdfs:label>
+    <rdfs:comment xml:lang="en">A procedure determining the concentration of an analyte,
+characterised by a limit of detection and a limit of quantification. The limits
+belong to the METHOD, not to the substance: the same analyte may be censored at
+one laboratory and quantified at another. Attaching limits to the analyte — the
+common shortcut — makes cross-laboratory comparison unsound.</rdfs:comment>
+    <rdfs:subClassOf rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b37"/>
+    <rdfs:subClassOf rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b38"/>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/sosa/Procedure"/>
+    <skos:definition xml:lang="en">A sosa:Procedure with a detection limit.</skos:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <dcterms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-08-03</dcterms:created>
+    <dcterms:creator rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b1"/>
+    <dcterms:description xml:lang="en">CENSO extends SOSA/SSN with detection and quantification
+limits, interval-valued results, applicability conditions on regulatory
+thresholds, and a four-valued compliance assessment in which "cannot be
+determined" is an explicit, queryable outcome. Designed for measurement
+processes in which non-detection is the normal result and must be represented as
+an open-world upper bound rather than as zero.</dcterms:description>
+    <dcterms:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+    <dcterms:title xml:lang="en">CENSO: an ontology for censored environmental observations</dcterms:title>
+    <vann:preferredNamespacePrefix>censo</vann:preferredNamespacePrefix>
+    <vann:preferredNamespaceUri>https://w3id.org/censo/</vann:preferredNamespaceUri>
+    <rdfs:seeAlso rdf:resource="http://qudt.org/schema/qudt/"/>
+    <rdfs:seeAlso rdf:resource="http://www.w3.org/2004/02/skos/core"/>
+    <rdfs:seeAlso rdf:resource="http://www.w3.org/ns/prov#"/>
+    <rdfs:seeAlso rdf:resource="http://www.w3.org/ns/sosa/"/>
+    <rdfs:seeAlso rdf:resource="http://www.w3.org/ns/ssn/"/>
+    <owl:versionIRI rdf:resource="https://w3id.org/censo/1.0.0"/>
+    <owl:versionInfo>1.0.0</owl:versionInfo>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/AnalyticalRun">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Analytical run</rdfs:label>
+    <rdfs:comment xml:lang="en">One execution of an analytical method on a batch of samples,
+carrying its own calibration curve and therefore its own detection limits. Two
+observations of the same analyte are only strictly comparable when they share a
+run, or when the runs' limits are known and comparable.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Activity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/regulationVersion">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">regulation version</rdfs:label>
+    <rdfs:comment xml:lang="en">Amendment identifier, so thresholds of different vintages stay distinguishable.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/Regulation"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b57">
+    <rdf:first rdf:resource="https://w3id.org/censo/exceeds"/>
+    <rdf:rest rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b58"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/appliesToGroup">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">applies to group</rdfs:label>
+    <rdfs:comment xml:lang="en">The substance group whose aggregate the threshold constrains.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/reg/GroupThreshold"/>
+    <rdfs:range rdf:resource="https://w3id.org/censo/reg/SubstanceGroup"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b16">
+    <rdf:first rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b14"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/ns/prov#hadPrimarySource">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">had primary source</rdfs:label>
+    <rdfs:comment xml:lang="en">Reused from PROV-O; declared here only so that this standalone distribution is self-describing.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <rdfs:range rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/jurisdiction">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">jurisdiction</rdfs:label>
+    <rdfs:comment xml:lang="en">The legal territory in which the package applies (ISO 3166 code or 'EU').</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/reg/RegulationPackage"/>
+    <rdfs:range rdf:resource="https://w3id.org/censo/reg/Jurisdiction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/NonRelevantMetabolite">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Non-relevant metabolite</rdfs:label>
+    <rdfs:comment xml:lang="en">Metabolite without the parent's pesticidal activity; brought into scope by the 2026 EU update under a separate standard.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/censo/Analyte"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b10">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:unionOf rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b11"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b42">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
+    <owl:onProperty rdf:resource="https://w3id.org/censo/definedBy"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/AggregationFunction">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Aggregation function</rdfs:label>
+    <rdfs:comment xml:lang="en">How the members of a substance group are combined into the single quantity the threshold applies to.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/memberOfGroup">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">member of group</rdfs:label>
+    <rdfs:comment xml:lang="en">Membership in a collectively assessed set. Group membership is curated knowledge with provenance, not a spreadsheet column.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/Analyte"/>
+    <rdfs:range rdf:resource="https://w3id.org/censo/reg/SubstanceGroup"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b30">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onClass rdf:resource="https://w3id.org/censo/reg/SubstanceGroup"/>
+    <owl:onProperty rdf:resource="https://w3id.org/censo/reg/appliesToGroup"/>
+    <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/duringCampaign">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">during campaign</rdfs:label>
+    <rdfs:comment xml:lang="en">The sampling campaign the observation belongs to; part of the observation's identity key.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://www.w3.org/ns/sosa/Observation"/>
+    <rdfs:range rdf:resource="https://w3id.org/censo/Campaign"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/UnresolvedObservation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Unresolved observation</rdfs:label>
+    <rdfs:comment xml:lang="en">Made, but its detection status cannot be established, typically
+because the applicable LOD/LOQ for the analyte-method pair is unknown. Such
+observations are structurally undecidable and must be excluded from inference
+rather than silently treated as quantified.</rdfs:comment>
+    <rdfs:subClassOf rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b25"/>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/sosa/Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b62">
+    <rdf:first rdf:resource="https://w3id.org/censo/PossibleExceedance"/>
+    <rdf:rest rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b63"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/limitOfDetection">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:label xml:lang="en">limit of detection (LOD)</rdfs:label>
+    <rdfs:comment xml:lang="en">Lowest concentration reliably distinguishable from a blank.
+Below it, presence can be neither asserted nor denied. Expressed in
+censo:limitUnit.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/AnalyticalMethod"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/resultUpperBound">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:label xml:lang="en">result upper bound</rdfs:label>
+    <rdfs:comment xml:lang="en">Largest concentration consistent with the observation; the LOD when censored.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://www.w3.org/ns/sosa/Observation"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/AnnualAverageThreshold">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Annual average threshold</rdfs:label>
+    <rdfs:comment xml:lang="en">Long-term limit (e.g. AA-EQS). Applies to a temporal mean, not
+to a single sample; comparing one grab sample against it is a category error that
+this class exists to make visible.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/censo/Threshold"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/censoringRecovered">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:label xml:lang="en">censoring recovered</rdfs:label>
+    <rdfs:comment xml:lang="en">True when the detection status was RECONSTRUCTED after the
+fact, typically because the source recorded a non-detection as 0 and the status
+was recovered by joining the analyte's LOD. Such observations carry an extra
+assumption and must remain distinguishable from those whose censoring was
+recorded at source.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://www.w3.org/ns/sosa/Observation"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/Maximum">
+    <rdf:type rdf:resource="https://w3id.org/censo/reg/AggregationFunction"/>
+    <rdfs:label xml:lang="en">maximum</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b51">
+    <rdf:first rdf:resource="https://w3id.org/censo/reg/TranscriptionStatus"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/NoThresholdDefined">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">No threshold defined</rdfs:label>
+    <rdfs:comment xml:lang="en">Case (a): the regulation sets no limit for this analyte in this matrix.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/censo/IndeterminateCompliance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/legalReference">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">legal reference</rdfs:label>
+    <rdfs:comment xml:lang="en">Citation as published, e.g. 'OJ L 348, 24.12.2008' or 'Resmî Gazete 28483'.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/reg/RegulationPackage"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/MaximumAllowableThreshold">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Maximum allowable threshold</rdfs:label>
+    <rdfs:comment xml:lang="en">Short-term limit (e.g. MAC-EQS); may be compared against a single observation.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/censo/Threshold"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b21">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b23"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b33">
+    <rdf:first rdf:resource="https://w3id.org/censo/Exceedance"/>
+    <rdf:rest rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b34"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/aggregationFunction">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">aggregation function</rdfs:label>
+    <rdfs:comment xml:lang="en">Function used to combine group members, e.g. sum for the 24-PFAS standard.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/reg/GroupThreshold"/>
+    <rdfs:range rdf:resource="https://w3id.org/censo/reg/AggregationFunction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/BioavailabilityCondition">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Bioavailability condition</rdfs:label>
+    <rdfs:comment xml:lang="en">The threshold is a bioavailable concentration (as for nickel,
+lead, copper and zinc under EU EQS) and requires hardness, dissolved organic
+carbon and pH for normalisation. Absent those covariates, no compliance
+statement is possible.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/censo/ApplicabilityCondition"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b60">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+    <owl:members rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b61"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/assessableAgainst">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">assessable against</rdfs:label>
+    <rdfs:comment xml:lang="en">Materialised when EVERY condition the threshold requires is
+satisfied for this observation. Only then may a verdict be drawn. Universal
+quantification over a materialised set is a closed-world check, so it lives in
+SHACL, not in OWL.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://www.w3.org/ns/sosa/Observation"/>
+    <rdfs:range rdf:resource="https://w3id.org/censo/Threshold"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/transposes">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">transposes</rdfs:label>
+    <rdfs:comment xml:lang="en">National package implementing a supranational one, e.g. YSKY transposing the EU EQS Directive. Divergences between the two are meaningful and queryable.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/reg/RegulationPackage"/>
+    <rdfs:range rdf:resource="https://w3id.org/censo/reg/RegulationPackage"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/SubstanceGroup">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Substance group</rdfs:label>
+    <rdfs:comment xml:lang="en">A set of analytes assessed collectively, e.g. 'pesticides total', 'sum of 24 PFAS'.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b4">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+    <owl:onProperty rdf:resource="http://www.w3.org/ns/sosa/usedProcedure"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/requiresCompleteGroup">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">requires complete group</rdfs:label>
+    <rdfs:comment xml:lang="en">True when every group member must have been measured for the
+aggregate to be assessable. If members are missing from the monitoring panel,
+the aggregate is `censo:IndeterminateCompliance`, not a partial sum. The 24-PFAS
+sum is the obvious case: a survey that measured none of them cannot report
+compliance.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/reg/GroupThreshold"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/exceeds">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">exceeds</rdfs:label>
+    <rdfs:comment xml:lang="en">Materialised when resultLowerBound &gt; thresholdValue: exceedance holds for every value consistent with the observation.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://www.w3.org/ns/sosa/Observation"/>
+    <rdfs:range rdf:resource="https://w3id.org/censo/Threshold"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/censo/assessableAgainst"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/ComplianceOutcome">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Compliance outcome</rdfs:label>
+    <rdfs:comment xml:lang="en">The verdict of comparing an observation against a threshold.
+Four-valued; the fourth value is what closed-world models cannot express.</rdfs:comment>
+    <owl:equivalentClass rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b32"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/ClassBoundaryThreshold">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Class boundary threshold</rdfs:label>
+    <rdfs:comment xml:lang="en">Boundary between water quality classes. Conventional
+determinands such as COD, ammonium and phosphate are assessed against these, not
+against an EQS — a distinction routinely lost when both are stored as a single
+"limit" column.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/censo/Threshold"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b12">
+    <rdf:first rdf:resource="https://w3id.org/censo/QuantifiedObservation"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b26">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/censo/assessableAgainst"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/censo/Threshold"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/possiblyExceeds">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">possibly exceeds</rdfs:label>
+    <rdfs:comment xml:lang="en">Materialised when resultLowerBound &lt;= thresholdValue &lt; resultUpperBound: the interval straddles the limit.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://www.w3.org/ns/sosa/Observation"/>
+    <rdfs:range rdf:resource="https://w3id.org/censo/Threshold"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/censo/assessableAgainst"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/smiles">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">SMILES</rdfs:label>
+    <rdfs:comment xml:lang="en">Structure string; supports structural grouping and QSAR-derived properties.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/Analyte"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b40">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
+    <owl:onProperty rdf:resource="https://w3id.org/censo/thresholdValue"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/groupCoverage">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:label xml:lang="en">group coverage</rdfs:label>
+    <rdfs:comment xml:lang="en">Fraction of a group's members actually measured. Materialised per assessment; reported alongside every aggregate verdict.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/reg/Assessment"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/MatrixCondition">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Matrix condition</rdfs:label>
+    <rdfs:comment xml:lang="en">Restricts the threshold to a matrix: inland surface water, coastal water, biota, sediment.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/censo/ApplicabilityCondition"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b17">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b19"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b35">
+    <rdf:first rdf:resource="https://w3id.org/censo/Compliant"/>
+    <rdf:rest rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b36"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/requiresCovariate">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">requires covariate</rdfs:label>
+    <rdfs:comment xml:lang="en">An observable property that must be co-measured for the condition to be evaluable.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/ApplicabilityCondition"/>
+    <rdfs:range rdf:resource="http://www.w3.org/ns/sosa/ObservableProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b64">
+    <rdf:first rdf:resource="https://w3id.org/censo/IndeterminateCompliance"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/metaboliteOf">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+    <rdfs:label xml:lang="en">metabolite of</rdfs:label>
+    <rdfs:comment xml:lang="en">Degradation or transformation product. Relevant because a
+survey may measure a metabolite while the regulated parent is absent from the
+panel, or vice versa. The 2026 EU update explicitly brings non-relevant
+pesticide metabolites into scope, so this relation carries legal weight.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/Analyte"/>
+    <rdfs:range rdf:resource="https://w3id.org/censo/Analyte"/>
+    <rdfs:seeAlso xml:lang="en">Transitive: a transformation product of a transformation product is still one of the parent. NOT symmetric, despite the scanner's suggestion -- the relation has a direction.</rdfs:seeAlso>
+    <skos:example xml:lang="en">1-Hydroxyibuprofen metaboliteOf Ibuprofen.</skos:example>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/resultLowerBound">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:label xml:lang="en">result lower bound</rdfs:label>
+    <rdfs:comment xml:lang="en">Smallest concentration consistent with the observation; 0 when censored.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://www.w3.org/ns/sosa/Observation"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/xmlschema11-2/#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/complianceDeadline">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">compliance deadline</rdfs:label>
+    <rdfs:comment xml:lang="en">Date by which member states or operators must meet the standards; may be long after entry into force.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/reg/RegulationPackage"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b58">
+    <rdf:first rdf:resource="https://w3id.org/censo/possiblyExceeds"/>
+    <rdf:rest rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b59"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b6">
+    <rdf:first rdf:resource="https://w3id.org/censo/CensoredObservation"/>
+    <rdf:rest rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b7"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/conditionSatisfied">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">condition satisfied</rdfs:label>
+    <rdfs:comment xml:lang="en">Materialised by the rule layer when the observation demonstrably meets the condition.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://www.w3.org/ns/sosa/Observation"/>
+    <rdfs:range rdf:resource="https://w3id.org/censo/ApplicabilityCondition"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/VerifiedAgainstPrimarySource">
+    <rdf:type rdf:resource="https://w3id.org/censo/reg/TranscriptionStatus"/>
+    <rdfs:label xml:lang="en">verified against primary source</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/AssessedObservation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Assessed observation</rdfs:label>
+    <rdfs:comment xml:lang="en">An observation whose detection status has been determined; the union of the four statuses.</rdfs:comment>
+    <rdfs:subClassOf rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b2"/>
+    <rdfs:subClassOf rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b3"/>
+    <rdfs:subClassOf rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b4"/>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/sosa/Observation"/>
+    <owl:equivalentClass rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b5"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/QuantifiedObservation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Quantified observation</rdfs:label>
+    <rdfs:comment xml:lang="en">Detected at or above the limit of quantification; the magnitude is usable.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/sosa/Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/casNumber">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:label xml:lang="en">CAS registry number</rdfs:label>
+    <rdfs:comment xml:lang="en">Preferred join key across heterogeneous sources; more reliable than trade or trivial names.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/Analyte"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b38">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
+    <owl:onProperty rdf:resource="https://w3id.org/censo/limitUnit"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/GroupThreshold">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Group threshold</rdfs:label>
+    <rdfs:comment xml:lang="en">A threshold applying to an aggregate over a substance group rather than to one analyte.</rdfs:comment>
+    <rdfs:subClassOf rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b30"/>
+    <rdfs:subClassOf rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b31"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/censo/Threshold"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b13">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b15"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/hasAnalyte">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">has analyte</rdfs:label>
+    <rdfs:comment xml:lang="en">The substance this observation is about; exactly one.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://www.w3.org/ns/sosa/Observation"/>
+    <rdfs:range rdf:resource="https://w3id.org/censo/Analyte"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/Analyte">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Analyte</rdfs:label>
+    <rdfs:comment xml:lang="en">A substance whose concentration is the observed property.
+Aligned to ChEBI/PubChem with skos:exactMatch rather than renamed, so that two
+regulation packages referring to the same substance resolve to one IRI — the
+precondition for comparing them.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/sosa/ObservableProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b2">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onClass rdf:resource="https://w3id.org/censo/Analyte"/>
+    <owl:onProperty rdf:resource="https://w3id.org/censo/hasAnalyte"/>
+    <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reportedValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">reported value</rdfs:label>
+    <rdfs:comment xml:lang="en">The number as it appears in the source record, kept verbatim for
+provenance. Never use it directly in inference: in many datasets a reported 0 is
+a non-detection, not a measured zero.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://www.w3.org/ns/sosa/Observation"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b56">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointProperties"/>
+    <owl:members rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b57"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/definedBy">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">defined by</rdfs:label>
+    <rdfs:comment xml:lang="en">The legal instrument establishing the threshold. Mandatory: an uncited threshold cannot be defended.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/Threshold"/>
+    <rdfs:range rdf:resource="https://w3id.org/censo/Regulation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/CensoredAmbiguous">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Censored ambiguous</rdfs:label>
+    <rdfs:comment xml:lang="en">Case (d): the observation is censored and the threshold lies within [0, LOD], so non-detection is compatible with both compliance and exceedance.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/censo/IndeterminateCompliance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/RelevantMetabolite">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Relevant metabolite</rdfs:label>
+    <rdfs:comment xml:lang="en">Metabolite retaining the pesticidal activity of its parent; assessed as a pesticide.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/censo/Analyte"/>
+    <owl:disjointWith rdf:resource="https://w3id.org/censo/reg/NonRelevantMetabolite"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/atStation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">at station</rdfs:label>
+    <rdfs:comment xml:lang="en">Where the sample was taken.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://www.w3.org/ns/sosa/Observation"/>
+    <rdfs:range rdf:resource="http://www.w3.org/ns/sosa/FeatureOfInterest"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/TranscriptionStatus">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Transcription status</rdfs:label>
+    <rdfs:comment xml:lang="en">How reliably a threshold value was copied from its legal source. Machine-readable so unverified values can be excluded from analysis rather than trusted by default.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/ns/prov#Entity">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Entity</rdfs:label>
+    <rdfs:comment xml:lang="en">Reused from PROV-O; declared here only so that this standalone distribution is self-describing.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b8">
+    <rdf:first rdf:resource="https://w3id.org/censo/QuantifiedObservation"/>
+    <rdf:rest rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b9"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/determinesAnalyte">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">determines analyte</rdfs:label>
+    <rdfs:comment xml:lang="en">The analyte this method measures. One method may cover many analytes, each with its own limits, so limits are asserted per method-analyte pair.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/AnalyticalMethod"/>
+    <rdfs:range rdf:resource="https://w3id.org/censo/Analyte"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b44">
+    <rdf:first rdf:resource="https://w3id.org/censo/atStation"/>
+    <rdf:rest rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b45"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/RegulationPackage">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Regulation package</rdfs:label>
+    <rdfs:comment xml:lang="en">A self-contained set of thresholds attributable to one legal
+instrument at one point in time. Assessment is always relative to a package;
+there is no such thing as an unqualified compliance verdict.
+
+A package is a censo:Regulation -- the same legal instrument, at the granularity
+at which it is versioned, cited and swapped. Declaring them separate classes
+made cereg:definesThreshold and censo:definedBy incoherent as inverses, which
+OOPS! reported as a critical pitfall and which is why an individual previously
+had to be typed as both.</rdfs:comment>
+    <rdfs:subClassOf rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b39"/>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/censo/Regulation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/ns/prov#Activity">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Activity</rdfs:label>
+    <rdfs:comment xml:lang="en">Reused from PROV-O; declared here only so that this standalone distribution is self-describing.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/Exceedance">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Exceedance</rdfs:label>
+    <rdfs:comment xml:lang="en">Exceedance is established: it holds for every value consistent with the observation.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/censo/ComplianceOutcome"/>
+    <owl:equivalentClass rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b17"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <dcterms:description xml:lang="en">Vocabulary for expressing environmental quality
+standards as self-contained, versioned, swappable modules, including group and
+derived thresholds such as a total-pesticide sum.</dcterms:description>
+    <dcterms:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+    <dcterms:title xml:lang="en">CENSO-REG: pluggable regulation packages for censored observations</dcterms:title>
+    <vann:preferredNamespacePrefix>cereg</vann:preferredNamespacePrefix>
+    <vann:preferredNamespaceUri>https://w3id.org/censo/reg/</vann:preferredNamespaceUri>
+    <rdfs:seeAlso rdf:resource="http://qudt.org/schema/qudt/"/>
+    <rdfs:seeAlso rdf:resource="http://www.w3.org/2004/02/skos/core"/>
+    <rdfs:seeAlso rdf:resource="http://www.w3.org/ns/prov#"/>
+    <rdfs:seeAlso rdf:resource="http://www.w3.org/ns/sosa/"/>
+    <rdfs:seeAlso rdf:resource="http://www.w3.org/ns/ssn/"/>
+    <owl:versionIRI rdf:resource="https://w3id.org/censo/reg/1.0.0"/>
+    <owl:versionInfo>1.0.0</owl:versionInfo>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/PreconditionUnmet">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Precondition unmet</rdfs:label>
+    <rdfs:comment xml:lang="en">Case (c): a required applicability condition is not satisfied.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/censo/IndeterminateCompliance"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b15">
+    <rdf:first rdf:resource="http://www.w3.org/ns/sosa/Observation"/>
+    <rdf:rest rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b16"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b25">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:complementOf rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b26"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b54">
+    <rdf:first rdf:resource="https://w3id.org/censo/MaximumAllowableThreshold"/>
+    <rdf:rest rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b55"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/PossibleExceedance">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Possible exceedance</rdfs:label>
+    <rdfs:comment xml:lang="en">The interval straddles the threshold; the measurement cannot decide.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/censo/ComplianceOutcome"/>
+    <owl:equivalentClass rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b21"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/productIon">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">product ion (Q3) m/z</rdfs:label>
+    <rdfs:comment xml:lang="en">Mass-to-charge ratio of the product ion monitored in the third quadrupole; together with the precursor it identifies the transition.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/MassSpectrometryTransition"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/Assessment">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Assessment</rdfs:label>
+    <rdfs:comment xml:lang="en">The act of evaluating observations against one regulation
+package, producing compliance outcomes. Reified so that the same observations
+assessed under two packages yield two comparable, separately attributable
+results.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Activity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/DetectedObservation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Detected observation</rdfs:label>
+    <rdfs:comment xml:lang="en">The analyte was found, whether or not it could be quantified.</rdfs:comment>
+    <owl:disjointWith rdf:resource="https://w3id.org/censo/CensoredObservation"/>
+    <owl:equivalentClass rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b10"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b7">
+    <rdf:first rdf:resource="https://w3id.org/censo/EstimatedObservation"/>
+    <rdf:rest rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b8"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b48">
+    <rdf:first rdf:resource="https://w3id.org/censo/reg/SubstanceGroup"/>
+    <rdf:rest rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b49"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/ns/sosa/Procedure">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Procedure</rdfs:label>
+    <rdfs:comment xml:lang="en">Reused from SOSA; declared here only so that this standalone distribution is self-describing.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/inForceUntil">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">in force until</rdfs:label>
+    <rdfs:comment xml:lang="en">Date the package ceased to apply. Absent means still in force.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/reg/RegulationPackage"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/sourceDocument">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">source document</rdfs:label>
+    <rdfs:comment xml:lang="en">Dereferenceable URI of the legal text the values were transcribed from. Required: a threshold without a traceable source is not usable in a regulatory context.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/reg/RegulationPackage"/>
+    <rdfs:range rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#hadPrimarySource"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/calibrationR2">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">calibration coefficient of determination</rdfs:label>
+    <rdfs:comment xml:lang="en">R² of the calibration curve; a quality indicator for the reported limits.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/AnalyticalMethod"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b45">
+    <rdf:first rdf:resource="https://w3id.org/censo/duringCampaign"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/analysedSample">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">analysed sample</rdfs:label>
+    <rdfs:comment xml:lang="en">The physical sample analysed. Reuses sosa:Sample so the sampling chain stays in the standard vocabulary.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/AnalyticalRun"/>
+    <rdfs:range rdf:resource="http://www.w3.org/ns/sosa/Sample"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b23">
+    <rdf:first rdf:resource="http://www.w3.org/ns/sosa/Observation"/>
+    <rdf:rest rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b24"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b67">
+    <rdf:first rdf:resource="https://w3id.org/censo/EstimatedObservation"/>
+    <rdf:rest rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b68"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b24">
+    <rdf:first rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b22"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/supersedes">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+    <rdfs:label xml:lang="en">supersedes</rdfs:label>
+    <rdfs:comment xml:lang="en">Names the package this one replaces. Transitive, so the full amendment chain is queryable.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/reg/RegulationPackage"/>
+    <rdfs:range rdf:resource="https://w3id.org/censo/reg/RegulationPackage"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b36">
+    <rdf:first rdf:resource="https://w3id.org/censo/IndeterminateCompliance"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/runUsedMethod">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">run used method</rdfs:label>
+    <rdfs:comment xml:lang="en">The method this run executed; the run inherits its limits, which may then be overridden per run.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/AnalyticalRun"/>
+    <rdfs:range rdf:resource="https://w3id.org/censo/AnalyticalMethod"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#Concept">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Concept</rdfs:label>
+    <rdfs:comment xml:lang="en">Reused from SKOS; declared here only so that this standalone distribution is self-describing.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b49">
+    <rdf:first rdf:resource="https://w3id.org/censo/reg/Assessment"/>
+    <rdf:rest rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b50"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/Unverified">
+    <rdf:type rdf:resource="https://w3id.org/censo/reg/TranscriptionStatus"/>
+    <rdfs:label xml:lang="en">unverified</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b39">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+    <owl:onProperty rdf:resource="https://w3id.org/censo/reg/sourceDocument"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b3">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+    <owl:onProperty rdf:resource="https://w3id.org/censo/atStation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/appliesToAnalyte">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">applies to analyte</rdfs:label>
+    <rdfs:comment xml:lang="en">The substance constrained. Group thresholds use cereg:appliesToGroup instead.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/Threshold"/>
+    <rdfs:range rdf:resource="https://w3id.org/censo/Analyte"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/limitOfQuantification">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:label xml:lang="en">limit of quantification (LOQ)</rdfs:label>
+    <rdfs:comment xml:lang="en">Lowest concentration measurable with stated accuracy and precision.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/AnalyticalMethod"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/TranscribedFromSecondarySource">
+    <rdf:type rdf:resource="https://w3id.org/censo/reg/TranscriptionStatus"/>
+    <rdfs:label xml:lang="en">transcribed from secondary source</rdfs:label>
+    <rdfs:comment xml:lang="en">Taken from a project spreadsheet, report or database rather than the legal text. Treat as provisional.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b50">
+    <rdf:first rdf:resource="https://w3id.org/censo/reg/AggregationFunction"/>
+    <rdf:rest rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b51"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b47">
+    <rdf:first rdf:resource="https://w3id.org/censo/reg/RegulationPackage"/>
+    <rdf:rest rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b48"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/producedByRun">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">produced by run</rdfs:label>
+    <rdfs:comment xml:lang="en">Links a result to the analytical run that produced it, and so to the limits actually in force for that measurement.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://www.w3.org/ns/sosa/Observation"/>
+    <rdfs:range rdf:resource="https://w3id.org/censo/AnalyticalRun"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/precursorIon">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">precursor ion (Q1) m/z</rdfs:label>
+    <rdfs:comment xml:lang="en">Mass-to-charge ratio of the precursor ion selected in the first quadrupole.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/MassSpectrometryTransition"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/ArithmeticMean">
+    <rdf:type rdf:resource="https://w3id.org/censo/reg/AggregationFunction"/>
+    <rdfs:label xml:lang="en">arithmetic mean</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/assessmentOutcome">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">assessment outcome</rdfs:label>
+    <rdfs:comment xml:lang="en">The verdict produced, one of the four compliance outcomes defined in CENSO core.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/reg/Assessment"/>
+    <rdfs:range rdf:resource="https://w3id.org/censo/ComplianceOutcome"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/assessedUnder">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">assessed under</rdfs:label>
+    <rdfs:comment xml:lang="en">The regulation package an assessment was carried out against. Mandatory: a verdict without a named package is not interpretable.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/reg/Assessment"/>
+    <rdfs:range rdf:resource="https://w3id.org/censo/reg/RegulationPackage"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b22">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/censo/possiblyExceeds"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/censo/Threshold"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b18">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/censo/exceeds"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/censo/Threshold"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b29">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/censo/exceeds"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/censo/Threshold"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/Campaign">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Sampling campaign</rdfs:label>
+    <rdfs:comment xml:lang="en">A bounded sampling exercise. Making it explicit lets the same station be compared across time and prevents campaigns being conflated.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Activity"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b19">
+    <rdf:first rdf:resource="http://www.w3.org/ns/sosa/Observation"/>
+    <rdf:rest rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b20"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b37">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
+    <owl:onProperty rdf:resource="https://w3id.org/censo/limitOfDetection"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b1">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:name>Recep Can Altınbağ</foaf:name>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b63">
+    <rdf:first rdf:resource="https://w3id.org/censo/Compliant"/>
+    <rdf:rest rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b64"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/calibrationSlope">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">calibration slope</rdfs:label>
+    <rdfs:comment xml:lang="en">Slope of the calibration curve, from which LOD and LOQ are derived.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/AnalyticalMethod"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b34">
+    <rdf:first rdf:resource="https://w3id.org/censo/PossibleExceedance"/>
+    <rdf:rest rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b35"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b53">
+    <rdf:first rdf:resource="https://w3id.org/censo/AnnualAverageThreshold"/>
+    <rdf:rest rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b54"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b20">
+    <rdf:first rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b18"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b14">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="https://w3id.org/censo/belowThreshold"/>
+    <owl:someValuesFrom rdf:resource="https://w3id.org/censo/Threshold"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/HardnessClassCondition">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Hardness class condition</rdfs:label>
+    <rdfs:comment xml:lang="en">The threshold varies by water hardness class, as for cadmium.
+Without a hardness measurement the applicable class — and therefore the
+applicable threshold — is unknown.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/censo/ApplicabilityCondition"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b65">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+    <owl:members rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b66"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b43">
+    <rdf:first rdf:resource="https://w3id.org/censo/hasAnalyte"/>
+    <rdf:rest rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b44"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/EstimatedObservation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Estimated observation</rdfs:label>
+    <rdfs:comment xml:lang="en">Detected, but between LOD and LOQ, so the reported magnitude
+is indicative only. Reporting it as a point estimate overstates what the method
+supports. Datasets frequently contain such values presented as if quantified.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/sosa/Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/ToxicEquivalentSum">
+    <rdf:type rdf:resource="https://w3id.org/censo/reg/AggregationFunction"/>
+    <rdfs:label xml:lang="en">toxic equivalent sum</rdfs:label>
+    <rdfs:comment xml:lang="en">Potency-weighted sum, as used for dioxin-like compounds.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/ns/sosa/Sample">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Sample</rdfs:label>
+    <rdfs:comment xml:lang="en">Reused from SOSA; declared here only so that this standalone distribution is self-describing.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b68">
+    <rdf:first rdf:resource="https://w3id.org/censo/QuantifiedObservation"/>
+    <rdf:rest rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b69"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b52">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+    <owl:members rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b53"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/retentionTime">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">retention time</rdfs:label>
+    <rdfs:comment xml:lang="en">Chromatographic retention time used to confirm analyte identity within the run.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/censo/MassSpectrometryTransition"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/NotCoveredBySurvey">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Not covered by survey</rdfs:label>
+    <rdfs:comment xml:lang="en">The regulation defines a threshold for an analyte the
+monitoring programme never measured. Under a closed-world model this is
+invisible; here it is an explicit verdict, which is what makes "assess a 2018
+survey under a 2026 regulation" a well-posed question.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/censo/IndeterminateCompliance"/>
+    <skos:example xml:lang="en">A survey that measured none of the 24 PFAS named by the 2026 standard cannot report compliance with their sum; the aggregate is not assessable rather than zero.</skos:example>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b61">
+    <rdf:first rdf:resource="https://w3id.org/censo/Exceedance"/>
+    <rdf:rest rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b62"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://qudt.org/schema/qudt/Unit">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Unit</rdfs:label>
+    <rdfs:comment xml:lang="en">Reused from QUDT; declared here only so that this standalone distribution is self-describing.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/Person">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Person</rdfs:label>
+    <rdfs:comment xml:lang="en">Reused from FOAF; declared here only so that this standalone distribution is self-describing.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/FractionCondition">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Fraction condition</rdfs:label>
+    <rdfs:comment xml:lang="en">Restricts the threshold to an analytical fraction, typically
+DISSOLVED for metals. Comparing a total-metal measurement against a
+dissolved-fraction threshold is invalid; where the fraction is unrecorded, the
+assessment is undecidable rather than conservative.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/censo/ApplicabilityCondition"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b32">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:unionOf rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b33"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b5">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:unionOf rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b6"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b28">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:complementOf rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b29"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b41">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
+    <owl:onProperty rdf:resource="https://w3id.org/censo/thresholdUnit"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/Regulation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Regulation</rdfs:label>
+    <rdfs:comment xml:lang="en">A dated, versioned legal instrument. Thresholds must cite one, because they change.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b11">
+    <rdf:first rdf:resource="https://w3id.org/censo/EstimatedObservation"/>
+    <rdf:rest rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b12"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/Jurisdiction">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Jurisdiction</rdfs:label>
+    <rdfs:comment xml:lang="en">A legal territory in which a regulation package applies, identified by an ISO 3166 code or by 'EU'.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/censo/reg/Sum">
+    <rdf:type rdf:resource="https://w3id.org/censo/reg/AggregationFunction"/>
+    <rdfs:label xml:lang="en">sum</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n116fb7366ee54b2298ffd2926972eaf4b9">
+    <rdf:first rdf:resource="https://w3id.org/censo/UnresolvedObservation"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+</rdf:RDF>
