@@ -173,7 +173,7 @@ cereg:analyte-eu-17-beta-estradiol-E2 a censo:Analyte ;
 
 cereg:analyte-eu-Acetamiprid a censo:Analyte ;
     rdfs:label "Acetamiprid"@en ;
-    censo:casNumber "135410-20-7" .
+    censo:casNumber "135410-20-7" , "160430-64-8" .
 
 cereg:analyte-eu-Aclonifen a censo:Analyte ;
     rdfs:label "Aclonifen"@en ;
@@ -227,10 +227,6 @@ cereg:analyte-eu-Cybutryne a censo:Analyte ;
     rdfs:label "Cybutryne"@en ;
     censo:casNumber "28159-98-0" .
 
-cereg:analyte-eu-Cyclodiene-pesticides-Aldrin-Dieldrin-Endrin-Isodrin a censo:Analyte ;
-    rdfs:label "Cyclodiene pesticides: Aldrin Dieldrin Endrin Isodrin"@en ;
-    censo:casNumber "309-00-2" .
-
 cereg:analyte-eu-Cypermethrin-22 a censo:Analyte ;
     rdfs:label "Cypermethrin ( 22 )"@en ;
     censo:casNumber "52315-07-8" .
@@ -257,7 +253,7 @@ cereg:analyte-eu-Dichlorvos a censo:Analyte ;
 
 cereg:analyte-eu-Diclofenac a censo:Analyte ;
     rdfs:label "Diclofenac"@en ;
-    censo:casNumber "15307-86-5" .
+    censo:casNumber "15307-86-5" , "15307-79-6" .
 
 cereg:analyte-eu-Dicofol a censo:Analyte ;
     rdfs:label "Dicofol"@en ;
@@ -291,10 +287,6 @@ cereg:analyte-eu-Glyphosate a censo:Analyte ;
     rdfs:label "Glyphosate"@en ;
     censo:casNumber "1071-83-6" .
 
-cereg:analyte-eu-Heptachlor-and-heptachlor-epoxide a censo:Analyte ;
-    rdfs:label "Heptachlor and heptachlor epoxide"@en ;
-    censo:casNumber "76-44-8" .
-
 cereg:analyte-eu-Hexachlorobenzene a censo:Analyte ;
     rdfs:label "Hexachlorobenzene"@en ;
     censo:casNumber "118-74-1" .
@@ -313,7 +305,7 @@ cereg:analyte-eu-Ibuprofen a censo:Analyte ;
 
 cereg:analyte-eu-Imidacloprid a censo:Analyte ;
     rdfs:label "Imidacloprid"@en ;
-    censo:casNumber "138261-41-3" .
+    censo:casNumber "138261-41-3" , "105827-78-9" .
 
 cereg:analyte-eu-Isoproturon a censo:Analyte ;
     rdfs:label "Isoproturon"@en ;
@@ -355,10 +347,6 @@ cereg:analyte-eu-Permethrin a censo:Analyte ;
     rdfs:label "Permethrin"@en ;
     censo:casNumber "52645-53-1" .
 
-cereg:analyte-eu-Polyaromatic-hydrocarbons-PAHs-15-Combustion-products-not-applicable-not-applicable-not-applicable-not-applicable-not-applicable-not-applicable-Sum-of-Benzo-a-pyrene-equivalents-0-6-16-X-X-X-Benzo-a-pyrene a censo:Analyte ;
-    rdfs:label "Polyaromatic hydrocarbons (PAHs) ( 15 ) Combustion products not applicable not applicable not applicable not applicable not applicable not applicable Sum of Benzo(a) pyrene equivalents 0,6 (16 ) X X X Benzo(a)pyrene"@en ;
-    censo:casNumber "50-32-8" .
-
 cereg:analyte-eu-Quinoxyfen a censo:Analyte ;
     rdfs:label "Quinoxyfen"@en ;
     censo:casNumber "124495-18-7" .
@@ -366,10 +354,6 @@ cereg:analyte-eu-Quinoxyfen a censo:Analyte ;
 cereg:analyte-eu-Silver a censo:Analyte ;
     rdfs:label "Silver"@en ;
     censo:casNumber "7440-22-4" .
-
-cereg:analyte-eu-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 a censo:Analyte ;
-    rdfs:label "Sum of active substances in the pesticides (28 ) listed in this table ( 29 ) (30 )"@en ;
-    censo:casNumber "40088-47-9" .
 
 cereg:analyte-eu-Terbutryn a censo:Analyte ;
     rdfs:label "Terbutryn"@en ;
@@ -410,6 +394,35 @@ cereg:analyte-eu-Trifluralin a censo:Analyte ;
 cereg:analyte-eu-unnamed a censo:Analyte ;
     rdfs:label ""@en ;
     censo:casNumber "80-05-7" .
+
+##############################################################################
+#  Substance groups
+#
+#  A group carries ONE standard for an aggregate over its
+#  members. It is deliberately not an censo:Analyte: nothing
+#  in this file lets a single measurement be compared to a
+#  sum standard, because that comparison is not valid.
+##############################################################################
+
+cereg:eu-2008-105-2026-group-Cyclodiene-pesticides-Aldrin-Dieldrin-Endrin-Isodrin a cereg:SubstanceGroup ;
+    rdfs:label "Cyclodiene pesticides: Aldrin Dieldrin Endrin Isodrin"@en ;
+    cereg:groupCoverage 4 ;
+    rdfs:comment "Members, by CAS: 309-00-2; 60-57-1; 72-20-8; 465-73-6"@en .
+
+cereg:eu-2008-105-2026-group-Heptachlor-and-heptachlor-epoxide a cereg:SubstanceGroup ;
+    rdfs:label "Heptachlor and heptachlor epoxide"@en ;
+    cereg:groupCoverage 2 ;
+    rdfs:comment "Members, by CAS: 76-44-8; 1024-57-3"@en .
+
+cereg:eu-2008-105-2026-group-Polyaromatic-hydrocarbons-PAHs-15-Combustion-products-not-applicable-not-applicable-not-applicable-not-applicable-not-applicable-not-applicable-Sum-of-Benzo-a-pyrene-equivalents-0-6-16-X-X-X-Benzo-a-pyrene a cereg:SubstanceGroup ;
+    rdfs:label "Polyaromatic hydrocarbons (PAHs) ( 15 ) Combustion products not applicable not applicable not applicable not applicable not applicable not applicable Sum of Benzo(a) pyrene equivalents 0,6 (16 ) X X X Benzo(a)pyrene"@en ;
+    cereg:groupCoverage 9 ;
+    rdfs:comment "Members, by CAS: 50-32-8; 205-99-2; 207-08-9; 191-24-2; 193-39-5; 218-01-9; 56-55-3; 53-70-3; 206-44-0"@en .
+
+cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 a cereg:SubstanceGroup ;
+    rdfs:label "Sum of active substances in the pesticides (28 ) listed in this table ( 29 ) (30 )"@en ;
+    cereg:groupCoverage 75 ;
+    rdfs:comment "Members, by CAS: 40088-47-9; 32534-81-9; 36483-60-0; 68928-80-3; 1163-19-5; 25154-52-3; 104-40-5; 84852-15-3; 1806-26-4; 140-66-9; 50-32-8; 205-99-2; 207-08-9; 191-24-2; 193-39-5; 218-01-9; 56-55-3; 53-70-3; 206-44-0; 1746-01-6; 40321-76-4; 39227-28-6; 19408-74-3; 35822-46-9; 3268-87-9; 207-31-9; 57117-41-6; 57117-31-4; 70648-26-9; 57117-44-9; 72918-21-9; 60851-34-5; 67562-39-4; 55673-89-7; 39001-02-0; 32598-13-3; 32598-14-4; 74472-37-0; 31508-00-6; 65510-44-3; 57465-28-8; 38380-08-4; 69782-90-7; 663-72-6; 32774-16-6; 39635-31-9; 52315-07-8; 67375-30-8; 65731-84-2; 691-59-1; 1315501-18-8; 3194-55-6; 134237-51-7; 134237-52-8; 335-67-1; 1763-23-1; 375-95-1; 307-24-4; 375-22-4; 2706-90-3; 2706-91-4; 335-76-2; 307-55-1; 2058-94-8; 375-85-9; 72629-94-8; 375-92-8; 376-06-7; 16517-11-6; 13252-13-6; 919005-14-4; 647-42-7; 678-39-7; 1190931-41-9; 76-05-1"@en .
 
 ##############################################################################
 #  Thresholds
@@ -784,20 +797,24 @@ cereg:eu-2008-105-2026-Pentachlorophenol-mac a censo:MaximumAllowableThreshold ;
     cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
     rdfs:comment "Annex I entry 27, category: Pesticides – organochlorine."@en .
 
-cereg:eu-2008-105-2026-Polyaromatic-hydrocarbons-PAHs-15-Combustion-products-not-applicable-not-applicable-not-applicable-not-applicable-not-applicable-not-applicable-Sum-of-Benzo-a-pyrene-equivalents-0-6-16-X-X-X-Benzo-a-pyrene-aa a censo:AnnualAverageThreshold ;
+cereg:eu-2008-105-2026-Polyaromatic-hydrocarbons-PAHs-15-Combustion-products-not-applicable-not-applicable-not-applicable-not-applicable-not-applicable-not-applicable-Sum-of-Benzo-a-pyrene-equivalents-0-6-16-X-X-X-Benzo-a-pyrene-aa a cereg:GroupThreshold ;
     rdfs:label "Polyaromatic hydrocarbons (PAHs) ( 15 ) Combustion products not applicable not applicable not applicable not applicable not applicable not applicable Sum of Benzo(a) pyrene equivalents 0,6 (16 ) X X X Benzo(a)pyrene — annual average (0.12 µg/L)"@en ;
     censo:thresholdValue 0.12 ;
     censo:thresholdUnit unit:MicroGM-PER-L ;
-    censo:appliesToAnalyte cereg:analyte-eu-Polyaromatic-hydrocarbons-PAHs-15-Combustion-products-not-applicable-not-applicable-not-applicable-not-applicable-not-applicable-not-applicable-Sum-of-Benzo-a-pyrene-equivalents-0-6-16-X-X-X-Benzo-a-pyrene ;
+    cereg:appliesToGroup cereg:eu-2008-105-2026-group-Polyaromatic-hydrocarbons-PAHs-15-Combustion-products-not-applicable-not-applicable-not-applicable-not-applicable-not-applicable-not-applicable-Sum-of-Benzo-a-pyrene-equivalents-0-6-16-X-X-X-Benzo-a-pyrene ;
+    cereg:aggregationFunction cereg:Sum ;
+    cereg:requiresCompleteGroup true ;
     censo:definedBy cereg:eu-2008-105-2026 ;
     cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
     rdfs:comment "Annex I entry 28, category: ."@en .
 
-cereg:eu-2008-105-2026-Polyaromatic-hydrocarbons-PAHs-15-Combustion-products-not-applicable-not-applicable-not-applicable-not-applicable-not-applicable-not-applicable-Sum-of-Benzo-a-pyrene-equivalents-0-6-16-X-X-X-Benzo-a-pyrene-mac a censo:MaximumAllowableThreshold ;
+cereg:eu-2008-105-2026-Polyaromatic-hydrocarbons-PAHs-15-Combustion-products-not-applicable-not-applicable-not-applicable-not-applicable-not-applicable-not-applicable-Sum-of-Benzo-a-pyrene-equivalents-0-6-16-X-X-X-Benzo-a-pyrene-mac a cereg:GroupThreshold ;
     rdfs:label "Polyaromatic hydrocarbons (PAHs) ( 15 ) Combustion products not applicable not applicable not applicable not applicable not applicable not applicable Sum of Benzo(a) pyrene equivalents 0,6 (16 ) X X X Benzo(a)pyrene — maximum allowable concentration (16 µg/L)"@en ;
     censo:thresholdValue 16 ;
     censo:thresholdUnit unit:MicroGM-PER-L ;
-    censo:appliesToAnalyte cereg:analyte-eu-Polyaromatic-hydrocarbons-PAHs-15-Combustion-products-not-applicable-not-applicable-not-applicable-not-applicable-not-applicable-not-applicable-Sum-of-Benzo-a-pyrene-equivalents-0-6-16-X-X-X-Benzo-a-pyrene ;
+    cereg:appliesToGroup cereg:eu-2008-105-2026-group-Polyaromatic-hydrocarbons-PAHs-15-Combustion-products-not-applicable-not-applicable-not-applicable-not-applicable-not-applicable-not-applicable-Sum-of-Benzo-a-pyrene-equivalents-0-6-16-X-X-X-Benzo-a-pyrene ;
+    cereg:aggregationFunction cereg:Sum ;
+    cereg:requiresCompleteGroup true ;
     censo:definedBy cereg:eu-2008-105-2026 ;
     cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
     rdfs:comment "Annex I entry 28, category: ."@en .
@@ -973,20 +990,24 @@ cereg:eu-2008-105-2026-Dichlorvos-mac a censo:MaximumAllowableThreshold ;
     cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
     rdfs:comment "Annex I entry 42, category: Pesticides – organophosphate."@en .
 
-cereg:eu-2008-105-2026-Heptachlor-and-heptachlor-epoxide-aa a censo:AnnualAverageThreshold ;
+cereg:eu-2008-105-2026-Heptachlor-and-heptachlor-epoxide-aa a cereg:GroupThreshold ;
     rdfs:label "Heptachlor and heptachlor epoxide — annual average (0.00000017 µg/L)"@en ;
     censo:thresholdValue 0.00000017 ;
     censo:thresholdUnit unit:MicroGM-PER-L ;
-    censo:appliesToAnalyte cereg:analyte-eu-Heptachlor-and-heptachlor-epoxide ;
+    cereg:appliesToGroup cereg:eu-2008-105-2026-group-Heptachlor-and-heptachlor-epoxide ;
+    cereg:aggregationFunction cereg:Sum ;
+    cereg:requiresCompleteGroup true ;
     censo:definedBy cereg:eu-2008-105-2026 ;
     cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
     rdfs:comment "Annex I entry 44, category: Pesticides – organochlorine."@en .
 
-cereg:eu-2008-105-2026-Heptachlor-and-heptachlor-epoxide-mac a censo:MaximumAllowableThreshold ;
+cereg:eu-2008-105-2026-Heptachlor-and-heptachlor-epoxide-mac a cereg:GroupThreshold ;
     rdfs:label "Heptachlor and heptachlor epoxide — maximum allowable concentration (0.0003 µg/L)"@en ;
     censo:thresholdValue 0.0003 ;
     censo:thresholdUnit unit:MicroGM-PER-L ;
-    censo:appliesToAnalyte cereg:analyte-eu-Heptachlor-and-heptachlor-epoxide ;
+    cereg:appliesToGroup cereg:eu-2008-105-2026-group-Heptachlor-and-heptachlor-epoxide ;
+    cereg:aggregationFunction cereg:Sum ;
+    cereg:requiresCompleteGroup true ;
     censo:definedBy cereg:eu-2008-105-2026 ;
     cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
     rdfs:comment "Annex I entry 44, category: Pesticides – organochlorine."@en .
@@ -1396,29 +1417,35 @@ cereg:eu-2008-105-2026-Triclosan-mac a censo:MaximumAllowableThreshold ;
     cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
     rdfs:comment "Annex I entry 69, category: Pesticides – biocides."@en .
 
-cereg:eu-2008-105-2026-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30-aa a censo:AnnualAverageThreshold ;
+cereg:eu-2008-105-2026-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30-aa a cereg:GroupThreshold ;
     rdfs:label "Sum of active substances in the pesticides (28 ) listed in this table ( 29 ) (30 ) — annual average (0.002 µg/L)"@en ;
     censo:thresholdValue 0.002 ;
     censo:thresholdUnit unit:MicroGM-PER-L ;
-    censo:appliesToAnalyte cereg:analyte-eu-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 ;
+    cereg:appliesToGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 ;
+    cereg:aggregationFunction cereg:Sum ;
+    cereg:requiresCompleteGroup true ;
     censo:definedBy cereg:eu-2008-105-2026 ;
     cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
     rdfs:comment "Annex I entry 70, category: Pesticides not applicable not applicable."@en .
 
-cereg:eu-2008-105-2026-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30-mac a censo:MaximumAllowableThreshold ;
+cereg:eu-2008-105-2026-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30-mac a cereg:GroupThreshold ;
     rdfs:label "Sum of active substances in the pesticides (28 ) listed in this table ( 29 ) (30 ) — maximum allowable concentration (65 µg/L)"@en ;
     censo:thresholdValue 65 ;
     censo:thresholdUnit unit:MicroGM-PER-L ;
-    censo:appliesToAnalyte cereg:analyte-eu-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 ;
+    cereg:appliesToGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 ;
+    cereg:aggregationFunction cereg:Sum ;
+    cereg:requiresCompleteGroup true ;
     censo:definedBy cereg:eu-2008-105-2026 ;
     cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
     rdfs:comment "Annex I entry 70, category: Pesticides not applicable not applicable."@en .
 
-cereg:eu-2008-105-2026-Cyclodiene-pesticides-Aldrin-Dieldrin-Endrin-Isodrin-aa a censo:AnnualAverageThreshold ;
+cereg:eu-2008-105-2026-Cyclodiene-pesticides-Aldrin-Dieldrin-Endrin-Isodrin-aa a cereg:GroupThreshold ;
     rdfs:label "Cyclodiene pesticides: Aldrin Dieldrin Endrin Isodrin — annual average (0.01 µg/L)"@en ;
     censo:thresholdValue 0.01 ;
     censo:thresholdUnit unit:MicroGM-PER-L ;
-    censo:appliesToAnalyte cereg:analyte-eu-Cyclodiene-pesticides-Aldrin-Dieldrin-Endrin-Isodrin ;
+    cereg:appliesToGroup cereg:eu-2008-105-2026-group-Cyclodiene-pesticides-Aldrin-Dieldrin-Endrin-Isodrin ;
+    cereg:aggregationFunction cereg:Sum ;
+    cereg:requiresCompleteGroup true ;
     censo:definedBy cereg:eu-2008-105-2026 ;
     cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
     rdfs:comment "Annex I entry 9a, category: Pesticides – organochlorine."@en .
