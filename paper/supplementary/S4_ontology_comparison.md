@@ -21,19 +21,36 @@ A blank cell means the ontology parsed and the concept was absent. `?` means the
 | InWaterSense pollutants | 9 | — | — | — | — | — | — | — |
 | WAM-ONTO | 921 | — | — | — | — | — | — | — |
 | SewerNet | 145 | — | — | — | — | — | — | — |
+| CHMO (chemical methods) | 3438 | the method | **yes** | — | **yes** | — | **yes** | — |
+| AFO (Allotrope) | 3864 | — | — | — | — | **yes** | **yes** | **yes** |
+| STATO (statistics) | 1162 | — | — | — | — | **yes** | **yes** | — |
 | ENVO | 7208 | — | — | — | — | — | — | — |
 | ExO (exposure) | 195 | — | — | — | — | — | — | — |
-| CENSO (this work) | 65 | **the result** | **yes** | **yes** | **yes** | **yes** | **yes** | **yes** |
-| CENSO-REG (this work) | 28 | — | — | — | — | **yes** | — | — |
-| Project ontology 2018 | 123 | the sensor | **yes** | — | — | — | — | — |
+| CENSO (this work) | 50 | **the result** | **yes** | **yes** | **yes** | **yes** | **yes** | **yes** |
+| CENSO-REG (this work) | 17 | — | — | — | — | **yes** | — | — |
+| Project ontology 2018 | 123 | unclear | **yes** | — | — | — | — | — |
 
-**The `LOD bound to` column is the discriminating one.** A detection limit declared as a sensor capability describes what an instrument can do; it says nothing about whether a particular measurement fell below it. Only a limit bound to the result supports a censoring statement.
+**The `LOD bound to` column is the discriminating one.** A detection limit declared as a sensor capability describes what an instrument can do; it says nothing about whether a particular measurement fell below it. Only a limit bound to the result supports a censoring statement. CHMO is the sharpest case in the table: it declares `limit of detection` and `limit of quantification` from the IUPAC Gold Book, and binds them to the METHOD, as a `figure of merit` of an assay. That is a better place than a sensor and still not a place from which any particular result can be called censored.
+
+## Scored **yes**, but not the same concept
+
+Every cell above is decided by the stated method: does the ontology have a TERM whose name or label matches the concept family. Where that method credits an ontology with a concept it does not really carry, the cell is left standing -- demoting a competitor by adjusting a pattern until it scores the way we want is exactly the move this table exists to avoid -- and the discrepancy is recorded here instead. Each was checked by reading the term's own superclass in the file.
+
+- **CHMO (chemical methods)**
+    - `undecidable` — both hits are artefacts of the widened patterns and are reported rather than removed: `ambiguous synonym` (OMO_0003001) is an OBO metadata annotation property describing the quality of a SYNONYM, and `double quantum transitions for finding unresolved lines` (CHMO_0001861) is an NMR technique, where the unresolved things are spectral lines. Neither is an assessment outcome.
+    - `interval_result` — `confidence interval` (OBCS_0000070), imported from OBCS. A confidence interval is an interval ESTIMATE of a parameter from a sample; the interval CENSO needs is the set of concentrations a single non-detection leaves possible. Related, and not the same: no amount of sampling narrows the second.
+- **STATO (statistics)**
+    - `threshold` — the single hit is `threshold cycle`, the qPCR quantity, not a limit value. Note also what STATO does NOT have: censoring is a standard concept in survival analysis, and it appears in STATO only in prose, with no term.
+- **AFO (Allotrope)**
+    - `interval_result` — seventeen hits, of two kinds. `lower bound` (AFRL_0000041), `upper bound` (AFRL_0000042), `minimum value role` and `maximum value role` are subclasses of `bound role` — BFO roles borne by a participant, not values on a result. `minimum value` (AFR_0002440) and `maximum value` (AFX_0000674) are genuine data properties, so AFO can bound a quantity; what it has no way to say is that the bound exists BECAUSE the analyte was sought and not found.
+    - `applicability` — `precondition` (AFRL_0000059) is a subclass of `at start`, a temporal relation about when something holds in a process — not a condition governing whether a threshold may lawfully be applied.
+    - `threshold` — the eight hits are instrument settings: `cycle threshold (qPCR)`, `area threshold for peak integration (chromatography)`, `fluorescence intensity threshold setting`. None is a limit a result is assessed against.
 
 ## Prose-only mentions — NOT scored
 
 These concepts appear in a comment or definition but the ontology has no term for them. In large ontologies this is noise: ENVO's "undecidable" hit is *indeterminate root nodule*.
 
-- **ENVO**: threshold (68), undecidable (1), interval_result (9), applicability (4)
+- **ENVO**: undecidable (20), interval_result (10), threshold (64), applicability (5)
 
 ## Profile: reuse, FAIR and measurement modality
 
@@ -56,10 +73,13 @@ Keyword presence is only half the comparison. This table asks whether an ontolog
 | InWaterSense pollutants | 9 | 0% | — | — | 0 | — | 0 | 0 |
 | WAM-ONTO | 921 | 0% | — | — | 0 | — | 2 | 2 |
 | SewerNet | 145 | 79% | — | — | 1 | — | 0 | 0 |
+| CHMO (chemical methods) | 3438 | 99% | yes | yes | 0 | — | 60 | 20 |
+| AFO (Allotrope) | 3864 | 100% | yes | yes | 0 | — | 108 | 52 |
+| STATO (statistics) | 1162 | 100% | yes | yes | 0 | — | 57 | 5 |
 | ENVO | 7208 | 100% | yes | yes | 0 | — | 2 | 7 |
 | ExO (exposure) | 195 | 98% | yes | yes | 0 | — | 1 | 0 |
-| CENSO (this work) | 65 | 100% | yes | yes | 4 | yes | 6 | 0 |
-| CENSO-REG (this work) | 28 | 100% | yes | yes | 1 | — | 0 | 0 |
+| CENSO (this work) | 50 | 100% | yes | yes | 4 | yes | 3 | 0 |
+| CENSO-REG (this work) | 17 | 100% | yes | yes | 1 | — | 0 | 0 |
 | Project ontology 2018 | 123 | 0% | — | — | 0 | — | 0 | 1 |
 
 ## Evidence
@@ -67,16 +87,16 @@ Keyword presence is only half the comparison. This table asks whether an ontolog
 ### QUDT schema
 
 **threshold**
-- `permissibleTransformation :: permissibleTransformation`
-- `permissibleTransformation :: permissible transformation`
 - `permissibleMaths :: permissibleMaths`
 - `permissibleMaths :: permissible maths`
+- `permissibleTransformation :: permissibleTransformation`
+- `permissibleTransformation :: permissible transformation`
 
 **applicability**
-- `applicableSystem :: applicableSystem`
-- `applicableSystem :: applicable system`
-- `applicableSIUnit :: applicableSIUnit`
-- `applicableSIUnit :: applicable SI unit`
+- `applicablePhysicalConstant :: applicablePhysicalConstant`
+- `applicablePhysicalConstant :: applicable physical constant`
+- `applicableUSCustomaryUnit :: applicableUSCustomaryUnit`
+- `applicableUSCustomaryUnit :: applicable US Customary unit`
 - `applicableCGSUnit :: applicableCGSUnit`
 - `applicableCGSUnit :: applicable CGS unit`
 - … and 12 more
@@ -104,10 +124,10 @@ Keyword presence is only half the comparison. This table asks whether an ontolog
 **interval result**
 - `upperBoundIncluded :: upperBoundIncluded`
 - `upperBoundIncluded :: upper bound included`
-- `lowerBound :: lowerBound`
-- `lowerBound :: lower bound`
 - `lowerBoundIncluded :: lowerBoundIncluded`
 - `lowerBoundIncluded :: lower bound included`
+- `lowerBound :: lowerBound`
+- `lowerBound :: lower bound`
 - … and 2 more
 
 ### DoCE (Rio Doce WQ)
@@ -124,6 +144,56 @@ Keyword presence is only half the comparison. This table asks whether an ontolog
 - `hasRangeMinValue :: hasRangeMinValue`
 - `hasRangeMaxValue :: hasRangeMaxValue`
 
+### CHMO (chemical methods)
+
+**detection limit**
+- `CHMO_0002801 :: limit of detection`
+- `CHMO_0002802 :: limit of quantification`
+
+**undecidable**
+- `CHMO_0001861 :: double quantum transitions for finding unresolved lines`
+- `OMO_0003001 :: ambiguous synonym`
+
+**interval result**
+- `OBCS_0000070 :: confidence interval`
+
+### AFO (Allotrope)
+
+**threshold**
+- `AFR_0002235 :: automatic cycle threshold enabled setting`
+- `AFR_0001692 :: height threshold for peak integration setting (chromatography)`
+- `AFR_0001691 :: area threshold for peak integration setting (chromatography)`
+- `AFR_0002834 :: maximum allowable noise setting`
+- `AFX_0001732 :: reference value`
+- `AFR_0002943 :: minimum assay bead count threshold setting`
+- … and 5 more
+
+**interval result**
+- `AFR_0001616 :: library search lower limit`
+- `AFX_0000670 :: minimum value`
+- `AFR_0001615 :: library search upper limit`
+- `AFRL_0000565 :: maximum value role`
+- `AFX_0000671 :: minimum value exclusive`
+- `AFX_0000676 :: maximum value inclusive`
+- … and 11 more
+
+**applicability**
+- `AFRL_0000059 :: precondition`
+
+### STATO (statistics)
+
+**threshold**
+- `STATO_0000190 :: threshold cycle`
+
+**interval result**
+- `STATO_0000175 :: confidence interval calculation`
+- `STATO_0000458 :: 99% credible interval`
+- `STATO_0000456 :: 95% credible interval`
+- `STATO_0000127 :: 99% confidence interval`
+- `STATO_0000196 :: confidence interval`
+- `STATO_0000231 :: 95% confidence interval`
+- … and 3 more
+
 ### CENSO (this work)
 
 **detection limit**
@@ -133,38 +203,39 @@ Keyword presence is only half the comparison. This table asks whether an ontolog
 - `limitOfQuantification :: limit of quantification (LOQ)`
 
 **censoring**
-- `CensoredObservation :: CensoredObservation`
-- `CensoredObservation :: Censored observation`
 - `censoringRecovered :: censoringRecovered`
 - `censoringRecovered :: censoring recovered`
-- `CensoredAmbiguous :: CensoredAmbiguous`
-- `CensoredAmbiguous :: Censored ambiguous`
+- `CensoredObservation :: CensoredObservation`
+- `CensoredObservation :: Censored observation`
+- `belowThreshold :: below threshold`
 
 **undecidable**
+- `UnresolvedObservation :: UnresolvedObservation`
+- `UnresolvedObservation :: Unresolved observation`
 - `IndeterminateCompliance :: Indeterminate compliance`
 
 **threshold**
-- `thresholdValue :: thresholdValue`
-- `thresholdValue :: threshold value`
-- `NoThresholdDefined :: NoThresholdDefined`
-- `NoThresholdDefined :: No threshold defined`
+- `PossibleExceedance :: PossibleExceedance`
+- `PossibleExceedance :: Possible exceedance`
 - `AnnualAverageThreshold :: AnnualAverageThreshold`
 - `AnnualAverageThreshold :: Annual average threshold`
-- … and 12 more
+- `thresholdUnit :: thresholdUnit`
+- `thresholdUnit :: threshold unit`
+- … and 9 more
 
 **interval result**
-- `resultUpperBound :: resultUpperBound`
-- `resultUpperBound :: result upper bound`
 - `resultLowerBound :: resultLowerBound`
 - `resultLowerBound :: result lower bound`
+- `resultUpperBound :: resultUpperBound`
+- `resultUpperBound :: result upper bound`
 
 **applicability**
+- `MatrixCondition :: Matrix condition`
+- `BioavailabilityCondition :: BioavailabilityCondition`
+- `BioavailabilityCondition :: Bioavailability condition`
 - `ApplicabilityCondition :: ApplicabilityCondition`
 - `ApplicabilityCondition :: Applicability condition`
 - `PreconditionUnmet :: PreconditionUnmet`
-- `PreconditionUnmet :: Precondition unmet`
-- `BioavailabilityCondition :: BioavailabilityCondition`
-- `BioavailabilityCondition :: Bioavailability condition`
 - … and 2 more
 
 ### CENSO-REG (this work)

@@ -8,12 +8,12 @@ jurisdiction,EU,Compliant,,489365
 jurisdiction,EU,Exceeding,,45503
 jurisdiction,EU,MethodInsufficient,,149282
 jurisdiction,EU,NoThresholdDefined,,802909
-jurisdiction,EU,Unresolved,,1618
+jurisdiction,EU,BoundNotEstablished,,1618
 jurisdiction,TR,Compliant,,961603
 jurisdiction,TR,Exceeding,,69770
 jurisdiction,TR,MethodInsufficient,,96397
 jurisdiction,TR,NoThresholdDefined,,359289
-jurisdiction,TR,Unresolved,,1618
+jurisdiction,TR,BoundNotEstablished,,1618
 cross,,NoThresholdDefined,Compliant,665805
 cross,,Compliant,NoThresholdDefined,245682
 cross,,Compliant,Compliant,242758
@@ -26,7 +26,7 @@ cross,,MethodInsufficient,MethodInsufficient,20946
 cross,,Exceeding,Compliant,5041
 cross,,MethodInsufficient,Exceeding,3655
 cross,,Exceeding,Exceeding,3537
-cross,,Unresolved,Unresolved,1618
+cross,,BoundNotEstablished,BoundNotEstablished,1618
 cross,,Compliant,MethodInsufficient,755
 cross,,Compliant,Exceeding,170
 cross_co_regulated,,Compliant,Compliant,242758
@@ -37,7 +37,7 @@ cross_co_regulated,,MethodInsufficient,Exceeding,3655
 cross_co_regulated,,Exceeding,Exceeding,3537
 cross_co_regulated,,Compliant,MethodInsufficient,755
 cross_co_regulated,,Compliant,Exceeding,170
-cross_co_regulated,,Unresolved,Unresolved,150
+cross_co_regulated,,BoundNotEstablished,BoundNotEstablished,150
 substance,2921-88-2|Chlorpyrifos,,,23208
 substance,206-44-0|Fluoranthene,,,15381
 substance,330-54-1|Diuron,,,5348

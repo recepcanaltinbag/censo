@@ -6,11 +6,11 @@ Every edge drawn is verified against `ontology/censo-core.ttl` and `ontology/cen
 
 | drawn | n |
 |---|---|
-| classes | 37 |
-| `rdfs:subClassOf` edges | 25 |
+| classes | 36 |
+| `rdfs:subClassOf` edges | 24 |
 | object properties (domain -> range) | 13 |
 | datatype properties, on their class | 8 |
-| edges verified against the TTL | 46 |
+| edges verified against the TTL | 45 |
 
 Axioms carried as annotations, each checked to exist:
 

@@ -67,8 +67,6 @@ digraph CENSO {
     "censo:MethodInsufficient" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#f6e3c8" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Method<BR/>Insufficient</B></FONT></TD></TR></TABLE>>];
     "censo:PreconditionUnmet" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#f6e3c8" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Precondition<BR/>Unmet</B></FONT></TD></TR></TABLE>>];
     "censo:PossibleExceedance" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#f6e3c8" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Possible<BR/>Exceedance</B></FONT></TD></TR></TABLE>>];
-    "censo:BoundNotEstablished" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#f6e3c8" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:BoundNot<BR/>Established</B></FONT></TD></TR></TABLE>>];
-    "censo:CensoredAmbiguous" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#f6e3c8" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Censored<BR/>Ambiguous</B></FONT></TD></TR></TABLE>>];
     "censo:NoThresholdDefined" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#f6e3c8" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:NoThreshold<BR/>Defined</B></FONT></TD></TR></TABLE>>];
     "ax_cover" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fbfbf7" COLOR="#b9a97e"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9"><B>ComplianceOutcome &#8801; Compliant &#8852; Exceedance &#8852; Indeterminate</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="8" COLOR="#444444">THREE, not four. an interval straddling the limit decides<BR ALIGN="LEFT"/>nothing, so PossibleExceedance is a species of<BR ALIGN="LEFT"/>indeterminacy and not a peer of Exceedance.<BR ALIGN="LEFT"/><BR ALIGN="LEFT"/>the subclasses are deliberately NOT disjoint from one<BR ALIGN="LEFT"/>another: one observation may be MethodInsufficient<BR ALIGN="LEFT"/>against one jurisdiction and PossibleExceedance<BR ALIGN="LEFT"/>against another&#8217;s standard<BR ALIGN="LEFT"/></FONT></TD></TR></TABLE>>];
   }
@@ -102,7 +100,6 @@ digraph CENSO {
   "censo:IndeterminateCompliance" -> "censo:PreconditionUnmet" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
   "censo:IndeterminateCompliance" -> "censo:PossibleExceedance" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
   "censo:IndeterminateCompliance" -> "censo:BoundNotEstablished" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
-  "censo:IndeterminateCompliance" -> "censo:CensoredAmbiguous" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
   "censo:IndeterminateCompliance" -> "censo:NoThresholdDefined" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
 
   "censo:AssessedObservation" -> "censo:CensoredObservation" [style=dashed, color="#3b7a3b", arrowhead=none, label=<<FONT POINT-SIZE="9" COLOR="#3b7a3b">&#8801; union of the four</FONT>>, constraint=false];

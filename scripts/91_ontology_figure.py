@@ -137,7 +137,6 @@ NODES = {
     "censo:PreconditionUnmet": ("censo:Precondition\nUnmet", OUTCOME, ""),
     "censo:PossibleExceedance": ("censo:Possible\nExceedance", OUTCOME, ""),
     "censo:BoundNotEstablished": ("censo:BoundNot\nEstablished", OUTCOME, ""),
-    "censo:CensoredAmbiguous": ("censo:Censored\nAmbiguous", OUTCOME, ""),
     "censo:NoThresholdDefined": ("censo:NoThreshold\nDefined", OUTCOME, ""),
 }
 
@@ -166,7 +165,6 @@ SUBCLASS = [
     ("censo:PreconditionUnmet", "censo:IndeterminateCompliance"),
     ("censo:PossibleExceedance", "censo:IndeterminateCompliance"),
     ("censo:BoundNotEstablished", "censo:IndeterminateCompliance"),
-    ("censo:CensoredAmbiguous", "censo:IndeterminateCompliance"),
     ("censo:NoThresholdDefined", "censo:IndeterminateCompliance"),
 ]
 
@@ -274,7 +272,6 @@ CLUSTERS = [
      ["censo:ComplianceOutcome", "censo:Compliant", "censo:Exceedance",
       "censo:IndeterminateCompliance", "censo:MethodInsufficient",
       "censo:PreconditionUnmet", "censo:PossibleExceedance",
-      "censo:BoundNotEstablished", "censo:CensoredAmbiguous",
       "censo:NoThresholdDefined"],
      [("ax_cover", "ComplianceOutcome &#8801; Compliant &#8852; Exceedance "
                    "&#8852; Indeterminate",

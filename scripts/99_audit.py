@@ -1069,7 +1069,31 @@ def check_graph_is_consistent():
                "no observations in the ABox")
         return
     head = txt[:txt.index("wb:obs-")]
-    blocks = re.findall(r"wb:obs-\d+ a [^.]*\.", txt)
+
+    # BLOCKS ARE READ BY LINE, not by a regex that stops at the first period.
+    #
+    # This was `re.findall(r"wb:obs-\d+ a [^.]*\.", txt)` -- "anything but a
+    # dot, then a dot". Every decimal value in an observation contains a dot, so
+    # 39,964 of the 40,000 blocks were cut at their first number: after the
+    # detection status and before the compliance outcome, the comparison
+    # property and the bounds. The check added because no stage ever put the
+    # real ABox in front of a reasoner was reasoning over 99.9 % stumps.
+    #
+    # It went unnoticed because a bare numeral made the truncation VALID: the
+    # text ended `...resultLowerBound 0.`, which Turtle reads as the integer 0
+    # followed by a statement terminator. Typing the literals turned that into
+    # `..."0.` -- an unterminated string -- and the parser said so at once. A
+    # silent wrong answer became a loud failure, which is the only reason this
+    # is in the changelog rather than still shipping.
+    blocks, cur = [], None
+    for line in txt.splitlines():
+        if line.startswith("wb:obs-"):
+            cur = [line]
+        elif cur is not None:
+            cur.append(line)
+        if cur is not None and line.rstrip().endswith("."):
+            blocks.append("\n".join(cur))
+            cur = None
     COVER = ["UnresolvedObservation", "CensoredObservation",
              "QuantifiedObservation", "BoundNotEstablished",
              "MethodInsufficient", "PreconditionUnmet", "PossibleExceedance",
@@ -2338,7 +2362,7 @@ def check_paper_hygiene(tex):
 # them.
 
 
-def check_shacl_conformance():
+def check_shacl_conformance(tex_nums):
     """The shipped graph must satisfy the shapes the ontology publishes.
 
     scripts/18_shacl_validate.py has been in 00_run_all.py from the start and
@@ -2395,6 +2419,13 @@ def check_shacl_conformance():
         record(OK, "the shipped graph satisfies its own shapes",
                "no violation the pipeline is responsible for; "
                + "; ".join(expected) + " (declared source-data findings)")
+        # And OWN the count. 4,646 was traceable -- it is in the report -- but
+        # nothing recomputed it, so the detector offered it as a home for the
+        # dual-regulation transition count of 5,041.
+        for n, msg in rows:
+            if "must cite the analytical method" in msg:
+                check_claim(tex_nums, "observations citing no method",
+                            int(n.replace(",", "")))
 
 
 def check_abox_datatypes():
@@ -2741,6 +2772,64 @@ def check_alignment():
                f"{len(pairs)} owl:sameAs pair(s); {n_chebi} ChEBI pointer(s)")
 
 
+def check_graph_matches_population(tex_nums):
+    """The materialised sample's method-insufficient share, which owned nothing.
+
+    Section 5.4 states "17.2 % on the sample against 17.5 % on the population" as
+    the evidence that expressing the record in the vocabulary loses nothing. The
+    population figure was recomputed; the SAMPLE figure was printed by stage 23
+    and checked by no one, so the near-match detector had an unowned value
+    sitting next to a computed 17.36 (the 1e-2 decade) and blamed one on the
+    other. An unowned number does not merely go unchecked -- it makes some other
+    check lie.
+    """
+    v = load("waterbase_verdicts.csv")
+    if not v:
+        record(SKIP, "graph share matches the population share",
+               "waterbase_verdicts.csv missing")
+        return
+    zero = [r for r in v if r["substitution"] == "zero"]
+    tot = sum(int(r["n"]) for r in zero)
+    mi = sum(int(r["n"]) for r in zero
+             if r["censo_outcome"] == "method_insufficient")
+    if not tot:
+        record(SKIP, "graph share matches the population share", "empty slice")
+        return
+    check_claim(tex_nums, "graph: method-insufficient share %", 100 * mi / tot)
+
+
+def check_reported_intervals(tex_nums):
+    """Own the confidence bounds. An unowned number makes some other check lie.
+
+    Section 5.6 states "17.7 % (95 % CI 17.6--17.9 %)". The point estimate was
+    recomputed and the two BOUNDS were not, so 17.9 sat in the manuscript owned
+    by nothing -- and the near-match detector, looking for a home for the 1e-2
+    decade's computed 17.36, blamed the decade on the interval. Neither number
+    was wrong; the pairing was, and it is the third time in this correction
+    cycle that a loose number has done this.
+
+    The bounds are recomputed here from the same counts, with the same Wilson
+    formula the report uses, rather than read back out of the report.
+    """
+    dual = load("dual_regulation.csv")
+    if not dual:
+        record(SKIP, "reported confidence bounds", "dual_regulation.csv missing")
+        return
+    co = [r for r in dual if r.get("scope") == "cross_co_regulated"]
+    tot = sum(int(r["n"]) for r in co)
+    diff = sum(int(r["n"]) for r in co if r["eu_outcome"] != r["tr_outcome"])
+    if not tot:
+        record(SKIP, "reported confidence bounds", "no co-regulated stratum")
+        return
+    z = 1.959963984540054
+    ph = diff / tot
+    d = 1 + z * z / tot
+    c = (ph + z * z / (2 * tot)) / d
+    h = z * math.sqrt(ph * (1 - ph) / tot + z * z / (4 * tot * tot)) / d
+    check_claim(tex_nums, "co-regulated divergence, CI low %", 100 * (c - h))
+    check_claim(tex_nums, "co-regulated divergence, CI high %", 100 * (c + h))
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--verbose", action="store_true")
@@ -2788,7 +2877,9 @@ def main() -> int:
     check_no_dead_terms()
     check_functional_properties()
     check_alignment()
-    check_shacl_conformance()
+    check_graph_matches_population(nums)
+    check_reported_intervals(nums)
+    check_shacl_conformance(nums)
     check_abox_datatypes()
     check_report_indeterminate_total()
     resolve_pending_claims()

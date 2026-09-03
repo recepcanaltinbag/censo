@@ -13,6 +13,16 @@
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
+prov:wasDerivedFrom a owl:ObjectProperty ;
+    rdfs:label "was derived from"@en ;
+    rdfs:comment "Reused from PROV-O; declared here only so that this standalone distribution is self-describing."@en ;
+    rdfs:domain prov:Entity ;
+    rdfs:range prov:Entity .
+
+sosa:Sample a owl:Class ;
+    rdfs:label "Sample"@en ;
+    rdfs:comment "Reused from SOSA; declared here only so that this standalone distribution is self-describing."@en .
+
 censo: a owl:Ontology ;
     dcterms:created "2026-08-03"^^xsd:date ;
     dcterms:creator [ a foaf:Person ;
@@ -70,25 +80,12 @@ MethodInsufficient matters: there the bound is known and known to be too wide,
 here there is no bound at all, and the two call for different repairs."""@en ;
     rdfs:subClassOf censo:IndeterminateCompliance .
 
-censo:CensoredAmbiguous a owl:Class ;
-    rdfs:label "Censored ambiguous"@en ;
-    rdfs:comment "Case (f): the observation is censored and the threshold lies within [0, LOD], so non-detection is compatible with both compliance and exceedance. Stated at the DETECTION limit; no monitoring release read here reports one, so the class is part of the vocabulary and not of the results."@en ;
-    rdfs:subClassOf censo:IndeterminateCompliance .
-
 censo:DetectedObservation a owl:Class ;
     rdfs:label "Detected observation"@en ;
     rdfs:comment "The analyte was found, whether or not it could be quantified."@en ;
     owl:disjointWith censo:CensoredObservation ;
     owl:equivalentClass [ a owl:Class ;
             owl:unionOf ( censo:EstimatedObservation censo:QuantifiedObservation ) ] .
-
-censo:FractionCondition a owl:Class ;
-    rdfs:label "Fraction condition"@en ;
-    rdfs:comment """Restricts the threshold to an analytical fraction, typically
-DISSOLVED for metals. Comparing a total-metal measurement against a
-dissolved-fraction threshold is invalid; where the fraction is unrecorded, the
-assessment is undecidable rather than conservative."""@en ;
-    rdfs:subClassOf censo:ApplicabilityCondition .
 
 censo:HardnessClassCondition a owl:Class ;
     rdfs:label "Hardness class condition"@en ;
@@ -110,7 +107,20 @@ limitOfQuantification exceeds the thresholdValue, so Article 3(3b) of Directive
 assessment. The censoring condition is part of the case: a quantified result
 above the standard is evidence of exceedance whatever the method's limit was, and
 is not set aside by this provision."""@en ;
-    rdfs:subClassOf censo:IndeterminateCompliance .
+    rdfs:subClassOf censo:IndeterminateCompliance ;
+    skos:scopeNote """Article 3(3b) is written about the limit of
+QUANTIFICATION, and this class is scoped to it.
+
+A narrower case exists in principle: a threshold falling below the limit of
+DETECTION, where the measurement cannot even establish presence. An earlier
+version declared censo:CensoredAmbiguous for it. No European monitoring release
+states a detection limit -- WISE-6 carries procedureLOQValue and nothing else --
+so no row can be shown to be in that case, and a class no data can reach is a
+promise rather than a term. It is retired, on the same rule that retired
+censo:ClassBoundaryThreshold and censo:FractionCondition, and the distinction is
+recorded here instead: where a release does report a detection limit, the
+narrower case is the one where the threshold falls below it, and it is strictly
+inside this class."""@en .
 
 censo:NoThresholdDefined a owl:Class ;
     rdfs:label "No threshold defined"@en ;
@@ -135,12 +145,6 @@ censo:PreconditionUnmet a owl:Class ;
     rdfs:comment "Case (c): a required applicability condition is not satisfied."@en ;
     rdfs:subClassOf censo:IndeterminateCompliance .
 
-censo:analysedSample a owl:ObjectProperty ;
-    rdfs:label "analysed sample"@en ;
-    rdfs:comment "The physical sample analysed. Reuses sosa:Sample so the sampling chain stays in the standard vocabulary."@en ;
-    rdfs:domain censo:AnalyticalRun ;
-    rdfs:range sosa:Sample .
-
 censo:appliesToAnalyte a owl:ObjectProperty ;
     rdfs:label "applies to analyte"@en ;
     rdfs:comment "The substance constrained. Group thresholds use cereg:appliesToGroup instead."@en ;
@@ -153,16 +157,23 @@ censo:calibrationR2 a owl:DatatypeProperty ;
     rdfs:domain censo:AnalyticalMethod ;
     rdfs:range xsd:decimal .
 
-censo:calibrationSlope a owl:DatatypeProperty ;
-    rdfs:label "calibration slope"@en ;
-    rdfs:comment "Slope of the calibration curve, from which LOD and LOQ are derived."@en ;
-    rdfs:domain censo:AnalyticalMethod ;
-    rdfs:range xsd:decimal .
-
-censo:casNumber a owl:DatatypeProperty,
-        owl:FunctionalProperty ;
+censo:casNumber a owl:DatatypeProperty ;
     rdfs:label "CAS registry number"@en ;
-    rdfs:comment "Preferred join key across heterogeneous sources; more reliable than trade or trivial names."@en ;
+    rdfs:comment """Preferred join key across heterogeneous sources; more
+reliable than trade or trivial names.
+
+NOT owl:FunctionalProperty, and the correction is worth recording. It was
+declared functional, and the released EU package violates that on three
+entries, because Annex I names more than one registry number for a single
+regulated substance: diclofenac as the free acid (15307-86-5) and as the sodium
+salt (15307-79-6), and likewise acetamiprid and imidacloprid. A regulatory
+entry is not a single chemical species, and the data were right.
+
+The violation was invisible. A functional datatype property with two distinct
+literals on one subject makes the ontology inconsistent under DL semantics, but
+OWL 2 RL derives owl:sameAs between the literals and stops there, so owlrl
+reports no owl:Nothing and the audit's package-consistency check passed on every
+run. scripts/99_audit.py::check_functional_properties now looks directly."""@en ;
     rdfs:domain censo:Analyte ;
     rdfs:range xsd:string .
 
@@ -183,43 +194,26 @@ censo:conditionSatisfied a owl:ObjectProperty ;
     rdfs:domain sosa:Observation ;
     rdfs:range censo:ApplicabilityCondition .
 
-censo:derivedFromRecord a owl:ObjectProperty ;
-    rdfs:label "derived from record"@en ;
-    rdfs:comment "Links an observation to the source file, sheet and cell it was extracted from, so every assertion is traceable."@en ;
-    rdfs:domain sosa:Observation ;
-    rdfs:range prov:Entity ;
-    rdfs:subPropertyOf prov:wasDerivedFrom .
-
 censo:determinesAnalyte a owl:ObjectProperty ;
     rdfs:label "determines analyte"@en ;
     rdfs:comment "The analyte this method measures. One method may cover many analytes, each with its own limits, so limits are asserted per method-analyte pair."@en ;
     rdfs:domain censo:AnalyticalMethod ;
     rdfs:range censo:Analyte .
 
+censo:limitOfDetection a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "limit of detection (LOD)"@en ;
+    rdfs:comment """Lowest concentration reliably distinguishable from a blank.
+Below it, presence can be neither asserted nor denied. Expressed in
+censo:limitUnit."""@en ;
+    rdfs:domain censo:AnalyticalMethod ;
+    rdfs:range xsd:decimal .
+
 censo:limitOfQuantification a owl:DatatypeProperty,
         owl:FunctionalProperty ;
     rdfs:label "limit of quantification (LOQ)"@en ;
     rdfs:comment "Lowest concentration measurable with stated accuracy and precision."@en ;
     rdfs:domain censo:AnalyticalMethod ;
-    rdfs:range xsd:decimal .
-
-censo:precursorIon a owl:DatatypeProperty ;
-    rdfs:label "precursor ion (Q1) m/z"@en ;
-    rdfs:comment "Mass-to-charge ratio of the precursor ion selected in the first quadrupole."@en ;
-    rdfs:domain censo:MassSpectrometryTransition ;
-    rdfs:range xsd:decimal .
-
-censo:producedByRun a owl:FunctionalProperty,
-        owl:ObjectProperty ;
-    rdfs:label "produced by run"@en ;
-    rdfs:comment "Links a result to the analytical run that produced it, and so to the limits actually in force for that measurement."@en ;
-    rdfs:domain sosa:Observation ;
-    rdfs:range censo:AnalyticalRun .
-
-censo:productIon a owl:DatatypeProperty ;
-    rdfs:label "product ion (Q3) m/z"@en ;
-    rdfs:comment "Mass-to-charge ratio of the product ion monitored in the third quadrupole; together with the precursor it identifies the transition."@en ;
-    rdfs:domain censo:MassSpectrometryTransition ;
     rdfs:range xsd:decimal .
 
 cereg: a owl:Ontology ;
@@ -244,21 +238,6 @@ cereg:ArithmeticMean a cereg:AggregationFunction ;
 cereg:Maximum a cereg:AggregationFunction ;
     rdfs:label "maximum"@en .
 
-cereg:NotCoveredBySurvey a owl:Class ;
-    rdfs:label "Not covered by survey"@en ;
-    rdfs:comment """The regulation defines a threshold for an analyte the
-monitoring programme never measured. Under a closed-world model this is
-invisible; here it is an explicit verdict, which is what makes "assess a 2018
-survey under a 2026 regulation" a well-posed question."""@en ;
-    rdfs:subClassOf censo:IndeterminateCompliance ;
-    skos:example "A survey that measured none of the 24 PFAS named by the 2026 standard cannot report compliance with their sum; the aggregate is not assessable rather than zero."@en .
-
-cereg:RelevantMetabolite a owl:Class ;
-    rdfs:label "Relevant metabolite"@en ;
-    rdfs:comment "Metabolite retaining the pesticidal activity of its parent; assessed as a pesticide."@en ;
-    rdfs:subClassOf censo:Analyte ;
-    owl:disjointWith cereg:NonRelevantMetabolite .
-
 cereg:Sum a cereg:AggregationFunction ;
     rdfs:label "sum"@en .
 
@@ -276,24 +255,6 @@ cereg:Unverified a cereg:TranscriptionStatus ;
 cereg:VerifiedAgainstPrimarySource a cereg:TranscriptionStatus ;
     rdfs:label "verified against primary source"@en .
 
-cereg:assessedUnder a owl:ObjectProperty ;
-    rdfs:label "assessed under"@en ;
-    rdfs:comment "The regulation package an assessment was carried out against. Mandatory: a verdict without a named package is not interpretable."@en ;
-    rdfs:domain cereg:Assessment ;
-    rdfs:range cereg:RegulationPackage .
-
-cereg:assessmentOutcome a owl:ObjectProperty ;
-    rdfs:label "assessment outcome"@en ;
-    rdfs:comment "The verdict produced, one of the four compliance outcomes defined in CENSO core."@en ;
-    rdfs:domain cereg:Assessment ;
-    rdfs:range censo:ComplianceOutcome .
-
-cereg:complianceDeadline a owl:DatatypeProperty ;
-    rdfs:label "compliance deadline"@en ;
-    rdfs:comment "Date by which member states or operators must meet the standards; may be long after entry into force."@en ;
-    rdfs:domain cereg:RegulationPackage ;
-    rdfs:range xsd:date .
-
 cereg:definesThreshold a owl:ObjectProperty ;
     rdfs:label "defines threshold"@en ;
     rdfs:comment "Links a package to the thresholds it establishes. The inverse direction (threshold to package) goes through censo:definedBy."@en ;
@@ -301,22 +262,9 @@ cereg:definesThreshold a owl:ObjectProperty ;
     rdfs:range censo:Threshold ;
     owl:inverseOf censo:definedBy .
 
-cereg:groupCoverage a owl:DatatypeProperty,
-        owl:FunctionalProperty ;
-    rdfs:label "group coverage"@en ;
-    rdfs:comment "Fraction of a group's members actually measured. Materialised per assessment; reported alongside every aggregate verdict."@en ;
-    rdfs:domain cereg:Assessment ;
-    rdfs:range xsd:double .
-
 cereg:inForceFrom a owl:DatatypeProperty ;
     rdfs:label "in force from"@en ;
     rdfs:comment "Date of entry into force. Observations predating it can still be assessed against the package, but the result is counterfactual and must be labelled as such."@en ;
-    rdfs:domain cereg:RegulationPackage ;
-    rdfs:range xsd:date .
-
-cereg:inForceUntil a owl:DatatypeProperty ;
-    rdfs:label "in force until"@en ;
-    rdfs:comment "Date the package ceased to apply. Absent means still in force."@en ;
     rdfs:domain cereg:RegulationPackage ;
     rdfs:range xsd:date .
 
@@ -334,21 +282,22 @@ cereg:legalReference a owl:DatatypeProperty ;
 
 cereg:memberOfGroup a owl:ObjectProperty ;
     rdfs:label "member of group"@en ;
-    rdfs:comment "Membership in a collectively assessed set. Group membership is curated knowledge with provenance, not a spreadsheet column."@en ;
+    rdfs:comment "Membership in a collectively assessed set. Group membership is curated knowledge with provenance, not a spreadsheet column."@en,
+        """The group standards this analyte counts towards. Emitted by
+every package that declares a group threshold, because a sum standard whose
+membership is not stated cannot be assessed: the question "was all of it
+measured" has no answer, and the answer is what decides between an aggregate
+verdict and censo:IndeterminateCompliance.
+
+This replaces cereg:groupCoverage, which was declared as the FRACTION of a
+group actually measured, domained on a reified assessment, ranged xsd:double --
+and emitted by the package builder as the integer COUNT of declared members, on
+the group. Three mismatches in one triple. The count it really carried is
+derivable from these memberships with COUNT, so the property is gone rather
+than renamed, and the coverage the manuscript reports is an analysis result
+that belongs in the analysis and not in the regulation package."""@en ;
     rdfs:domain censo:Analyte ;
     rdfs:range cereg:SubstanceGroup .
-
-cereg:metaboliteOf a owl:ObjectProperty,
-        owl:TransitiveProperty ;
-    rdfs:label "metabolite of"@en ;
-    rdfs:comment """Degradation or transformation product. Relevant because a
-survey may measure a metabolite while the regulated parent is absent from the
-panel, or vice versa. The 2026 EU update explicitly brings non-relevant
-pesticide metabolites into scope, so this relation carries legal weight."""@en ;
-    rdfs:domain censo:Analyte ;
-    rdfs:range censo:Analyte ;
-    rdfs:seeAlso "Transitive: a transformation product of a transformation product is still one of the parent. NOT symmetric, despite the scanner's suggestion -- the relation has a direction."@en ;
-    skos:example "1-Hydroxyibuprofen metaboliteOf Ibuprofen."@en .
 
 cereg:requiresCompleteGroup a owl:DatatypeProperty ;
     rdfs:label "requires complete group"@en ;
@@ -359,13 +308,6 @@ sum is the obvious case: a survey that measured none of them cannot report
 compliance."""@en ;
     rdfs:domain cereg:GroupThreshold ;
     rdfs:range xsd:boolean .
-
-cereg:supersedes a owl:ObjectProperty,
-        owl:TransitiveProperty ;
-    rdfs:label "supersedes"@en ;
-    rdfs:comment "Names the package this one replaces. Transitive, so the full amendment chain is queryable."@en ;
-    rdfs:domain cereg:RegulationPackage ;
-    rdfs:range cereg:RegulationPackage .
 
 cereg:transcriptionStatus a owl:ObjectProperty ;
     rdfs:label "transcription status"@en ;
@@ -380,12 +322,6 @@ cereg:transposes a owl:ObjectProperty ;
     rdfs:comment "National package implementing a supranational one, e.g. YSKY transposing the EU EQS Directive. Divergences between the two are meaningful and queryable."@en ;
     rdfs:domain cereg:RegulationPackage ;
     rdfs:range cereg:RegulationPackage .
-
-censo:regulationVersion a owl:DatatypeProperty ;
-    rdfs:label "regulation version"@en ;
-    rdfs:comment "Amendment identifier, so thresholds of different vintages stay distinguishable."@en ;
-    rdfs:domain censo:Regulation ;
-    rdfs:range xsd:string .
 
 censo:reportedValue a owl:DatatypeProperty ;
     rdfs:label "reported value"@en ;
@@ -414,36 +350,16 @@ censo:resultUpperBound a owl:DatatypeProperty,
     rdfs:domain sosa:Observation ;
     rdfs:range xsd:decimal .
 
-censo:retentionTime a owl:DatatypeProperty ;
-    rdfs:label "retention time"@en ;
-    rdfs:comment "Chromatographic retention time used to confirm analyte identity within the run."@en ;
-    rdfs:domain censo:MassSpectrometryTransition ;
-    rdfs:range xsd:decimal .
-
-censo:runUsedMethod a owl:ObjectProperty ;
-    rdfs:label "run used method"@en ;
-    rdfs:comment "The method this run executed; the run inherits its limits, which may then be overridden per run."@en ;
-    rdfs:domain censo:AnalyticalRun ;
-    rdfs:range censo:AnalyticalMethod .
-
-censo:smiles a owl:DatatypeProperty ;
-    rdfs:label "SMILES"@en ;
-    rdfs:comment "Structure string; supports structural grouping and QSAR-derived properties."@en ;
-    rdfs:domain censo:Analyte ;
-    rdfs:range xsd:string .
-
 skos:Concept a owl:Class ;
     rdfs:label "Concept"@en ;
     rdfs:comment "Reused from SKOS; declared here only so that this standalone distribution is self-describing."@en .
 
+prov:Activity a owl:Class ;
+    rdfs:label "Activity"@en ;
+    rdfs:comment "Reused from PROV-O; declared here only so that this standalone distribution is self-describing."@en .
+
 prov:hadPrimarySource a owl:ObjectProperty ;
     rdfs:label "had primary source"@en ;
-    rdfs:comment "Reused from PROV-O; declared here only so that this standalone distribution is self-describing."@en ;
-    rdfs:domain prov:Entity ;
-    rdfs:range prov:Entity .
-
-prov:wasDerivedFrom a owl:ObjectProperty ;
-    rdfs:label "was derived from"@en ;
     rdfs:comment "Reused from PROV-O; declared here only so that this standalone distribution is self-describing."@en ;
     rdfs:domain prov:Entity ;
     rdfs:range prov:Entity .
@@ -454,10 +370,6 @@ sosa:FeatureOfInterest a owl:Class ;
 
 sosa:Procedure a owl:Class ;
     rdfs:label "Procedure"@en ;
-    rdfs:comment "Reused from SOSA; declared here only so that this standalone distribution is self-describing."@en .
-
-sosa:Sample a owl:Class ;
-    rdfs:label "Sample"@en ;
     rdfs:comment "Reused from SOSA; declared here only so that this standalone distribution is self-describing."@en .
 
 foaf:Person a owl:Class ;
@@ -475,14 +387,6 @@ censo:Campaign a owl:Class ;
     rdfs:label "Sampling campaign"@en ;
     rdfs:comment "A bounded sampling exercise. Making it explicit lets the same station be compared across time and prevents campaigns being conflated."@en ;
     rdfs:subClassOf prov:Activity .
-
-censo:ClassBoundaryThreshold a owl:Class ;
-    rdfs:label "Class boundary threshold"@en ;
-    rdfs:comment """Boundary between water quality classes. Conventional
-determinands such as COD, ammonium and phosphate are assessed against these, not
-against an EQS — a distinction routinely lost when both are stored as a single
-"limit" column."""@en ;
-    rdfs:subClassOf censo:Threshold .
 
 censo:Compliant a owl:Class ;
     rdfs:label "Compliant"@en ;
@@ -514,15 +418,6 @@ censo:duringCampaign a owl:FunctionalProperty,
     rdfs:domain sosa:Observation ;
     rdfs:range censo:Campaign .
 
-censo:limitOfDetection a owl:DatatypeProperty,
-        owl:FunctionalProperty ;
-    rdfs:label "limit of detection (LOD)"@en ;
-    rdfs:comment """Lowest concentration reliably distinguishable from a blank.
-Below it, presence can be neither asserted nor denied. Expressed in
-censo:limitUnit."""@en ;
-    rdfs:domain censo:AnalyticalMethod ;
-    rdfs:range xsd:decimal .
-
 censo:limitUnit a owl:FunctionalProperty,
         owl:ObjectProperty ;
     rdfs:label "limit unit"@en ;
@@ -533,11 +428,6 @@ censo:limitUnit a owl:FunctionalProperty,
 cereg:Jurisdiction a owl:Class ;
     rdfs:label "Jurisdiction"@en ;
     rdfs:comment "A legal territory in which a regulation package applies, identified by an ISO 3166 code or by 'EU'."@en .
-
-cereg:NonRelevantMetabolite a owl:Class ;
-    rdfs:label "Non-relevant metabolite"@en ;
-    rdfs:comment "Metabolite without the parent's pesticidal activity; brought into scope by the 2026 EU update under a separate standard."@en ;
-    rdfs:subClassOf censo:Analyte .
 
 cereg:aggregationFunction a owl:ObjectProperty ;
     rdfs:label "aggregation function"@en ;
@@ -588,6 +478,11 @@ sosa:ObservableProperty a owl:Class ;
     rdfs:label "Observable property"@en ;
     rdfs:comment "Reused from SOSA; declared here only so that this standalone distribution is self-describing."@en .
 
+censo:Regulation a owl:Class ;
+    rdfs:label "Regulation"@en ;
+    rdfs:comment "A dated, versioned legal instrument. Thresholds must cite one, because they change."@en ;
+    rdfs:subClassOf prov:Entity .
+
 censo:UnresolvedObservation a owl:Class ;
     rdfs:label "Unresolved observation"@en ;
     rdfs:comment """Made, but its detection status cannot be established, typically
@@ -621,18 +516,6 @@ censo:hasAnalyte a owl:FunctionalProperty,
     rdfs:domain sosa:Observation ;
     rdfs:range censo:Analyte .
 
-prov:Activity a owl:Class ;
-    rdfs:label "Activity"@en ;
-    rdfs:comment "Reused from PROV-O; declared here only so that this standalone distribution is self-describing."@en .
-
-censo:AnalyticalRun a owl:Class ;
-    rdfs:label "Analytical run"@en ;
-    rdfs:comment """One execution of an analytical method on a batch of samples,
-carrying its own calibration curve and therefore its own detection limits. Two
-observations of the same analyte are only strictly comparable when they share a
-run, or when the runs' limits are known and comparable."""@en ;
-    rdfs:subClassOf prov:Activity .
-
 censo:CensoredObservation a owl:Class ;
     rdfs:label "Censored observation"@en ;
     rdfs:comment """The analyte was sought and not detected. Asserts only that the
@@ -650,6 +533,18 @@ downwards."""@en ;
     skos:definition "Observation whose result is below the method's limit of detection."@en ;
     skos:example "Atrazine sought and not detected by a method whose limit of detection is 0.02 µg/L: the concentration lies in [0, 0.02], which is not the same claim as zero."@en .
 
+censo:ComplianceOutcome a owl:Class ;
+    rdfs:label "Compliance outcome"@en ;
+    rdfs:comment """The verdict of comparing an observation against a threshold.
+THREE-valued: the standard is met, it is not met, or compliance cannot be
+determined. The three are what the Directive itself admits, and the third is
+what closed-world models cannot express. The reason a verdict cannot be
+determined is carried by the subclasses of IndeterminateCompliance rather than
+by a fourth top value, which would assert a distinction the Directive does not
+make."""@en ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:unionOf ( censo:Exceedance censo:Compliant censo:IndeterminateCompliance ) ] .
+
 censo:EstimatedObservation a owl:Class ;
     rdfs:label "Estimated observation"@en ;
     rdfs:comment """Detected, but between LOD and LOQ, so the reported magnitude
@@ -657,24 +552,10 @@ is indicative only. Reporting it as a point estimate overstates what the method
 supports. Datasets frequently contain such values presented as if quantified."""@en ;
     rdfs:subClassOf sosa:Observation .
 
-censo:MassSpectrometryTransition a owl:Class ;
-    rdfs:label "Mass spectrometry transition"@en ;
-    rdfs:comment """An LC-MS/MS multiple-reaction-monitoring transition —
-precursor and product ion, retention time and the voltages that select them.
-It identifies the measurement channel that produced a result, and hence which
-detection limit applies. This is the level at which analytical provenance
-actually lives, and it is absent from every water ontology surveyed."""@en ;
-    rdfs:subClassOf censo:AnalyticalMethod .
-
 censo:QuantifiedObservation a owl:Class ;
     rdfs:label "Quantified observation"@en ;
     rdfs:comment "Detected at or above the limit of quantification; the magnitude is usable."@en ;
     rdfs:subClassOf sosa:Observation .
-
-censo:Regulation a owl:Class ;
-    rdfs:label "Regulation"@en ;
-    rdfs:comment "A dated, versioned legal instrument. Thresholds must cite one, because they change."@en ;
-    rdfs:subClassOf prov:Entity .
 
 censo:exceeds a owl:ObjectProperty ;
     rdfs:label "exceeds"@en ;
@@ -706,18 +587,6 @@ cereg:GroupThreshold a owl:Class ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         censo:Threshold .
 
-censo:ComplianceOutcome a owl:Class ;
-    rdfs:label "Compliance outcome"@en ;
-    rdfs:comment """The verdict of comparing an observation against a threshold.
-THREE-valued: the standard is met, it is not met, or compliance cannot be
-determined. The three are what the Directive itself admits, and the third is
-what closed-world models cannot express. The reason a verdict cannot be
-determined is carried by the subclasses of IndeterminateCompliance rather than
-by a fourth top value, which would assert a distinction the Directive does not
-make."""@en ;
-    owl:equivalentClass [ a owl:Class ;
-            owl:unionOf ( censo:Exceedance censo:Compliant censo:IndeterminateCompliance ) ] .
-
 censo:assessableAgainst a owl:ObjectProperty ;
     rdfs:label "assessable against"@en ;
     rdfs:comment """Materialised when EVERY condition the threshold requires is
@@ -734,34 +603,10 @@ censo:belowThreshold a owl:ObjectProperty ;
     rdfs:range censo:Threshold ;
     rdfs:subPropertyOf censo:assessableAgainst .
 
-cereg:Assessment a owl:Class ;
-    rdfs:label "Assessment"@en ;
-    rdfs:comment """The act of evaluating observations against one regulation
-package, producing compliance outcomes. Reified so that the same observations
-assessed under two packages yield two comparable, separately attributable
-results."""@en ;
-    rdfs:subClassOf prov:Activity .
-
 cereg:SubstanceGroup a owl:Class ;
     rdfs:label "Substance group"@en ;
     rdfs:comment "A set of analytes assessed collectively, e.g. 'pesticides total', 'sum of 24 PFAS'."@en ;
     rdfs:subClassOf skos:Concept .
-
-cereg:TranscriptionStatus a owl:Class ;
-    rdfs:label "Transcription status"@en ;
-    rdfs:comment "How reliably a threshold value was copied from its legal source. Machine-readable so unverified values can be excluded from analysis rather than trusted by default."@en .
-
-censo:ApplicabilityCondition a owl:Class ;
-    rdfs:label "Applicability condition"@en ;
-    rdfs:comment "A condition that must hold before a threshold may be applied to an observation."@en .
-
-cereg:AggregationFunction a owl:Class ;
-    rdfs:label "Aggregation function"@en ;
-    rdfs:comment "How the members of a substance group are combined into the single quantity the threshold applies to."@en .
-
-prov:Entity a owl:Class ;
-    rdfs:label "Entity"@en ;
-    rdfs:comment "Reused from PROV-O; declared here only so that this standalone distribution is self-describing."@en .
 
 censo:AnalyticalMethod a owl:Class ;
     rdfs:label "Analytical method"@en ;
@@ -772,12 +617,38 @@ one laboratory and quantified at another. Attaching limits to the analyte — th
 common shortcut — makes cross-laboratory comparison unsound."""@en ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:cardinality "1"^^xsd:nonNegativeInteger ;
-            owl:onProperty censo:limitOfDetection ],
-        [ a owl:Restriction ;
-            owl:cardinality "1"^^xsd:nonNegativeInteger ;
             owl:onProperty censo:limitUnit ],
         sosa:Procedure ;
     skos:definition "A sosa:Procedure with a detection limit."@en .
+
+cereg:TranscriptionStatus a owl:Class ;
+    rdfs:label "Transcription status"@en ;
+    rdfs:comment "How reliably a threshold value was copied from its legal source. Machine-readable so unverified values can be excluded from analysis rather than trusted by default."@en .
+
+censo:Analyte a owl:Class ;
+    rdfs:label "Analyte"@en ;
+    rdfs:comment """A substance whose concentration is the observed property.
+
+An Analyte is NOT the substance. It is a sosa:ObservableProperty — the
+concentration OF a substance — while a chemical ontology's class is the
+substance itself, whose instances are molecules. The distinction decides how
+the two are related: ontology/censo-alignment.ttl points each analyte at its
+ChEBI class with rdfs:seeAlso, and reserves owl:sameAs for the relation that IS
+an identity, between two regulation packages' names for one observable
+property. That is what lets a European and a Turkish package resolve to one
+thing, which is the precondition for comparing them.
+
+This comment used to claim the alignment was made with skos:exactMatch. It was
+made with nothing at all: the only occurrence of skos:exactMatch in the whole
+ontology was inside this sentence, and the comparison worked by joining CAS
+strings in Python. The alignment module now exists and the audit checks that
+every substance the dual-regulation analysis treats as co-regulated is
+reconciled by it."""@en ;
+    rdfs:subClassOf sosa:ObservableProperty .
+
+censo:ApplicabilityCondition a owl:Class ;
+    rdfs:label "Applicability condition"@en ;
+    rdfs:comment "A condition that must hold before a threshold may be applied to an observation."@en .
 
 censo:IndeterminateCompliance a owl:Class ;
     rdfs:label "Indeterminate compliance"@en ;
@@ -818,13 +689,13 @@ one. It is materialised under a locally closed world; see censo-shapes.ttl."""@e
     rdfs:subClassOf censo:ComplianceOutcome ;
     skos:example "Imidacloprid measured by a method quantifying at 2.065 µg/L against an EU annual-average standard of 0.0068 µg/L: no result the method could return would decide compliance."@en .
 
-censo:Analyte a owl:Class ;
-    rdfs:label "Analyte"@en ;
-    rdfs:comment """A substance whose concentration is the observed property.
-Aligned to ChEBI/PubChem with skos:exactMatch rather than renamed, so that two
-regulation packages referring to the same substance resolve to one IRI — the
-precondition for comparing them."""@en ;
-    rdfs:subClassOf sosa:ObservableProperty .
+prov:Entity a owl:Class ;
+    rdfs:label "Entity"@en ;
+    rdfs:comment "Reused from PROV-O; declared here only so that this standalone distribution is self-describing."@en .
+
+cereg:AggregationFunction a owl:Class ;
+    rdfs:label "Aggregation function"@en ;
+    rdfs:comment "How the members of a substance group are combined into the single quantity the threshold applies to."@en .
 
 cereg:RegulationPackage a owl:Class ;
     rdfs:label "Regulation package"@en ;
@@ -862,14 +733,14 @@ sosa:Observation a owl:Class ;
     owl:hasKey ( censo:hasAnalyte censo:atStation censo:duringCampaign ) .
 
 [] a owl:AllDisjointClasses ;
-    owl:members ( censo:AnnualAverageThreshold censo:MaximumAllowableThreshold censo:ClassBoundaryThreshold ) .
+    owl:members ( cereg:RegulationPackage cereg:SubstanceGroup cereg:AggregationFunction cereg:TranscriptionStatus ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( censo:AnnualAverageThreshold censo:MaximumAllowableThreshold ) .
 
 [] a owl:AllDisjointProperties ;
     owl:members ( censo:exceeds censo:possiblyExceeds censo:belowThreshold ) .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( censo:CensoredObservation censo:EstimatedObservation censo:QuantifiedObservation censo:UnresolvedObservation ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( cereg:RegulationPackage cereg:SubstanceGroup cereg:Assessment cereg:AggregationFunction cereg:TranscriptionStatus ) .
 

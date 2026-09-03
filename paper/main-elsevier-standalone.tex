@@ -141,8 +141,11 @@ not met, or not determinable, the outcomes the Directive admits --- the third
 subtyped by the reason, which keeps an unmeasurable standard apart from an
 unreported bound. Of \num{696168} station-years a European standard reaches,
 \num{43.8}\% are undecidable, \num{18.8}\% failing a precondition alone; swapping the regulation package re-decides \num{17.7}\% of co-regulated
-outcomes. Of \num{18} ontologies parsed, none separates a non-detection from a
-measurement at the same number --- a distinction CENSO makes an inconsistency,
+outcomes. Of \num{21} ontologies parsed --- reaching outside the water domain to
+the analytical-chemistry vocabularies, one of which defines the quantification
+limit from the IUPAC Gold Book and still binds it to the method --- none carries
+a censoring status, and \num{20} cannot separate a non-detection from a
+measurement at the same number. In CENSO that distinction is an inconsistency,
 not a label. Ontology, pipeline and figure data are open.
 % <<< end sections/00-abstract.tex
 \end{abstract}
@@ -269,14 +272,17 @@ sample rather than against an annual mean.
 The gap follows from a measurement model. SOSA/SSN and its descendants were
 designed for in-situ \emph{sensing}, in which a detection limit is a property of
 the device. Trace organic monitoring is \emph{sampling followed by laboratory
-analysis}, in which the limit belongs to the analytical run. We present CENSO,
-an ontology that binds the limit to the analytical run, records why a result is
+analysis}, in which the limit belongs to the method that produced the result
+and its consequence belongs to the result itself. We present CENSO, an ontology
+that carries the limit onto the result, records why a result is
 an interval, treats a threshold as a conditional judgement with preconditions,
 and makes compliance three-valued --- met, not met, or not determinable ---
 subtyped by the reason it is not. The three are the outcomes the Directive
 itself admits; the subtypes are what tell an unmeasurable standard apart from an
-unreported bound. We also assess \num{18} ontologies, parsing each file rather
-than reading its documentation.
+unreported bound. We also assess \num{21} ontologies, parsing each file rather
+than reading its documentation, and the set reaches outside the water domain to
+the analytical-chemistry and statistics vocabularies where these concepts would
+live if they lived anywhere.
 
 The ontology is the instrument, not the result. Without a vocabulary that
 separates \emph{compliant} from \emph{cannot be determined}, none of the
@@ -308,6 +314,44 @@ later, in a run whose calibration curve sets its own limits. SOSA's
 to a detection limit -- an absence Section~\ref{sec:results-gap} traces across
 the water-ontology literature to this inherited model.
 
+\paragraph{Why extend SOSA rather than something else.}
+The choice of base is itself a claim, so we state the reasoning. SOSA/SSN is a
+joint W3C Recommendation and OGC standard, which no alternative in this space
+matches, and it is what the monitoring vocabularies compared in
+Section~\ref{sec:results-gap} are built on --- so extending it is what makes the
+diagnosis actionable for them rather than an argument for a parallel stack. We
+add classes and properties and redefine no SOSA term. Three alternatives were
+considered. \emph{O\&M / OMS} (ISO~19156), of which SOSA is the lightweight
+\textsc{owl} rendering, does carry a \texttt{resultQuality} slot; but it is
+typed to accept any data-quality element, so it is somewhere to put a string
+rather than a modality a query can return, and the distinction between a bound
+and a measurement is exactly what an unconstrained slot fails to preserve.
+\emph{QUDT} and \emph{OM} model units and quantities, which CENSO reuses rather
+than replaces. A \textsc{bfo}-grounded design in the \textsc{obo} style would
+buy rigour at a cost that lands precisely on this subject matter: ``the record
+cannot decide'' is an epistemic state of a document, not an entity in the world,
+and representing absence and non-findings is a long-standing difficulty in that
+tradition. The commitment we make instead is narrower and checkable --- the
+vocabulary stays inside OWL~2~RL, and what the profile cannot express is stated
+and moved to SHACL rather than asserted and left unenforced.
+
+\subsection{Laboratory and analytical vocabularies}
+The concepts CENSO adds would most plausibly already exist not in a water
+ontology but in a laboratory one, so the comparison in
+Section~\ref{sec:results-gap} includes them. \textbf{CHMO, the \textsc{obo}
+Chemical Methods Ontology, does declare \texttt{limit of detection} and
+\texttt{limit of quantification}, both defined from the IUPAC Gold Book.} It
+binds them to the method, as a \texttt{figure of merit} of an assay, and has no
+property relating a limit to a result --- so, as with the sensor case, the limit
+is known about the procedure and forgotten about the measurement. AFO, built by
+a pharmaceutical consortium for analytical instrument data, contains no
+detection or quantification limit term at all; its \texttt{lower bound} and
+\texttt{upper bound} are \textsc{bfo} roles rather than values on a result. In
+STATO, where censoring is a routine concept in survival analysis, it appears
+only in prose. The gap is therefore not an artefact of having looked only at
+water: the vocabulary that defines the limit most carefully still cannot say
+that a given result fell below one.
+
 \subsection{Water domain ontologies}
 Water-quality vocabularies are plentiful~\cite{water_onto_review}: WaWO+ for
 river basins~\cite{olivafelipe2017wawoplus}, OPO~\cite{wang2020opo},
@@ -329,11 +373,11 @@ IRI. Its \texttt{Range} class bounds an \texttt{ObservationValue}, reading
 result as an interval}: this work extends it rather than filling a void. What it
 does not record is why the interval exists: it does not separate censoring from
 spread, does not tie the interval to its limit, and cannot pose an indeterminate
-compliance outcome. Section~\ref{sec:results-gap} compares \num{18} ontologies;
+compliance outcome. Section~\ref{sec:results-gap} compares \num{21} ontologies;
 none carries the epistemic status of the measurement, and
 Section~\ref{sec:results-separation} shows what follows --- on one real record,
-none of them can tell a non-detection from a measurement reporting the same
-number.
+\num{20} of the \num{21} cannot tell a non-detection from a measurement
+reporting the same number.
 
 \paragraph{Analytical coverage already changes conclusions.}
 Moschet et al.~\cite{moschet2014screening} find that the pesticides a routine
@@ -445,13 +489,46 @@ evaluation in Section~\ref{sec:results-cq}, and is published for
 reuse~\cite{wilkinson2016fair}. Four commitments distinguish it from the
 vocabularies surveyed in Section~\ref{sec:results-gap}.
 
-\paragraph{The limit belongs to the analytical run.}
+\paragraph{The limit is carried onto the result.}
 \texttt{censo:AnalyticalMethod} is a \texttt{sosa:Procedure} carrying a unit and
 at least one limit --- of quantification, of detection, or both, since a
 constraint satisfiable only by inventing the missing datum constrains nothing.
-\texttt{censo:AnalyticalRun} reifies one execution with its own calibration
-curve and its own limits, and an observation links to the run that produced it.
-No ontology we surveyed models provenance at this level.
+That much CHMO also has, and puts in the same place
+(Section~\ref{sec:results-gap}). The step that separates a bound from a
+measurement is the next one: \texttt{censo:resultUpperBound} places the limit
+on the \emph{observation}, so \emph{censored} is a property of a result and
+not of the procedure that produced it. Two observations from one method, one
+below the limit and one above, differ in exactly this.
+
+An earlier version of the vocabulary reified the analytical run for the same
+purpose. It is retired, for two reasons that are worth stating because the
+commitment is unchanged. A run is a \texttt{prov:Activity} that used a sample
+and generated an observation, and the method it executed already carries the
+limits, so declaring our own terms for it reinvented \textsc{prov-o}. And no
+European release reports a run identifier: an annual mean spans many runs, so
+minting one per station-year would not simplify but misstate. Where a publisher
+does have run-level provenance, \textsc{prov} expresses it with no extension,
+and the bound it produces still lands on
+\texttt{censo:resultUpperBound}.\src{scripts/99\_audit.py, \texttt{check\_no\_dead\_terms}}
+
+\paragraph{The substances are reconciled, not renamed.}
+A \texttt{censo:Analyte} is a \texttt{sosa:ObservableProperty} --- the
+concentration \emph{of} a substance --- and not the substance, whose instances
+are molecules. The two are related by \texttt{rdfs:seeAlso} to the substance's
+ChEBI class, in a separate module the vocabulary does not
+import\src{scripts/20\_align\_external.py}: \num{299} of \num{354} analytes
+across the two packages resolve to exactly one ChEBI class by CAS registry
+number, \num{26} resolve to more than one and are deliberately left unaligned,
+and \num{29} --- technical mixtures and congener groups such as C10--13
+chloroalkanes --- have no ChEBI entry at all, which is a fact about what the
+regulation names rather than a gap in the mapping.
+
+\texttt{owl:sameAs} is reserved for the relation that is an identity: two
+packages' names for one observable property. \num{30} such pairs reconcile the
+European and Turkish vocabularies, so the co-regulated stratum of
+Section~\ref{sec:results-dual} is an entailment rather than a string join, and
+the audit requires the two to agree --- every substance the analysis treats as
+co-regulated must be reachable through a \texttt{sameAs} pair.
 
 \paragraph{Detection status is explicit and exhaustive.}
 \texttt{CensoredObservation}, \texttt{EstimatedObservation},
@@ -951,7 +1028,7 @@ selected by a rule the data does not determine
 
 \paragraph{The graph is a materialisation, not the analysis.}
 A reservoir sample of \num{40000} station-years is expressed as RDF
-(\num{465744} triples): a pure-Python triple store cannot hold four million
+(\num{501062} triples): a pure-Python triple store cannot hold four million
 rows, and inflating it would misreport what was reasoned over. \num{11.7}\% of
 its observations are \texttt{UnresolvedObservation}, a state no other surveyed
 vocabulary can express.
@@ -1024,12 +1101,13 @@ worse among the organic micropollutants, where over three-quarters of samples
 fall below the limit against under half for the Annex~I metals
 (Section~\ref{sec:disc-lipinski}), and where the substances the record can least
 often decide --- pyrethroids, neonicotinoids, pharmaceuticals, bisphenol~A ---
-are concentrated (Figure~\ref{fig:loqeqs}a). A third condition the vocabulary
-carries, \texttt{FractionCondition}, would reach every metal rather than three:
-Article~3(1) defines the metal standards on the dissolved phase and WISE-6
-reports the analysed matrix, so the condition is checkable in both directions
-rather than merely unsatisfiable. We do not exercise it here, and note it as the
-next thing the machinery should decide.
+are concentrated (Figure~\ref{fig:loqeqs}a). A condition on the analysed
+fraction would reach every metal rather than three: Article~3(1) defines the
+metal standards on the dissolved phase and WISE-6 reports the analysed matrix,
+so such a condition would be checkable in both directions rather than merely
+unsatisfiable. The vocabulary does not declare one, because no footnote in the
+consolidated Annex~I creates it and a class no package can instantiate is a
+promise rather than a term; it is the next thing the machinery should decide.
 
 \subsection{The substitution has already happened before anyone downloads
 the data}
@@ -1043,7 +1121,9 @@ repair\src{scripts/26\_source\_conformance.py}, show that it is not.
 quantification and, in the same row, state a positive value for it.} A
 non-detection permits any concentration down to zero; a positive lower bound is
 a number someone chose, and the reporting authority chose it before
-publication.
+publication. Counted over the censored rows alone rather than over the whole
+record, the share is \num{99.4}\,\%: where a row is flagged at all, it almost
+always carries a substituted number as well.
 
 This changes who the finding is about. Where the flag survives, as in
 Waterbase, the substitution is visible and can be undone, which makes the
@@ -1199,32 +1279,92 @@ InWaterSense regulations & 144 & -- & -- & -- & -- & -- & -- & -- \\
 InWaterSense pollutants & 9 & -- & -- & -- & -- & -- & -- & -- \\
 WAM-ONTO & 921 & -- & -- & -- & -- & -- & -- & -- \\
 SewerNet & 145 & -- & -- & -- & -- & -- & -- & -- \\
+CHMO (chemical methods) & 3438 & the method & \checkmark & -- & \checkmark & -- & \checkmark & -- \\
+AFO (Allotrope) & 3864 & -- & -- & -- & -- & \checkmark & \checkmark & \checkmark \\
+STATO (statistics) & 1162 & -- & -- & -- & -- & \checkmark & \checkmark & -- \\
 ENVO & 7208 & -- & -- & -- & -- & -- & -- & -- \\
 ExO (exposure) & 195 & -- & -- & -- & -- & -- & -- & -- \\
-\textbf{CENSO (this work)} & 65 & \textbf{the result} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
-\textbf{CENSO-REG (this work)} & 28 & -- & -- & -- & -- & \checkmark & -- & -- \\
-Project ontology 2018 & 123 & the sensor & \checkmark & -- & -- & -- & -- & -- \\
+\textbf{CENSO (this work)} & 50 & \textbf{the result} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+\textbf{CENSO-REG (this work)} & 17 & -- & -- & -- & -- & \checkmark & -- & -- \\
+Project ontology 2018 & 123 & unclear & \checkmark & -- & -- & -- & -- & -- \\
 \bottomrule
 \end{tabular}
 \end{table*}
 % <<< end tables/tab_gap.tex
-\num{18} ontology files were assessed by parsing each one rather than reading
-its documentation\src{scripts/07\_verify\_gap\_table.py}: \num{17} published
+\num{21} ontology files were assessed by parsing each one rather than reading
+its documentation\src{scripts/07\_verify\_gap\_table.py}: \num{20} published
 vocabularies plus one unpublished domain ontology as a non-standard baseline
-(Table~\ref{tab:gap}). No ontology except CENSO carries a censoring status or
-an outcome that records a verdict as not determinable.
+(Table~\ref{tab:gap}). The set deliberately reaches outside the water domain.
+CENSO claims applicability to any measurement process with a detection limit,
+and a domain-independence claim tested inside one domain is not tested, so the
+comparison includes the vocabularies built for the laboratory --- CHMO, the
+\textsc{obo} Chemical Methods Ontology; AFO, the Allotrope Foundation Ontology,
+built by a pharmaceutical consortium for analytical instrument data; and STATO,
+the \textsc{obo} statistics ontology, where censoring is a routine concept in
+survival analysis.
+
+\textbf{No ontology except CENSO carries a censoring status.} That column is
+empty for all \num{21}, and it is the one the argument rests on. It is also the
+column the matcher was made hardest to fail: the patterns admit
+\emph{censored}, \emph{left-censored}, \emph{right-censored},
+\emph{left-truncated}, \emph{non-detect}, \emph{not detected},
+\emph{not quantifiable} and \emph{below \dots\ limit} bare, and STATO --- where
+censoring is routine in survival analysis --- declares no term for it and does
+not mention it in a single definition. One ontology besides CENSO scores for a
+not-determinable outcome, and it should not: CHMO's two hits are
+\texttt{ambiguous synonym}, an \textsc{obo} annotation property describing the
+quality of a synonym, and \texttt{double quantum transitions for finding
+unresolved lines}, a technique in which the unresolved things are spectral
+lines. The cell is left standing and the discrepancy published beside the table,
+because a pattern narrowed until a competitor loses a cell would make the
+comparison an assertion again.
+
+\paragraph{The patterns are deliberately generous, and the asymmetry is the
+point.} Every widening can only add a \emph{yes} to a competitor's row: CENSO's
+own cells are already filled, so no adjustment to the matcher can flatter this
+work. The lists were widened after the first version was found to match on our
+vocabulary's spellings and miss other people's --- it did not match
+\emph{limit of quantitation}, the pharmacopoeial spelling a laboratory ontology
+is most likely to use, nor \emph{below detection limit}, the most ordinary
+phrasing there is, nor \emph{minimum value} spelled out. A claim that survives a
+matcher tuned in the competitors' favour is worth something; one that depends on
+spelling is not.
 
 Two columns need reading carefully, because a keyword match is not a modelling
 commitment. Two vocabularies score for an interval-valued result, but only WHOW
 attaches the interval to the \emph{result}: InWaterSense's range properties
-describe the range a \emph{device} can report. Only SSN-system defines a
-detection limit, binding it to the sensor as a \texttt{SystemProperty}, as does
-the unpublished baseline. In both cases the binding is to the instrument, so a
-measurement cannot be said to have fallen below it.
+describe the range a \emph{device} can report, and AFO's \texttt{lower bound}
+and \texttt{upper bound} are subclasses of \texttt{bound role} --- roles borne
+by a participant, with no property placing an interval on a measured datum.
+Those cells are left scored, and the discrepancy published beside the table
+rather than corrected away: a pattern adjusted until a competitor scores the way
+we want would make the table an assertion again.
+
+\paragraph{The sharpest case is CHMO, and it is not a water ontology.}
+\textbf{CHMO declares \texttt{limit of detection} (CHMO:0002801) and
+\texttt{limit of quantification} (CHMO:0002802), both defined from the IUPAC
+Gold Book} --- so the gap is not that chemistry lacks the concept. CHMO binds
+them to the \emph{method}, as a \texttt{figure of merit} of an assay:
+
+\begin{center}
+\texttt{limit of detection} $\sqsubseteq$ \texttt{figure of merit} $\sqsubseteq$
+\texttt{assay output} $\sqsubseteq$ \texttt{data entity}
+\end{center}
+
+\noindent That is a better place than SSN-system's, which makes the limit a
+\texttt{SystemProperty} of a \emph{sensor}, and it is still not a place from
+which any particular result can be called censored. None of CHMO's
+object properties relates a limit to a result; they are the \textsc{bfo}/\textsc{ro}
+relations (\texttt{has participant}, \texttt{is specified output of},
+\texttt{has characteristic}). The limit is known about the assay and forgotten
+about the measurement --- the same failure as the sensor case, one step closer.
+This is the result we would most have expected to lose, and it is the reason the
+claim is worth making: the concept exists, is well defined, is cited to the
+IUPAC Gold Book, and still nothing can say that \emph{this} number is a bound.
 
 Profiling for sampling versus sensing terminology separates the vocabularies
 cleanly: SAREF core scores \num{0}/\num{22} sampling to sensing terms, CENSO
-\num{6}/\num{0}. \textbf{The field is dominated by vocabularies built for
+\num{3}/\num{0}. \textbf{The field is dominated by vocabularies built for
 in-situ sensing}, in which a detection limit is properly a device property, and
 the few sampling-aware ones carry no limits at all.
 
@@ -1274,7 +1414,13 @@ the same set of facts; hence for every sentence $\varphi$ in that vocabulary,
 R1 entails $\varphi$ exactly when R2 does.
 \end{quote}
 
-\textbf{All \num{18} vocabularies collapse R1 into R2.} No query, rule or
+\textbf{\num{20} of the \num{21} vocabularies collapse R1 into R2.} The one
+exception is CHMO, and it is an artefact of the generous matcher rather than a
+capability: CHMO is credited with a not-determinable outcome on the strength of
+\texttt{ambiguous synonym} and \texttt{unresolved lines}, so R1 receives a
+\texttt{no\_verdict} fact that R2 does not. Read strictly it collapses with the
+rest, and it has no censoring term either way. We report the number the generous
+matcher gives. For the other \num{20}, no query, rule or
 reasoner built on them returns a different answer for a non-detection than for
 a measurement at the same number --- not because none has been written, but
 because none can be. SSN-system and the \num{2018} baseline separate R1 from
@@ -1307,7 +1453,7 @@ once it is added: on the result, not on the device.
 \label{sec:results-cq}
 Twenty competency questions, each tied to an axiom, were executed over the
 Waterbase graph with the two vocabulary modules and both regulation packages,
-\num{471582} triples as
+\num{507708} triples as
 loaded\src{scripts/17\_run\_competency\_questions.py}. \textbf{All twenty
 return answers.} Full OWL~2~RL closure over a graph this size is impractical in
 pure Python, so only two entailments are materialised: union membership for the
@@ -1321,6 +1467,32 @@ is in \texttt{supplementary/S13\_reasoning\_cost.csv}. A deployment over a
 whole basin would use a store with native rule support, so those figures bound
 this pipeline and not the approach. Every other answer comes from asserted triples. They run on public
 data, and their SPARQL, rows and times are in the supplementary material.
+
+\subsection{The shipped graph is validated against the shipped shapes}
+\label{sec:results-shacl}
+The published shapes are run over the published graph --- \num{633960} triples
+with the vocabulary loaded --- rather than over a fixture\src{scripts/18\_shacl\_validate.py}.
+The shapes match \num{40000} assessed observations, \num{31167} censored ones,
+\num{1159} analytical methods and \num{537} thresholds, and the run reports
+\textbf{one violation type}: \num{4646} observations that cite no analytical
+method. That is the unresolvable population, and it is a property of the record
+rather than of the pipeline. A graph made to conform would have to invent the
+datum, which is the move these shapes were corrected for once already.
+
+Reporting a validation that does not conform requires saying which failures are
+findings and which are defects, so the audit is given the list: a violation of a
+declared source-data shape is recorded with its count, and any other violation
+type fails the build\src{scripts/99\_audit.py}. That distinction had to be made
+because until recently this stage ran for over an hour, returned
+\texttt{conforms: False}, and was cited by nothing --- not the manuscript, not
+the supplementary material, not the audit. The failure it was reporting was
+real: the graph's concentration literals were written as bare Turtle
+numerals against shapes requiring \texttt{xsd:decimal}, so
+\texttt{censo:resultLowerBound 0} carried \texttt{xsd:integer} and could never match the axiom
+\texttt{CensoredObservation} $\sqsubseteq$ \texttt{resultLowerBound} value
+\texttt{"0.0"\^{}\^{}xsd:decimal} that the vocabulary asserts over every censored
+row. No \textsc{owl} check could object, because \texttt{xsd:integer} is derived
+from \texttt{xsd:decimal} and satisfies the range.
 
 \subsection{The axioms catch real defects}
 Ten test cases run against the vocabulary\src{scripts/test\_axioms.py}. Eight
@@ -1376,7 +1548,7 @@ who does not comply produces a mean nobody can reconstruct. The way out is not a
 better rule for choosing a number; it is a representation in which the bound
 survives alongside whatever number the law requires to be entered, so that
 Article~5(1) and Article~3(3b) can both be honoured and audited. That is what
-binding the limit to the analytical run buys.
+carrying the limit onto the result buys.
 
 \subsection{Failures that no preprocessing rule can repair}
 Three findings survive any substitution rule. Where the quantification limit
@@ -1463,7 +1635,7 @@ property of the device and \texttt{ssn-system:DetectionLimit} is correctly a
 \texttt{SystemProperty}. Trace organic monitoring analyses a transported sample
 in a run with its own calibration and limits. The dominant water ontologies
 inherited the sensing model, scoring heavily on sensing terminology and near
-zero on sampling; CENSO puts the epistemics on the analytical run.
+zero on sampling; CENSO puts the epistemics on the result.
 
 That inheritance is why the shortfall is not repaired by adding a term.
 Section~\ref{sec:results-separation} shows the consequence on one real record:
@@ -1471,6 +1643,40 @@ a limit bound to the sensor is the same fact whether the result it produced was
 a measurement or a bound, so it cannot mark the difference between them, and a
 vocabulary carrying it separates the two readings no better than one carrying
 no limit at all. The distinction has to move with the limit, onto the result.
+
+\subsection{What adopting it changes, question by question}
+\label{sec:disc-usecases}
+The contribution is easier to judge from the questions it makes askable than
+from a class hierarchy, so seven are run against the shipped graph and reported
+with their answers\src{scripts/21\_use\_cases.py}. Three are worth stating here.
+
+\paragraph{A competent authority asks which of its verdicts are unsupportable.}
+One \texttt{GROUP BY} over the outcome classes returns the report split six
+ways rather than two, and each undecidable row carries the reason it could not
+be decided. In a two-valued schema those rows are not missing --- they are
+present, counted as compliant or as exceeding depending on the substitution
+constant, with nothing in the output recording that a choice was made.
+
+\paragraph{A laboratory manager asks which methods to upgrade.}
+Ranking \texttt{censo:MethodInsufficient} by substance returns the list a
+method-development budget should be spent against. It cannot be produced from a
+table of concentrations, because every row on it looks like compliance: the
+laboratory appears efficient and the substance appears clean, and the two
+appearances have one cause.
+
+\paragraph{Anyone asks why a single row is undecidable.}
+The answer is in the graph rather than in the pipeline's source. A permethrin
+station-year returns an upper bound of \num{0.02}\,\si{\micro\gram\per\litre}
+against a standard of \num{0.00027} --- a limit \num{74} times the threshold it
+was meant to decide. The bound is what the non-detection established, the
+threshold is what it had to decide, and the first exceeding the second is the
+entire finding, legible without reading any code.
+
+The counts in that report are of the materialised graph, which is a
+\num{40000}-row sample; the population figures are those of
+Section~\ref{sec:results-wbabox}. What the queries establish is that the
+questions are askable and what an answer looks like, which is what somebody
+deciding whether to adopt a vocabulary needs and what a term list cannot show.
 
 \subsection{Limitations}
 \begin{itemize}
@@ -1618,7 +1824,7 @@ the station-years assessable under both standards receiving different verdicts
 --- two answers a single threshold column cannot hold at once.
 
 A two-valued model cannot express these states. CENSO can: it binds the
-quantification limit to the analytical run, and makes \emph{cannot be
+quantification limit to the result it bounds, and makes \emph{cannot be
 determined} the third of the three outcomes the Directive admits --- subtyped by
 the reason, so that an unmeasurable standard, an unreported bound, an
 inapplicable one and an interval straddling the limit are four answers and not
@@ -1627,14 +1833,15 @@ from this dataset and accept both controls, and expressing the record in it
 loses nothing: every row classified in the graph lands where the streaming
 count puts it. Applying two jurisdictions to
 the same observations changes \num{17.7}\% of the outcomes both regulate, with
-no code change. Of the \num{18} ontologies parsed, none combines these
-capabilities, and the shortfall is not lexical: on one real record none of them
-can separate a non-detection from a measurement reporting the same number,
+no code change. Of the \num{21} ontologies parsed, none combines these
+capabilities and none carries a censoring status at all, and the shortfall is
+not lexical: on one real record \num{20} of them cannot separate a non-detection
+from a measurement reporting the same number,
 because the two readings translate to the same facts in each. CENSO makes them
 incompatible rather than merely differently labelled.
 
 The corrective for practice is cheap: record the quantification limit with every
-result, per analytical run. The corrective for representation is to stop
+result, per analytical method. The corrective for representation is to stop
 treating ``not detected'' as a number.
 % <<< end sections/07-conclusions.tex
 

@@ -8,6 +8,133 @@ part worth keeping. Newest first. Numbers quoted here are recomputed by
 
 ## Unreleased
 
+### FIXED — four unowned numbers, and each one made a different check lie
+
+`scripts/99_audit.py`, `paper/sections/05-results.tex`.
+
+The clean run failed with six errors. Four were the same defect, and this
+changelog had already named it: *"An unowned number does not merely go
+unchecked: it makes some other check lie, because the near-match detector
+attributes it to the nearest computed value."* It happened four more times, all
+of them to numbers this correction cycle introduced.
+
+| the check that failed | what it blamed | what was actually loose |
+|---|---|---|
+| `AL: no flag no limit %` (56.06) | "asserts 54" | §5.9's *"none of CHMO's **54** object properties"* |
+| `censored rows carrying a positive value %` (99.41) | "asserts 95" | the 99.4 itself — a real quantity the text never stated, so the detector took the Wilson **95** |
+| `decade 1e-2` (17.36) | "asserts 17.9" | §5.6's confidence bound **17.9**, recomputed by nothing |
+| `dual: exceeding -> compliant` (5041) | "asserts 4646" | §5.12's SHACL violation count **4,646**, traceable but recomputed by nothing |
+
+Every one is now owned rather than removed, except the CHMO property count,
+which came from a cached file and not from a pipeline artefact and is dropped
+from the prose:
+
+- **99.4 is asserted**, in §5.1 beside the 55.0 it was being confused with:
+  counted over censored rows alone rather than the whole record, where a row is
+  flagged at all it almost always carries a substituted number too.
+- **`check_reported_intervals()`** recomputes the two Wilson bounds of the
+  co-regulated divergence from the same counts, with the same formula the report
+  uses, rather than reading them back out of the report.
+- **`check_shacl_conformance()`** now puts its violation count through
+  `check_claim`, so 4,646 has an owner.
+- **`check_graph_matches_population()`** recomputes the materialised sample's
+  method-insufficient share, the 17.2 % that §5.4 pairs against the population's
+  17.5 % as evidence that expressing the record loses nothing. It was printed by
+  stage 23 and checked by nobody.
+
+The two that were not misattribution were real:
+
+- **The gap-table profile moved and the manuscript did not.** Pruning the
+  vocabulary removed `MassSpectrometryTransition`, `AnalyticalRun` and
+  `analysedSample`, all of which the profiler counts as sampling terminology, so
+  CENSO's sampling-to-sensing score fell from 6/0 to **3/0**. Restated.
+- **`91_ontology_figure.py` was never registered as a stage**, so the figure
+  went stale the moment the ontology changed. Registered after `90_figures.py`.
+  Rerunning it fired its own guard —
+
+      not an owl:Class: censo:CensoredAmbiguous
+      The figure is a claim about the vocabulary. Fix the spec in this
+      script, or the ontology, but do not draw it.
+
+  — which is exactly what it was built to do: the class had been retired and the
+  spec still drew it. 45 edges verified.
+
+**192 checks, 162 passed, 0 failed**, one warning: the two author-owned
+`\pending{}` markers (Zenodo DOI, tool disclosure) that belong to submission.
+
+### FIXED — the DL consistency check was reading 99.9 % stumps
+
+`scripts/99_audit.py::check_graph_is_consistent`.
+
+The check exists because its absence let a real defect ship: the axiom suite ran
+on fixtures, SHACL cannot see a `complementOf` restriction, and between the two
+no stage ever put the actual ABox in front of an OWL reasoner. It extracted
+observation blocks with
+
+    re.findall(r"wb:obs-\d+ a [^.]*\.", txt)
+
+— *anything but a dot, then a dot*. Every decimal value in an observation
+contains a dot, so **39,964 of the 40,000 blocks were cut at their first
+number**: after the detection status, and before the compliance outcome, the
+comparison property and the bounds. The check written to reason over the real
+graph was reasoning over stumps.
+
+It survived because a bare numeral made the truncation *valid*. The text ended
+`...resultLowerBound 0.`, and Turtle reads that as the integer 0 followed by a
+statement terminator, so the slice parsed, the closure ran, and the check
+passed. Typing the literals turned it into `..."0.` — an unterminated string —
+and the parser said so on the next run. **A silent wrong answer became a loud
+failure**, which is the only reason this is a changelog entry rather than still
+shipping.
+
+Blocks are read by line now. The slice covers 162 observations against 9/9
+outcome classes, and the `PossibleExceedance` ⊑ `IndeterminateCompliance`
+witness count went from **2 to 25** — the truncated blocks rarely reached the
+outcome type at all.
+
+### Added — §5.12, because a validation nothing cites is not evidence
+
+`paper/sections/05-results.tex`.
+
+`18_shacl_validate.py` runs the published shapes over the published graph for
+over an hour and returned `conforms: False` on every run, and was cited by
+nothing: not the manuscript, not the supplementary material, not the audit. The
+failure was real — 41,396 literals written as bare Turtle numerals against
+shapes requiring `xsd:decimal` — and is now fixed, so the section can report
+what the stage actually finds: one violation type, 4,646 observations citing no
+analytical method, which is the unresolvable population and a property of the
+record rather than of the pipeline.
+
+Reporting a non-conforming validation requires saying which failures are
+findings and which are defects, so the audit is given the list rather than a
+blanket "must conform" that would have pressured the pipeline into inventing
+the missing datum.
+
+### FIXED — two triple counts the manuscript quoted from a smaller graph
+
+`paper/sections/05-results.tex`. The ABox grew when
+`censo:conditionSatisfied` began to be asserted, so 465,744 → **501,062** and
+the competency-question load 471,582 → **507,708**. Caught by
+`95_numbers_manifest.py`, which is what it is for; 123 of 123 numeric claims now
+trace to a generated artefact.
+
+### FIXED — the ontology validator failed the one module doing what it asks
+
+`scripts/validate_ontology.py`, `scripts/20_align_external.py`.
+
+Adding `censo-alignment.ttl` put a sixth module in front of the validator and it
+stopped the chain at 5/6. Both findings were the validator's own:
+
+- the alignment header carried `owl:versionInfo` and no `owl:versionIRI`, which
+  the validator requires for FAIR F2/R1.1. Correct, and now emitted.
+- the logical-axiom census counted `equivalentClass`, `disjointWith`,
+  `inverseOf`, `FunctionalProperty`, `TransitiveProperty` and `Restriction` —
+  and not `owl:sameAs`. So it warned "no logical axioms at all — a reasoner will
+  report 'consistent' trivially" over a file whose entire logical content is 30
+  identity assertions. A warning that fires on the one module doing the thing it
+  asks about is a broken warning. `owl:sameAs` and `owl:equivalentProperty` are
+  in the census now.
+
 ### Added — the alignment the vocabulary has been claiming since v1.0.0
 
 `scripts/20_align_external.py` → `ontology/censo-alignment.ttl`,

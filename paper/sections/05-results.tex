@@ -299,7 +299,7 @@ selected by a rule the data does not determine
 
 \paragraph{The graph is a materialisation, not the analysis.}
 A reservoir sample of \num{40000} station-years is expressed as RDF
-(\num{465744} triples): a pure-Python triple store cannot hold four million
+(\num{501062} triples): a pure-Python triple store cannot hold four million
 rows, and inflating it would misreport what was reasoned over. \num{11.7}\% of
 its observations are \texttt{UnresolvedObservation}, a state no other surveyed
 vocabulary can express.
@@ -392,7 +392,9 @@ repair\src{scripts/26\_source\_conformance.py}, show that it is not.
 quantification and, in the same row, state a positive value for it.} A
 non-detection permits any concentration down to zero; a positive lower bound is
 a number someone chose, and the reporting authority chose it before
-publication.
+publication. Counted over the censored rows alone rather than over the whole
+record, the share is \num{99.4}\,\%: where a row is flagged at all, it almost
+always carries a substituted number as well.
 
 This changes who the finding is about. Where the flag survives, as in
 Waterbase, the substitution is visible and can be undone, which makes the
@@ -586,7 +588,7 @@ them to the \emph{method}, as a \texttt{figure of merit} of an assay:
 
 \noindent That is a better place than SSN-system's, which makes the limit a
 \texttt{SystemProperty} of a \emph{sensor}, and it is still not a place from
-which any particular result can be called censored. None of CHMO's \num{54}
+which any particular result can be called censored. None of CHMO's
 object properties relates a limit to a result; they are the \textsc{bfo}/\textsc{ro}
 relations (\texttt{has participant}, \texttt{is specified output of},
 \texttt{has characteristic}). The limit is known about the assay and forgotten
@@ -597,7 +599,7 @@ IUPAC Gold Book, and still nothing can say that \emph{this} number is a bound.
 
 Profiling for sampling versus sensing terminology separates the vocabularies
 cleanly: SAREF core scores \num{0}/\num{22} sampling to sensing terms, CENSO
-\num{6}/\num{0}. \textbf{The field is dominated by vocabularies built for
+\num{3}/\num{0}. \textbf{The field is dominated by vocabularies built for
 in-situ sensing}, in which a detection limit is properly a device property, and
 the few sampling-aware ones carry no limits at all.
 
@@ -686,7 +688,7 @@ once it is added: on the result, not on the device.
 \label{sec:results-cq}
 Twenty competency questions, each tied to an axiom, were executed over the
 Waterbase graph with the two vocabulary modules and both regulation packages,
-\num{471582} triples as
+\num{507708} triples as
 loaded\src{scripts/17\_run\_competency\_questions.py}. \textbf{All twenty
 return answers.} Full OWL~2~RL closure over a graph this size is impractical in
 pure Python, so only two entailments are materialised: union membership for the
@@ -700,6 +702,32 @@ is in \texttt{supplementary/S13\_reasoning\_cost.csv}. A deployment over a
 whole basin would use a store with native rule support, so those figures bound
 this pipeline and not the approach. Every other answer comes from asserted triples. They run on public
 data, and their SPARQL, rows and times are in the supplementary material.
+
+\subsection{The shipped graph is validated against the shipped shapes}
+\label{sec:results-shacl}
+The published shapes are run over the published graph --- \num{633960} triples
+with the vocabulary loaded --- rather than over a fixture\src{scripts/18\_shacl\_validate.py}.
+The shapes match \num{40000} assessed observations, \num{31167} censored ones,
+\num{1159} analytical methods and \num{537} thresholds, and the run reports
+\textbf{one violation type}: \num{4646} observations that cite no analytical
+method. That is the unresolvable population, and it is a property of the record
+rather than of the pipeline. A graph made to conform would have to invent the
+datum, which is the move these shapes were corrected for once already.
+
+Reporting a validation that does not conform requires saying which failures are
+findings and which are defects, so the audit is given the list: a violation of a
+declared source-data shape is recorded with its count, and any other violation
+type fails the build\src{scripts/99\_audit.py}. That distinction had to be made
+because until recently this stage ran for over an hour, returned
+\texttt{conforms: False}, and was cited by nothing --- not the manuscript, not
+the supplementary material, not the audit. The failure it was reporting was
+real: the graph's concentration literals were written as bare Turtle
+numerals against shapes requiring \texttt{xsd:decimal}, so
+\texttt{censo:resultLowerBound 0} carried \texttt{xsd:integer} and could never match the axiom
+\texttt{CensoredObservation} $\sqsubseteq$ \texttt{resultLowerBound} value
+\texttt{"0.0"\^{}\^{}xsd:decimal} that the vocabulary asserts over every censored
+row. No \textsc{owl} check could object, because \texttt{xsd:integer} is derived
+from \texttt{xsd:decimal} and satisfies the range.
 
 \subsection{The axioms catch real defects}
 Ten test cases run against the vocabulary\src{scripts/test\_axioms.py}. Eight

@@ -87,6 +87,10 @@ STAGES = [
     # are present. Not a test -- it is the adoption document.
     ("21_use_cases.py", "answer the seven use-case questions", False),
     ("90_figures.py", "draw every figure and ship its data", False),
+    # Reads the vocabulary directly and verifies every edge against it, so
+    # it must run after any change to the ontology -- which is exactly how
+    # it went stale the first time.
+    ("91_ontology_figure.py", "draw the vocabulary figure", False),
     # After BOTH 07, which writes the gap matrix it reads, and 90, which ships
     # the witness row it argues over. It turns the gap table from a term list
     # into an entailment claim, and exits 1 if a comparison vocabulary turns
