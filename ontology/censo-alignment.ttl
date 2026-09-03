@@ -30,6 +30,7 @@ scripts/20_align_external.py; a CAS number resolving to more than one ChEBI
 class yields no triple."""@en ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
     vann:preferredNamespacePrefix "censo" ;
+    owl:versionIRI <https://w3id.org/censo/alignment/1.0.0> ;
     owl:versionInfo "1.0.0" ;
     owl:imports <https://w3id.org/censo/> .
 

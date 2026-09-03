@@ -161,6 +161,13 @@ def validate(path: Path) -> bool:
         "owl:FunctionalProperty": len(list(g.subjects(RDF.type, OWL.FunctionalProperty))),
         "owl:TransitiveProperty": len(list(g.subjects(RDF.type, OWL.TransitiveProperty))),
         "owl:Restriction": len(list(g.subjects(RDF.type, OWL.Restriction))),
+        # An alignment module's logical content IS its identity assertions, and
+        # the census reported "no logical axioms at all" over a file whose whole
+        # point is 30 of them. A warning that fires on the one module doing the
+        # thing it asks about is a broken warning.
+        "owl:sameAs": len(list(g.triples((None, OWL.sameAs, None)))),
+        "owl:equivalentProperty": len(list(
+            g.triples((None, OWL.equivalentProperty, None)))),
     }
     present = {k: v for k, v in axioms.items() if v}
     rep.note("logical axioms: " + (", ".join(f"{k}={v}" for k, v in present.items())
