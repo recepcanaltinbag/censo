@@ -1,0 +1,41 @@
+scope,condition,shape,n,share_of_river_rows
+total,river_rows,,4190833,
+population,censored_with_positive_value,censo:CensoredObservationShape,2306365,55.034
+population,not_a_concentration_in_ug_l,,1103171,26.323
+population,silent,censo:ObservationShape / usedProcedure,1066797,25.455
+population,nonpositive_loq,censo:AnalyticalMethodShape,41350,0.987
+population,censored_without_loq,censo:ObservationShape / usedProcedure,66,0.002
+shacl_sample,Censored observation with a non-zero lower bound. A non-detect permits any value down to z,,14137,
+country,ES,censored_with_positive_value,1349859,99.7
+country,FR,censored_with_positive_value,364960,100.0
+country,CZ,censored_with_positive_value,303053,100.0
+country,IT,censored_with_positive_value,111353,99.9
+country,DE,censored_with_positive_value,80953,100.0
+country,BE,censored_with_positive_value,30026,80.7
+country,IE,censored_with_positive_value,10565,100.0
+country,SK,censored_with_positive_value,9919,100.0
+country,RO,censored_with_positive_value,7117,78.6
+country,NL,censored_with_positive_value,5998,99.4
+country,CY,censored_with_positive_value,4559,99.7
+country,PL,censored_with_positive_value,4325,97.9
+country,RS,censored_with_positive_value,4195,100.0
+country,HR,censored_with_positive_value,3304,100.0
+country,FI,censored_with_positive_value,3075,100.0
+country,AT,censored_with_positive_value,2253,100.0
+country,LT,censored_with_positive_value,1795,82.6
+country,SE,censored_with_positive_value,1279,91.6
+country,PT,censored_with_positive_value,1151,96.4
+country,LV,censored_with_positive_value,1179,100.0
+country,BG,censored_with_positive_value,1061,100.0
+country,EL,censored_with_positive_value,896,87.4
+country,NO,censored_with_positive_value,746,100.0
+country,XK,censored_with_positive_value,552,100.0
+country,EE,censored_with_positive_value,534,100.0
+country,LU,censored_with_positive_value,386,100.0
+country,BA,censored_with_positive_value,365,97.6
+country,AL,censored_with_positive_value,269,100.0
+country,MT,censored_with_positive_value,250,100.0
+country,CH,censored_with_positive_value,139,100.0
+country,DK,censored_with_positive_value,126,100.0
+country,IS,censored_with_positive_value,69,100.0
+country,MK,censored_with_positive_value,54,100.0

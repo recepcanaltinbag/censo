@@ -1,0 +1,14 @@
+# How much of the detection status was reconstructed rather than recorded at source?
+# Exercises: censo:censoringRecovered -- provenance of the inference
+
+PREFIX censo: <https://w3id.org/censo/>
+PREFIX cereg: <https://w3id.org/censo/reg/>
+PREFIX sosa:  <http://www.w3.org/ns/sosa/>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX skos:  <http://www.w3.org/2004/02/skos/core#>
+PREFIX geo:   <http://www.opengis.net/ont/geosparql#>
+
+SELECT (COUNT(?o) AS ?reconstructed) WHERE {
+  ?o censo:censoringRecovered true .
+}

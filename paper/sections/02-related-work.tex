@@ -1,0 +1,116 @@
+\section{Related work}
+
+\subsection{Censored environmental data}
+Concentrations reported below a reporting limit are \emph{left-censored}.
+Substituting a constant for them biases means, variances and trends by an
+amount that depends on the censoring rate
+\cite{helsel2006fabricating,helsel2012nondetects}, and Antweiler and Taylor
+show it directly by treating coincident uncensored data as ground
+truth~\cite{antweiler2008censored}. Robust alternatives -- regression on order
+statistics, maximum likelihood estimation, Kaplan--Meier -- exist and go unused
+in routine practice~\cite{shoari2018nondetects}. Our concern is upstream of all
+of them: censoring status is discarded before the analyst opens the table, and
+no estimator recovers what the schema could not hold.
+
+\subsection{Observation vocabularies}
+In SOSA/SSN \cite{janowicz2019sosa,haller2019ssn}, \texttt{sosa:Observation}
+carries \texttt{hasSimpleResult}, a point value;
+\texttt{ssn-system:DetectionLimit} is a property of a \emph{sensor}, never of an
+observation or its result, so nothing can state that a measurement fell below
+it. Trace organic monitoring is not the sensor case: the sample is analysed
+later, in a run whose calibration curve sets its own limits. SOSA's
+\texttt{Sampling}, \texttt{Sampler} and \texttt{Sample} do not link an analysis
+to a detection limit -- an absence Section~\ref{sec:results-gap} traces across
+the water-ontology literature to this inherited model.
+
+\paragraph{Why extend SOSA rather than something else.}
+The choice of base is itself a claim, so we state the reasoning. SOSA/SSN is a
+joint W3C Recommendation and OGC standard, which no alternative in this space
+matches, and it is what the monitoring vocabularies compared in
+Section~\ref{sec:results-gap} are built on --- so extending it is what makes the
+diagnosis actionable for them rather than an argument for a parallel stack. We
+add classes and properties and redefine no SOSA term. Three alternatives were
+considered. \emph{O\&M / OMS} (ISO~19156), of which SOSA is the lightweight
+\textsc{owl} rendering, does carry a \texttt{resultQuality} slot; but it is
+typed to accept any data-quality element, so it is somewhere to put a string
+rather than a modality a query can return, and the distinction between a bound
+and a measurement is exactly what an unconstrained slot fails to preserve.
+\emph{QUDT} and \emph{OM} model units and quantities, which CENSO reuses rather
+than replaces. A \textsc{bfo}-grounded design in the \textsc{obo} style would
+buy rigour at a cost that lands precisely on this subject matter: ``the record
+cannot decide'' is an epistemic state of a document, not an entity in the world,
+and representing absence and non-findings is a long-standing difficulty in that
+tradition. The commitment we make instead is narrower and checkable --- the
+vocabulary stays inside OWL~2~RL, and what the profile cannot express is stated
+and moved to SHACL rather than asserted and left unenforced.
+
+\subsection{Laboratory and analytical vocabularies}
+The concepts CENSO adds would most plausibly already exist not in a water
+ontology but in a laboratory one, so the comparison in
+Section~\ref{sec:results-gap} includes them. \textbf{CHMO, the \textsc{obo}
+Chemical Methods Ontology, does declare \texttt{limit of detection} and
+\texttt{limit of quantification}, both defined from the IUPAC Gold Book.} It
+binds them to the method, as a \texttt{figure of merit} of an assay, and has no
+property relating a limit to a result --- so, as with the sensor case, the limit
+is known about the procedure and forgotten about the measurement. AFO, built by
+a pharmaceutical consortium for analytical instrument data, contains no
+detection or quantification limit term at all; its \texttt{lower bound} and
+\texttt{upper bound} are \textsc{bfo} roles rather than values on a result. In
+STATO, where censoring is a routine concept in survival analysis, it appears
+only in prose. The gap is therefore not an artefact of having looked only at
+water: the vocabulary that defines the limit most carefully still cannot say
+that a given result fell below one.
+
+\subsection{Water domain ontologies}
+Water-quality vocabularies are plentiful~\cite{water_onto_review}: WaWO+ for
+river basins~\cite{olivafelipe2017wawoplus}, OPO~\cite{wang2020opo},
+InWaterSense~\cite{jajaga2015expert,ahmedi2013wqm},
+SAREF4WATR~\cite{etsi2025saref4watr}, the Water Health Open Knowledge Graph
+(WHOW)~\cite{whow2023onto,whokg2025}, query technologies over
+SSN~\cite{calbimonte2012ssw} and water-treatment
+interoperability~\cite{saka2026acquirium}.
+
+Treating a regulation as machine-readable rules rather than as numbers in a
+column is not new outside this domain: compliance checking over building codes
+has been built on the same idea~\cite{bouzidi2012compliance}. What that
+literature does not face is a measurement whose result is a bound, so the
+verdict it computes is always determinate.
+
+WHOW is the closest prior work and, unlike most, publishes at a dereferenceable
+IRI. Its \texttt{Range} class bounds an \texttt{ObservationValue}, reading
+\texttt{<10} as $[0,10]$. \textbf{WHOW therefore does represent a censored
+result as an interval}: this work extends it rather than filling a void. What it
+does not record is why the interval exists: it does not separate censoring from
+spread, does not tie the interval to its limit, and cannot pose an indeterminate
+compliance outcome. Section~\ref{sec:results-gap} compares \num{21} ontologies;
+none carries the epistemic status of the measurement, and
+Section~\ref{sec:results-separation} shows what follows --- on one real record,
+\num{20} of the \num{21} cannot tell a non-detection from a measurement
+reporting the same number.
+
+\paragraph{Analytical coverage already changes conclusions.}
+Moschet et al.~\cite{moschet2014screening} find that the pesticides a routine
+programme omits dominate the risk picture; Malaj et
+al.~\cite{malaj2014continental} read continental-scale risk to freshwater
+ecosystems from the Waterbase records of Section~\ref{sec:results-waterbase};
+Kase et al.~\cite{kase2018estrogens} report estrogen standards below what
+routine laboratories can quantify at all. They ask what better chemistry would
+reveal; we ask what the record establishes as it stands. The answer is often
+nothing, and no substitution rule repairs it. Ahkola et
+al.~\cite{ahkola2024uncertainty} treat uncertainty as a quantity to estimate and
+propagate; where the threshold falls inside $[0,\mathrm{LOD}]$ the measurement
+did not discriminate, so no distribution can be placed over the verdict -- a
+representational gap, not an estimation problem.
+
+\paragraph{A fourth reason the Directive misses risk.}
+Weisner et al.~\cite{weisner2022threereasons} give three reasons the Water
+Framework Directive fails to identify pesticide risk: an outdated analyte list,
+biased sampling sites, and thresholds outside the Directive going unconsidered.
+Each concerns \emph{which} substances are looked for and \emph{where}; ours
+applies to the listed substances at monitored sites, where the record often
+cannot decide the question it was collected to answer. Coquery et
+al.~\cite{coquery2005analytical} raised uncertain analytical capability when the
+priority substance list was first implemented; the Commission's Watch List
+review restates it~\cite{loos2024watchlist}. What is missing is a way to
+\emph{count} the consequence, which requires representing the failure rather
+than substituting past it.

@@ -1,0 +1,1611 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#"
+     xml:base="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:untitled-ontology-15="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Segmentation -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Segmentation"/>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#contain -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#contain">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ObservationPoint"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Pollutant"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#denominator -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#denominator">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#observation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#expose -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#expose"/>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#feature -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#feature"/>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#from -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#from">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Segmentation"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#RiverSegment"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Node"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#has -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#has"/>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#hasDate -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#hasDate">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Observation"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Date"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#hasUnit -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#hasUnit">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#observation"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Observation"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#UnitOfMeasure"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#isA -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#isA"/>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#isPartOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#isPartOf"/>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#locatedIn -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#locatedIn">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#makingIn -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#makingIn">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Observation"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ObservationPoint"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#measure -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#measure"/>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#measuredBy -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#measuredBy">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#observation"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Quantity"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#UnitOfMeasure"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#numerator -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#numerator">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#observation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#observation -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#observation"/>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#observe -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#observe">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#observation"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Observer"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Observation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#prefix -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#prefix">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#observation"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#UnitOfMeasure"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Prefix"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#to -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#to">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Segmentation"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#RiverSegment"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Node"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#within -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#within">
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Node"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ObservationPoint"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#RiverSegment"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ObservationValue -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ObservationValue">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Observation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#altitude -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#altitude">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Spatial"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#latitude -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#latitude">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Spatial"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#longitude -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#longitude">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Spatial"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#magnitude -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#magnitude"/>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#standardDeviation -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#standardDeviation">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Observation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#symbol -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#symbol">
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Quantity"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#UnitOfMeasure"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#treeLevel -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#treeLevel">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#RiverSegment"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Acceleration -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Acceleration">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Quantity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ActiveConc -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ActiveConc">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ChemicalFeatures"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Agricultural -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Agricultural">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#AreaSources"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#AlcoholIndustry -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#AlcoholIndustry">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Industry"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Altitude -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Altitude">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Length"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#AreaSources -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#AreaSources">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#PollutionSources"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Basin -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Basin">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Polygon"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#CAS -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#CAS">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ChemicalFeatures"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#CE -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#CE">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#MassSpectralLibrary"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#CES -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#CES">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#MassSpectralLibrary"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#CXP -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#CXP">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#MrmInformation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#CalibrationCurve -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#CalibrationCurve">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#PollutantFeature"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Catchment -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Catchment">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Polygon"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#feature"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#CatchmentFeature"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#has"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#RiverSegment"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#isPartOf"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Watershed"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#CatchmentArea -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#CatchmentArea">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#CatchmentFeature"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#CatchmentFeature -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#CatchmentFeature">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Feature"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ChemicalFeatures -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ChemicalFeatures">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#PollutantFeature"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ChemicalID -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ChemicalID">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ChemicalFeatures"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ChemicalIndustry -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ChemicalIndustry">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Industry"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ChemicalName -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ChemicalName">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ChemicalFeatures"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ChemicalStructure -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ChemicalStructure">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ChemicalFeatures"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#CommercialForm -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#CommercialForm">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ChemicalFeatures"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Compund -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Compund">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#UnitOfMeasure"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#CrossSection -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#CrossSection">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Length"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#DP -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#DP">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#MrmInformation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Date -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Date"/>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Device -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Device">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Observer"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Division -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Division">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Compund"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Domestic -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Domestic">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#PointSources"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#EP -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#EP">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#MrmInformation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#EPI -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#EPI">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#MassSpectralLibrary"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#EXP_Date -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#EXP_Date">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ChemicalFeatures"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Empirical -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Empirical">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Observation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ExactMass -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ExactMass">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ChemicalFeatures"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Feature -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Feature"/>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#FoodIndustry -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#FoodIndustry">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Industry"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#HeavyMetal -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#HeavyMetal">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Pollutant"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Industrial -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Industrial">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Pollutant"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Industry -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Industry"/>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#LOD -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#LOD">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#CalibrationCurve"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#LOQ -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#LOQ">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#CalibrationCurve"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#LeatherIndustry -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#LeatherIndustry">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Industry"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Length -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Length">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Quantity"/>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#measuredBy"/>
+                        <owl:hasValue rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#kilometre"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#measuredBy"/>
+                        <owl:hasValue rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#metre"/>
+                    </owl:Restriction>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Line -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Line">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Spatial"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#LogP -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#LogP">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ChemicalFeatures"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#LumberIndustry -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#LumberIndustry">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Industry"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#MRM_CE -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#MRM_CE">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#MrmInformation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Mass -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Mass">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Quantity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#MassSpectralLibrary -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#MassSpectralLibrary">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#PollutantFeature"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#MeasurementOfQuantities -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#MeasurementOfQuantities"/>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Metal -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Metal">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Pollutant"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#MetalIndustry -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#MetalIndustry">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Industry"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#MolecularFormula -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#MolecularFormula">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ChemicalFeatures"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#MrmInformation -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#MrmInformation">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#PollutantFeature"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Multiplication -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Multiplication">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Compund"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Node -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Node">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Point"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Observation -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Observation">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#measure"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Feature"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ObservationPoint -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ObservationPoint">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Point"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Observer -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Observer"/>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Organic -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Organic">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Pollutant"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#OrganizedIndustrial -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#OrganizedIndustrial">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#PointSources"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#feature"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Industry"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Organometalic -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Organometalic">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Pollutant"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Person -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Person">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Observer"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Point -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Point">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Spatial"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#PointSources -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#PointSources">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#PollutionSources"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Pollutant -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Pollutant">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#feature"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#PollutantFeature"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#PollutantFeature -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#PollutantFeature">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Feature"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#PollutionSources -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#PollutionSources">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#expose"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Pollutant"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Polygon -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Polygon">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Spatial"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Prefix -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Prefix">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#MeasurementOfQuantities"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Q1-Q3 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Q1-Q3">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#MrmInformation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Quantity -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Quantity">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#MeasurementOfQuantities"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#RT -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#RT">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#MrmInformation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#River -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#River">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Line"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#feature"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#RiverFeature"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#locatedIn"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Watershed"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#RiverFeature -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#RiverFeature">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Feature"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#RiverLength -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#RiverLength">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Length"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#RiverSegment -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#RiverSegment">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Line"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#feature"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#SegmentFeature"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#isPartOf"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#River"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#locatedIn"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Catchment"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#from"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Node"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#to"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Node"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#SegmentFeature -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#SegmentFeature">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Feature"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#SegmentLength -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#SegmentLength">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#SegmentFeature"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Singular -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Singular">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#UnitOfMeasure"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#SingularIndustrial -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#SingularIndustrial">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#PointSources"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#feature"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Industry"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Slope -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Slope">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#CalibrationCurve"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#SolidWasteStorage -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#SolidWasteStorage">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#AreaSources"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Solubility -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Solubility">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ChemicalFeatures"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Spatial -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Spatial"/>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Speed -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Speed">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Quantity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Temperature -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Temperature">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Quantity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#TextileIndustry -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#TextileIndustry">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Industry"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Theoritical -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Theoritical">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Observation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Time -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Time">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Quantity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Topographic -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Topographic">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#RiverFeature"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#UnitOfMeasure -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#UnitOfMeasure">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#MeasurementOfQuantities"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Watershed -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Watershed">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Polygon"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#has"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#River"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#isPartOf"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Basin"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Arsenic -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Arsenic">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#HeavyMetal"/>
+        <symbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string">As</symbol>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Barium -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Barium">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#HeavyMetal"/>
+        <symbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ba</symbol>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Beryllium -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Beryllium">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#HeavyMetal"/>
+        <symbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Be</symbol>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Catchment1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Catchment1">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Catchment"/>
+        <has rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Segment1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Catchment1Length -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Catchment1Length">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#CatchmentArea"/>
+        <magnitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">54000.0</magnitude>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Segment1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Segment1">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#RiverSegment"/>
+        <from rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#1"/>
+        <to rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Segment1Length -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Segment1Length">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#SegmentLength"/>
+        <magnitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">5.01</magnitude>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#atto -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#atto">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Prefix"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#centi -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#centi">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Prefix"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#deca -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#deca">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Prefix"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#deci -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#deci">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Prefix"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#exa -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#exa">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Prefix"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#femto -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#femto">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Prefix"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#flowspeed -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#flowspeed">
+        <hasUnit rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#metre_per_second"/>
+        <makingIn rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#point1"/>
+        <ObservationValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2.0</ObservationValue>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#giga -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#giga">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Prefix"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#gram -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#gram">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Singular"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#gram_per_mole -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#gram_per_mole">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Division"/>
+        <denominator rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#mole"/>
+        <numerator rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#gram"/>
+        <symbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string">g/mole</symbol>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#hecto -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#hecto">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Prefix"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#kilo -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#kilo">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Prefix"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#kilogram -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#kilogram">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Singular"/>
+        <prefix rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#kilo"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#kilometre -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#kilometre">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Singular"/>
+        <prefix rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#kilo"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#kilometre2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#kilometre2">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Multiplication"/>
+        <denominator rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#kilometre"/>
+        <numerator rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#kilometre"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#litre -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#litre">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Singular"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#mega -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#mega">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Prefix"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#metre -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#metre">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Singular"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#metre2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#metre2">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Multiplication"/>
+        <denominator rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#metre"/>
+        <numerator rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#metre"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#metre_per_second -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#metre_per_second">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Division"/>
+        <denominator rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#second"/>
+        <numerator rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#metre"/>
+        <symbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string">m·s-1</symbol>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#micro -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#micro">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Prefix"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#microgram -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#microgram">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Singular"/>
+        <prefix rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#micro"/>
+        <symbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string">μg</symbol>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#milli -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#milli">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Prefix"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#milligram -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#milligram">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Singular"/>
+        <prefix rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#milli"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#milligram_per_litre -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#milligram_per_litre">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Division"/>
+        <denominator rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#litre"/>
+        <numerator rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#milligram"/>
+        <symbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mg/L</symbol>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#millilitre -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#millilitre">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Singular"/>
+        <prefix rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#milli"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#mole -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#mole">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Singular"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#nano -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#nano">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Prefix"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#parts_per_million -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#parts_per_million">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Singular"/>
+        <symbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ppm</symbol>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#peta -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#peta">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Prefix"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#pico -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#pico">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Prefix"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#point1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#point1">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#ObservationPoint"/>
+        <within rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Segment1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#sea -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#sea">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Node"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#second -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#second">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Singular"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#tera -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#tera">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Prefix"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#year -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#year">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Singular"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#yocto -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#yocto">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Prefix"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#yotta -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#yotta">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Prefix"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#zepto -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#zepto">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Prefix"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#zetta -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#zetta">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Prefix"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#&apos;Ergene_River&apos; -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#&apos;Ergene_River&apos;">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#River"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#1">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Node"/>
+        <within rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#&apos;Ergene_River&apos;"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#2">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Node"/>
+        <within rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#&apos;Ergene_River&apos;"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#3 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#3">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Node"/>
+        <within rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#&apos;Ergene_River&apos;"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#4 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#4">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Node"/>
+        <within rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#&apos;Ergene_River&apos;"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#5 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#5">
+        <rdf:type rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#Node"/>
+        <within rdf:resource="http://www.semanticweb.org/recep/ontologies/2018/0/untitled-ontology-15#&apos;Ergene_River&apos;"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+

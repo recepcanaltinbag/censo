@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use CENSO or this pipeline, please cite the paper."
+title: "CENSO: an ontology for censored environmental measurements"
+abstract: >-
+  CENSO binds the quantification limit to the analytical run rather than to the
+  instrument, so a non-detection can be represented as the interval it actually
+  establishes, and compliance becomes four-valued rather than two-valued.
+  Ships with pluggable, versioned regulation packages for Türkiye and the EU.
+type: software
+license: CC-BY-4.0
+url: "https://w3id.org/censo/"
+version: "1.0.0"
+authors:
+  - family-names: "Altınbağ"
+    given-names: "Recep Can"
+    affiliation: "Boğaziçi University, Institute of Environmental Sciences"
+  - family-names: "Sandıkkaya"
+    given-names: "Mehmet Tahir"
+    affiliation: "Istanbul Technical University, Department of Computer Engineering"
+  - family-names: "Pekyavaş"
+    given-names: "Ulaş"
+    affiliation: "Boğaziçi University, Institute of Environmental Sciences"
+keywords:
+  - censored data
+  - limit of quantification
+  - environmental quality standards
+  - ontology
+  - open world assumption
+  - micropollutants

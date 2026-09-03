@@ -1,0 +1,223 @@
+% ============================================================================
+%  Elsevier submission front-end.
+%
+%  Same sections/ as main.tex -- only the class, the front matter and the
+%  Elsevier-mandated sections differ. Edit the section files, never this
+%  preamble's duplicate of them (there is none, by design).
+%
+%  TARGET JOURNALS (both Elsevier, both take elsarticle):
+%    1. Environmental Modelling & Software  -- primary. Requires the
+%       "Software availability" block below; it is not optional there.
+%    2. Ecological Informatics              -- fallback, same class.
+%
+%  BUILD:  latexmk -pdf main-elsevier.tex
+%  Overleaf: upload this file, sections/, tables/, figures/, refs.bib.
+% ============================================================================
+
+\documentclass[preprint,review,12pt,authoryear]{elsarticle}
+
+% utf8 is the default on current TeX Live and a no-op there, but an
+% Overleaf project pinned to an older compiler needs it, and the author
+% names contain Turkish characters.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{amsmath,amssymb}
+\usepackage{siunitx}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+
+% group-separator: the figures print 742,591 and the text must agree.
+% group-minimum-digits stays at 5 (the default) on purpose -- at 4 the years
+% written as \num{2015} would print as 2,015.
+\sisetup{detect-weight=true, per-mode=symbol,
+         group-separator={,}, group-minimum-digits=5}
+
+% Long camelCase identifiers set in \texttt{} cannot be hyphenated, so a
+% paragraph holding one (observedPropertyDeterminandCode, AssessedObservation)
+% overflowed the measure by nearly 30 mm -- text protruding into the margin.
+% \emergencystretch alone leaves three such boxes; hyphenat's htt option
+% clears all of them. It costs ~30 "Font shape ... undefined" notices in the
+% log, because Latin Modern has no bold small-caps typewriter for hyphenat to
+% ask after; pdflatex substitutes a valid shape and the printed page is
+% unaffected. A log notice is cheaper than a line in the margin.
+\emergencystretch=3em
+\usepackage[htt]{hyphenat}
+
+% Unresolved values. Deliberately loud; none may survive to submission.
+\newcommand{\pending}[1]{\textcolor{red}{\textbf{[TO COMPUTE: #1]}}}
+% Values that came from a script; the argument is the file that produced them.
+\newcommand{\src}[1]{\,\footnote{Produced by \texttt{#1}.}}
+
+% elsarticle provides NO `highlights` environment, and an undefined
+% environment inside frontmatter takes the whole frontmatter down with it --
+% which is why the abstract was not appearing at all. Elsevier wants highlights
+% as a separate upload; defining it here keeps the manuscript self-contained
+% and visible to the editor.
+\newenvironment{highlights}
+  {\section*{Highlights}\begin{itemize}\setlength{\itemsep}{0pt}}
+  {\end{itemize}}
+
+\journal{Environmental Modelling \& Software}
+
+\begin{document}
+
+\begin{frontmatter}
+
+% "detection limits" -> "reporting limits": WISE-6 has no detection-limit
+% field, both provisions at issue are written about the quantification limit,
+% and "reporting limit" is the umbrella term the censored-data literature this
+% paper builds on uses (Helsel; Section 2.1). The ontology models both limits,
+% so the old title was not false -- but it promised a quantity the data do not
+% carry, which is the first thing a referee checks.
+% Shortened after the colon, not before it. "compliance that cannot be
+% determined" was a five-word relative clause doing the work of one adjective,
+% and "undecidable" is the word the paper already uses for the quantity it
+% reports (43.8 % undecidable as reported), so the title now matches the
+% vocabulary of the results. Every element is kept: reporting limits (chosen
+% over "detection limits" for the reason below), the third outcome, and the
+% domain -- an EM&S reader needs "micropollutant monitoring" to place the work.
+% A shorter variant, if 115 characters is still too many, ends at
+% "...undecidable compliance in water monitoring" (107).
+\title{Not detected is not absent: an ontology for reporting limits
+and undecidable compliance in micropollutant monitoring}
+
+\author[bu]{Recep Can Altınbağ\corref{cor1}}
+\ead{recep.altinbag@bogazici.edu.tr}
+\author[itu]{Mehmet Tahir Sandıkkaya}
+\author[bu]{Ulaş Pekyavaş}
+\cortext[cor1]{Corresponding author.}
+\address[bu]{Institute of Environmental Sciences, Boğaziçi University,
+TR34342 Beşiktaş, Istanbul, Türkiye}
+\address[itu]{Department of Computer Engineering, Istanbul Technical
+University, TR34469 Sarıyer, Istanbul, Türkiye}
+
+\begin{abstract}
+\input{sections/00-abstract}
+\end{abstract}
+
+\begin{keyword}
+limit of quantification \sep censored data \sep environmental quality standards \sep
+micropollutants \sep compliance assessment \sep Water Framework Directive \sep
+ontology \sep open world assumption
+\end{keyword}
+
+\end{frontmatter}
+
+%% Elsevier highlights: 3--5 bullets, each at most 85 characters.
+\begin{highlights}
+% Every numeral here is inside \num{} so that scripts/99_audit.py sees it.
+% These bullets carried 47 %, 908 of 10,065 and 18.5 % long after the threshold
+% table was corrected, because plain digits are invisible to the claim checker
+% -- and the highlights are the first thing a reader of the article page sees.
+% "EU assessments" was the overclaim a referee reaches for first: these are OUR
+% assessments of a reported record against the standards in force in 2026, not
+% assessments the reporting authorities performed, and only 8 of the 37
+% reporters have a post-2015 river record (Section 5.2). "Under standards now in
+% force" carries the counterfactual; "assessable station-years" carries the
+% denominator. Six bullets also broke Elsevier's 3--5 rule; the precondition
+% bullet is parked below and can be swapped for any of these five.
+\item EU law mandates a third outcome that no surveyed vocabulary can express
+\item Under standards now in force, \num{40.1}\% of assessable station-years fail the LOQ test
+\item \num{25.5}\% of river station-years record neither a censoring flag nor a limit
+\item Substitution invents \num{112034} of the \num{171285} exceedances it reports
+\item Swapping the regulation package changes \num{17.7}\% of co-regulated verdicts
+% \item \num{18.8}\% of assessable station-years meet a standard's precondition nowhere
+\end{highlights}
+
+
+%% ---------------------------------------------------------------------------
+%% Software availability --- required by Environmental Modelling & Software.
+%% ---------------------------------------------------------------------------
+\section*{Software availability}
+\noindent
+\begin{tabular}{@{}p{0.28\linewidth}p{0.66\linewidth}@{}}
+\textbf{Name} & CENSO (ontology) and the accompanying analysis pipeline \\
+\textbf{Developer} & Recep Can Altınbağ, Boğaziçi University \\
+\textbf{Contact} & recep.altinbag@bogazici.edu.tr \\
+\textbf{Year first available} & 2026 \\
+\textbf{Hardware required} & Any; the full pipeline runs on a laptop \\
+\textbf{Software required} & Python 3.8 or later. No JVM and no external
+  reasoner: OWL~2~RL entailment via \texttt{owlrl}, closed-world validation via
+  \texttt{pyshacl}. Dependencies pinned in \texttt{requirements.txt} \\
+\textbf{Program language} & Python; ontology in OWL~2 (Turtle and RDF/XML);
+  constraints in SHACL; queries in SPARQL \\
+\textbf{Program size} & Ontology \textasciitilde{}60~kB across three modules
+  plus two regulation packages; pipeline \textasciitilde{}250~kB \\
+\textbf{Availability and cost} & Free and open. Ontology and regulation
+  packages under CC~BY~4.0 at \url{https://w3id.org/censo/}; code under MIT.
+  Archived at \pending{Zenodo DOI} \\
+\end{tabular}
+
+\vspace{1em}
+\noindent
+Every number reported in this paper is produced by a script and written to a
+file under \texttt{eval/}; none is typed by hand. \texttt{scripts/99\_audit.py}
+recomputes each claim from the source data rather than checking that the value
+appears somewhere, and fails if any claim cannot be reproduced.
+
+\input{sections/01-introduction}
+\input{sections/02-related-work}
+\input{sections/03-materials}
+\input{sections/04-methods}
+\input{sections/05-results}
+\input{sections/06-discussion}
+\input{sections/07-conclusions}
+
+\section*{Declaration of competing interest}
+The authors declare no competing financial interests or personal relationships
+that could have appeared to influence the work reported in this paper.
+
+\section*{CRediT authorship contribution statement}
+% DRAFT --- every role below must be confirmed by the named author before
+% submission. Misattributing a CRediT role is a research-integrity matter, not
+% a formatting one.
+\textbf{Recep Can Altınbağ:} Conceptualization, Methodology, Software,
+Formal analysis, Data curation, Validation, Visualization, Writing --- original
+draft. \textbf{Mehmet Tahir Sandıkkaya:} Methodology, Supervision,
+Writing --- review \& editing. \textbf{Ulaş Pekyavaş:} Investigation,
+Writing --- review \& editing.
+
+\section*{Declaration of generative AI and AI-assisted technologies
+in the writing process}
+% Elsevier requires this statement when a generative tool assisted the WRITING.
+% Fill in the tool and the purpose truthfully; the authors remain responsible
+% for every claim regardless of what assisted its drafting.
+During the preparation of this work the authors used
+\pending{tool and purpose}. After using this tool the authors reviewed and
+edited the content as needed and take full responsibility for the content of
+the publication.
+
+No figure in this article was generated or altered by a generative model. Every
+figure is drawn by \texttt{scripts/90\_figures.py} from the tabular data
+deposited with the article, the values behind each mark are shipped in
+\texttt{figure\_data/}, and any reader can regenerate the figures from the
+public source data without contacting the authors.
+
+\section*{Data availability}
+The ontology, both regulation packages, the processing pipeline, every SPARQL
+query and all evaluation outputs are openly available (see Software
+availability). The measurements are the EEA's Waterbase --- Water Quality ICM,
+aggregated release, downloadable at
+\url{https://www.eea.europa.eu/en/datahub/datahubitem-view/fbf3717c-cd7b-4785-933a-d0cf510542e1};
+no application or permission is required, so every number here can be
+re-derived independently. Three files from that item are used, and the scripts
+name them: \texttt{WISE6\_AggregatedData} for the annual means every
+headline number rests on, \texttt{WISE6\_SpatialObjects\_DerivedData} for the
+station coordinates in Figure~\ref{fig:europe-map}, and
+\texttt{WISE6\_DisaggregatedData} for the individual samples the
+maximum-allowable standard is defined against (Section~\ref{sec:results-mac}).
+The last is distributed in a Deflate64 archive that Python's \texttt{zipfile}
+cannot open; the pipeline falls back to \texttt{7z} or \texttt{bsdtar}, and
+skips that stage with a message rather than failing if the file is absent.
+
+\bibliographystyle{elsarticle-harv}
+\bibliography{refs}
+
+\end{document}

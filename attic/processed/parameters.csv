@@ -1,0 +1,259 @@
+parameter,unit,group,n_campaigns
+"1,2,3-Benzotriazole",ug/L,micropollutant,4
+"1,2,5,6,9,10-Hexabromocyclododecane",ug/L,micropollutant,4
+"1,3-Dinitropyrene",ug/L,micropollutant,4
+"1,6-Dinitropyrene",ug/L,micropollutant,4
+"1,8-Dinitropyrene",ug/L,micropollutant,4
+1-Hydroxyibuprofen,ug/L,micropollutant,4
+17-alpha-Estradiol,ug/L,micropollutant,4
+17-alpha-Ethinylestradiol,ug/L,micropollutant,4
+17-beta-Estradiol,ug/L,micropollutant,4
+"2,2',3,3',4,4',5,5',6,6'-Decabromodiphenyl ether",ug/L,micropollutant,4
+"2,2',3,3',4,4',5,5',6-Nonabromodiphenyl ether",ug/L,micropollutant,4
+"2,2',3,4,4',5',6-Heptabromodiphenyl ether",ug/L,micropollutant,4
+"2,2',3,4,4',5,5',6-Octabromodiphenyl ether",ug/L,micropollutant,4
+"2,2',4,4',5,5'-Hexabromodiphenyl ether",ug/L,micropollutant,4
+"2,2',4,4',5,6'-Hexabromodiphenyl ether",ug/L,micropollutant,4
+"2,2',4,4'-Tetrabromodiphenyl ether",ug/L,micropollutant,4
+"2,3,3',4,4',5,5',6-Octabromodiphenyl ether",ug/L,micropollutant,4
+"2,4,4'-tribromodiphenylether",ug/L,micropollutant,4
+"2,4,6-Tribromophenol",ug/L,micropollutant,4
+"2,4-Dibromophenol",ug/L,micropollutant,4
+"2,4-Dihydroxybenzophenone",ug/L,micropollutant,4
+"2,4-Dinitrophenol",ug/L,micropollutant,4
+2-(2-Naphthalenyl)benzothiophene,ug/L,micropollutant,4
+2-Hydroxyibuprofen,ug/L,micropollutant,4
+2-Mercapto-benzothiazole,ug/L,micropollutant,4
+2-Methylanthraquinone,ug/L,micropollutant,4
+3-Chloroaniline,ug/L,micropollutant,4
+3-Nitrobenzanthrone,ug/L,micropollutant,4
+"4,4'-Dichlorobenzophenone",ug/L,micropollutant,4
+4-Aminomethyl-benzenesulfonamide,ug/L,micropollutant,4
+4-Chloroaniline,ug/L,micropollutant,4
+4-Methyl-1H-benzotriazole,ug/L,micropollutant,4
+4-Methylbenzylidenecamphor,ug/L,micropollutant,4
+4-Nonylphenoxy acetic acid,ug/L,micropollutant,4
+4-tert-Octylphenol diethoxylate,ug/L,micropollutant,4
+4-tert-Octylphenol monoethoxylate,ug/L,micropollutant,4
+"5,6-Dimethyl-1H-benzotriazole",ug/L,micropollutant,4
+5-Methyl-1H-benzotriazole (5-Tolytriazole),ug/L,micropollutant,4
+7H-Benzo(de)anthracen-7-one (Benzanthrone),ug/L,micropollutant,4
+8-Hydroxyquinoline,ug/L,micropollutant,4
+ADBI (Celestolide),ug/L,micropollutant,4
+AHDI (Phantolide),ug/L,micropollutant,4
+ATII (Traseolide),ug/L,micropollutant,4
+Acetaminophen (Paracetamol),ug/L,micropollutant,4
+Acetamiprid,ug/L,micropollutant,4
+Acetochlor,ug/L,micropollutant,4
+Aclonifen,ug/L,micropollutant,4
+Ag,ug/L,metal,4
+Al,ug/L,metal,4
+Alachlor,ug/L,micropollutant,4
+Amoxicillin,ug/L,micropollutant,4
+Anthracene,ug/L,micropollutant,4
+As,ug/L,metal,4
+Atrazine,ug/L,micropollutant,4
+Atrazine-desethyl,ug/L,micropollutant,4
+Azinphos-methyl,ug/L,micropollutant,4
+Azithromycin,ug/L,micropollutant,4
+Azoxystrobin,ug/L,micropollutant,4
+B,ug/L,metal,4
+Ba,ug/L,metal,4
+Bayrepel,ug/L,micropollutant,4
+Be,ug/L,metal,4
+"Benzaldehyde, (phenylmethylene)hydrazone",ug/L,micropollutant,4
+Benzenesulfonamide,ug/L,micropollutant,4
+Benzo[a]anthracene,ug/L,micropollutant,4
+Benzo[a]pyrene,ug/L,micropollutant,4
+Benzo[b]fluoranthene,ug/L,micropollutant,4
+Benzo[ghi]perylene,ug/L,micropollutant,4
+Benzo[k]fluoranthene,ug/L,micropollutant,4
+Benzothiazole,ug/L,micropollutant,4
+Benzylamine,ug/L,micropollutant,4
+Benzyldimethyldodecylammonium,ug/L,micropollutant,4
+Benzyldimethylhexadecylammonium,ug/L,micropollutant,4
+Benzyldimethyltetradecylammonium,ug/L,micropollutant,4
+Benzyltrimethylammonium,ug/L,micropollutant,4
+Bifenox,ug/L,micropollutant,4
+Bisphenol-A,ug/L,micropollutant,4
+Boisvelone / Iso-Esuper,ug/L,micropollutant,4
+Boscalid,ug/L,micropollutant,4
+Br,mg/L,conventional,4
+Buprofezin,ug/L,micropollutant,4
+Butylmethoxydibenzoylmethane,ug/L,micropollutant,4
+Cadusafos,ug/L,micropollutant,4
+Carbazole,ug/L,micropollutant,4
+Carbendazim,ug/L,micropollutant,4
+Carbofuran,ug/L,micropollutant,4
+Cd,ug/L,metal,4
+Chloramphenicol,ug/L,micropollutant,4
+Chlorfenvinphos,ug/L,micropollutant,4
+Chloridazon,ug/L,micropollutant,4
+Chlorpyrifos,ug/L,micropollutant,4
+Chlorsulfuron,ug/L,micropollutant,4
+Ciprofloxacin,ug/L,micropollutant,4
+Cl,mg/L,conventional,4
+Clarithromycin,ug/L,micropollutant,4
+Clofentezine,ug/L,micropollutant,4
+Clothianidin,ug/L,micropollutant,4
+Co,ug/L,metal,4
+Cr,ug/L,metal,4
+Cu,ug/L,metal,4
+Cybutryne,ug/L,micropollutant,4
+Cyclopentadecanolide,ug/L,micropollutant,4
+Cypermethrin,ug/L,micropollutant,4
+Cyprodinil,ug/L,micropollutant,4
+Cyromazine,ug/L,micropollutant,4
+Damascone,ug/L,micropollutant,4
+Di(2- ethylhexyl)phthalate (DEHP),ug/L,micropollutant,4
+Diazinon,ug/L,micropollutant,4
+Dichlorvos,ug/L,micropollutant,4
+Dicloxacillin,ug/L,micropollutant,4
+Dicyclohexylamine,ug/L,micropollutant,4
+Difenoconazole,ug/L,micropollutant,4
+Dimethoate,ug/L,micropollutant,4
+Dimethomorph,ug/L,micropollutant,4
+Diphenylamine,ug/L,micropollutant,4
+Diuron,ug/L,micropollutant,4
+Dodecyl sulfate,ug/L,micropollutant,4
+Doxycycline,ug/L,micropollutant,4
+Drometrizole,ug/L,micropollutant,4
+EC50-15 min,df,toxicity,4
+EC50-5 min,df,toxicity,4
+Ekoton,m3/sn,flow,4
+Epoxiconazole,ug/L,micropollutant,4
+Erythromycin,ug/L,micropollutant,4
+Ethofumesate,ug/L,micropollutant,4
+Ethoprophos,ug/L,micropollutant,4
+Ethyl paraben,ug/L,micropollutant,4
+Ethylhexylmethoxycinnamate,ug/L,micropollutant,4
+F,mg/L,conventional,3
+Fenamiphos,ug/L,micropollutant,4
+Fenarimol,ug/L,micropollutant,4
+Fenpropimorph,ug/L,micropollutant,4
+Fenthion,ug/L,micropollutant,4
+Fl,mg/L,conventional,1
+Fluopyram,ug/L,micropollutant,4
+Fluoranthene,ug/L,micropollutant,4
+Fluquinconazole,ug/L,micropollutant,4
+Flutolanil,ug/L,micropollutant,4
+Flutriafol,ug/L,micropollutant,4
+Fosthiazate,ug/L,micropollutant,4
+Galaxolide,ug/L,micropollutant,4
+Hexa(methoxymethyl)melamine,ug/L,micropollutant,4
+Hexachlorobenzene,ug/L,micropollutant,4
+Hexaconazole,ug/L,micropollutant,4
+Hexylcinnamaldehyde,ug/L,micropollutant,4
+Hexythiazox,ug/L,micropollutant,4
+Hg,ug/L,metal,4
+Homosalate,ug/L,micropollutant,4
+Imazalil,ug/L,micropollutant,4
+Imazamox,ug/L,micropollutant,4
+Imidacloprid,ug/L,micropollutant,4
+"Indeno[1,2,3-cd]pyrene",ug/L,micropollutant,4
+Isobutyl paraben,ug/L,micropollutant,4
+Isoproturon,ug/L,micropollutant,4
+KOI,mg KOİ/L,conventional,4
+Lenacil,ug/L,micropollutant,4
+Linuron,ug/L,micropollutant,4
+Malathion,ug/L,micropollutant,4
+Mandipropamid,ug/L,micropollutant,4
+Mepiquat chloride,ug/L,micropollutant,4
+Mesotrione,ug/L,micropollutant,4
+Metalaxyl,ug/L,micropollutant,4
+Methamidophos,ug/L,micropollutant,4
+Methidathion,ug/L,micropollutant,4
+Methomyl,ug/L,micropollutant,4
+Methoxyfenozide,ug/L,micropollutant,4
+Methyl -iso-propylcyclohexenone,ug/L,micropollutant,4
+Methyl paraben,ug/L,micropollutant,4
+Methyldihydrojasmonate,ug/L,micropollutant,4
+Methylsalicylate,ug/L,micropollutant,4
+Metolachlor,ug/L,micropollutant,4
+Metrafenone,ug/L,micropollutant,4
+Microcystin-LR,ug/L,micropollutant,4
+Microcystin-RR,ug/L,micropollutant,4
+Microcystin‐YR,ug/L,micropollutant,4
+Molinate,ug/L,micropollutant,4
+Monocrotophos,ug/L,micropollutant,4
+Musk ambrette,ug/L,micropollutant,4
+Musk ketone,ug/L,micropollutant,4
+Musk xylene,ug/L,micropollutant,4
+Myclobutanil,ug/L,micropollutant,4
+"N,N-Diethyl-m-toluamide",ug/L,micropollutant,4
+N-Benzyldimethylamine,ug/L,micropollutant,4
+N-Benzylmethylamine,ug/L,micropollutant,4
+N-Ethyl-2-tolysulfonamide,ug/L,micropollutant,4
+N-methyl aniline,ug/L,micropollutant,4
+N-phenyl-2-napthylamine,ug/L,micropollutant,4
+NH3-N,mg N/L,conventional,4
+NO2,mg/L,conventional,4
+NO3,mg/L,conventional,4
+Ni,ug/L,metal,4
+Nonylphenol diethoxylate,ug/L,micropollutant,4
+Norfloxacin,ug/L,micropollutant,4
+Ofloxacin,ug/L,micropollutant,4
+Omethoate,ug/L,micropollutant,4
+Oxadiazon,ug/L,micropollutant,4
+Oxadixyl,ug/L,micropollutant,4
+Oxybenzone,ug/L,micropollutant,4
+PO4,mg/L,conventional,4
+Pb,ug/L,metal,4
+Penconazole,ug/L,micropollutant,4
+Pendimethalin,ug/L,micropollutant,4
+Pentachlorobenzene,ug/L,micropollutant,4
+Pinoxaden,ug/L,micropollutant,4
+Piperonylbutoxide,ug/L,micropollutant,4
+Pirimicarb,ug/L,micropollutant,4
+Polychlorinated biphenyls,ug/L,micropollutant,4
+Prochloraz,ug/L,micropollutant,4
+Prometryn,ug/L,micropollutant,4
+Propazine,ug/L,micropollutant,4
+Propetamphos,ug/L,micropollutant,4
+Propiconazole,ug/L,micropollutant,4
+Propyl paraben,ug/L,micropollutant,4
+Prothioconazole,ug/L,micropollutant,4
+Pyraclostrobin,ug/L,micropollutant,4
+Pyridaben,ug/L,micropollutant,4
+Pyrimethanil,ug/L,micropollutant,4
+Pyriproxyfen,ug/L,micropollutant,4
+Quinalphos,ug/L,micropollutant,4
+Quinoxyfen,ug/L,micropollutant,4
+Renk,ADMI,conventional,4
+SO4,mg/L,conventional,4
+Sb,ug/L,metal,4
+Simazine,ug/L,micropollutant,4
+Sn,ug/L,metal,4
+Spiroxamine,ug/L,micropollutant,4
+Sulfamethoxazole,ug/L,micropollutant,4
+Sıcaklık,oC,conventional,4
+TOK,mg C/L,conventional,4
+Tebuconazole,ug/L,micropollutant,4
+Terbuthylazine,ug/L,micropollutant,4
+Terbutryn,ug/L,micropollutant,4
+Tetraacetylethylenediamine,ug/L,micropollutant,4
+Tetrabromobisphenol A,ug/L,micropollutant,4
+Tetracycline,ug/L,micropollutant,4
+Thiacloprid,ug/L,micropollutant,4
+Thiophanate-methyl,ug/L,micropollutant,4
+Thioridazine,ug/L,micropollutant,4
+Ti,ug/L,metal,4
+Tolfenpyrad,ug/L,micropollutant,4
+Tonalide,ug/L,micropollutant,4
+Triasulfuron,ug/L,micropollutant,4
+Triazophos,ug/L,micropollutant,4
+Triclosan,ug/L,micropollutant,4
+Trifloxystrobin,ug/L,micropollutant,4
+Trifluralin,ug/L,micropollutant,4
+Trimethoprim,ug/L,micropollutant,4
+Triphenylphosphineoxide,ug/L,micropollutant,4
+Triphenyltin,ug/L,micropollutant,4
+Tris(1-chloro-2-propanyl) phosphate,ug/L,micropollutant,4
+Tris(2-butoxyethyl) phosphate,ug/L,micropollutant,4
+V,ug/L,metal,4
+Vancomycin,ug/L,micropollutant,4
+Yabatas,m3/sn,flow,4
+Zn,ug/L,metal,4
+alpha-Terpineol,ug/L,micropollutant,4
+g-Methylionone,ug/L,micropollutant,4
+pH,,conventional,4

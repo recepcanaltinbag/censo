@@ -1,0 +1,53 @@
+substance,pct_failing_30pct_criterion,assessments_made,ci95_low_pct,ci95_high_pct,plotted
+Trichloroethylene,1.119,21172,0.986,1.270,no
+Tetrachloroethylene,1.949,22016,1.774,2.140,no
+Isoproturon,3.573,24882,3.349,3.811,no
+"1,2-dichloroethane",3.957,23151,3.713,4.215,no
+Anthracene,5.993,22677,5.691,6.309,no
+Benzene,6.334,23351,6.028,6.653,no
+Quinoxyfen,6.374,12064,5.952,6.824,no
+Ibuprofen,6.566,1584,5.448,7.894,no
+Erythromycin,7.205,1374,5.954,8.695,no
+Naphthalene,8.381,22514,8.027,8.751,no
+Aclonifen,11.313,12711,10.774,11.875,no
+Pentachlorophenol,14.725,15233,14.171,15.296,no
+Dichloromethane,17.365,21912,16.869,17.872,no
+Hexachlorocyclohexane,18.223,4895,17.166,19.329,no
+"DDT, p,p'",18.832,24803,18.351,19.324,no
+Trichloromethane,28.429,22438,27.843,29.023,no
+Ethanimidamide,32.223,3181,30.621,33.867,no
+Trifluralin,35.127,26037,34.549,35.709,no
+Bifenox,35.709,11129,34.823,36.604,no
+Terbutryn,35.984,15393,35.229,36.746,no
+Thiamethoxam,36.554,3540,34.983,38.154,no
+Endosulfan,36.973,4341,35.549,38.420,no
+Pentachlorobenzene,37.029,16730,36.301,37.764,no
+Clarithromycin,39.147,1617,36.796,41.549,no
+Dicofol,43.343,12738,42.484,44.205,no
+Lead and its compounds,45.457,44675,44.996,45.919,no
+Nickel and its compounds,46.738,42738,46.266,47.212,no
+Cadmium and its compounds,47.823,43655,47.354,48.291,no
+Diuron,48.097,25218,47.480,48.714,no
+Diclofenac,55.404,2859,53.576,57.218,no
+Di(2-ethylhexyl)phthalate (DEHP),56.063,8403,55.000,57.121,no
+Chloroalkanes C10-13,57.875,6559,56.675,59.065,no
+Glyphosate,67.806,11496,66.946,68.654,no
+Tributyltin-cation,71.491,4602,70.169,72.777,no
+Fluoranthene,85.440,23605,84.984,85.884,no
+Triclosan,87.324,1278,85.387,89.037,no
+Hexachlorobutadiene,87.673,18375,87.190,88.141,no
+Permethrin-cis+trans,90.604,2895,89.487,91.614,no
+Dichlorvos,92.232,15397,91.799,92.645,yes
+Cybutryne,92.238,11015,91.723,92.723,yes
+Chlorpyrifos,92.346,25960,92.016,92.663,yes
+Nicosulfuron,96.397,1360,95.269,97.264,yes
+Bisphenol A,97.712,2316,97.019,98.246,yes
+Silver,98.037,3872,97.550,98.429,yes
+Imidacloprid,98.332,5396,97.954,98.641,yes
+Thiacloprid,98.385,5820,98.028,98.678,yes
+Azitromycin,98.435,1214,97.568,98.996,yes
+Clothianidin,99.966,2963,99.809,99.994,yes
+Cypermethrin,99.972,7104,99.897,99.992,yes
+Deltamethrin,100.000,1125,99.660,100.000,yes
+Bifenthrin,100.000,1100,99.652,100.000,yes
+Esfenvalerate,100.000,1098,99.651,100.000,yes

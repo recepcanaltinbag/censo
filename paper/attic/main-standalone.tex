@@ -1,0 +1,1201 @@
+% ============================================================================
+%  GENERATED FILE — do not edit.
+%
+%  Produced by scripts/96_flatten_paper.py from main.tex and sections/*.tex.
+%  This is main.tex with every \input inlined, so the whole manuscript can be
+%  read or compiled as a single document (e.g. pasted into Overleaf).
+%
+%  To change the text, edit the section file named in the marker comment above
+%  the passage, then re-run:
+%
+%      python scripts/96_flatten_paper.py
+%
+%  Editing this file directly will be overwritten.
+% ============================================================================
+
+% ============================================================================
+%  When compliance cannot be determined
+%  Draft v0.1 --- 2026-08-03
+%
+%  BUILD:  latexmk -pdf main.tex
+%
+%  RULE FOR THIS MANUSCRIPT
+%  ------------------------
+%  Every number in the text is produced by a script in ../scripts/ and appears
+%  in ../eval/. Nothing is typed from memory. Values still to be computed are
+%  marked \pending{...} and MUST NOT survive to submission; \pending renders in
+%  red so they cannot be missed.
+%
+%  Provenance of each figure is given in its caption.
+% ============================================================================
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{amsmath,amssymb}
+\usepackage{siunitx}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{authblk}
+\usepackage{lineno}
+
+\sisetup{detect-weight=true, per-mode=symbol}
+
+% Unresolved values. Deliberately loud.
+\newcommand{\pending}[1]{\textcolor{red}{\textbf{[TO COMPUTE: #1]}}}
+% Values that came from a script; the argument is the file that produced them.
+\newcommand{\src}[1]{\,\footnote{Produced by \texttt{#1}.}}
+
+% ---------------------------------------------------------------------------
+% TITLE --- settled. "Not detected is not absent" states the thesis in four words
+% and is legible to a chemist and a computer scientist on first reading.
+% "Micropollutant" is the concrete, searchable term; "compliance" was dropped as
+% bureaucratic and narrow.
+% ---------------------------------------------------------------------------
+\title{\textbf{Not detected is not absent:\\
+an ontology for detection limits and compliance\\
+that cannot be determined in micropollutant monitoring}}
+
+\author[1]{Recep Can Altınbağ}
+\author[2]{Mehmet Tahir Sandıkkaya}
+\author[1]{Ulaş Pekyavaş}
+\affil[1]{Institute of Environmental Sciences, Bo\u{g}azi\c{c}i University,
+TR34342 Be\c{s}ikta\c{s}, Istanbul, T\"urkiye}
+\affil[2]{Department of Computer Engineering, Istanbul Technical University,
+TR34469 Sar{\i}yer, Istanbul, T\"urkiye}
+
+\date{Draft --- \today}
+
+\begin{document}
+\maketitle
+\linenumbers
+
+\begin{abstract}
+% >>> begin sections/00-abstract.tex
+A large share of micropollutant measurements are \emph{non-detections}: the
+analyte was sought and not found. Such a result establishes an upper bound, not
+a value, yet records store it as a number, or without the limit that bounds it.
+European law already requires the distinction --- Article~3(3b) of Directive
+2008/105/EC excludes a below-quantification result from status assessment where
+that limit exceeds the standard --- but a two-valued model cannot express it, so
+compliance with the provision cannot be audited from the record as kept.
+
+Auditing the European Environment Agency's Waterbase (\num{4190833} river
+station-years, \num{637} substances, \num{37} countries) shows
+\num{44.9}\% of samples below the quantification limit, \num{25.5}\% of
+station-years recording neither a censoring flag nor a limit, and
+\num{46.6}\% of assessments made with a method failing the legal performance
+criterion of Directive 2009/90/EC. The cost is not only hidden failure. Over
+\num{40000} assessments, substituting a number for a non-detection yields
+between \num{3382} and \num{12042} exceedances depending only on whether the
+substitution is at zero, half the limit or the limit, while just \num{908} rest
+on a quantified measurement: the enforcement-relevant count moves by a factor of
+\num{3.6} with a rule the data does not fix.
+
+We present CENSO, an OWL~2 ontology on SOSA/SSN whose single commitment is that
+\emph{the quantification limit belongs to the analytical run, not the
+instrument}. A non-detection is then typed as the interval it establishes, and
+compliance becomes four-valued, adding \emph{possibly exceeding} and
+\emph{cannot be determined}. Regulations are pluggable packages: applying two
+jurisdictions to the same observations changes \num{18.5}\% of the outcomes both
+regulate, with no code change. Ontology, packages, pipeline and per-figure
+data are released openly.
+% <<< end sections/00-abstract.tex
+\end{abstract}
+
+\noindent\textbf{Keywords:} censored data; limit of detection; environmental
+quality standards; ontology; open world assumption; micropollutants;
+compliance assessment; river basin monitoring
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\textwidth]{fig01_graphical_abstract.pdf}
+\caption{Graphical abstract. Five heterogeneous inputs are expressed in one
+knowledge graph, from which reach-level verdicts are derived. The fourth
+verdict, \emph{cannot be determined}, is the one no conventional pipeline
+can return.
+Generated by \texttt{scripts/90\_figures.py}.}
+\label{fig:abstract}
+\end{figure}
+
+% >>> begin sections/01-introduction.tex
+\section{Introduction}
+
+Trace organic contaminants -- pharmaceuticals, pesticides, biocides, UV filters,
+benzotriazoles, flame retardants -- are ubiquitous in surface waters. Two
+decades after Schwarzenbach et al.~\cite{schwarzenbach2006challenge} set out the
+challenge they pose, the scale of the problem is established rather than
+suspected: a survey of \num{1052} sites on \num{258} rivers across \num{104}
+countries found pharmaceutical contamination on every continent, exceeding
+safe concentrations at a quarter of them~\cite{wilkinson2022pharma}, and an
+EU-wide screening detected polar organic pollutants in essentially every river
+sampled~\cite{loos2009eu}. The effects are not confined to chemistry. Pesticide
+concentrations at levels European regulation treats as acceptable are
+associated with losses of regional stream invertebrate
+biodiversity~\cite{beketov2013biodiversity}, and the substances that reach
+surface waters continue to outpace the frameworks built to manage
+them~\cite{geissen2015emerging}.
+
+These substances are regulated in the European Union through environmental
+quality standards (EQS) under the Water Framework Directive~\cite{eu2000wfd}, transposed in
+T\"urkiye as \emph{\c{C}evresel Kalite Standartlar{\i}} (\c{C}KS). Compliance is
+assessed by comparing measured concentrations against those standards -- and
+that comparison is where this paper begins, because it is less well defined
+than it appears.
+
+Most such measurements are non-detections. The analyte is sought and not found,
+which establishes an \emph{upper bound} on its concentration and nothing more.
+Crucially, it does not establish absence: the substance may be present below the
+limit of detection (LOD) of the method. The statement is open-world.
+
+Reporting practice replaces that statement with a number, usually zero or half
+the limit of quantification (LOQ). Helsel showed two decades ago that
+substitution fabricates data and distorts every derived statistic
+\cite{helsel2006fabricating}, and the point is not contested. It is nonetheless
+still standard, and this paper begins from the observation that the reason is
+structural rather than merely habitual: \textbf{the data models in use cannot
+hold the statement}. A relational table operates under the closed-world
+assumption, in which an absent assertion is false; a column of concentrations
+has no cell for ``present or absent, below \num{0.02}\,\si{\micro\gram\per\litre}''.
+Substituting a zero is therefore not a rounding convention but a type error,
+and what it destroys is the modality of the measurement, not its magnitude.
+
+The consequence is not confined to statistics. Regulatory assessment implicitly
+requires three verdicts -- compliant, exceeding, and \emph{cannot be determined}
+-- while the systems that produce it can express only the first two. The third
+case is not hypothetical. Where the LOQ of a method lies above the EQS of the
+substance it measures, a laboratory can correctly report ``not detected'' for a
+sample that may exceed the legal limit by two orders of magnitude, and a
+closed-world pipeline will record the result as compliance.
+
+This paper makes that cost measurable at the scale the law operates on. We
+analyse the European Environment Agency's Waterbase, the compilation of
+surface-water monitoring that Member States report under the
+Directive~\cite{eea_waterbase}: \num{4190833} river station-years over
+\num{637} substances and \num{37} reporting countries, representing
+\num{32993382} samples. Waterbase records, for each station, substance and year,
+both a below-quantification flag and the limit that was in force --- the two
+fields whose absence is the subject of this paper --- so where they are missing,
+that absence is itself the measurement.
+
+Our contributions are:
+
+\begin{enumerate}
+  \item \textbf{An implementability gap in the law.} Article~3(3b) of the
+    consolidated Directive requires that a below-quantification result whose
+    limit exceeds the standard ``shall not be considered'' for status
+    assessment, and Article~4(1) of Directive 2009/90/EC requires that limit to
+    sit at or below \num{30}\,\% of the standard. Both mandate an outcome that a
+    two-valued data model cannot represent, so neither can be audited from the
+    data as recorded.
+  \item \textbf{A pan-European audit.} We quantify how much of the reported
+    record cannot support the conclusions ordinarily drawn from it: the share of
+    samples below the quantification limit, the share of station-years carrying
+    neither a censoring flag nor a limit, and the share assessed with a method
+    that fails the legal performance criterion.
+  \item \textbf{An explanation.} We show that the gap in existing vocabularies
+    follows from a measurement model: SOSA/SSN and its descendants were designed
+    for in-situ \emph{sensing}, in which a detection limit is a property of the
+    device. Trace organic monitoring is \emph{sampling followed by laboratory
+    analysis}, in which the limit belongs to the analytical run. The field
+    inherited the first model and did not adapt it.
+  \item \textbf{An instrument.} We present CENSO, an ontology that binds the
+    limit to the analytical run, records why a result is an interval, treats a
+    threshold as a conditional judgement with preconditions, and admits an
+    outcome for a verdict that cannot be determined. Its axioms are tested
+    against defects drawn from the
+    data, and it is exercised on the public record rather than on a private
+    survey.
+  \item \textbf{A comparison.} We assess \num{18} published ontologies by
+    parsing each one, rather than by reading its documentation, and report the
+    method and its corrections so the table can be re-derived.
+\end{enumerate}
+
+The ontology is the instrument, not the result. Without a vocabulary that
+separates \emph{compliant} from \emph{cannot be determined}, none of the
+quantities reported here can be counted at all.
+% <<< end sections/01-introduction.tex
+% >>> begin sections/02-related-work.tex
+\section{Related work}
+
+\subsection{Censored environmental data}
+The statistical treatment of left-censored measurements is long settled.
+Substituting a constant for a non-detect biases means, variances and trends, and
+the size of the bias depends on the censoring rate, which varies between
+analytes and campaigns \cite{helsel2006fabricating,helsel2012nondetects}.
+Robust alternatives -- regression on order statistics, maximum likelihood,
+survival methods -- are available and unused in routine practice. Our concern is
+upstream of the statistics: by the time an analyst opens the table, the
+censoring status has usually already been discarded, and no method can recover
+what the schema could not hold.
+
+\subsection{Observation vocabularies}
+SOSA/SSN is the W3C/OGC standard for sensors and observations
+\cite{janowicz2019sosa,haller2019ssn}. \texttt{sosa:Observation} carries
+\texttt{hasSimpleResult}, a point value. The SSN Systems module does define
+\texttt{ssn-system:DetectionLimit}, but as a subclass of
+\texttt{ssn-system:SystemProperty}: it describes what a \emph{sensor} can do.
+It is never attached to an observation or its result, so nothing in the standard
+can state that a particular measurement fell below it.
+
+That is coherent for the modality SOSA was designed for. A sensor observes in
+situ and continuously, and its detection limit really is a fixed property of the
+device. Trace organic monitoring is a different modality: a physical sample is
+taken at an instant, transported, and analysed later by, for example, LC--MS/MS,
+in a run with its own calibration curve and hence its own limits for that
+analyte and matrix. SOSA supplies \texttt{Sampling}, \texttt{Sampler} and
+\texttt{Sample}, but nothing links the analysis of a sample to a detection
+limit. We argue in Section~\ref{sec:results-gap} that the absence throughout the
+water-ontology literature follows from this inherited model.
+
+\subsection{Water domain ontologies}
+Several ontologies address water quality: WaWO+ for reasoning about river basins
+\cite{olivafelipe2017wawoplus}, the observational process ontology OPO
+\cite{wang2020opo}, the InWaterSense expert system
+\cite{jajaga2015expert,ahmedi2013wqm}, SAREF4WATR for water-domain IoT
+\cite{etsi2025saref4watr}, and the Water Health Open Knowledge Graph
+\cite{whow2023onto}. Query technologies over SSN have also been developed
+\cite{calbimonte2012ssw}.
+
+WHOW is the closest prior work and, unlike most, publishes its ontology at a
+dereferenceable IRI. It defines a \texttt{Range} class with \texttt{lowerBound}
+and \texttt{upperBound} attached to \texttt{ObservationValue}, and its own
+documentation gives the example of a copper concentration reported as
+\texttt{<10}, meaning $[0,10]$. \textbf{WHOW therefore does represent a censored
+result as an interval}, and this work extends it rather than filling a void.
+What WHOW does not record is why the interval exists: nothing distinguishes
+censoring from measurement spread, nothing ties the interval to the limit that
+produced it, and the ontology has no compliance vocabulary, so an
+indeterminate
+outcome cannot be posed.
+
+Section~\ref{sec:results-gap} reports a systematic comparison of \num{18}
+ontologies, each parsed from its published file.
+
+\paragraph{Analytical coverage already changes conclusions.}
+That the reach of a method decides what a survey can conclude is established.
+Moschet et al.~\cite{moschet2014screening} screened Swiss streams for
+\num{249} pesticides and found that the substances a routine programme omits
+dominate the risk picture: broadening the analytical window changed the quality
+assessment outright. Malaj et al.~\cite{malaj2014continental} used the same
+Waterbase records analysed in Section~\ref{sec:results-waterbase} to show that
+organic chemicals threaten freshwater ecosystems at continental scale. Kase et
+al.~\cite{kase2018estrogens} state the problem in its sharpest form for
+steroidal estrogens: for several the required standard lies below what routine
+laboratories can quantify at all, so compliance monitoring must either improve
+the method or accept that it cannot answer the question.
+
+Our contribution is adjacent rather than competing. Those studies ask what
+better chemistry would reveal; we ask what the record, as it stands, is capable
+of establishing -- and show that the answer is often nothing, in a way no
+substitution rule repairs. Ahkola et al.~\cite{ahkola2024uncertainty} survey
+uncertainty in micropollutant modelling and treat it as a quantity to be
+estimated and propagated. The states we identify are not uncertain in that
+sense: where the threshold falls inside $[0,\mathrm{LOD}]$ there is no
+distribution to place over the verdict, because the measurement did not
+discriminate between the outcomes. That is a representational gap, not an
+estimation problem.
+
+\paragraph{Semantic infrastructure for water.}
+Systematic review of the domain's vocabularies~\cite{water_onto_review} finds
+no shortage of them; the Water Health Open Knowledge Graph~\cite{whokg2025} and
+recent interoperability work in water treatment~\cite{saka2026acquirium} show
+the direction of travel. What none of them carries is the epistemic status of
+the measurement itself, which is the gap Section~\ref{sec:results-gap}
+quantifies by parsing the files.
+
+\paragraph{A fourth reason the Directive misses risk.}
+Weisner et al.~\cite{weisner2022threereasons} give three reasons the Water
+Framework Directive fails to identify pesticide risk: the list of analytes
+monitored is outdated and inconsistent, the choice of sampling sites is biased,
+and relevant thresholds outside the Directive go unconsidered. Each concerns
+\emph{which} substances are looked for and \emph{where}. We report a fourth,
+which applies to the substances that are on the list and the sites that are
+monitored: even there, the record frequently cannot decide the question it was
+collected to answer. That the analytical capability required by the Directive
+was uncertain from the outset is not a new observation --
+Coquery et al.~\cite{coquery2005analytical} raised it when the priority
+substance list was first being implemented, and the Commission's own review of
+Watch List methods restates it for the current
+substances~\cite{loos2024watchlist}. What has been missing is a way to
+\emph{count} the consequence, which requires representing the failure rather
+than substituting past it.
+% <<< end sections/02-related-work.tex
+% >>> begin sections/03-materials.tex
+\section{Data and regulatory sources}
+\label{sec:materials}
+
+\subsection{EEA Waterbase}
+The measurements are the European Environment Agency's Waterbase --- Water
+Quality ICM, aggregated release, which compiles the surface-water monitoring
+that Member States report under the Water Framework
+Directive~\cite{eea_waterbase,eu2000wfd}. One row is one station, substance and
+year, carrying the annual mean, the number of samples behind it, a flag for
+whether that mean fell below the limit of quantification, and
+\texttt{procedureLOQValue}, the limit in force. Those last two fields are what
+make this the right dataset to test on: they are exactly the information whose
+absence this paper is about, so where they are missing that is itself the
+observation.
+
+River water only is retained. An inland-surface-water standard does not apply to
+lakes, transitional or coastal waters, and comparing across them would be a
+category error rather than a finding. That leaves \num{4190833} station-years
+over \num{637} substances and \num{37} reporting countries, representing
+\num{32993382} underlying samples. Station names and coordinates come from the
+companion \texttt{SpatialObjects} release.
+
+The aggregated release is used rather than the disaggregated one for a reason of
+kind, not of size. An annual-average environmental quality standard is defined
+against an annual mean, which is precisely what one aggregated row holds.
+Counting individual samples against such a standard would compare two quantities
+the regulation never intended to be compared.
+
+\subsection{Regulatory thresholds}
+Every threshold is transcribed from its primary text, never from a secondary
+compilation.
+
+\paragraph{Environmental quality standards.}
+Annex~I of Directive 2008/105/EC in the consolidated version in force on 10 May
+2026~\cite{eu2008eqs,eu2013priority}, which incorporates the 2026 update adding
+PFAS, pharmaceuticals, bisphenols and pesticide metabolites. Parsing it is not
+mechanical: the table wraps one logical row over many physical lines, entries
+carry several CAS numbers, and scientific-notation values are rendered with
+spaces inside the mantissa, so that ``$6 \times 10^{-4}$'' tokenises as four
+separate numbers\src{scripts/10\_parse\_eu\_eqs.py}. Group standards --- which
+apply to a sum rather than to any single substance --- are flagged and excluded
+from per-substance comparison; applying the total-pesticide limit to each of the
+\num{75} substances it names would compare one substance against a limit written
+for their aggregate.
+
+\paragraph{Analytical performance.}
+Directive 2009/90/EC sets what a method must achieve before its results may be
+used at all~\cite{eu2009qaqc}. Article~4(1) requires ``a limit of quantification
+equal or below a value of \num{30}\,\% of the relevant environmental quality
+standards''. That is a stricter test than asking whether the limit exceeds the
+standard outright, and Section~\ref{sec:results-waterbase} reports both.
+
+\paragraph{A second package, for swappability.}
+Table~4 of the Turkish \emph{Yer\"ust\"u Su Kalitesi Y\"onetmeli\u{g}i} as
+amended in \num{2016}~\cite{tr2012ysky} is transcribed by the same
+route\src{scripts/08\_verify\_thresholds.py} and released alongside. It is not
+analysed here. It exists so that the claim in
+Section~\ref{sec:methods-packages} --- that a regulation is a module which can
+be swapped --- rests on two jurisdictions actually being loadable rather than on
+an assurance that they would be.
+
+\subsection{What is joined to what}
+Substances are matched to thresholds by CAS registry number, which Waterbase
+carries in \texttt{observedPropertyDeterminandCode}. Name matching was not used:
+chemical names diverge between a directive, a national register and a
+laboratory's reporting sheet, and a missed join would silently understate every
+count that follows. Concentrations arrive in one column as
+\si{\milli\gram\per\litre}, \si{\micro\gram\per\litre} and
+\si{\nano\gram\per\litre}; each is converted before any comparison, since
+treating them as interchangeable would be wrong by three orders of magnitude in
+either direction.
+% <<< end sections/03-materials.tex
+% >>> begin sections/04-methods.tex
+\section{Methods}
+\label{sec:methods}
+
+\subsection{CENSO: binding the limit to the result}
+CENSO\footnote{\url{https://w3id.org/censo/}, CC~BY~4.0.} extends
+SOSA/SSN~\cite{janowicz2019sosa,haller2019ssn} for observations produced by a
+method that has a detection limit. It reuses PROV-O~\cite{w3c2013provo} for the
+analytical run and the provenance of a transcribed threshold,
+SKOS~\cite{w3c2009skos} for substance concepts and QUDT for units; substances
+are aligned to ChEBI~\cite{degtyarenko2008chebi} where an identifier exists
+(\num{180} of \num{240}). It was developed following the
+LOT~\cite{poveda2022lot} methodology, a lighter-weight successor to NeOn~\cite{suarez2012neon}, whose competency-question-first sequence
+is what produced the evaluation in Section~\ref{sec:results-cq}, and it is
+published to be findable and reusable in the sense
+of~\cite{wilkinson2016fair}. Four commitments
+distinguish it from the vocabularies surveyed in
+Section~\ref{sec:results-gap}.
+
+\paragraph{The limit belongs to the analytical run.}
+\texttt{censo:AnalyticalMethod} is a \texttt{sosa:Procedure} carrying
+\texttt{limitOfDetection}, \texttt{limitOfQuantification} and a unit;
+\texttt{censo:AnalyticalRun} reifies one execution of it, with its own
+calibration curve and therefore its own limits, and
+\texttt{censo:MassSpectrometryTransition} records the precursor and product
+ions and retention time that identify the measurement channel. An observation
+links to the run that produced it, so the limits in force for that measurement
+are recoverable. This is the level at which analytical provenance exists in
+practice and it is absent from every ontology we surveyed.
+
+\paragraph{Detection status is explicit and exhaustive.}
+\texttt{CensoredObservation}, \texttt{EstimatedObservation},
+\texttt{QuantifiedObservation} and \texttt{UnresolvedObservation} are pairwise
+disjoint and cover \texttt{AssessedObservation}. The absence of an observation
+individual is a fifth, distinct situation -- never measured -- and is
+deliberately not modelled as a class: under the open-world assumption, not
+asserting an observation is the correct way to say it was not made. This is the
+distinction a \texttt{WHERE concentration = 0} query cannot draw, and
+conflating it manufactures findings.
+
+\paragraph{A threshold is a conditional judgement.}
+\texttt{censo:Threshold} carries a value, a unit, a citation to the regulation,
+and \texttt{requiresCondition} links to \texttt{ApplicabilityCondition}
+subclasses: matrix, analytical fraction, bioavailability basis, hardness class.
+Where a precondition is unmet the outcome is \texttt{PreconditionUnmet}, a
+subclass of \texttt{IndeterminateCompliance} -- not a default pass.
+
+\paragraph{Compliance is four-valued, per observation and threshold.}
+\texttt{Exceedance}, \texttt{PossibleExceedance}, \texttt{Compliant} and
+\texttt{IndeterminateCompliance} are mutually exclusive and jointly exhaustive
+\emph{for a given observation--threshold pair}. The qualification is not
+pedantry and it is the reason no class-level disjointness axiom is asserted: one
+measurement compared against two jurisdictions' standards may legitimately be
+compliant under one and indeterminate under the other, and
+Section~\ref{sec:results-dual} depends on the graph being able to hold both at
+once. Exclusivity is therefore carried by an \texttt{owl:AllDisjointProperties}
+axiom over \texttt{exceeds}, \texttt{possiblyExceeds} and
+\texttt{belowThreshold}, which forbids two verdicts about the same pair while
+permitting different verdicts about different thresholds. Exhaustiveness is a
+closed-world statement and is materialised in SHACL, not asserted in OWL, for
+the reason given below.
+
+The first three are defined classes over materialised comparison properties;
+the fourth has four documented causes: no threshold exists, the method's LOQ
+exceeds the threshold, a precondition is unmet, or the observation is censored
+and the threshold lies inside $[0, \mathrm{LOD}]$.
+
+Figure~\ref{fig:geometry} is the whole argument in one picture. A censored
+result is not a point on the concentration axis but the interval
+$[0,\mathrm{LOD}]$, and a threshold is a line that either clears that interval
+or falls inside it. Where it clears (a), the non-detection \emph{does} decide
+the question, and the ontology returns \texttt{Compliant} -- censoring is not
+an excuse for refusing every verdict. Where it falls inside (b), no verdict
+exists to be found: the measurement is consistent with both compliance and
+exceedance, and any substitution rule merely picks one. Where the method's
+quantification limit lies above the threshold (d), no result the method could
+have returned would have decided it, so the defect is analytical rather than
+representational and no reprocessing repairs it. A two-valued model must assign
+(b) and (d) to \texttt{Compliant}, which is why the loss is invisible in
+current practice.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\textwidth]{fig06_decision_geometry.pdf}
+\caption{Why two verdicts are not enough. A non-detection is the interval
+$[0,\mathrm{LOD}]$ (shaded), not a value; the threshold $T$ is a line. Panels
+(a) and (c) are decidable and a conventional pipeline gets them right. Panels
+(b) and (d) are not, and a conventional pipeline silently records them as
+compliant. The distinction is a property of where $T$ falls relative to the
+method's limits, so it is available to a reasoner but invisible to a numeric
+column. Generated by \texttt{scripts/90\_figures.py}.}
+\label{fig:geometry}
+\end{figure}
+
+\subsection{Regulations as pluggable, versioned packages}
+\label{sec:methods-packages}
+Thresholds expire. \texttt{cereg:RegulationPackage} makes each regulation a
+self-contained module contributing only individuals, with jurisdiction, dates,
+a citation and a dereferenceable source document, plus a machine-readable
+\texttt{transcriptionStatus} so that unverified values can be excluded from
+analysis rather than trusted. Group thresholds (\texttt{cereg:GroupThreshold})
+carry an aggregation function and a \texttt{requiresCompleteGroup} flag, so a
+sum over a substance group that the survey did not fully measure yields
+\texttt{NotCoveredBySurvey} rather than an optimistic partial sum.
+
+Two packages are released with the ontology\src{scripts/19\_build\_regulation\_packages.py}:
+\texttt{tr-ysky-2016} (\num{217} analytes, \num{434} thresholds) and
+\texttt{eu-2008-105-2026} (\num{62} analytes, \num{114} thresholds), both
+transcribed from the primary legal texts and carrying
+\texttt{VerifiedAgainstPrimarySource}. Each imports the vocabulary and
+contributes \emph{individuals only} -- no class, no property -- which is what
+makes one safe to load in place of, or alongside, another; the validator checks
+this rather than assuming it. Because thresholds from different packages carry
+different IRIs and different \texttt{definedBy} links, the Turkish and European
+assessments of the same observations coexist in one graph instead of
+overwriting each other.
+
+\subsection{Is this not simply what detection limits are for?}
+\label{sec:methods-noise}
+The objection to answer first is that limits of detection exist precisely to
+separate signal from noise, so a laboratory reporting ``not detected'' is doing
+exactly the right thing and there is nothing here to fix. The analytical
+practice is indeed correct, and nothing in this paper disputes it. But two
+statements are being conflated:
+
+\begin{itemize}
+  \item \emph{the measurement cannot resolve a value} -- true below the limit,
+    and the reason a number must not be reported; and
+  \item \emph{the concentration is zero} -- not established by the measurement
+    at all.
+\end{itemize}
+
+The laboratory asserts the first. The database records the second. What is lost
+is not a value -- there was none to keep -- but the \emph{bound}: a
+non-detection establishes $c \in [0,\mathrm{LOD}]$, which is a genuine
+constraint, and \num{0.0} is not a weaker version of it but a different claim.
+
+Whether that loss matters is decided by something the analyst never saw. If
+$\mathrm{LOD} < T$ the non-detection settles the question and the verdict is
+\emph{compliant}; noise filtering has cost nothing. If $\mathrm{LOD} > T$ the
+same record settles nothing, because a concentration just below the limit may
+lie well above the standard. The method was chosen on analytical grounds, and
+the threshold arrives afterwards from a legal instrument; their relative
+position is therefore accidental, and it is what determines whether ``not
+detected'' is informative.
+
+The regulation itself makes exactly this distinction, which is the strongest
+evidence that the third outcome is not our invention. Article~3(3b) of the
+consolidated Directive 2008/105/EC provides that where a result is reported as
+less than the limit of quantification and \emph{that limit is above the EQS},
+``the result for the substance being measured shall not be considered for the
+purposes of assessing the overall chemical status of that water
+body''~\cite{eu2008eqs,eu2009qaqc}. That is neither \emph{compliant} nor
+\emph{exceeding}: the law requires a third outcome and requires it to be
+identifiable. A two-valued schema cannot represent it, so the requirement
+cannot be honoured, audited, or even counted.
+Section~\ref{sec:results-waterbase} reports how often it arises.
+
+\subsection{Could a column have done this?}
+\label{sec:methods-why}
+The objection must be met directly, because it is correct as far as it goes: a
+relational table with a \texttt{censored} flag and an \texttt{lod} column
+yields every number in Section~\ref{sec:results-waterbase}. Our own analysis scripts
+are plain Python over CSV. We therefore do not claim that the quantities
+reported here are otherwise uncomputable.
+
+What the flag does not give is the following, and these are the grounds on which
+the ontology earns its place.
+
+\begin{enumerate}
+  \item \textbf{Several regulations over one set of observations.} The Turkish
+    and European assessments of these measurements differ substantially
+    (Section~\ref{sec:results-waterbase}).
+    With regulations as packages this is a re-query; with a threshold column it
+    is a re-implementation, and the two results cannot be held simultaneously.
+  \item \textbf{Preconditions belong to the threshold, not the measurement.}
+    Hardness class, bioavailability covariates and analytical fraction condition
+    whether a standard may be applied at all. A flag on the observation cannot
+    express a condition on the standard.
+  \item \textbf{Justification.} A defined class yields a derivation for each
+    verdict, which is what a regulator can be shown. A boolean yields a value.
+  \item \textbf{Transfer.} The pattern is domain-independent; a column in one
+    team's spreadsheet is not.
+\end{enumerate}
+
+Of these, this paper demonstrates (1) and (2) on real data and (3) on the axiom
+suite. Claim (4) is design intent, evidenced only by the vocabulary's
+independence from the water domain, and we mark it as such.
+
+\subsection{What OWL does, and what it does not}
+Stated plainly because the distinction is often blurred. OWL supplies identity,
+taxonomy, disjointness, classification and explanation. It cannot compare two
+data values, so \texttt{exceeds}, \texttt{possiblyExceeds} and
+\texttt{belowThreshold} are \emph{materialised} by the rule layer and then
+classified by the ontology. And because the open-world assumption that makes
+CENSO right for censoring also prevents ``none of the above'' being inferred,
+\texttt{IndeterminateCompliance} is materialised under a locally closed world
+using SHACL. We do not claim that a description-logic reasoner computes
+compliance.
+
+\subsection{Reproducibility}
+Every number in this paper is produced by a script and written to a file under
+\texttt{eval/}; none is typed by hand. The pipeline is deterministic, uses only
+paths relative to the repository root, and runs in pure Python -- OWL~2~RL
+entailment via \texttt{owlrl} and closed-world validation via
+\texttt{pyshacl} -- so no JVM or external reasoner is required. External API
+responses (PubChem, CrossRef) and every comparison ontology are cached in the
+repository, so results can be re-derived offline after those services change.
+The ontology was scanned with OOPS!~\cite{poveda2014oops}, and FOOPS!\
+\cite{garijo2021foops} is the FAIR assessment we report as not yet run rather
+than assert. A generated manifest, \texttt{eval/numbers\_manifest.md}, maps
+every numeric
+claim in this paper to the artefact and script that produced it, and fails if any
+claim cannot be traced\src{scripts/95\_numbers\_manifest.py}.
+% <<< end sections/04-methods.tex
+% >>> begin sections/05-results.tex
+\section{Results}
+
+\subsection{How often the record cannot support its own verdict}
+\label{sec:results-waterbase}
+A representational claim is only worth as much as the evidence that the problem
+it addresses is real and widespread, and evidence drawn from one laboratory's
+reporting habits would be a finding about that laboratory. The EEA's Waterbase
+records, for each station, substance and year, a below-quantification flag and
+the limit of quantification in force -- the two fields whose absence is our
+finding -- so the failures can be counted across an entire
+continent\src{scripts/22\_waterbase\_external.py}. We retain river water only, since
+an inland-surface-water standard does not apply to lakes or coastal waters, join
+substances to the verified European thresholds by CAS number, and convert every
+concentration to \si{\micro\gram\per\litre} before comparison. This leaves
+\num{4190833} station-years over \num{637} substances and \num{37} reporting
+countries, representing \num{32993382} underlying samples.
+
+\paragraph{Censoring is the normal case, not an edge case.}
+\textbf{\num{44.9}\% of all \num{32993382} samples lie below the limit of
+quantification}, and \num{60.4}\% of station-years contain at least one such
+sample. Censoring is not an edge case to be handled once the real analysis is
+done; it is the ordinary condition of trace monitoring, and any treatment of it
+propagates into most of the record. Where the record keeps its bound is not
+randomly distributed: Figure~\ref{fig:europe-map} maps every station in the
+graph, and the pattern follows national borders rather than river basins.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.86\textwidth]{fig02_europe_map.pdf}
+\caption{The \num{7652} monitoring stations in the graph that carry
+coordinates, coloured by the share of their reporting authority's station-years
+that record no quantification limit. The pattern follows national borders
+rather than river basins, which is what places the defect in reporting practice
+rather than in chemistry or hydrology. Generated by
+\texttt{scripts/90\_figures.py}.}
+\label{fig:europe-map}
+\end{figure}
+
+\paragraph{The bound is missing for a quarter of the record.}
+Where a reporter declares censoring, the limit is almost always recorded: only
+\num{61034} of \num{3118074} declared station-years lack it. The failure is
+elsewhere. \textbf{\num{1066797} station-years (\num{25.5}\%) declare nothing at
+all} -- no flag and no limit -- so a zero and a measured trace are
+indistinguishable, and no substitution rule can even be chosen because there is
+nothing to substitute from. These are
+\texttt{UnresolvedObservation} at continental scale. The EEA's own quality
+control identifies the same defect independently, marking \num{330973} rows
+\texttt{QC\_LOQ\_UNKNOWN}.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.86\textwidth]{fig03_country_practice.pdf}
+\caption{Each point is a reporting country with at least \num{5000}
+station-years; area is proportional to that count. The relationship runs the
+wrong way for a chemical explanation: authorities recording least (right) are
+found in breach least (bottom), because a limit that was never reported cannot
+be tested against the standard. The measured failure rate is therefore a lower
+bound. Generated by \texttt{scripts/90\_figures.py}.}
+\label{fig:country-practice}
+\end{figure}
+
+\paragraph{Half of European monitoring fails the legal performance criterion.}
+Article~4(1) of Directive 2009/90/EC sets the standard a method must meet before
+its results may be used: ``a limit of quantification equal or below a value of
+\num{30}\,\% of the relevant environmental quality
+standards''~\cite{eu2009qaqc}. Measured against that criterion rather than
+against the standard itself, \textbf{\num{46.6}\% of station-years assessed
+against a European standard were produced by a method that does not satisfy
+it}. This is not a defect of the result but of the monitoring: the requirement
+applies to the method, before any sample is taken.
+
+\paragraph{Article~3(3b) is routinely unenforceable.}
+Of the station-years for which a European standard exists, \textbf{\num{23.6}\%
+report a quantification limit above that standard}: \num{178963} assessments
+that the Directive requires to be set aside and that a two-valued pipeline
+records as compliant. For four pyrethroid insecticides the figure is
+\num{100}\% -- bifenthrin, deltamethrin, esfenvalerate and cypermethrin have
+\emph{never}, in this record, been measured by a method capable of deciding
+their own standard. Chlorpyrifos reaches \num{91.9}\% over \num{25960}
+station-years, and imidacloprid \num{75.8}\% --- an entire, newly regulated
+insecticide class that European monitoring, as reported, cannot assess against
+its own standard. Figure~\ref{fig:loqeqs} ranks the substances for which this
+holds most often.
+
+These are not the failures of one laboratory or one programme. They are
+distributed across \num{37} reporting authorities working to a common
+directive, which is what makes them a property of how the measurement is
+recorded rather than of who took it.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.86\textwidth]{fig04_loq_vs_eqs.pdf}
+\caption{Substances for which European monitoring, as reported, cannot decide
+the standard that applies to them: the share of station-years whose
+quantification limit exceeds \num{30}\,\% of the environmental quality
+standard, for substances with at least \num{1000} assessable station-years.
+Generated by \texttt{scripts/90\_figures.py}.}
+\label{fig:loqeqs}
+\end{figure}
+
+\subsection{The ontology applied to open data}
+\label{sec:results-wbabox}
+A vocabulary can be made to fit the dataset it was designed around; that proves
+little. The test is whether its distinctions survive contact with a schema
+written by someone else. Expressing a Waterbase subset in
+CENSO\src{scripts/23\_waterbase\_abox.py} is that test: every class here is
+assigned from EEA columns, and because the source is public the graph can be
+rebuilt by any reader.
+
+Of the \num{759257} river station-years whose substance carries a European
+standard, a reservoir sample of \num{40000} was expressed in CENSO
+(\num{59} analytes, \num{8695} stations, \num{441265} triples). Sampling rather
+than inflating the graph to four million rows is deliberate: what is reasoned
+over should be what is reported. The detection states partition cleanly --
+\num{77.9}\% \texttt{CensoredObservation}, \num{10.0}\%
+\texttt{QuantifiedObservation}, \num{12.2}\% \texttt{UnresolvedObservation} --
+with the last of these the state no other surveyed vocabulary can express.
+
+The compliance outcomes are the point. \num{62.1}\% are \texttt{Compliant} and
+\num{2.3}\% \texttt{Exceedance}; the remaining \textbf{\num{35.7}\% are not
+supportable}, split between \num{23.6}\% where the method's limit exceeds the
+standard (\texttt{MethodInsufficient}, which Article~3(3b) requires to be set
+aside) and \num{12.1}\% where the record carries no bound at all.
+
+\paragraph{What substitution does to those \num{14268} assessments.}
+It is tempting to describe the alternative as merely optimistic -- a pipeline
+that calls everything it cannot decide \emph{compliant}. We assumed exactly
+that in an earlier draft, and counting it showed the assumption to be wrong in
+the direction that matters. Entering a non-detection at half its quantification
+limit, the most widely used convention, pushes results \emph{above} the
+standard: of the \num{10065} exceedances such a pipeline reports over these
+\num{40000} records, only \num{908} rest on a quantified measurement above the
+standard. The remaining \num{91}\,\% are artefacts of the substitution.
+
+Nor is the choice of convention innocuous. Entering non-detections at zero
+yields \num{3382} exceedances; at half the limit, \num{10065}; at the limit
+itself, \num{12042}. The same records, the same standards and the same
+arithmetic produce a \num{3.6}-fold range in the enforcement-relevant number,
+selected by a rule the data does not determine (Figure~\ref{fig:verdicts}).
+Reporting an interval and an explicit \emph{cannot be determined} is not a
+refusal to answer; it is the only answer that does not depend on that choice.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.86\textwidth]{fig05_verdicts.pdf}
+\caption{The same \num{40000} assessments, read four ways. The top three rows
+are the identical records under the three substitution conventions in routine
+use; they disagree with one another about the number of exceedances by a factor
+of \num{3.6}, and only \num{908} of those exceedances rest on a quantified
+measurement. The bottom row reports the two outcomes the law distinguishes
+instead of absorbing them into compliance. Counts are computed row by row
+rather than assumed; the plotted values are in
+\texttt{supplementary/figure\_data/fig05\_verdicts.csv}. Generated by
+\texttt{scripts/90\_figures.py}.}
+\label{fig:verdicts}
+\end{figure}
+
+\paragraph{The two routes agree.}
+Section~\ref{sec:results-waterbase} counts these failures with integer counters
+and no ontology; this section reaches them by classification over a graph. The
+method-insufficient share is \num{23.6}\% by both routes, against a sampling
+standard error of \num{0.21} percentage points. That agreement is what makes
+the vocabulary a \emph{representation} of the problem rather than a second
+implementation of the same arithmetic: the counting could always have been
+done, but only the graph can be queried for which assessments are unsupportable
+and why.
+
+\subsection{The same observations under two regulations}
+\label{sec:results-dual}
+Section~\ref{sec:methods-why} claims that pluggable regulation packages
+let one set of observations be assessed under several jurisdictions without
+reimplementation. The claim is cheap to make, so it is
+run\src{scripts/24\_dual\_regulation.py}: both published packages are read as
+data, and the same Waterbase rows are streamed past each. The observations, the
+unit conversion and the decision procedure are identical in the two passes. The
+only input that changes is which file supplies the threshold, and no code
+changes at all.
+
+Of \num{4190833} river station-years, \num{1551766} are regulated by at least
+one of the two instruments. Reported naively, \num{82.8}\% of those change
+outcome when the package is swapped -- but most of that is coverage: one
+jurisdiction regulating a substance the other does not, which is a fact about
+the two legal texts rather than about any measurement. The informative stratum
+is the \num{325011} assessments \emph{both} jurisdictions regulate, where
+nothing differs but the numeric standard. There, \textbf{\num{18.5}\%
+(95\,\% CI \num{18.4}--\num{18.7}\,\%) still change outcome}: \num{51181} that
+the European standard sets aside as method-insufficient are decidable under the
+looser Turkish limit, \num{5372} move between \emph{exceeding} and
+\emph{compliant} outright, and \num{3655} run the other way. Heavy metals and
+the triazine herbicides dominate the divergence.
+
+Two properties of that result matter more than its size. First, an assessment
+that is \emph{method-insufficient} under one instrument and decidable under
+another is not expressible at all if the threshold is a column: method adequacy
+is a relation between the limit and the standard, so it changes when the
+standard does. Second, the two verdicts can be held simultaneously, because the
+thresholds carry different IRIs and different \texttt{definedBy} links --- the
+graph records that the same measurement is compliant under one regime and
+indeterminate under the other, rather than overwriting one with the other. Turkish
+standards are of course not in force over European rivers; the comparison is
+counterfactual by construction and is reported as a demonstration that the
+machinery is regulation-independent, never as an assessment of Türkiye.
+
+\subsection{Is the between-country spread an artefact?}
+\label{sec:results-confounders}
+Figure~\ref{fig:country-practice} shows the share of station-years carrying neither a
+censoring flag nor a limit ranging from \num{3.3}\% to \num{97.4}\% between
+countries reporting under the same directive. The obvious objection is that the
+comparison is unfair: countries monitor different substances, over different
+years, and some are not Member States at all. The objection is testable, so it
+is tested\src{scripts/25\_country\_confounders.py} rather than argued with.
+
+First, what is plotted is whether a schema field is populated. That field is
+defined identically for every reporter by WISE-6; a national standard can change
+which results breach a limit, but not whether the limit was written down.
+Second, the spread survives every adjustment we can make to it. Standardising
+each country directly onto the pooled European substance mix --- so that no
+country can appear tidy merely because it happens to monitor substances usually
+reported with a limit --- gives \num{8.9}--\num{97.3}\%. Restricting to the
+\num{76} substances at least \num{60}\,\% of these countries report gives
+\num{12.9}--\num{97.3}\%. Restricting to EU Member States, the only reporters
+the quantification-limit criterion binds, gives \num{8.9}--\num{97.3}\%.
+Kendall's~$\tau$ between the raw and standardised orderings is \num{0.89}: the
+adjustment narrows the low end but does not reorder the countries. A spread of
+that size, stable under three independent corrections, is a property of
+reporting practice.
+
+A fourth adjustment we intended --- restricting to recent years --- is not
+available, and saying so matters more than the correction would have. Only
+\num{8} of \num{37} reporting countries have any river record in this release
+dated \num{2015} or later; France, Italy, Finland, Poland, Austria and Hungary
+have none at all. The audit therefore describes the archived record, which for
+most reporters ends before \num{2015}, and cannot speak to whether current
+practice has improved. Whether it has is exactly the question a censoring-aware
+schema would make answerable.
+
+\subsection{Comparison with published ontologies}
+\label{sec:results-gap}
+% generated by scripts/07_verify_gap_table.py
+% >>> begin tables/tab_gap.tex
+% GENERATED by scripts/07_verify_gap_table.py -- do not edit.
+\begin{table*}[htbp]\centering
+\caption{Concepts present in published water and observation ontologies, decided by parsing each ontology file rather than its documentation. A dash means the file parsed and the concept was absent; \texttt{?} means it could not be retrieved, and no claim is made. The \emph{LOD bound to} column is the discriminating one: a detection limit declared as a sensor capability cannot state that a given measurement fell below it.}
+\label{tab:gap}
+\footnotesize
+\begin{tabular}{l r l cccccc}
+\toprule
+Ontology & Ent. & LOD bound to & det.\ limit & censoring & undecid. & threshold & interval & applic. \\
+\midrule
+SOSA/SSN & 37 & -- & -- & -- & -- & -- & -- & -- \\
+SOSA core & 53 & -- & -- & -- & -- & -- & -- & -- \\
+GeoSPARQL & 0 & -- & -- & -- & -- & -- & -- & -- \\
+QUDT schema & 239 & -- & -- & -- & -- & \checkmark & -- & \checkmark \\
+SAREF core & 131 & -- & -- & -- & -- & \checkmark & -- & -- \\
+SAREF4WATR v2.1.1 & 95 & -- & -- & -- & -- & \checkmark & -- & -- \\
+SSN-system & 44 & the sensor & \checkmark & -- & -- & -- & -- & -- \\
+OWL-Time & 78 & -- & -- & -- & -- & -- & -- & -- \\
+WHOW water-monitoring & 57 & -- & -- & -- & -- & -- & \checkmark & -- \\
+DoCE (Rio Doce WQ) & 168 & -- & -- & -- & -- & -- & -- & \checkmark \\
+InWaterSense core & 189 & -- & -- & -- & -- & \checkmark & \checkmark & -- \\
+InWaterSense regulations & 144 & -- & -- & -- & -- & -- & -- & -- \\
+InWaterSense pollutants & 9 & -- & -- & -- & -- & -- & -- & -- \\
+WAM-ONTO & 921 & -- & -- & -- & -- & -- & -- & -- \\
+SewerNet & 145 & -- & -- & -- & -- & -- & -- & -- \\
+ENVO & 7208 & -- & -- & -- & -- & -- & -- & -- \\
+ExO (exposure) & 195 & -- & -- & -- & -- & -- & -- & -- \\
+\textbf{CENSO (this work)} & 64 & \textbf{the result} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+\textbf{CENSO-REG (this work)} & 28 & -- & -- & -- & -- & \checkmark & -- & -- \\
+Project ontology 2018 & 123 & the sensor & \checkmark & -- & -- & -- & -- & -- \\
+\bottomrule
+\end{tabular}
+\end{table*}
+% <<< end tables/tab_gap.tex
+\num{18} ontology files were assessed by parsing each one directly rather than
+reading its documentation\src{scripts/07\_verify\_gap\_table.py}: \num{17}
+published vocabularies plus one unpublished domain ontology, included so that a
+non-standard baseline is held to the same test. Results are in
+Table~\ref{tab:gap}. No ontology except CENSO carries a censoring status or an
+outcome that records a verdict as not determinable.
+
+Two of the remaining columns need reading carefully, because a keyword match is
+not the same as a modelling commitment. Two vocabularies score for an
+interval-valued result, but only WHOW attaches the interval to the
+\emph{result}: InWaterSense's \texttt{hasRangeMinValue} and
+\texttt{hasRangeMaxValue}, inherited from the SSN meteorology extension,
+describe the range a \emph{device} can report. Likewise, among published
+vocabularies only SSN-system defines a detection limit, and it binds it to the
+sensor as a \texttt{SystemProperty}; the unpublished baseline does the same. In
+both cases the term exists and the binding is to the instrument, which is why a
+measurement cannot be said to have fallen below it.
+
+A second dimension explains the pattern. Profiling each vocabulary for sampling
+versus sensing terminology separates them cleanly: on a sampling/sensing count,
+SAREF core scores \num{0}/\num{22} and InWaterSense core \num{2}/\num{27},
+while SOSA core (\num{12}/\num{10}), WHOW (\num{10}/\num{0}) and CENSO
+(\num{6}/\num{0}) lean the other way. \textbf{The field is dominated by
+vocabularies built for in-situ sensing}, in which a detection limit is properly
+a device property, and the few sampling-aware ones do not carry limits at all.
+
+Five further ontologies described only in papers (WaWO+, OPO, InWaterSense's
+expert system, Ahmedi et al., Acquirium) were assessed from their full
+text\src{scripts/11\_assess\_competitor\_papers.py}: across all five, the terms
+\emph{detection limit}, \emph{LOD}, \emph{LOQ}, \emph{censoring} and
+\emph{non-detection} do not occur. This is weaker evidence than parsing a file
+and is labelled as such.
+
+\subsection{The ontology answers the questions it was built for}
+\label{sec:results-cq}
+Fifteen competency questions, each tied to an axiom, were executed over the
+Waterbase graph together with the two vocabulary modules and both regulation
+packages -- \num{442363} triples as
+loaded\src{scripts/17\_run\_competency\_questions.py}. \textbf{All fifteen
+return answers} (\num{25.4}\,s total). Because full OWL~2~RL closure over a
+graph this size is impractical in pure Python, only two entailments are
+materialised and both are stated in the report: union membership for the two
+defined observation classes, and \texttt{rdfs:subClassOf} on type assertions.
+Every other answer comes from asserted triples.
+
+The questions are answered on public data, which matters more than the count:
+a reader can re-run them without access to any private survey. Their SPARQL and
+the rows returned are in the supplementary material.
+
+\subsection{The axioms catch real defects}
+Ten test cases, each injecting a defect present in this dataset, are all
+rejected as intended\src{scripts/test\_axioms.py}: a record marked both
+non-detect and quantified, a non-detection reported as an exceedance, a
+half-LOQ substitution, one row joined to two substances by name matching, a
+duplicated row, and a grab sample compared against an annual-average standard.
+Nine are caught by OWL~2~RL entailment and one, outside the profile, by SHACL.
+
+An OOPS!\ scan of the published distribution reports no critical pitfalls. Three
+important ones were genuine and are fixed: properties lacking a domain or range.
+The remainder are artefacts of packaging the modules as a single standalone file
+for the scanner, which strips the imports and so leaves borrowed terms
+undeclared; the distribution now re-declares them. Of the thirty-one properties
+flagged as lacking an inverse, one genuinely did
+(\texttt{definesThreshold}/\texttt{definedBy}) and is now declared; no inverse
+was invented for the other thirty to satisfy the scanner.
+% <<< end sections/05-results.tex
+% >>> begin sections/06-discussion.tex
+\section{Discussion}
+
+\subsection{Relation to work on preprocessing sensitivity}
+\label{sec:disc-lipinski}
+Lipi\'nski \cite{lipinski2026sensitivity} recently examined the same underlying
+problem from the analysis side, using \num{1259636} Waterbase observations of
+cadmium, lead and nickel. Below-LOQ records accounted for \num{66.6}\% of
+cadmium, \num{57.3}\% of lead and \num{36.1}\% of nickel observations, and
+comparing three treatments -- discarding them, substituting half the LOQ, and
+substituting the full LOQ -- substantially changed the inferred pollution
+patterns. The recommendation is that studies report the rule they used.
+
+That result is independent confirmation of our premise, on a different
+continent-scale dataset, and we build on it rather than against it. Three
+differences define what this paper adds.
+
+\paragraph{The choice is treated as unavoidable; we remove it.}
+All three of the scenarios compared yield a number. None can express that for a
+given substance and threshold the data support no verdict at all. Our fourth
+outcome is not another substitution rule but the absence of one, and it is
+queryable: a regulator can ask which assessments are not supportable, and
+receive a list.
+
+\paragraph{The analysis presupposes that censoring survived to the record.}
+Lipi\'nski could compare treatments because the rows examined carry a below-LOQ
+flag and a \texttt{procedureLOQValue}. Our finding is that for a quarter of the
+record they do not: \num{1066797} station-years (\num{25.5}\%) carry neither
+(Section~\ref{sec:results-waterbase}). No sensitivity analysis can be run on
+those rows, because there is nothing to be sensitive to --- not a choice between
+substitution rules but the absence of anything to substitute from. The same gap
+forced that study to \emph{exclude} below-LOQ records lacking an LOQ value.
+Where it excludes them, CENSO represents them, as
+\texttt{UnresolvedObservation}, and reports how many there are.
+
+\paragraph{Metals are the mild case.}
+The three substances studied are metals, and metals are where censoring bites
+least. Across Waterbase, \num{47.1}\% of the \num{1491419} samples of
+Annex~I metals fall below the quantification limit, against \num{77.3}\% of the
+\num{4450281} samples of organic
+micropollutants\src{scripts/22\_waterbase\_external.py}. The substance class
+that recent European regulation has brought into scope is therefore censored at
+close to twice the rate of the one the published sensitivity work examined, and
+no comparable study has covered it.
+
+\subsection{Failures that no preprocessing rule can repair}
+Three of our findings are not preprocessing choices at all, and would survive
+any substitution rule.
+
+First, where the quantification limit exceeds the threshold the method cannot
+demonstrate compliance however the non-detects are handled. This is the case for
+\num{23.6}\% of all assessments against a European standard, for
+\num{75.8}\% of imidacloprid assessments and for \num{100}\% of those for four
+pyrethroids (Section~\ref{sec:results-waterbase}). Substituting zero, half the
+limit or the full limit changes nothing: the measurement was never capable of
+answering the question, and Section~\ref{sec:results-wbabox} shows what the
+substitution does instead --- it manufactures a verdict whose direction depends
+on the rule chosen.
+
+Second, several thresholds carry preconditions the record cannot satisfy.
+Cadmium's Annex~I standard is stated over five water-hardness classes, and the
+bioavailability-corrected standards for nickel and lead require covariates that
+the aggregated release does not carry alongside the measurement. Assessing such
+a substance requires either the covariate or an explicit statement that the
+standard could not be applied; a numeric threshold column offers neither, which
+is why CENSO attaches preconditions to the threshold and returns
+\texttt{PreconditionUnmet} rather than a default pass.
+
+Third, a threshold can simply be transcribed wrongly, and nothing in a
+conventional workflow would surface it. Both regulation packages released here
+were transcribed from the primary legal texts and carry a machine-readable
+\texttt{transcriptionStatus}; the parser that produced the European package is
+verified against the consolidated
+text\src{scripts/08\_verify\_thresholds.py}. That a threshold needs provenance
+and a verification status at all is not a hypothetical concern: it is the same
+argument as for the measurement, applied to the other side of the comparison.
+
+\subsection{Why the vocabularies lacked this}
+The gap is not an oversight. SOSA/SSN was built for in-situ sensing, where a
+detection limit genuinely is a property of the device, and
+\texttt{ssn-system:DetectionLimit} is correctly a \texttt{SystemProperty}. Trace
+organic monitoring is a different modality: a sample is taken, transported and
+analysed in a run with its own calibration and its own limits. The water
+ontology literature inherited the sensing model, and our profiling shows the
+inheritance directly -- the vocabularies that dominate the field score heavily
+on sensing terminology and near zero on sampling. CENSO's contribution is to
+carry the epistemics on the analytical run, where they belong.
+
+\subsection{Limitations}
+\begin{itemize}
+  \item \textbf{We audit what was reported, not what was measured.} A missing
+    limit may be a reporting omission rather than a laboratory one. That
+    distinction matters for blame and not at all for the argument: either way
+    the record cannot support the verdict drawn from it.
+  \item \textbf{The graph is a sample.} Reasoning is over \num{40000}
+    station-years drawn by reservoir sampling, not over all \num{4190833}.
+    Inflating the graph to make a point about scale would misreport what was
+    actually reasoned over; the population counts are given beside the sample
+    throughout, and the two agree to within the sampling error.
+  \item \textbf{Group standards are excluded from per-substance comparison.}
+    A sum standard is not a limit on any of its members, so those rows are
+    reported as not individually assessable rather than assessed.
+  \item \textbf{One of the four outcomes is not exercised by this dataset.}
+    \texttt{PossibleExceedance} --- the interval straddles the threshold, so
+    the measurement cannot decide --- is instantiated \num{0} times in the
+    Waterbase graph, and we would rather say so than let the four-valued claim
+    rest on three values. There are two reasons, and neither is a defect of the
+    vocabulary. For a \emph{quantified} result the class requires an
+    uncertainty interval around the reported value, and the aggregated
+    Waterbase release carries no per-result uncertainty: the interval is a
+    point, so it cannot straddle anything. For a \emph{censored} result whose
+    limit exceeds the standard the interval does straddle it, and both
+    \texttt{PossibleExceedance} and \texttt{MethodInsufficient} apply --- but
+    these answer different questions, the first epistemic and the second
+    regulatory, and Article~3(3b) makes the regulatory answer the operative
+    one. We report the outcome the law attaches, which is why those
+    \num{9425} assessments appear under \texttt{MethodInsufficient}. A dataset
+    reporting measurement uncertainty, as the disaggregated release does for
+    some determinands, would exercise the fourth value directly; we did not use
+    it here because an annual-average standard is defined against an annual
+    mean, which is one aggregated row.
+  \item \textbf{One matrix.} River water only; lakes, transitional and coastal
+    waters have their own standards and are not analysed here.
+  \item \textbf{The vocabulary comparison is of published files.} An ontology
+    may be used in ways its published serialisation does not show, and three
+    files could not be retrieved at all. Those are reported as unknown rather
+    than as absent.
+\end{itemize}
+
+\subsection{Future work}
+\label{sec:discussion-future}
+
+\paragraph{Beyond compliance: attribution.}
+The representation supports an attribution chain this paper does not pursue: a
+substance's use category, taken from an external classification, mapped to an
+expected pressure type and compared against the land use draining to a station.
+What a knowledge-driven formulation would add over established source
+apportionment -- positive matrix factorisation and chemical mass balance --
+is not the idea but two properties: attribution that is \emph{explainable},
+each assignment deriving from declared substance--use--sector relations rather
+than from a factor interpreted after the fact, and attribution that is
+\emph{censoring-aware}, able to return ``cannot be determined'' where
+factorisation over
+zero-substituted data returns a number. That comparison needs a denser station
+network than any single survey here provides.
+
+\paragraph{Ontology evaluation.}
+All \num{15} competency questions were executed against the populated graph
+with their SPARQL recorded, and all return non-empty
+answers\src{scripts/17\_run\_competency\_questions.py}. The OOPS!\ pitfall
+scanner reports no critical pitfall on the distributed
+ontology\src{scripts/16\_export\_for\_scanners.py}; the one critical finding it
+did raise -- an inverse pair whose domains made it incoherent -- was a genuine
+modelling error and is fixed. A FOOPS!\ FAIR assessment has not yet been run,
+and we do not report a FAIR score we have not obtained.
+
+\subsection{Implications}
+For monitoring programmes, the practical recommendation is narrow and cheap:
+record the detection limit alongside every result, and record it per analytical
+run. That single change makes the difference between a dataset on which
+censoring can be reconstructed and one on which it cannot, and it costs nothing
+at the point of measurement.
+
+For regulators, the finding that an entire newly regulated substance class
+cannot be assessed with the methods in routine use is actionable: an
+environmental quality standard below the achievable limit of quantification is
+unenforceable, and the mismatch is discoverable automatically once both are
+machine-readable.
+
+For the semantic web community, the case illustrates that a standard's implicit
+measurement modality propagates into every extension built on it. SOSA's
+sampling vocabulary exists but is not connected to analytical provenance, and
+until it is, sample-and-analyse domains will keep reaching for a sensor model
+that does not fit.
+% <<< end sections/06-discussion.tex
+% >>> begin sections/07-conclusions.tex
+\section{Conclusions}
+
+A non-detection is an upper bound and an open-world statement. Recording it as a
+zero replaces that statement with a number, and the data models in routine use
+offer nowhere else to put it.
+
+In a four-campaign survey of \num{75} stations and \num{258} parameters,
+\num{76.9}\% of chemical measurements -- \num{85.2}\% of micropollutant
+measurements -- are stored as exactly zero, and the limits needed to reconstruct
+what they mean exist for fewer than a third of the analytes. Beyond storage, we
+found substances whose analytical method cannot demonstrate compliance in
+principle, including every measured neonicotinoid under the European standard
+now in force; thresholds whose preconditions the survey cannot satisfy; and a
+working threshold table in which seven of ten metal standards diverged from the
+law.
+
+None of these states can be expressed in a model that admits only
+\emph{compliant} and \emph{exceeding}. CENSO supplies the missing ones by
+binding the detection limit to the analytical run that produced a result,
+recording why a result is an interval, treating a threshold as a conditional
+judgement with explicit preconditions, and making \emph{cannot be determined} a
+first-class outcome. Its axioms were tested against ten defects drawn from this
+dataset and reject all of them. A comparison of \num{18} published ontologies,
+each parsed from its own file, shows that none combines these capabilities, and
+that the gap follows from a measurement model built for sensors rather than for
+samples.
+
+The corrective for practice is small: record the detection limit with every
+result, per analytical run. The corrective for representation is to stop
+treating ``not detected'' as a number.
+% <<< end sections/07-conclusions.tex
+
+\section*{Data and code availability}
+The ontology, the processing pipeline, every query and all evaluation outputs
+are archived at \pending{Zenodo DOI}. The ontology and both regulation
+packages are published under \url{https://w3id.org/censo/} (CC~BY~4.0); code
+under MIT. The measurements are the EEA's Waterbase --- Water Quality ICM,
+aggregated release, which is openly downloadable, so every figure and every
+number in this paper can be re-derived without applying to anyone for
+access.
+
+\section*{CRediT author statement}
+% DRAFT --- every role below must be confirmed by the named author before
+% submission. Misattributing a CRediT role is a research-integrity matter, not
+% a formatting one.
+\textbf{Recep Can Altınbağ:} Conceptualization, Methodology, Software,
+Formal analysis, Data curation, Validation, Visualization, Writing --- original
+draft. \textbf{Mehmet Tahir Sandıkkaya:} Methodology, Supervision,
+Writing --- review \& editing. \textbf{Ulaş Pekyavaş:} Investigation,
+Writing --- review \& editing.
+
+\section*{Declaration of generative AI and AI-assisted technologies
+in the writing process}
+% Elsevier requires this statement when a generative tool assisted the WRITING.
+% Fill in the tool and the purpose truthfully; the authors remain responsible
+% for every claim regardless of what assisted its drafting.
+During the preparation of this work the authors used
+\pending{tool and purpose}. After using this tool the authors reviewed and
+edited the content as needed and take full responsibility for the content of
+the publication.
+
+No figure in this article was generated or altered by a generative model. Every
+figure is drawn by \texttt{scripts/90\_figures.py} from the tabular data
+deposited with the article, the values behind each mark are shipped in
+\texttt{figure\_data/}, and any reader can regenerate the figures from the
+public source data without contacting the authors.
+
+\bibliographystyle{unsrt}
+\bibliography{refs}
+
+\end{document}

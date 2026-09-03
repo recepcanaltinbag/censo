@@ -1,0 +1,64 @@
+entry_no,name,is_group,category,cas,all_cas,n_cas,aa_inland,aa_other,mac_inland,mac_other,n_values_found,multi_valued,layout_read,footnotes
+2,Anthracene,False,Industrial substances,120-12-7,120-12-7,1,0.1,0.1,0.1,0.1,4,False,True,
+4,Benzene,False,Industrial substances,71-43-2,71-43-2,1,10.0,8.0,50.0,50.0,4,False,True,
+6,Cadmium and its compounds (depending on water hardness classes) ( 9 ),False,Metals,7440-43-9,7440-43-9,1,0.08,0.2,0.45,0.45,31,True,True,9
+7,C 10-13 Chloroalkanes (10 ),False,Industrial substances,85535-84-8,85535-84-8,1,0.4,0.4,1.4,1.4,4,False,True,10
+9,Chlorpyrifos (Chlorpyrifos-ethyl),False,Pesticides – organophosphate,2921-88-2,2921-88-2,1,0.00045999999999999996,4.6e-05,0.0026,0.0005200000000000001,10,True,True,
+10,"1,2-Dichloroethane",False,Industrial substances,107-06-2,107-06-2,1,10.0,10.0,,,3,False,True,
+11,Dichloromethane,False,Industrial substances,75-09-2,75-09-2,1,20.0,20.0,,,3,False,True,
+12,Di(2-ethylhexyl)- phthalate (DEHP),False,Industrial substances,117-81-7,117-81-7,1,1.3,1.3,,,3,False,True,
+13,Diuron,False,Pesticides – herbicide,330-54-1,330-54-1,1,0.049,0.0049,0.27,0.054,4,False,True,
+14,Endosulfan,False,Pesticides – organochlorine,115-29-7,115-29-7,1,0.005,0.0005,0.01,0.004,4,False,True,
+15,Fluoranthene,False,Industrial substances,206-44-0,206-44-0,1,0.0007620000000000001,0.0007620000000000001,0.12,0.012,5,False,True,
+16,Hexachlorobenzene,False,Pesticides – organochlorine,118-74-1,118-74-1,1,,,0.5,0.05,4,False,True,
+17,Hexachlorobutadiene,False,Industrial substances (solvents),87-68-3,87-68-3,1,0.00095,0.00095,0.6,0.06,5,False,True,
+18,Hexachlorocyclohexane,False,Pesticides – insecticides,608-73-1,608-73-1,1,0.02,0.002,0.04,0.02,4,False,True,
+19,Isoproturon,False,Pesticides – herbicide,34123-59-6,34123-59-6,1,0.3,0.3,1.0,1.0,4,False,True,
+20,Lead and its compounds,False,Metals,7439-92-1,7439-92-1,1,1.2,1.3,14.0,14.0,10,True,True,12
+21,Mercury and its compounds,False,Metals,7439-97-6,7439-97-6,1,,,0.07,0.07,3,False,True,
+22,Naphthalene,False,Industrial substances,91-20-3,91-20-3,1,2.0,2.0,130.0,130.0,4,False,True,
+23,Nickel and its compounds,False,Metals,7440-02-0,7440-02-0,1,2.0,3.1,8.2,8.2,4,False,True,12
+26,Pentachlorobenzene,False,Industrial substances,608-93-5,608-93-5,1,0.007,0.0007,,,3,False,True,
+27,Pentachlorophenol,False,Pesticides – organochlorine,87-86-5,87-86-5,1,0.4,0.4,1.0,1.0,10,True,True,
+28,"Polyaromatic hydrocarbons (PAHs) ( 15 ) Combustion products not applicable not applicable not applicable not applicable not applicable not applicable Sum of Benzo(a) pyrene equivalents 0,6 (16 ) X X X Benzo(a)pyrene",True,,50-32-8,50-32-8;205-99-2;207-08-9;191-24-2;193-39-5;218-01-9;56-55-3;53-70-3;206-44-0,9,,,,0.6,3,True,True,15;16
+30,Tributyltin compounds (17 ) (Tributyltin-cation),False,Pesticides – biocide,36643-28-4,36643-28-4,1,0.0002,0.0002,0.0015,0.0015,4,False,True,17
+32,Trichloromethane,False,Industrial substances,67-66-3,67-66-3,1,2.5,2.5,,,3,False,True,
+33,Trifluralin,False,Pesticides – herbicides,1582-09-8,1582-09-8,1,0.03,0.03,,,3,False,True,
+34,Dicofol,False,Pesticides – organochlorine,115-32-2,115-32-2,1,0.00445,0.000185,,,4,False,True,19
+35,Perfluorooctane sulfonic acid (PFOS) and its derivatives,False,Industrial substances,1763-23-1,1763-23-1,1,,,,,2,False,True,
+36,Quinoxyfen,False,Pesticides – fungicide,124495-18-7,124495-18-7,1,0.15,0.015,2.7,0.54,9,True,True,
+38,Aclonifen,False,Pesticides – herbicide,74070-46-5,74070-46-5,1,0.12,0.012,0.12,0.012,4,False,True,
+39,Bifenox,False,Pesticides – herbicide,42576-02-3,42576-02-3,1,0.012,0.0012,0.04,0.004,4,False,True,
+40,Cybutryne,False,Pesticides – biocide,28159-98-0,28159-98-0,1,0.0025,0.0025,0.016,0.016,4,False,True,
+41,Cypermethrin ( 22 ),False,Pesticides – pyrethroid,52315-07-8,52315-07-8,1,3.0000000000000004e-05,3e-06,0.0006000000000000001,6.000000000000001e-05,4,False,True,22
+42,Dichlorvos,False,Pesticides – organophosphate,62-73-7,62-73-7,1,0.0006000000000000001,6.000000000000001e-05,0.0007,7.000000000000001e-05,10,True,True,
+44,Heptachlor and heptachlor epoxide,True,Pesticides – organochlorine,76-44-8,76-44-8;1024-57-3,2,1.7e-07,1.7e-07,0.00030000000000000003,3.0000000000000004e-05,5,True,True,
+45,Terbutryn,False,Pesticides – biocides,886-50-0,886-50-0,1,0.065,0.0065,0.34,0.034,4,False,True,
+46,17 alpha-ethinylestradiol (EE2),False,Pharmaceuticals – estrogenic hormone,57-63-6,57-63-6,1,1.7e-05,1.6e-06,,,2,False,True,
+47,17 beta-estradiol (E2),False,Pharmaceuticals – estrogenic hormone,50-28-2,50-28-2,1,0.00018,9e-06,,,2,False,True,
+48,Acetamiprid,False,Pesticides – neonicotinoid,135410-20-7,135410-20-7;160430-64-8,2,0.037,0.0037,0.16,0.016,10,True,True,
+49,Azithromycin,False,Pharmaceuticals – macrolide antibiotic,83905-01-5,83905-01-5,1,0.019,0.0019,0.18,0.018,4,False,True,
+50,Bifenthrin,False,Pesticides – pyrethroid,82657-04-3,82657-04-3,1,9.5e-05,9.499999999999999e-06,0.011,0.001,4,False,True,
+51,,False,Bisphenol-A (BPA) Industrial substances,80-05-7,80-05-7,1,0.00017,0.00017,130.0,51.0,4,False,True,
+52,Carbamazepine,False,Pharmaceuticals – anticonvulsant,298-46-4,298-46-4,1,2.5,0.25,1600.0,160.0,4,False,True,
+53,Clarithromycin,False,Pharmaceuticals – macrolide antibiotic,81103-11-9,81103-11-9,1,0.13,0.013,0.13,0.013,4,False,True,
+54,Clothianidin,False,Pesticides -neonicotinoid,210880-92-5,210880-92-5,1,0.01,0.001,0.34,0.034,4,False,True,
+55,Deltamethrin,False,Pesticides – pyrethroid,52918-63-5,52918-63-5,1,1.6999999999999998e-06,1.7e-07,1.7e-05,3.3999999999999996e-06,10,True,True,
+56,Diclofenac,False,Pharmaceuticals – anti-inflammatory,15307-86-5,15307-86-5;15307-79-6,2,0.04,0.004,250.0,25.0,4,True,True,
+57,Erythromycin,False,Pharmaceuticals – macrolide antibiotic,114-07-8,114-07-8,1,0.5,0.05,1.0,0.1,4,False,True,
+58,Esfenvalerate,False,Pesticides – pyrethroid,66230-04-4,66230-04-4,1,1.7e-05,1.6999999999999998e-06,0.0085,0.00085,4,False,True,
+59,Estrone (E1),False,Pharmaceuticals – estrogenic hormone,53-16-7,53-16-7,1,0.00036,1.8e-05,,,2,False,True,
+60,Glyphosate,False,Pesticides – herbicide,1071-83-6,1071-83-6,1,0.1,8.67,,39.86,5,False,True,24;25
+61,Ibuprofen,False,Pharmaceuticals – anti-inflammatory,15687-27-1,15687-27-1,1,0.14,0.014,,,8,True,True,
+62,Imidacloprid,False,Pesticides – neonicotinoid,138261-41-3,138261-41-3;105827-78-9,2,0.0068,0.00068,0.057,0.0057,4,True,True,
+63,Nicosulfuron,False,Pesticides – herbicide,111991-09-4,111991-09-4,1,0.0087,0.00087,0.23,0.023,4,False,True,
+64,Permethrin,False,Pesticides – pyrethroid,52645-53-1,52645-53-1,1,0.00027000000000000006,2.7000000000000002e-05,0.0025,0.00025,4,False,True,
+66,Silver,False,Metals,7440-22-4,7440-22-4,1,0.01,0.006,0.022,,6,False,True,
+67,Thiacloprid,False,Pesticides – neonicotinoid,111988-49-9,111988-49-9,1,0.01,0.001,0.05,0.005,10,True,True,
+68,Thiamethoxam,False,Pesticides – neonicotinoid,153719-23-4,153719-23-4,1,0.04,0.004,0.77,0.077,4,False,True,
+69,Triclosan,False,Pesticides – biocides,3380-34-5,3380-34-5,1,0.02,0.002,0.02,0.002,4,False,True,
+70,Sum of active substances in the pesticides (28 ) listed in this table ( 29 ) (30 ),True,Pesticides not applicable not applicable,40088-47-9,40088-47-9;32534-81-9;36483-60-0;68928-80-3;1163-19-5;25154-52-3;104-40-5;84852-15-3;1806-26-4;140-66-9;50-32-8;205-99-2;207-08-9;191-24-2;193-39-5;218-01-9;56-55-3;53-70-3;206-44-0;1746-01-6;40321-76-4;39227-28-6;19408-74-3;35822-46-9;3268-87-9;207-31-9;57117-41-6;57117-31-4;70648-26-9;57117-44-9;72918-21-9;60851-34-5;67562-39-4;55673-89-7;39001-02-0;32598-13-3;32598-14-4;74472-37-0;31508-00-6;65510-44-3;57465-28-8;38380-08-4;69782-90-7;663-72-6;32774-16-6;39635-31-9;52315-07-8;67375-30-8;65731-84-2;691-59-1;1315501-18-8;3194-55-6;134237-51-7;134237-52-8;335-67-1;1763-23-1;375-95-1;307-24-4;375-22-4;2706-90-3;2706-91-4;335-76-2;307-55-1;2058-94-8;375-85-9;72629-94-8;375-92-8;376-06-7;16517-11-6;13252-13-6;919005-14-4;647-42-7;678-39-7;1190931-41-9;76-05-1,75,0.2,,,,50,True,True,28;29;30
+9a,Cyclodiene pesticides: Aldrin Dieldrin Endrin Isodrin,True,Pesticides – organochlorine,309-00-2,309-00-2;60-57-1;72-20-8;465-73-6,4,0.01,0.005,,,3,True,True,
+9b,DDT total ( 11 ),False,Pesticides – organochlorine not applicable not applicable,50-29-3,50-29-3,1,0.025,0.025,,,3,False,True,11
+29a,Tetrachloroethylene,False,Industrial substances,127-18-4,127-18-4,1,10.0,10.0,,,3,False,True,
+29b,Trichloroethylene,False,Industrial substances,79-01-6,79-01-6,1,10.0,10.0,,,3,False,True,

@@ -1,0 +1,3 @@
+substance_class,station_years,samples,samples_below_loq,declared_and_bounded,declared_not_bounded,no_flag_no_limit,qc_loq_unknown,station_years_with_eqs,loq_above_eqs,loq_above_30pct_eqs,pct_samples_below_loq,pct_no_flag_no_limit,pct_failing_legal_criterion
+Organic micropollutants,561228,4247971,3283479,515859,0,45102,45102,561228,128899,214117,77.3,8.0,38.2
+Metals,134940,1179210,516316,98296,0,36349,36349,134940,25666,64956,43.8,26.9,48.1

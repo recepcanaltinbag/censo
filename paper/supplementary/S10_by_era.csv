@@ -1,0 +1,3 @@
+era,pct_of_river_record,station_years,samples,samples_below_loq,no_flag_no_limit,station_years_with_eqs,loq_above_eqs,loq_above_30pct_eqs,censored,censored_with_positive_value,pct_no_flag_no_limit,pct_loq_above_eqs,pct_failing_legal_criterion,pct_censored_carrying_a_positive_value
+before 2015,51.2,2147102,19659498,5186385,1066797,312881,70873,120555,770858,767455,49.7,22.7,38.5,99.6
+2015 onwards,48.8,2043731,13333884,9622066,0,383287,83692,158518,1549281,1538910,0.0,21.8,41.4,99.3

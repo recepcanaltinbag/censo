@@ -1,0 +1,252 @@
+\section{Methods}
+\label{sec:methods}
+
+\subsection{CENSO: binding the limit to the result}
+\label{sec:methods-vocab}
+CENSO\footnote{\url{https://w3id.org/censo/}, CC~BY~4.0.} extends
+SOSA/SSN~\cite{janowicz2019sosa,haller2019ssn} for observations from a method
+with a detection limit, reusing PROV-O~\cite{w3c2013provo} for the analytical
+run, SKOS~\cite{w3c2009skos} for substance concepts and QUDT for units;
+substances are aligned to ChEBI~\cite{degtyarenko2008chebi} where an identifier
+exists (\num{180} of \num{240}). It follows LOT~\cite{poveda2022lot} (successor
+to NeOn~\cite{suarez2012neon}), whose competency questions produced the
+evaluation in Section~\ref{sec:results-cq}, and is published for
+reuse~\cite{wilkinson2016fair}. Four commitments distinguish it from the
+vocabularies surveyed in Section~\ref{sec:results-gap}.
+
+\paragraph{The limit is carried onto the result.}
+\texttt{censo:AnalyticalMethod} is a \texttt{sosa:Procedure} carrying a unit and
+at least one limit --- of quantification, of detection, or both, since a
+constraint satisfiable only by inventing the missing datum constrains nothing.
+That much CHMO also has, and puts in the same place
+(Section~\ref{sec:results-gap}). The step that separates a bound from a
+measurement is the next one: \texttt{censo:resultUpperBound} places the limit
+on the \emph{observation}, so \emph{censored} is a property of a result and
+not of the procedure that produced it. Two observations from one method, one
+below the limit and one above, differ in exactly this.
+
+An earlier version of the vocabulary reified the analytical run for the same
+purpose. It is retired, for two reasons that are worth stating because the
+commitment is unchanged. A run is a \texttt{prov:Activity} that used a sample
+and generated an observation, and the method it executed already carries the
+limits, so declaring our own terms for it reinvented \textsc{prov-o}. And no
+European release reports a run identifier: an annual mean spans many runs, so
+minting one per station-year would not simplify but misstate. Where a publisher
+does have run-level provenance, \textsc{prov} expresses it with no extension,
+and the bound it produces still lands on
+\texttt{censo:resultUpperBound}.\src{scripts/99\_audit.py, \texttt{check\_no\_dead\_terms}}
+
+\paragraph{The substances are reconciled, not renamed.}
+A \texttt{censo:Analyte} is a \texttt{sosa:ObservableProperty} --- the
+concentration \emph{of} a substance --- and not the substance, whose instances
+are molecules. The two are related by \texttt{rdfs:seeAlso} to the substance's
+ChEBI class, in a separate module the vocabulary does not
+import\src{scripts/20\_align\_external.py}: \num{299} of \num{354} analytes
+across the two packages resolve to exactly one ChEBI class by CAS registry
+number, \num{26} resolve to more than one and are deliberately left unaligned,
+and \num{29} --- technical mixtures and congener groups such as C10--13
+chloroalkanes --- have no ChEBI entry at all, which is a fact about what the
+regulation names rather than a gap in the mapping.
+
+\texttt{owl:sameAs} is reserved for the relation that is an identity: two
+packages' names for one observable property. \num{30} such pairs reconcile the
+European and Turkish vocabularies, so the co-regulated stratum of
+Section~\ref{sec:results-dual} is an entailment rather than a string join, and
+the audit requires the two to agree --- every substance the analysis treats as
+co-regulated must be reachable through a \texttt{sameAs} pair.
+
+\paragraph{Detection status is explicit and exhaustive.}
+\texttt{CensoredObservation}, \texttt{EstimatedObservation},
+\texttt{QuantifiedObservation} and \texttt{UnresolvedObservation} are pairwise
+disjoint and cover \texttt{AssessedObservation}. Never measured is a fifth
+situation, carried by the absence of an observation rather than by a class:
+under the open-world assumption that is how one says a measurement was not made.
+It is the distinction a \texttt{WHERE concentration = 0} query cannot draw, and
+conflating it manufactures findings.
+
+\paragraph{A threshold is a conditional judgement.}
+\texttt{censo:Threshold} carries a value, a unit, a citation to the regulation,
+and \texttt{requiresCondition} links to \texttt{ApplicabilityCondition}
+subclasses: matrix, analytical fraction, bioavailability basis, hardness class.
+Where a precondition is unmet the outcome is \texttt{PreconditionUnmet}, one
+of the four subclasses of \texttt{IndeterminateCompliance} --- not a default
+pass. Annex~I
+creates two such conditions in footnotes: the standards for lead and nickel
+``refer to bioavailable concentrations of the substances'', and cadmium's
+``vary depending on the hardness of the water as specified in five class
+categories''. The released package attaches them, and
+Section~\ref{sec:results-precondition} shows what they decide.
+
+\paragraph{Compliance is three-valued, and the third value records why.}
+\texttt{Exceedance}, \texttt{Compliant} and \texttt{IndeterminateCompliance} are
+jointly exhaustive \emph{for a given observation--threshold pair}, and they are
+what the Directive itself admits: the standard is met, it is not met, or
+compliance cannot be determined. Why it cannot is carried by four subclasses of
+the third --- \texttt{PreconditionUnmet}, \texttt{MethodInsufficient},
+\texttt{PossibleExceedance} and \texttt{BoundNotEstablished} --- and not by a
+fourth top-level value, which would be the vocabulary asserting a distinction
+the Directive does not make. \texttt{PossibleExceedance} belongs there rather
+than beside \texttt{Exceedance}: an interval straddling the limit decides
+nothing, which is indeterminacy with a particular cause, and the assessment
+reported in Section~\ref{sec:results-wbabox} has counted it that way throughout.
+
+Where two subclasses describe one result --- a censored result whose limit
+exceeds the standard has an interval straddling it too --- Article~3(3b) is
+decisive and the observation is recorded under \texttt{MethodInsufficient}. That
+precedence is a rule-layer priority and deliberately not an
+\texttt{owl:disjointWith} axiom between the subclasses, for the same reason no
+class-level disjointness is asserted among the three outcomes: a measurement may
+legitimately be compliant under one jurisdiction's standard and indeterminate
+under another's, and Section~\ref{sec:results-dual} depends on the graph holding
+both. Exclusivity is carried instead by an \texttt{owl:AllDisjointProperties}
+axiom over \texttt{exceeds}, \texttt{possiblyExceeds} and
+\texttt{belowThreshold}, with the equivalent pairwise axioms alongside it
+because the pure-Python engine used here implements only the pairwise rule.
+
+Figure~\ref{fig:geometry} shows three real observations. Where the threshold
+clears the censored interval (a), the non-detection decides the question and the
+ontology returns \texttt{Compliant}: censoring is not an excuse for refusing
+every verdict. Where it falls inside (b), no result the method could have
+returned would have decided the question, and any substitution rule merely picks
+one.
+
+The panels are cut at the quantification limit: Waterbase reports
+\texttt{procedureLOQValue} and no detection limit, and both provisions at issue
+--- Article~3(3b) of Directive 2008/105/EC and Article~4(1) of Directive
+2009/90/EC --- are written about that limit. Section~\ref{sec:methods-noise}
+distinguishes a threshold below the detection limit from one between the two;
+this source cannot show that on measured cases.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\textwidth]{fig06_decision_geometry.pdf}
+\caption{Why two verdicts are not enough, on three real observations. A
+non-detection is the interval $[0,\mathrm{LOQ}]$ (shaded), not a value; the
+threshold $T$ is a line. Panels (a) and (c) are decidable and a conventional
+pipeline gets them right; panel (b) is not, and it is silently recorded as
+compliant --- a distinction available to a reasoner but invisible to a numeric
+column. Each panel is scaled to its own limit; substance, country and values are
+in \texttt{supplementary/figure\_data/fig06\_decision\_geometry.csv}. Generated by
+\texttt{scripts/90\_figures.py}.}
+\label{fig:geometry}
+\end{figure}
+
+\subsection{Regulations as pluggable, versioned packages}
+\label{sec:methods-packages}
+Thresholds expire. \texttt{cereg:RegulationPackage} makes each regulation a
+self-contained module of individuals with jurisdiction, dates and a
+machine-readable \texttt{transcriptionStatus}, so unverified values can be
+excluded rather than trusted. Two packages are released with the
+ontology\src{scripts/19\_build\_regulation\_packages.py}: \texttt{tr-ysky-2016}
+(\num{434} thresholds) and \texttt{eu-2008-105-2026} (\num{114} thresholds),
+both transcribed from the primary legal texts and carrying
+\texttt{VerifiedAgainstPrimarySource}. Each contributes individuals only --- no
+class, no property --- so one loads safely alongside another; the validator
+checks this. Their thresholds carry different IRIs, so the Turkish and European
+assessments coexist in one graph instead of overwriting each other.
+
+\subsection{Is this not simply what detection limits are for?}
+\label{sec:methods-noise}
+Limits of detection exist to separate signal from noise, and a laboratory
+reporting ``not detected'' is doing the right thing; nothing here disputes the
+analytical practice. Two statements are then conflated:
+
+\begin{itemize}
+  \item \emph{the measurement cannot resolve a value} -- true below the limit;
+    and
+  \item \emph{the concentration is zero} -- not established by the measurement.
+\end{itemize}
+
+The laboratory asserts the first, the database records the second. What is lost
+is not a value but the \emph{bound}: a non-detection establishes $c \in
+[0,\mathrm{LOD}]$, and \num{0.0} is a different claim, not a weaker one. The
+method is chosen on analytical grounds, the threshold arrives later from a legal
+instrument, and their relative position is accidental. Article~3(3b) of the
+consolidated Directive 2008/105/EC provides that a result reported as less than
+a limit of quantification that is itself above the EQS ``shall not be considered
+for the purposes of assessing the overall chemical status of that water
+body''~\cite{eu2008eqs,eu2009qaqc}. The law requires a third outcome and
+requires it to be identifiable; a two-valued schema cannot represent it.
+Section~\ref{sec:results-waterbase} reports how often it arises.
+
+\subsection{Could a column have done this?}
+\label{sec:methods-why}
+A relational table with a \texttt{censored} flag and an \texttt{lod} column
+yields every number in Section~\ref{sec:results-waterbase}; our analysis scripts
+are plain Python over CSV, and we do not claim these quantities are otherwise
+uncomputable. What the flag does not give:
+
+\begin{enumerate}
+  \item \textbf{Several regulations over one set of observations.} The Turkish
+    and European assessments differ substantially
+    (Section~\ref{sec:results-waterbase}); with packages that is a re-query,
+    with a threshold column a re-implementation, and the two cannot be held at
+    once.
+  \item \textbf{Preconditions belong to the threshold, not the measurement.} A
+    flag on the observation cannot express a condition on the standard.
+  \item \textbf{Justification.} A defined class yields a derivation for each
+    verdict; a boolean yields a value.
+  \item \textbf{Transfer.} The pattern is domain-independent; a column in one
+    team's spreadsheet is not.
+\end{enumerate}
+
+This paper demonstrates (1) and (2) on real data and (3) on the axiom suite;
+(4) is design intent, evidenced only by the vocabulary's independence from the
+water domain, and we mark it as such.
+
+\subsection{What OWL does, and what it does not}
+OWL supplies identity, taxonomy, disjointness, classification and explanation.
+It cannot compare data values, so \texttt{exceeds}, \texttt{possiblyExceeds} and
+\texttt{belowThreshold} are materialised by the rule layer, then classified. The
+open-world assumption that makes CENSO right for censoring blocks inferring
+``none of the above'', so \texttt{IndeterminateCompliance} is materialised under
+a locally closed world in SHACL. We do not claim that a description-logic
+reasoner computes compliance.
+
+\subsection{What is counted, and what is inferred}
+\label{sec:methods-inference}
+Almost nothing here is an estimate. The shares in
+Section~\ref{sec:results-waterbase} and the three-valued assessment in
+Section~\ref{sec:results-wbabox} are counts over every river station-year in the
+release, computed by arithmetic on four reported fields; there is no sampling
+frame and no population parameter to estimate, so no interval is reported for
+them. Two places depart from that and are treated accordingly. Where a quantity
+is selected \emph{by} its own value --- the ranked substances of
+Figure~\ref{fig:loqeqs}a --- the \num{95}\,\% Wilson interval is plotted,
+because ranking puts the least certain estimates at the top. Where a proportion
+is compared between groups, Section~\ref{sec:results-dual} reports the interval
+for the comparison it rests on.
+
+Two limits of that treatment are worth stating rather than leaving to a reader.
+Station-years are clustered --- by station, substance, reporting country and year
+--- so they are not independent observations, and no comparison here corrects for
+that; the descriptive shares do not need it, and the group comparisons should be
+read as differences between the populations counted rather than as tests. And the
+denominator of the two legal criteria is itself a reported quantity: a
+station-year with no limit cannot fail a test about limits, so every rate built
+on them is a lower bound, and loosest where reporting is worst
+(Figure~\ref{fig:country-practice}).
+
+\subsection{Reproducibility}
+\label{sec:methods-repro}
+Every number in this paper is produced by a script and written under
+\texttt{eval/}; none is typed by hand. The pipeline is deterministic and runs in
+pure Python (\texttt{owlrl}, \texttt{pyshacl}), so no external reasoner is
+required. The ontology was scanned with OOPS!~\cite{poveda2014oops};
+FOOPS!\ \cite{garijo2021foops} is the FAIR assessment we report as not yet run
+rather than assert. A generated manifest maps every numeric claim to its
+artefact and script, and fails if one cannot be
+traced\src{scripts/95\_numbers\_manifest.py}.
+
+The vocabulary is scanned for modelling pitfalls with
+OOPS!~\cite{poveda2014oops} and assessed for FAIR publication with
+FOOPS!~\cite{garijo2021foops}. FOOPS!\ is run against the published IRI rather
+than the local file, because content negotiation, version-IRI resolution and
+registry presence are properties of the publication and not of a serialisation:
+it returns \num{0.78}, passing \num{18} of \num{24}
+checks\src{scripts/15\_foops.py}. The six that do not pass are of two kinds and
+we separate them rather than report a score. Three are missing annotations --- a
+citation, a publisher, an issue date --- properties of the file, repairable
+without touching an axiom. Three are absence from a public registry, which no
+edit to the file achieves. Neither kind bears on the modelling claims made here;
+the full report is in \texttt{eval/foops\_assessment.md} and the cached service
+response beside it, so the figure can be re-derived without a network.

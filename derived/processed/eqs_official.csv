@@ -1,0 +1,218 @@
+no,name_tr,cas,aa_river,mac_river,aa_coastal,mac_coastal,asterisk_unexplained
+26,Alüminyum,7429-90-5,2.2,27.0,2.2,22.0,True
+27,Antimon,7440-36-0,7.8,103.0,4.5,45.0,True
+28,Arsenik,7440-38-2,53.0,53.0,10.0,20.0,True
+29,Asenaften,83-32-9,6.0,66.0,6.0,66.0,False
+31,Azinfos-metil,86-50-0,0.05,0.4,0.05,0.4,False
+32,Bakır,7440-50-8,1.6,3.1,1.3,5.7,True
+33,Baryum,7440-39-3,680.0,680.0,680.0,680.0,False
+34,Benzil benzoat,120-51-4,1000.0,10000.0,1000.0,10000.0,False
+35,Benzilbutilfitalat (BBP),85-68-7,2.7,44.0,2.7,27.0,False
+36,Benzo(a)floren,238-84-6,0.1,1.0,0.1,1.0,False
+37,Benzo(e)piren,192-97-2,0.6,0.6,0.05,0.05,False
+38,Berilyum,7440-41-7,2.5,3.9,2.5,3.9,False
+39,Bifenil,92-52-4,46.0,87.0,46.0,87.0,False
+41,Bisfenol-A,80-05-7,6.5,252.0,6.5,65.0,False
+42,Bor,7440-42-8,707.0,1472.0,707.0,1472.0,True
+43,Bromür,7726-95-6,31.0,46.0,31.0,46.0,False
+44,Çinko,7440-66-6,5.9,231.0,5.33,76.0,True
+45,DDT (toplam),50-29-3,0.01,0.65,0.01,0.1,False
+47,Demeton,8065-48-3,20.0,20.0,20.0,20.0,False
+48,Demir,7439-89-6,36.0,101.0,36.0,101.0,True
+49,Diazinon,333-41-5,0.9,4.0,0.9,4.0,False
+50,Dibutilfitalat (DBP),84-74-2,16.0,96.0,1.5,96.0,False
+51,Dibutilkalay oksit,818-08-6,4.0,67.0,4.0,40.0,False
+52,Dieldrin,60-57-1,0.02,0.93,0.02,0.93,False
+53,Dietil Fitalat,84-66-2,72.0,1920.0,72.0,1920.0,False
+54,Difenil eter; difenil oksit,101-84-8,6.0,60.0,1.0,60.0,False
+55,Difenilamin,122-39-4,37.0,100.0,44.0,440.0,False
+56,Diizobütil adipat,141-04-8,8.7,9.0,11.0,11.0,False
+57,Diklofenak,15307-79-6,100.0,100.0,100.0,100.0,False
+58,Dioktil fitalat (DnOP),117-84-0,1680.0,16800.0,1680.0,16800.0,False
+59,EDTA,60-00-4,39.0,39.0,39.0,39.0,False
+62,Fenantren,85-01-8,1.4,11.2,1.4,11.2,False
+64,Fentiyon,55-38-9,0.05,1.1,0.05,1.1,False
+65,Floren,86-73-7,3.4,47.0,3.4,47.0,False
+66,Gümüş,7440-22-4,1.5,1.5,1.5,1.5,True
+67,Izopropilbenzen,98-82-8,35.0,260.0,35.0,260.0,False
+69,Kalay,7440-31-5,13.0,13.0,13.0,13.0,True
+70,Karbontetraklorür,56-23-5,7.2,130.0,7.2,130.0,False
+71,Klofibrik asit,882-09-7,0.3,89.0,0.5,89.0,False
+72,Kloroasetik asit,79-11-8,0.5,5.0,0.5,5.0,False
+73,Klorotalonil,1897-45-6,0.3,4.2,0.3,2.0,False
+74,Kobalt,7440-48-4,0.3,2.6,0.3,2.6,True
+75,Krisen,218-01-9,1.9,19.0,1.9,19.0,False
+76,Krom,7440-47-3,1.6,142.0,4.2,88.0,True
+77,Ksilen (m),108-38-3,24.0,273.0,1.4,273.0,False
+78,Ksilen (o),95-47-6,24.0,585.0,1.8,585.0,False
+79,Ksilen misk,81-15-2,5.6,56.0,5.6,56.0,False
+80,Linuron,330-55-2,3.0,7.0,3.0,7.0,False
+83,n-bütilkalay triklorür,1118-46-3,1.2,12.0,1.2,12.0,False
+84,Nitrobenzen,98-95-3,187.0,3516.0,187.0,3516.0,False
+86,Poliklorlubifeniller (PCB'ler),1336-36-3,0.31,0.37,0.07,0.14,False
+94,Perilen,198-55-0,0.6,0.6,0.01,0.03,False
+95,Permetrin,52645-53-1,0.12,0.12,0.12,0.12,False
+97,Piren,129-00-0,0.1,0.4,0.02,0.4,False
+98,Piriproksifen,95737-68-1,0.02,7.5,0.02,7.5,False
+100,Propetamfos,31218-83-4,0.05,0.7,1.5,15.0,False
+101,Propilbenzen,103-65-1,0.2,1.7,0.2,1.7,False
+102,Serbest CN,57-12-5,1.2,6.0,1.2,6.0,False
+103,Silisyum,7440-21-3,1830.0,1830.0,610.0,6891.0,False
+104,Stiren; Vinilbenzen,100-42-5,6.3,575.0,5.1,575.0,False
+105,Sülfametoksazol,723-46-6,5.0,50.0,5.0,50.0,False
+107,Tetrabromobisfenol A (TBBP-A),79-94-7,2.0,20.0,2.0,20.0,False
+108,Titanyum,7440-32-6,26.0,42.0,26.0,42.0,True
+110,Tribromodifenil eter,49690-94-0,1.6,1.6,0.004,0.08,False
+111,Tributil fosfat,126-73-8,53.0,326.0,53.0,326.0,False
+112,Tridekan,629-50-5,0.05,0.05,0.05,0.05,False
+113,Trifenilkalay; Fentin,668-34-8,0.5,0.5,0.5,0.5,False
+114,Trikloroetilen (TRI),79-01-6,177.0,8163.0,177.0,8163.0,False
+115,Triklosan,3380-34-5,0.12,1.1,0.12,1.1,False
+116,Tris(nonilfenil) fosfit,26523-78-4,10.0,10.0,10.0,10.0,False
+117,Vanadyum,7440-62-2,1.6,97.0,1.6,16.0,True
+122,Asetamiprid,135410-20-7,42.0,42.0,42.0,42.0,False
+123,Atrazin-desetil,6190-65-4,0.3,3.0,0.3,3.0,False
+124,Azoksistrobin,131860-33-8,0.2,6.0,0.2,6.0,False
+125,Bentazon,25057-89-0,4.5,832.0,4.5,832.0,False
+127,Boskalid,188425-85-6,19.0,113.0,19.0,113.0,False
+128,Bromofos-etil,4824-78-6,0.01,0.1,0.01,0.1,False
+129,Bromofos-metil,2104-96-3,0.001,0.1,0.001,0.01,False
+130,Bromopropilat,18181-80-1,0.12,23.0,0.12,1.2,False
+131,Bromoksinil,1689-84-5,36.0,262.0,0.8,262.0,False
+132,Buprofezin,69327-76-0,3.5,3.5,3.5,3.5,False
+133,Butralin,33629-47-9,0.1,4.1,0.1,4.1,False
+134,Kadusafos,95465-99-9,0.01,0.02,0.01,0.02,False
+135,Kaptan,133-06-2,1.6,8.5,1.6,8.5,False
+136,Karbaril,63-25-2,9.0,34.0,0.04,34.0,False
+137,Karbendazim,10605-21-7,2.7,77.0,2.7,77.0,False
+138,Karbofuran,1563-66-2,2.3,2.3,0.05,1.6,False
+139,Karboksin; vitavaks,5234-68-4,11.0,11.0,5.0,5.0,False
+140,Klorantraniliprol,500008-45-7,0.09,1.4,12.0,12.0,False
+141,Klorobenzilat,510-15-6,6.0,60.0,0.8,8.0,False
+142,Klordan,57-74-9,42.0,42.0,42.0,42.0,False
+143,Klorfenapir,122453-73-0,0.007,0.4,0.007,0.4,False
+144,Kloridazon; pirazon,1698-60-8,6.0,6.0,0.01,0.1,False
+145,Klorsulfuron,64902-72-3,0.02,0.6,2000.0,2000.0,False
+146,Klofentezin,74115-24-5,0.12,0.5,0.025,0.25,False
+147,Klopiralid,1702-17-6,200.0,200.0,200.0,200.0,False
+148,Klotianidin,210880-92-5,1.2,1.2,1.2,1.2,False
+149,Siklanilid,113136-77-9,2.5,10.0,2.5,10.0,False
+150,Siflutrin; beta siflutrin,68359-37-5,0.001,0.003,0.001,0.003,False
+151,Siprodinil,121552-61-2,4.3,21.0,4.3,21.0,False
+152,Siromazin,66215-27-8,0.2,16.0,0.3,3.0,False
+154,Diklobenil,1194-65-6,0.6,187.0,74.0,187.0,False
+155,Dietofenkarb,87130-20-9,0.7,910.0,0.7,7.0,False
+156,Difenokonazol,119446-68-3,0.2,5.5,0.2,5.5,False
+157,Diflubenzuron,35367-38-5,0.13,0.13,0.02,0.02,False
+158,Diflufenikan,83164-33-4,0.01,0.01,0.01,0.01,False
+159,Dimetenamid,87674-68-8,0.4,1.5,0.4,1.5,False
+160,Dimetoat,60-51-5,15.0,15.0,15.0,15.0,False
+161,Dimetomorf,110488-70-5,3.5,61.0,3.5,61.0,False
+162,Dimetilaminosulfanilid,4710-17-2,100.0,9560.0,100.0,1000.0,False
+163,Dinobuton,973-21-7,0.05,0.5,0.05,0.5,False
+164,Epoksikonazol,133855-98-8,0.8,0.8,0.03,0.3,False
+165,Etalfluralin,55283-68-6,0.3,0.5,0.5,0.5,False
+166,Etofumesat,26225-79-6,48.0,324.0,48.0,324.0,False
+167,Etoprofos,13194-48-4,0.21,6.4,0.21,0.35,False
+168,Fenamifos,22224-92-6,0.01,0.08,0.01,0.08,False
+169,Fenarimol,60168-88-9,0.07,0.07,0.07,0.07,False
+170,Fenbutatin ksit,13356-08-6,0.1,0.5,0.1,0.5,False
+171,Feneksamid,126833-17-8,28.0,28.0,28.0,28.0,False
+172,Fenpropatrin,39515-41-8,0.01,0.01,0.01,0.01,False
+173,Fenpropimorf,67564-91-4,0.1,30.0,0.1,1.0,False
+174,Fluazifop-p-butil,79241-46-6,4.8,53.0,4.8,48.0,False
+175,Fludioksonil,131341-86-1,1.2,3.1,1.2,3.1,False
+176,Fluopiram,658066-35-4,50.0,275.0,22.0,43.0,False
+177,Flukinkonazol,136426-54-5,3.1,3.1,3.1,3.1,False
+178,Fluroksipir,69377-81-7,5600.0,5600.0,5600.0,5600.0,False
+179,Flutolanil,66332-96-5,55.0,975.0,0.6,0.6,False
+180,Flutriafol,76674-21-0,25.0,79.0,25.0,79.0,False
+181,Fosetil al,39148-24-8,25.0,330.0,25.0,330.0,False
+182,Fostiazat,98886-44-3,42.0,42.0,42.0,42.0,False
+183,Hekzakonazol,79983-71-4,11.0,115.0,11.0,115.0,False
+184,Hekzitiazoks,78587-05-0,0.4,0.4,0.4,0.4,False
+185,Imazalil,35554-44-0,50.0,73.0,50.0,73.0,False
+186,Imazapir,81334-34-1,1900.0,1900.0,1590.0,1840.0,False
+187,Imidakloprid,138261-41-3,0.14,1.4,0.14,1.4,False
+188,Lenasil,2164-08-1,1.0,1.0,1.0,1.0,False
+189,Malation,121-75-5,42.0,42.0,42.0,42.0,False
+190,Mandipropamid,374726-62-2,46.0,250.0,46.0,250.0,False
+191,Mepikuat klorit,24307-26-4,20.0,20.0,20.0,20.0,False
+192,Mesotrion,104206-82-8,44.0,705.0,44.0,705.0,False
+193,Metalaksil,57837-19-1,17.0,5320.0,1.0,10.0,False
+194,Metam potasyum,137-41-7,24.0,240.0,24.0,240.0,False
+195,Metamitron,41394-05-2,2.0,4.5,2.0,4.5,False
+196,Metazaklor,67129-08-2,42.0,42.0,42.0,42.0,False
+197,Metamidofos,10265-92-6,0.2,0.2,0.2,0.2,False
+198,Metidation,950-37-8,42.0,42.0,42.0,42.0,False
+199,Metomil,16752-77-5,42.0,42.0,42.0,42.0,False
+200,Metoksifenozid,161050-58-4,11.0,110.0,11.0,110.0,False
+201,Metolaklor,51218-45-2,3.3,88.0,3.3,88.0,False
+202,Metrafenon,220899-03-6,12.0,13.0,1.0,13.0,False
+203,Molinat,2212-67-1,136.0,460.0,136.0,460.0,False
+204,Monokrotofos,6923-22-4,0.4,45.0,1.0,45.0,False
+205,Miklobutanil,88671-89-0,9.6,9.6,9.6,9.6,False
+206,Nikosulfuron,111991-09-4,0.05,0.2,0.05,0.2,False
+207,Nitrofen,1836-75-5,0.2,90.0,0.2,2.0,False
+208,Ometoat,1113-02-6,16.0,16.0,85.0,85.0,False
+209,Okzadiazon,19666-30-9,0.3,9.0,0.3,9.0,False
+210,Okzadiksil,77732-09-3,306.0,306.0,306.0,306.0,False
+211,Paration-metil,298-00-0,1.4,2.5,0.01,2.5,False
+212,Penkonazol,66246-88-6,1.2,1.9,1.2,1.9,False
+213,Pendimetalin,40487-42-1,0.5,8.0,0.5,8.0,False
+214,Fentoat,2597-03-7,0.05,0.5,0.05,0.5,False
+215,Pikloram,1918-02-1,55.0,1401.0,12.0,120.0,False
+216,Piperonil butoksit,51-03-6,3.3,350.0,0.8,350.0,False
+217,Pirimikarb,23103-98-2,3.3,21.0,3.3,21.0,False
+218,Prosimidon,32809-16-8,12.0,12.0,12.0,12.0,False
+219,Prometrin,7287-19-6,0.3,2.0,0.3,2.0,False
+220,Propamokarb HCL,25606-41-1,2240.0,3914.0,185.0,3914.0,False
+221,Propazin,139-40-2,0.3,4.1,0.3,4.1,False
+222,Profam,122-42-9,1.0,989.0,1.0,10.0,False
+223,Propikonazol,60207-90-1,0.7,50.0,0.7,50.0,False
+224,Propizamid,23950-58-5,23.0,112.0,23.0,112.0,False
+225,Protiofos,34643-46-4,0.1,16.0,0.1,16.0,False
+226,Piraklostrobin,175013-18-0,0.08,0.08,0.08,0.08,False
+227,Piridaben,96489-71-3,0.25,0.25,0.25,0.25,False
+228,Pirimetanil,53112-28-0,12.0,139.0,12.0,139.0,False
+229,Kuinalfos,13593-03-8,0.2,1.4,0.2,1.4,False
+230,Kuizalofop-p-etil,100646-51-3,1.0,1.0,1.0,1.0,False
+231,Spiroksamin,118134-30-8,42.0,42.0,42.0,42.0,False
+232,Tebukonazol,107534-96-3,23.0,121.0,1.6,121.0,False
+233,Tebutiuron,34014-18-1,0.18,7.4,0.18,7.4,False
+234,Teknazen,117-18-0,1.0,10.0,1.0,10.0,False
+235,Teflutrin,79538-32-2,0.002,0.002,0.002,0.002,False
+236,Terbutilazin,5915-41-3,0.2,3.5,0.01,3.5,False
+237,Tiabendazol,148-79-8,0.5,28.0,0.5,28.0,False
+238,Tiakloprid,111988-49-9,0.13,2.0,0.13,2.0,False
+239,Tiametokzam,153719-23-4,20.0,20.0,20.0,20.0,False
+240,Tidiazuron,51707-55-2,10.0,61.0,10.0,61.0,False
+241,Tiometon,640-15-3,0.01,47.0,0.01,0.1,False
+242,Tiofanat-metil,23564-05-8,42.0,42.0,42.0,42.0,False
+243,Tolklofos-metil,57018-04-9,1.2,7.0,1.2,7.0,False
+244,Tolfenpirad,129558-76-5,0.2,0.2,0.2,0.2,False
+245,Triasulfuron,82097-50-5,0.012,0.12,1.8,1.8,False
+246,Tribenuron-metil,101200-48-0,0.04,0.08,0.04,0.08,False
+247,Trifloksistrobin,141517-21-7,42.0,42.0,42.0,42.0,False
+248,Triflumuron,64628-44-0,0.23,0.23,0.23,0.23,False
+249,Trinekzapak-etil,95266-40-3,13.0,86.0,13.0,86.0,False
+250,Vinklozolin,50471-44-8,1.1,84.0,1.1,84.0,False
+1,Alaklor,15972-60-8,0.3,0.7,0.3,0.7,False
+2,Antrasen,120-12-7,0.1,0.4,0.1,0.4,False
+3,Atrazin,1912-24-9,0.6,2.0,0.6,2.0,False
+4,Benzen,71-43-2,10.0,50.0,8.0,50.0,False
+8,Klorfenvinfos,470-90-6,0.1,0.3,0.1,0.3,False
+9,Klorpirifos (Klorpirifos-etil),2921-88-2,0.03,0.1,0.03,0.1,False
+13,Diuron,330-54-1,0.2,1.8,0.2,1.8,False
+14,Endosulfan,115-29-7,0.005,0.01,0.0005,0.004,False
+15,Floranten,206-44-0,0.0063,0.12,0.0063,0.12,False
+18,Hekzakloro-siklohekzan,608-73-1,0.02,0.04,0.002,0.02,False
+19,Isoproturon,34123-59-6,0.3,1.0,0.3,1.0,False
+22,Naftalin,91-20-3,2.0,130.0,2.0,130.0,False
+27,Pentakloro-fenol,87-86-5,0.4,1.0,0.4,1.0,False
+29,Simazin,122-34-9,1.0,4.0,1.0,4.0,False
+36,Kinoksifen,124495-18-7,0.15,2.7,0.015,0.54,False
+38,Aklonifen,74070-46-5,0.12,0.12,0.012,0.012,False
+39,Bifenoks,42576-02-3,0.012,0.04,0.0012,0.004,False
+40,Sibutrin,28159-98-0,0.0025,0.016,0.0025,0.016,False
+45,Terbutrin,886-50-0,0.065,0.34,0.0065,0.034,False

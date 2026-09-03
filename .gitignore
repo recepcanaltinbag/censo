@@ -1,0 +1,39 @@
+# What is deliberately not in this repository, and why. The README says the
+# same in prose; this is the enforceable version.
+
+# ---- other people's data, one download away -------------------------------
+# The EEA's to distribute. scripts/01_check_environment.py prints the URL, and
+# every stage that needs it says so rather than failing obscurely.
+Data/
+*.zip
+
+# The legal texts are free from EUR-Lex and the Resmi Gazete, the papers from
+# their publishers. We cite them; we do not redistribute them.
+refs/
+
+# ---- generated, and large --------------------------------------------------
+# Rebuilt by scripts/00_run_all.py. derived/processed/ IS tracked: it is what
+# scripts/99_audit.py recomputes every manuscript claim from, so a reader who
+# does not download the release can still check the arithmetic.
+derived/abox/
+derived/interim/
+
+# The manuscript as a single file and the figure bundle, both produced by the
+# pipeline from the sources that are tracked.
+paper/censo-manuscript.docx
+paper/figures.zip
+
+# ---- environment -----------------------------------------------------------
+.venv*/
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# A working snapshot, not history.
+.baseline/
+
+# publish/site is its own git repository -- the GitHub Pages deployment target
+# that w3id.org redirects to. scripts/97_assemble_publish.py writes into it and
+# scripts/99_audit.py checks it is current, but its history belongs to that
+# repository and not to this one.
+publish/site/

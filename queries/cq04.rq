@@ -1,0 +1,22 @@
+# Which observations are censored where the threshold lies inside the interval the non-detection permits?
+# Exercises: censo:resultUpperBound against censo:thresholdValue -- the geometry
+# behind an indeterminate verdict. The bound tested is the QUANTIFICATION limit,
+# which is what Waterbase reports. The narrower case -- a threshold below the
+# limit of DETECTION -- cannot be shown from this release, which states no
+# detection limit; see the scope note on censo:MethodInsufficient.
+
+PREFIX censo: <https://w3id.org/censo/>
+PREFIX cereg: <https://w3id.org/censo/reg/>
+PREFIX sosa:  <http://www.w3.org/ns/sosa/>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX skos:  <http://www.w3.org/2004/02/skos/core#>
+PREFIX geo:   <http://www.opengis.net/ont/geosparql#>
+
+SELECT ?analyteLabel (COUNT(?o) AS ?n) WHERE {
+  ?o a censo:CensoredObservation ; censo:hasAnalyte ?a ;
+     censo:resultUpperBound ?hi .
+  ?t censo:appliesToAnalyte ?a ; censo:thresholdValue ?tv .
+  ?a rdfs:label ?analyteLabel .
+  FILTER (?tv < ?hi)
+} GROUP BY ?analyteLabel ORDER BY DESC(?n) LIMIT 20

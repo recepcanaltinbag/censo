@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Created with matplotlib (https://matplotlib.org/) -->
+<svg height="198pt" version="1.1" viewBox="0 0 538.56 198" width="538.56pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <metadata>
+  <rdf:RDF xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-09-03T18:18:17.602106</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.3.4, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linecap:butt;stroke-linejoin:round;}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 198 
+L 538.56 198 
+L 538.56 0 
+L 0 0 
+z
+" style="fill:#ffffff;"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 67.32 138.6 
+L 190.08 138.6 
+L 190.08 27.72 
+L 67.32 27.72 
+z
+" style="fill:#ffffff;"/>
+   </g>
+   <g id="line2d_1">
+    <path clip-path="url(#p17d4bc5195)" d="M 67.32 114.129931 
+L 190.08 114.129931 
+" style="fill:none;stroke:#6b7280;stroke-dasharray:2.1,1.4;stroke-dashoffset:0;stroke-width:0.7;"/>
+   </g>
+   <g id="matplotlib.axis_1"/>
+   <g id="matplotlib.axis_2"/>
+   <g id="patch_3">
+    <path clip-path="url(#p17d4bc5195)" d="M 102.703765 138.6 
+L 131.588471 138.6 
+L 131.588471 114.129931 
+L 102.703765 114.129931 
+z
+" style="fill:#8ab0d6;opacity:0.55;stroke:#123f66;stroke-linejoin:miter;stroke-width:0.8;"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 67.32 138.6 
+L 67.32 27.72 
+" style="fill:none;stroke:#3d3d3d;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.6;"/>
+   </g>
+   <g id="line2d_2">
+    <path clip-path="url(#p17d4bc5195)" d="M 67.32 77.424828 
+L 190.08 77.424828 
+" style="fill:none;stroke:#128a6e;stroke-linecap:round;stroke-width:1.6;"/>
+   </g>
+   <g id="text_1">
+    <text style="fill:#6b7280;font-family:DejaVu Sans;font-size:6px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:end;" transform="rotate(-0, 188.635765, 115.785556)" x="188.635765" y="115.785556">LOQ</text>
+   </g>
+   <g id="text_2">
+    <!-- $T$ -->
+    <g style="fill:#128a6e;" transform="translate(70.930588 79.35639)">
+     <text>
+      <tspan style="font-family:DejaVu Sans;font-size:7px;font-style:oblique;font-weight:oblique;" x="0" y="-0.890625">T</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_3">
+    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:6px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(70.930588 155.394097)">Anthracene (ES)</text>
+    <!-- LOQ 0.04, $T$ 0.1 µg/L -->
+    <g style="fill:#1f1f1f;" transform="translate(70.930588 162.796644)">
+     <text>
+      <tspan style="font-family:DejaVu Sans;font-size:6px;font-style:book;font-weight:book;" x="0 3.342773 8.06543 12.788086 14.695312 18.512695 20.419922 24.237305 28.054688 29.961914 35.53418 37.441406 41.258789 43.166016 46.983398 48.890625 52.708008 56.516602 58.538086" y="-0.546875">LOQ 0.04,  0.1 µg/L</tspan>
+      <tspan style="font-family:DejaVu Sans;font-size:6px;font-style:oblique;font-weight:oblique;" x="31.869141" y="-0.546875">T</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_4">
+    <!-- The interval $[0,\mathrm{LOQ}]$ lies -->
+    <g style="fill:#6b7280;" transform="translate(70.930588 182.998909)">
+     <text>
+      <tspan style="font-family:DejaVu Sans;font-size:6.1px;font-style:book;font-weight:book;" x="0 3.741394 7.623352 11.391663 13.338623 15.040344 18.922302 21.323853 25.092163 27.610352 31.235107 34.988464 36.690186 38.637146 41.026733 44.923645 48.063904 51.476318 56.297363 61.118408 63.507996 65.454956 67.156677 68.858398 72.626709" y="-0.4375">The interval [0,LOQ] lies</tspan>
+     </text>
+    </g>
+    <!-- wholly below $T$. -->
+    <g style="fill:#6b7280;" transform="translate(70.930588 189.830718)">
+     <text>
+      <tspan style="font-family:DejaVu Sans;font-size:6.1px;font-style:book;font-weight:book;" x="0 5.00946 8.891418 12.638794 14.340515 16.042236 19.666992 21.613953 25.501892 29.270203 30.971924 34.719299 39.72876 45.417114" y="-0.4375">wholly below .</tspan>
+      <tspan style="font-family:DejaVu Sans;font-size:6.1px;font-style:oblique;font-weight:oblique;" x="41.67572" y="-0.4375">T</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_5">
+    <text style="fill:#128a6e;font-family:DejaVu Sans;font-size:7px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:middle;" transform="rotate(-0, 128.7, 35.332975)" x="128.7" y="35.332975">Compliant</text>
+   </g>
+   <g id="text_6">
+    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:9px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:start;" transform="rotate(-0, 52.5888, 14.760281)" x="52.5888" y="14.760281">a</text>
+   </g>
+   <g id="text_7">
+    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:7.2px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 67.32, 23.72)" x="67.32" y="23.72">Threshold above the limit</text>
+   </g>
+   <g id="text_8">
+    <!-- $[0,\mathrm{LOQ}]$ -->
+    <g style="fill:#1f1f1f;" transform="translate(135.921176 126.907462)">
+     <text>
+      <tspan style="font-family:DejaVu Sans;font-size:6.4px;font-style:book;font-weight:book;" x="0 2.487122 6.543091 9.811523 13.36322 18.381042 23.398865" y="-0.4375">[0,LOQ]</tspan>
+     </text>
+    </g>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_5">
+    <path d="M 214.632 138.6 
+L 337.392 138.6 
+L 337.392 27.72 
+L 214.632 27.72 
+z
+" style="fill:#ffffff;"/>
+   </g>
+   <g id="line2d_3">
+    <path clip-path="url(#p6b3c84e6e4)" d="M 214.632 81.956322 
+L 337.392 81.956322 
+" style="fill:none;stroke:#6b7280;stroke-dasharray:2.1,1.4;stroke-dashoffset:0;stroke-width:0.7;"/>
+   </g>
+   <g id="matplotlib.axis_3"/>
+   <g id="matplotlib.axis_4"/>
+   <g id="patch_6">
+    <path clip-path="url(#p6b3c84e6e4)" d="M 250.015765 138.6 
+L 278.900471 138.6 
+L 278.900471 81.956322 
+L 250.015765 81.956322 
+z
+" style="fill:#8ab0d6;opacity:0.55;stroke:#123f66;stroke-linejoin:miter;stroke-width:0.8;"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 214.632 138.6 
+L 214.632 27.72 
+" style="fill:none;stroke:#3d3d3d;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.6;"/>
+   </g>
+   <g id="line2d_4">
+    <path clip-path="url(#p6b3c84e6e4)" d="M 214.632 100.082299 
+L 337.392 100.082299 
+" style="fill:none;stroke:#7159a6;stroke-linecap:round;stroke-width:1.6;"/>
+   </g>
+   <g id="text_9">
+    <text style="fill:#6b7280;font-family:DejaVu Sans;font-size:6px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:end;" transform="rotate(-0, 335.947765, 83.611947)" x="335.947765" y="83.611947">LOQ</text>
+   </g>
+   <g id="text_10">
+    <!-- $T$ -->
+    <g style="fill:#7159a6;" transform="translate(218.242588 102.013861)">
+     <text>
+      <tspan style="font-family:DejaVu Sans;font-size:7px;font-style:oblique;font-weight:oblique;" x="0" y="-0.890625">T</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_11">
+    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:6px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(218.242588 155.394097)">Imidacloprid (ES)</text>
+    <!-- LOQ 0.01, $T$ 0.0068 µg/L -->
+    <g style="fill:#1f1f1f;" transform="translate(218.242588 162.796644)">
+     <text>
+      <tspan style="font-family:DejaVu Sans;font-size:6px;font-style:book;font-weight:book;" x="0 3.342773 8.06543 12.788086 14.695312 18.512695 20.419922 24.237305 28.054688 29.961914 35.53418 37.441406 41.258789 43.166016 46.983398 50.800781 54.618164 58.435547 60.342773 64.160156 67.96875 69.990234" y="-0.546875">LOQ 0.01,  0.0068 µg/L</tspan>
+      <tspan style="font-family:DejaVu Sans;font-size:6px;font-style:oblique;font-weight:oblique;" x="31.869141" y="-0.546875">T</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_12">
+    <!-- $T$ falls inside $[0,\mathrm{LOQ}]$. -->
+    <g style="fill:#6b7280;" transform="translate(218.242588 182.998909)">
+     <text>
+      <tspan style="font-family:DejaVu Sans;font-size:6.1px;font-style:oblique;font-weight:oblique;" x="0" y="-0.4375">T</tspan>
+      <tspan style="font-family:DejaVu Sans;font-size:6.1px;font-style:book;font-weight:book;" x="3.741394 5.688354 7.844666 11.598022 13.299744 15.001465 18.192566 20.139526 21.841248 25.723206 28.914307 30.616028 34.503967 38.272278 40.219238 42.608826 46.505737 49.645996 53.058411 57.879456 62.7005 65.090088" y="-0.4375"> falls inside [0,LOQ].</tspan>
+     </text>
+    </g>
+    <text style="fill:#6b7280;font-family:DejaVu Sans;font-size:6.1px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(218.242588 189.829575)">No result this method could</text>
+    <text style="fill:#6b7280;font-family:DejaVu Sans;font-size:6.1px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(218.242588 196.66024)">return would decide.</text>
+   </g>
+   <g id="text_13">
+    <text style="fill:#7159a6;font-family:DejaVu Sans;font-size:7px;font-stretch:normal;font-style:normal;font-weight:bold;" transform="translate(255.923094 35.332975)">Cannot be</text>
+    <text style="fill:#7159a6;font-family:DejaVu Sans;font-size:7px;font-stretch:normal;font-style:normal;font-weight:bold;" transform="translate(253.142234 43.171444)">determined</text>
+   </g>
+   <g id="text_14">
+    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:9px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:start;" transform="rotate(-0, 199.9008, 14.760281)" x="199.9008" y="14.760281">b</text>
+   </g>
+   <g id="text_15">
+    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:7.2px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 214.632, 23.72)" x="214.632" y="23.72">Threshold inside the interval</text>
+   </g>
+   <g id="text_16">
+    <!-- $[0,\mathrm{LOQ}]$ -->
+    <g style="fill:#1f1f1f;" transform="translate(283.233176 109.211977)">
+     <text>
+      <tspan style="font-family:DejaVu Sans;font-size:6.4px;font-style:book;font-weight:book;" x="0 2.487122 6.543091 9.811523 13.36322 18.381042 23.398865" y="-0.4375">[0,LOQ]</tspan>
+     </text>
+    </g>
+   </g>
+  </g>
+  <g id="axes_3">
+   <g id="patch_8">
+    <path d="M 361.944 138.6 
+L 484.704 138.6 
+L 484.704 27.72 
+L 361.944 27.72 
+z
+" style="fill:#ffffff;"/>
+   </g>
+   <g id="line2d_5">
+    <path clip-path="url(#p49ca9ccbb3)" d="M 361.944 103.78333 
+L 484.704 103.78333 
+" style="fill:none;stroke:#6b7280;stroke-dasharray:2.1,1.4;stroke-dashoffset:0;stroke-width:0.7;"/>
+   </g>
+   <g id="matplotlib.axis_5"/>
+   <g id="matplotlib.axis_6"/>
+   <g id="line2d_6">
+    <path clip-path="url(#p49ca9ccbb3)" d="M 411.770118 138.6 
+L 411.770118 74.875862 
+" style="fill:none;stroke:#123f66;stroke-linecap:round;"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 361.944 138.6 
+L 361.944 27.72 
+" style="fill:none;stroke:#3d3d3d;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.6;"/>
+   </g>
+   <g id="line2d_7">
+    <path clip-path="url(#p49ca9ccbb3)" d="M 411.770118 74.875862 
+" style="fill:none;stroke:#123f66;stroke-linecap:round;"/>
+    <defs>
+     <path d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" id="m350e5d15f2" style="stroke:#ffffff;"/>
+    </defs>
+    <g clip-path="url(#p49ca9ccbb3)">
+     <use style="fill:#123f66;stroke:#ffffff;" x="411.770118" xlink:href="#m350e5d15f2" y="74.875862"/>
+    </g>
+   </g>
+   <g id="line2d_8">
+    <path clip-path="url(#p49ca9ccbb3)" d="M 361.944 115.388887 
+L 484.704 115.388887 
+" style="fill:none;stroke:#a01e28;stroke-linecap:round;stroke-width:1.6;"/>
+   </g>
+   <g id="text_17">
+    <text style="fill:#6b7280;font-family:DejaVu Sans;font-size:6px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:end;" transform="rotate(-0, 483.259765, 105.438955)" x="483.259765" y="105.438955">LOQ</text>
+   </g>
+   <g id="text_18">
+    <!-- $T$ -->
+    <g style="fill:#a01e28;" transform="translate(365.554588 117.320449)">
+     <text>
+      <tspan style="font-family:DejaVu Sans;font-size:7px;font-style:oblique;font-weight:oblique;" x="0" y="-0.890625">T</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_19">
+    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:6px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(365.554588 155.394097)">Nickel and its compounds (RO)</text>
+    <!-- LOQ 3, $T$ 2 µg/L -->
+    <g style="fill:#1f1f1f;" transform="translate(365.554588 162.796644)">
+     <text>
+      <tspan style="font-family:DejaVu Sans;font-size:6px;font-style:book;font-weight:book;" x="0 3.342773 8.06543 12.788086 14.695312 18.512695 20.419922 25.992188 27.899414 31.716797 33.624023 37.441406 41.25 43.271484" y="-0.546875">LOQ 3,  2 µg/L</tspan>
+      <tspan style="font-family:DejaVu Sans;font-size:6px;font-style:oblique;font-weight:oblique;" x="22.327148" y="-0.546875">T</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_20">
+    <!-- A measured value above $T$. -->
+    <g style="fill:#6b7280;" transform="translate(365.554588 182.998909)">
+     <text>
+      <tspan style="font-family:DejaVu Sans;font-size:6.1px;font-style:book;font-weight:book;" x="0 4.190002 6.136963 12.103455 15.871765 19.625122 22.816223 26.698181 29.21637 32.98468 36.87262 38.81958 42.444336 46.197693 47.899414 51.781372 55.549683 57.496643 61.25 65.137939 68.885315 72.510071 76.278381 81.966736" y="-0.4375">A measured value above .</tspan>
+      <tspan style="font-family:DejaVu Sans;font-size:6.1px;font-style:oblique;font-weight:oblique;" x="78.225342" y="-0.4375">T</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_21">
+    <text style="fill:#a01e28;font-family:DejaVu Sans;font-size:7px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:middle;" transform="rotate(-0, 423.324, 35.332975)" x="423.324" y="35.332975">Exceedance</text>
+   </g>
+   <g id="text_22">
+    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:9px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:start;" transform="rotate(-0, 347.2128, 14.760281)" x="347.2128" y="14.760281">c</text>
+   </g>
+   <g id="text_23">
+    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:7.2px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 361.944, 23.72)" x="361.944" y="23.72">Quantified exceedance</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p17d4bc5195">
+   <rect height="110.88" width="122.76" x="67.32" y="27.72"/>
+  </clipPath>
+  <clipPath id="p6b3c84e6e4">
+   <rect height="110.88" width="122.76" x="214.632" y="27.72"/>
+  </clipPath>
+  <clipPath id="p49ca9ccbb3">
+   <rect height="110.88" width="122.76" x="361.944" y="27.72"/>
+  </clipPath>
+ </defs>
+</svg>

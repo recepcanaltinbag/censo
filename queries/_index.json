@@ -1,0 +1,82 @@
+{
+  "cq01": {
+    "question": "How many observations fall in each detection status?",
+    "axiom": "censo:CensoredObservation and its three disjoint siblings"
+  },
+  "cq02": {
+    "question": "Which analytes have no published detection limit, so their zeros cannot be interpreted?",
+    "axiom": "censo:UnresolvedObservation; absence of censo:AnalyticalMethod"
+  },
+  "cq03": {
+    "question": "For which substances does the method's quantification limit exceed the regulatory threshold?",
+    "axiom": "censo:MethodInsufficient -- compliance cannot be shown in principle"
+  },
+  "cq04": {
+    "question": "Which observations are censored where the threshold lies inside the interval the non-detection permits?",
+    "axiom": "censo:resultUpperBound against censo:thresholdValue (the quantification limit; censo:CensoredAmbiguous names the narrower case at the detection limit, which no monitoring release states)"
+  },
+  "cq05": {
+    "question": "How much of the detection status was reconstructed rather than recorded at source?",
+    "axiom": "censo:censoringRecovered -- provenance of the inference"
+  },
+  "cq06": {
+    "question": "Which thresholds have not been verified against the primary legal text?",
+    "axiom": "cereg:transcriptionStatus -- unverified values must not enter analysis"
+  },
+  "cq07": {
+    "question": "What interval does a given observation establish, and from which limit?",
+    "axiom": "censo:resultLowerBound / resultUpperBound bound to the method's limitOfQuantification"
+  },
+  "cq08": {
+    "question": "Which substances were never quantified anywhere in the survey, despite being measured?",
+    "axiom": "censo:QuantifiedObservation absent for the analyte"
+  },
+  "cq09": {
+    "question": "How does detection frequency vary between campaigns for a substance?",
+    "axiom": "censo:duringCampaign -- seasonality of detection"
+  },
+  "cq10": {
+    "question": "Which analytes are aligned to an external chemical identifier?",
+    "axiom": "skos:exactMatch to ChEBI; censo:casNumber"
+  },
+  "cq11": {
+    "question": "Which regulation establishes a given threshold, and from what source document?",
+    "axiom": "censo:definedBy, cereg:sourceDocument -- an uncited threshold is undefendable"
+  },
+  "cq12": {
+    "question": "Which stations carry a geometry, and how many observations does each hold?",
+    "axiom": "geo:asWKT on sosa:FeatureOfInterest"
+  },
+  "cq13": {
+    "question": "How many observations are excluded from assessment because their status is unresolved?",
+    "axiom": "UnresolvedObservation subset of NOT assessableAgainst -- the axiom in action"
+  },
+  "cq14": {
+    "question": "Which analytes have a regulatory threshold but no analytical method with limits?",
+    "axiom": "the assessability gap: regulated, but no method states a quantification limit for it in this survey"
+  },
+  "cq15": {
+    "question": "What is the ratio of the interval width to the threshold, per analyte?",
+    "axiom": "how much of the decision space censoring occupies: limitOfQuantification as a fraction of the threshold"
+  },
+  "cq16": {
+    "question": "Does the same observation carry a different verdict under a second jurisdiction?",
+    "axiom": "cereg:definedBy — thresholds are individuals, so two regulations coexist"
+  },
+  "cq17": {
+    "question": "Why is this assessment not supportable, and by how much does the method miss?",
+    "axiom": "observation → method → limit → threshold → regulation, a derivation not a boolean"
+  },
+  "cq18": {
+    "question": "Which methods are adequate under one standard and inadequate under another?",
+    "axiom": "method adequacy is a relation between limit and standard, not a method property"
+  },
+  "cq19": {
+    "question": "For which substances can no method in the record decide the standard?",
+    "axiom": "censo:MethodInsufficient aggregated per analyte"
+  },
+  "cq20": {
+    "question": "What did entailment add that the pipeline did not assert?",
+    "axiom": "censo:DetectedObservation / AssessedObservation as defined classes"
+  }
+}

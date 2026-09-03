@@ -1,0 +1,21 @@
+panel,row_standard,row_outcome,column_standard,column_outcome,n
+a,annual average,compliant,maximum allowable,compliant,41311
+a,annual average,compliant,maximum allowable,exceeding,698
+a,annual average,exceeding,maximum allowable,compliant,16290
+a,annual average,exceeding,maximum allowable,exceeding,7986
+b,European standard,Compliant,Turkish standard,Compliant,242758
+b,European standard,Compliant,Turkish standard,MethodInsufficient,755
+b,European standard,Compliant,Turkish standard,Exceeding,170
+b,European standard,Compliant,Turkish standard,BoundNotEstablished,0
+b,European standard,MethodInsufficient,Turkish standard,Compliant,47999
+b,European standard,MethodInsufficient,Turkish standard,MethodInsufficient,20946
+b,European standard,MethodInsufficient,Turkish standard,Exceeding,3655
+b,European standard,MethodInsufficient,Turkish standard,BoundNotEstablished,0
+b,European standard,Exceeding,Turkish standard,Compliant,5041
+b,European standard,Exceeding,Turkish standard,MethodInsufficient,0
+b,European standard,Exceeding,Turkish standard,Exceeding,3537
+b,European standard,Exceeding,Turkish standard,BoundNotEstablished,0
+b,European standard,BoundNotEstablished,Turkish standard,Compliant,0
+b,European standard,BoundNotEstablished,Turkish standard,MethodInsufficient,0
+b,European standard,BoundNotEstablished,Turkish standard,Exceeding,0
+b,European standard,BoundNotEstablished,Turkish standard,BoundNotEstablished,150

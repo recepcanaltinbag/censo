@@ -1,0 +1,64 @@
+\section{Data and regulatory sources}
+\label{sec:materials}
+
+\subsection{EEA Waterbase}
+The measurements are the European Environment Agency's Waterbase --- Water
+Quality ICM, aggregated release: surface-water monitoring reported under the
+Water Framework Directive~\cite{eea_waterbase,eu2000wfd}. One row is one
+station, substance and year, with the annual mean, its sample count, a
+below-quantification flag and \texttt{procedureLOQValue}, the limit in force.
+Where the last two are missing, the absence is itself the observation.
+Coordinates come from the companion \texttt{SpatialObjects} release.
+
+River water only is retained: an inland-surface-water standard does not apply to
+lakes, transitional or coastal waters. That leaves \num{4190833} station-years.
+The aggregated release is used because an annual-average standard is defined
+against an annual mean, which is what one row holds. Only Annex~I's maximum
+allowable concentration, defined against a single measurement, needs the
+disaggregated release; the aggregated file has averaged that quantity away and
+cannot evaluate it (Section~\ref{sec:results-mac}). The SQLite distributions
+duplicate the CSV releases and are unused; the by-water-body aggregation is a
+different spatial unit, not comparable to a station-year.
+
+\subsection{Regulatory thresholds}
+Every threshold is transcribed from its primary text, never from a secondary
+compilation.
+
+\paragraph{Environmental quality standards.}
+Annex~I of Directive 2008/105/EC, consolidated version in force on 10 May
+2026~\cite{eu2008eqs,eu2013priority}, as amended by Directive~(EU)
+2026/805~\cite{eu2026amend}. Parsing it is not
+mechanical\src{scripts/10\_parse\_eu\_eqs.py}. Group standards apply to a sum,
+not to any single substance, and are excluded from per-substance comparison.
+
+\paragraph{The comparison is deliberately counterfactual.}
+The standards in force in \num{2026} are applied to a record that predates them:
+only \num{8} of the \num{37} reporting countries contribute station-years from
+\num{2015} or later (Section~\ref{sec:results-era}). No reporter is in breach of
+a rule that did not yet bind it, and nothing here should be read as such a
+finding. The question is whether the monitoring, as performed and reported,
+could decide the standards now in force --- a property of the data, not the
+date. Where a number depends on the standard chosen,
+Section~\ref{sec:results-dual} reports how far it moves under a different one.
+
+\paragraph{Analytical performance.}
+Article~4(1) of Directive 2009/90/EC requires ``a limit of quantification equal
+or below a value of \num{30}\,\% of the relevant environmental quality
+standards''~\cite{eu2009qaqc}, stricter than asking whether the limit exceeds
+the standard outright. Section~\ref{sec:results-waterbase} reports both.
+
+\paragraph{A second package, for swappability.}
+Table~4 of the Turkish \emph{Yer\"ust\"u Su Kalitesi Y\"onetmeli\u{g}i} as
+amended in \num{2016}~\cite{tr2012ysky} is transcribed the same
+way\src{scripts/08\_verify\_thresholds.py} and released alongside, though not
+analysed here, so that the swappability claim of
+Section~\ref{sec:methods-packages} rests on two loadable jurisdictions, not on
+an assurance.
+
+\subsection{What is joined to what}
+Substances are matched to thresholds by CAS registry number, carried in
+\texttt{observedPropertyDeterminandCode}. Name matching was not used: names
+diverge between a directive, a national register and a laboratory's sheet, and a
+missed join would silently understate every count that follows. Concentrations
+arrive in one column as \si{\milli\gram\per\litre}, \si{\micro\gram\per\litre}
+and \si{\nano\gram\per\litre}; each is converted before comparison.

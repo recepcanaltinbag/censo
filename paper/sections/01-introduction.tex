@@ -1,0 +1,76 @@
+\section{Introduction}
+
+Trace organic contaminants -- pharmaceuticals, pesticides, biocides, UV filters
+-- are ubiquitous in surface
+waters~\cite{schwarzenbach2006challenge,loos2009eu}. A global river survey found
+pharmaceutical contamination on every continent, exceeding safe concentrations
+at a quarter of the sites~\cite{wilkinson2022pharma}. Pesticide concentrations
+European regulation treats as acceptable are associated with losses of regional
+stream invertebrate biodiversity~\cite{beketov2013biodiversity}; the substances
+outpace the frameworks built to manage them~\cite{geissen2015emerging}.
+
+These substances are regulated in the European Union through environmental
+quality standards (EQS) under the Water Framework Directive~\cite{eu2000wfd},
+transposed in T\"urkiye as \emph{\c{C}evresel Kalite Standartlar{\i}} (\c{C}KS).
+Compliance is assessed by comparing measured concentrations against those
+standards, a comparison less well defined than it appears.
+
+Most such measurements are non-detections. The analyte is sought and not found.
+That establishes an \emph{upper bound}, not absence: the substance may be
+present below the method's limit of detection (LOD). The statement is
+open-world.
+
+Reporting practice replaces that statement with a number, usually zero or half
+the limit of quantification (LOQ). Helsel showed that substitution fabricates
+data and distorts every derived statistic~\cite{helsel2006fabricating}; the
+point is not contested. It remains standard because \textbf{the data models in
+use cannot hold the statement}. A relational table is closed-world: an absent
+assertion is false, and a column of concentrations has no cell for ``present or
+absent, below \num{0.02}\,\si{\micro\gram\per\litre}''. Substituting a zero is
+not a rounding convention but a type error: it destroys the modality of the
+measurement, not its magnitude.
+
+Regulatory assessment implicitly requires three verdicts -- compliant,
+exceeding, and \emph{cannot be determined}. The systems producing it can express
+only the first two. Where the LOQ lies above the EQS, a laboratory can correctly
+report ``not detected'' for a sample that may exceed the legal limit by two
+orders of magnitude, and a closed-world pipeline records it as compliance.
+
+Article~3(3b) of the consolidated Directive requires that a below-quantification
+result whose limit exceeds the standard ``shall not be considered'' for status
+assessment, and Article~4(1) of Directive 2009/90/EC requires that limit to sit
+at or below \num{30}\,\% of the standard. Both mandate an outcome a two-valued
+data model cannot represent, so neither can be audited from the data as
+recorded.
+
+We measure the cost in the European Environment Agency's Waterbase, the
+monitoring Member States report under the Directive~\cite{eea_waterbase}:
+\num{4190833} river station-years over \num{637} substances. Waterbase records a
+below-quantification flag and the limit in force for each station, substance and
+year, so where these are missing that absence is itself the measurement. We
+quantify the share of samples below the quantification limit, the share of
+station-years carrying neither flag nor limit, and the share assessed with a
+method failing the legal performance criterion. Splitting the record at
+\num{2015} separates a record-keeping failure the reporting authorities have
+since repaired from an analytical one they have not; reading the disaggregated
+release extends the audit to the standard Annex~I defines against a single
+sample rather than against an annual mean.
+
+The gap follows from a measurement model. SOSA/SSN and its descendants were
+designed for in-situ \emph{sensing}, in which a detection limit is a property of
+the device. Trace organic monitoring is \emph{sampling followed by laboratory
+analysis}, in which the limit belongs to the method that produced the result
+and its consequence belongs to the result itself. We present CENSO, an ontology
+that carries the limit onto the result, records why a result is
+an interval, treats a threshold as a conditional judgement with preconditions,
+and makes compliance three-valued --- met, not met, or not determinable ---
+subtyped by the reason it is not. The three are the outcomes the Directive
+itself admits; the subtypes are what tell an unmeasurable standard apart from an
+unreported bound. We also assess \num{21} ontologies, parsing each file rather
+than reading its documentation, and the set reaches outside the water domain to
+the analytical-chemistry and statistics vocabularies where these concepts would
+live if they lived anywhere.
+
+The ontology is the instrument, not the result. Without a vocabulary that
+separates \emph{compliant} from \emph{cannot be determined}, none of the
+quantities reported here can be counted at all.

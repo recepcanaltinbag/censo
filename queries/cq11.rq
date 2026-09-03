@@ -1,0 +1,17 @@
+# Which regulation establishes a given threshold, and from what source document?
+# Exercises: censo:definedBy, cereg:sourceDocument -- an uncited threshold is undefendable
+
+PREFIX censo: <https://w3id.org/censo/>
+PREFIX cereg: <https://w3id.org/censo/reg/>
+PREFIX sosa:  <http://www.w3.org/ns/sosa/>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX skos:  <http://www.w3.org/2004/02/skos/core#>
+PREFIX geo:   <http://www.opengis.net/ont/geosparql#>
+
+SELECT ?thresholdLabel ?value ?regLabel ?source WHERE {
+  ?t a censo:Threshold ; rdfs:label ?thresholdLabel ;
+     censo:thresholdValue ?value ; censo:definedBy ?r .
+  ?r rdfs:label ?regLabel .
+  OPTIONAL { ?r cereg:sourceDocument ?source }
+} LIMIT 10

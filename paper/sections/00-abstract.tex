@@ -1,0 +1,32 @@
+Micropollutant records are full of \emph{non-detections}: the analyte was
+sought and not found, so the result is a bound, not a value, yet stored as a
+number. Article~3(3b) of Directive 2008/105/EC excludes such a result from
+status assessment where its limit exceeds the standard, which a two-valued
+record cannot express.
+
+Auditing the European Environment Agency's Waterbase (\num{4190833} river
+station-years, \num{637} substances, \num{37} countries) finds \num{44.9}\% of
+samples below the quantification limit, \num{25.5}\% with neither censoring flag
+nor limit, and \num{40.1}\% of assessments failing Directive 2009/90/EC. The
+missing limit stops in \num{2013} and never recurs; the analytical failure is no
+better in \num{2024} than in \num{2006} --- \num{47.7}\% against \num{46.3}\%. Substitution manufactures findings: the same records yield
+\num{59251} to \num{200708} exceedances as non-detections enter at zero, half
+the limit or the limit, \num{112034} created by the substitution alone and only
+\num{14505} affirmable in law. The \num{2026} standards are applied to a record that
+predates them: the test is what the monitoring can decide, not who breached
+what.
+
+CENSO is an OWL~2 ontology on SOSA/SSN whose central choices the record decides.
+The quantification limit belongs to the analytical \emph{run}, not the
+instrument: \num{56.4}\% of multi-year station--substance pairs carry more than
+one, which a threshold column cannot hold. Compliance is three-valued --- met,
+not met, or not determinable, the outcomes the Directive admits --- the third
+subtyped by the reason, which keeps an unmeasurable standard apart from an
+unreported bound. Of \num{696168} station-years a European standard reaches,
+\num{43.8}\% are undecidable, \num{18.8}\% failing a precondition alone; swapping the regulation package re-decides \num{17.7}\% of co-regulated
+outcomes. Of \num{21} ontologies parsed --- reaching outside the water domain to
+the analytical-chemistry vocabularies, one of which defines the quantification
+limit from the IUPAC Gold Book and still binds it to the method --- none carries
+a censoring status, and \num{20} cannot separate a non-detection from a
+measurement at the same number. In CENSO that distinction is an inconsistency,
+not a label. Ontology, pipeline and figure data are open.

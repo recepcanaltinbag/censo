@@ -1,0 +1,19 @@
+# Which analytes have a regulatory threshold but no analytical method with limits?
+# Exercises: the assessability gap -- regulated but not measurable in this
+# survey. 'With limits' means a stated quantification limit, which is what a
+# monitoring release reports and what the legal criteria are written about.
+
+PREFIX censo: <https://w3id.org/censo/>
+PREFIX cereg: <https://w3id.org/censo/reg/>
+PREFIX sosa:  <http://www.w3.org/ns/sosa/>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX skos:  <http://www.w3.org/2004/02/skos/core#>
+PREFIX geo:   <http://www.opengis.net/ont/geosparql#>
+
+SELECT ?analyteLabel WHERE {
+  ?t censo:appliesToAnalyte ?a .
+  ?a rdfs:label ?analyteLabel .
+  FILTER NOT EXISTS { ?m censo:determinesAnalyte ?a ;
+                         censo:limitOfQuantification ?loq }
+} ORDER BY ?analyteLabel

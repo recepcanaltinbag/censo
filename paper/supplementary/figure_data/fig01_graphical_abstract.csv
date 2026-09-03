@@ -1,0 +1,4 @@
+statistic,numerator,denominator,percent
+samples below the quantification limit,14808451,32993382,44.883
+station-years with neither a flag nor a limit,1066797,4190833,25.455
+assessments whose LOQ exceeds 30% of the standard,279073,696168,40.087

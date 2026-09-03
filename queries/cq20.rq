@@ -1,0 +1,17 @@
+# What did the reasoner add that the data did not assert?
+# Exercises: the defined classes censo:DetectedObservation and
+# censo:AssessedObservation, whose members are entailed from the disjoint
+# detection states rather than stated by the pipeline.
+#
+# Reported so the contribution of entailment is visible and bounded, rather
+# than implied. Every other answer in this suite comes from asserted triples.
+
+PREFIX censo: <https://w3id.org/censo/>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?inferred_class (COUNT(?o) AS ?members)
+WHERE {
+  VALUES ?inferred_class { censo:DetectedObservation censo:AssessedObservation }
+  ?o a ?inferred_class .
+}
+GROUP BY ?inferred_class

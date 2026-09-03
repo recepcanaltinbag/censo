@@ -1,0 +1,19 @@
+# What is the ratio of the interval width to the threshold, per analyte?
+# Exercises: how much of the decision space censoring occupies. The width of
+# the interval a non-detection establishes is [0, LOQ], so the quantification
+# limit is the numerator; a ratio above 1 means no non-detection by that
+# method can decide that threshold.
+
+PREFIX censo: <https://w3id.org/censo/>
+PREFIX cereg: <https://w3id.org/censo/reg/>
+PREFIX sosa:  <http://www.w3.org/ns/sosa/>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX skos:  <http://www.w3.org/2004/02/skos/core#>
+PREFIX geo:   <http://www.opengis.net/ont/geosparql#>
+
+SELECT ?analyteLabel ?loq ?tv ((?loq / ?tv) AS ?fractionOfThreshold) WHERE {
+  ?m censo:determinesAnalyte ?a ; censo:limitOfQuantification ?loq .
+  ?t censo:appliesToAnalyte ?a ; censo:thresholdValue ?tv .
+  ?a rdfs:label ?analyteLabel .
+} ORDER BY DESC(?fractionOfThreshold) LIMIT 15

@@ -1,0 +1,13 @@
+bar,segment,n,pct_of_total
+Substitution at zero,Compliant,636917,91.489
+Substitution at zero,Exceeding,59251,8.511
+Substitution at ½ LOQ,Compliant,524883,75.396
+Substitution at ½ LOQ,Exceeding,171285,24.604
+Substitution at LOQ,Compliant,495460,71.170
+Substitution at LOQ,Exceeding,200708,28.830
+CENSO,Compliant,376827,54.129
+CENSO,Exceeding,14505,2.084
+CENSO,Possible exceedance,6639,0.954
+CENSO,Standard not applicable to what is reported,131068,18.827
+CENSO,Method fails the standard,121620,17.470
+CENSO,No bound established,45509,6.537

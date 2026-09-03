@@ -1,0 +1,19 @@
+# For which substances does the method's quantification limit exceed the regulatory threshold?
+# Exercises: censo:MethodInsufficient -- compliance cannot be shown in principle
+
+PREFIX censo: <https://w3id.org/censo/>
+PREFIX cereg: <https://w3id.org/censo/reg/>
+PREFIX sosa:  <http://www.w3.org/ns/sosa/>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX skos:  <http://www.w3.org/2004/02/skos/core#>
+PREFIX geo:   <http://www.opengis.net/ont/geosparql#>
+
+SELECT ?analyteLabel ?loq ?thresholdValue
+       ((?loq / ?thresholdValue) AS ?factor) WHERE {
+  ?m a censo:AnalyticalMethod ; censo:determinesAnalyte ?a ;
+     censo:limitOfQuantification ?loq .
+  ?t censo:appliesToAnalyte ?a ; censo:thresholdValue ?thresholdValue .
+  ?a rdfs:label ?analyteLabel .
+  FILTER (?loq > ?thresholdValue)
+} ORDER BY DESC(?factor)

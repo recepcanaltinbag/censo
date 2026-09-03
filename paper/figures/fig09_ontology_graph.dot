@@ -1,0 +1,140 @@
+digraph CENSO {
+  rankdir=LR;
+  newrank=true;
+  bgcolor="white";
+  splines=spline;
+  concentrate=false;
+  nodesep=0.22;
+  ranksep=0.85;
+  fontname="Helvetica";
+  node [shape=plaintext, fontname="Helvetica", fontsize=11];
+  edge [fontname="Helvetica", fontsize=9, color="#1f4e79"];
+
+  "sosa:Observation" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#f4f4f4" COLOR="#bbbbbb"><TR><TD ALIGN="CENTER"><FONT COLOR="#666666"><B>sosa:Observation</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">censo:resultLowerBound</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">censo:resultUpperBound</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">censo:reportedValue</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">censo:censoringRecovered</FONT></TD></TR></TABLE>>];
+  "sosa:ObservableProperty" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#f4f4f4" COLOR="#bbbbbb"><TR><TD ALIGN="CENTER"><FONT COLOR="#666666"><B>sosa:ObservableProperty</B></FONT></TD></TR></TABLE>>];
+  "sosa:Procedure" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#f4f4f4" COLOR="#bbbbbb"><TR><TD ALIGN="CENTER"><FONT COLOR="#666666"><B>sosa:Procedure</B></FONT></TD></TR></TABLE>>];
+  "sosa:Sample" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#f4f4f4" COLOR="#bbbbbb"><TR><TD ALIGN="CENTER"><FONT COLOR="#666666"><B>sosa:Sample</B></FONT></TD></TR></TABLE>>];
+  "sosa:FeatureOfInterest" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#f4f4f4" COLOR="#bbbbbb"><TR><TD ALIGN="CENTER"><FONT COLOR="#666666"><B>sosa:FeatureOfInterest</B></FONT></TD></TR></TABLE>>];
+  "prov:Activity" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#f4f4f4" COLOR="#bbbbbb"><TR><TD ALIGN="CENTER"><FONT COLOR="#666666"><B>prov:Activity</B></FONT></TD></TR></TABLE>>];
+  "prov:Entity" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#f4f4f4" COLOR="#bbbbbb"><TR><TD ALIGN="CENTER"><FONT COLOR="#666666"><B>prov:Entity</B></FONT></TD></TR></TABLE>>];
+  "qudt:Unit" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#f4f4f4" COLOR="#bbbbbb"><TR><TD ALIGN="CENTER"><FONT COLOR="#666666"><B>qudt:Unit</B></FONT></TD></TR></TABLE>>];
+  "ssn-system:DetectionLimit" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#ffffff" COLOR="#bbbbbb"><TR><TD><FONT COLOR="#888888">ssn-system:DetectionLimit</FONT></TD></TR><TR><TD><FONT POINT-SIZE="9" COLOR="#888888">a property of the SENSOR</FONT></TD></TR></TABLE>>];
+
+  subgraph cluster_run {
+    label=<<B>1 &nbsp; the limit is carried onto the result</B>>;
+    labeljust="l"; fontsize=12; fontcolor="#1f4e79";
+    style="rounded"; color="#c3d2e2"; margin=12;
+    "censo:Analyte" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#dbe7f3" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Analyte</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">censo:casNumber</FONT></TD></TR></TABLE>>];
+    "censo:AnalyticalMethod" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#dbe7f3" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:AnalyticalMethod</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">censo:limitOfDetection</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">censo:limitOfQuantification</FONT></TD></TR></TABLE>>];
+    "censo:Campaign" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#dbe7f3" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Campaign</B></FONT></TD></TR></TABLE>>];
+  }
+  subgraph cluster_status {
+    label=<<B>2 &nbsp; the result is an interval, and its epistemic status is explicit</B>>;
+    labeljust="l"; fontsize=12; fontcolor="#1f4e79";
+    style="rounded"; color="#c3d2e2"; margin=12;
+    "censo:AssessedObservation" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#c9dcc9" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:AssessedObservation</B></FONT></TD></TR></TABLE>>];
+    "censo:DetectedObservation" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#c9dcc9" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:DetectedObservation</B></FONT></TD></TR></TABLE>>];
+    "censo:CensoredObservation" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#c9dcc9" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Censored<BR/>Observation</B></FONT></TD></TR></TABLE>>];
+    "censo:EstimatedObservation" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#c9dcc9" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Estimated<BR/>Observation</B></FONT></TD></TR></TABLE>>];
+    "censo:QuantifiedObservation" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#c9dcc9" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Quantified<BR/>Observation</B></FONT></TD></TR></TABLE>>];
+    "censo:UnresolvedObservation" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#c9dcc9" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Unresolved<BR/>Observation</B></FONT></TD></TR></TABLE>>];
+    "ax_disj" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fbfbf7" COLOR="#b9a97e"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9"><B>owl:AllDisjointClasses</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="8" COLOR="#444444">censored / estimated / quantified / unresolved are disjoint<BR ALIGN="LEFT"/>AND exhaustive. a row asserted both censored and<BR ALIGN="LEFT"/>quantified makes the ontology INCONSISTENT.<BR ALIGN="LEFT"/><BR ALIGN="LEFT"/>a fifth situation &#8212; never measured &#8212; is deliberately<BR ALIGN="LEFT"/>not a class: under the open world assumption,<BR ALIGN="LEFT"/>not asserting the observation IS the way to say it<BR ALIGN="LEFT"/></FONT></TD></TR></TABLE>>];
+    "ax_zero" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fbfbf7" COLOR="#b9a97e"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9"><B>CensoredObservation &#8849; resultLowerBound value "0.0"</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="8" COLOR="#444444">a non-detection permits any value down to zero.<BR ALIGN="LEFT"/>half-LOQ substitution violates this axiom &#8212;<BR ALIGN="LEFT"/>which is the practice the vocabulary exists to stop<BR ALIGN="LEFT"/></FONT></TD></TR></TABLE>>];
+    "ax_unres" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fbfbf7" COLOR="#b9a97e"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9"><B>UnresolvedObservation &#8849; &#172;&#8707;assessableAgainst.Threshold</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="8" COLOR="#444444">a row whose detection status cannot be established<BR ALIGN="LEFT"/>may not be assessed for compliance at all<BR ALIGN="LEFT"/></FONT></TD></TR></TABLE>>];
+  }
+  subgraph cluster_thr {
+    label=<<B>3 &nbsp; a threshold is a conditional judgement, not a number</B>>;
+    labeljust="l"; fontsize=12; fontcolor="#1f4e79";
+    style="rounded"; color="#c3d2e2"; margin=12;
+    "censo:Threshold" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#dbe7f3" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Threshold</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">censo:thresholdValue</FONT></TD></TR></TABLE>>];
+    "censo:AnnualAverageThreshold" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#dbe7f3" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:AnnualAverage<BR/>Threshold</B></FONT></TD></TR></TABLE>>];
+    "cereg:GroupThreshold" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#dbe7f3" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>cereg:GroupThreshold</B></FONT></TD></TR></TABLE>>];
+    "censo:ApplicabilityCondition" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#dbe7f3" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:ApplicabilityCondition</B></FONT></TD></TR></TABLE>>];
+    "censo:HardnessClassCondition" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#dbe7f3" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:HardnessClass<BR/>Condition</B></FONT></TD></TR></TABLE>>];
+    "censo:BioavailabilityCondition" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#dbe7f3" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Bioavailability<BR/>Condition</B></FONT></TD></TR></TABLE>>];
+    "censo:Regulation" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#dbe7f3" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Regulation</B></FONT></TD></TR></TABLE>>];
+    "cereg:RegulationPackage" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#dbe7f3" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>cereg:RegulationPackage</B></FONT></TD></TR></TABLE>>];
+    "ax_cond" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fbfbf7" COLOR="#b9a97e"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9"><B>requiresCondition &#8594; ApplicabilityCondition</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="8" COLOR="#444444">where a precondition of the standard is unmet there is<BR ALIGN="LEFT"/>no comparison to make &#8212; not a strict one and<BR ALIGN="LEFT"/>not a lenient one. the verdict is PreconditionUnmet,<BR ALIGN="LEFT"/>never a default pass. a threshold column has<BR ALIGN="LEFT"/>nowhere to record that a limit was inapplicable<BR ALIGN="LEFT"/></FONT></TD></TR></TABLE>>];
+  }
+  subgraph cluster_out {
+    label=<<B>4 &nbsp; compliance is three-valued, and the third value records why</B>>;
+    labeljust="l"; fontsize=12; fontcolor="#1f4e79";
+    style="rounded"; color="#c3d2e2"; margin=12;
+    "censo:ComplianceOutcome" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#f6e3c8" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:ComplianceOutcome</B></FONT></TD></TR></TABLE>>];
+    "censo:Compliant" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#f6e3c8" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Compliant</B></FONT></TD></TR></TABLE>>];
+    "censo:Exceedance" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#f6e3c8" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Exceedance</B></FONT></TD></TR></TABLE>>];
+    "censo:IndeterminateCompliance" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#f6e3c8" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:IndeterminateCompliance</B></FONT></TD></TR></TABLE>>];
+    "censo:MethodInsufficient" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#f6e3c8" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Method<BR/>Insufficient</B></FONT></TD></TR></TABLE>>];
+    "censo:PreconditionUnmet" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#f6e3c8" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Precondition<BR/>Unmet</B></FONT></TD></TR></TABLE>>];
+    "censo:PossibleExceedance" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#f6e3c8" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Possible<BR/>Exceedance</B></FONT></TD></TR></TABLE>>];
+    "censo:BoundNotEstablished" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#f6e3c8" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:BoundNot<BR/>Established</B></FONT></TD></TR></TABLE>>];
+    "censo:CensoredAmbiguous" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#f6e3c8" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Censored<BR/>Ambiguous</B></FONT></TD></TR></TABLE>>];
+    "censo:NoThresholdDefined" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#f6e3c8" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:NoThreshold<BR/>Defined</B></FONT></TD></TR></TABLE>>];
+    "ax_cover" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#fbfbf7" COLOR="#b9a97e"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9"><B>ComplianceOutcome &#8801; Compliant &#8852; Exceedance &#8852; Indeterminate</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="8" COLOR="#444444">THREE, not four. an interval straddling the limit decides<BR ALIGN="LEFT"/>nothing, so PossibleExceedance is a species of<BR ALIGN="LEFT"/>indeterminacy and not a peer of Exceedance.<BR ALIGN="LEFT"/><BR ALIGN="LEFT"/>the subclasses are deliberately NOT disjoint from one<BR ALIGN="LEFT"/>another: one observation may be MethodInsufficient<BR ALIGN="LEFT"/>against one jurisdiction and PossibleExceedance<BR ALIGN="LEFT"/>against another&#8217;s standard<BR ALIGN="LEFT"/></FONT></TD></TR></TABLE>>];
+  }
+
+  { rank=same; "censo:AssessedObservation"; "ax_disj"; }
+  { rank=same; "censo:CensoredObservation"; "ax_zero"; }
+  { rank=same; "censo:UnresolvedObservation"; "ax_unres"; }
+  { rank=same; "censo:ApplicabilityCondition"; "ax_cond"; }
+  { rank=same; "censo:ComplianceOutcome"; "ax_cover"; }
+
+  "sosa:ObservableProperty" -> "censo:Analyte" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "sosa:Procedure" -> "censo:AnalyticalMethod" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "prov:Activity" -> "censo:Campaign" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "prov:Entity" -> "censo:Regulation" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "censo:Regulation" -> "cereg:RegulationPackage" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "sosa:Observation" -> "censo:AssessedObservation" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "sosa:Observation" -> "censo:CensoredObservation" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "sosa:Observation" -> "censo:EstimatedObservation" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "sosa:Observation" -> "censo:QuantifiedObservation" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "sosa:Observation" -> "censo:UnresolvedObservation" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "censo:Threshold" -> "censo:AnnualAverageThreshold" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "censo:Threshold" -> "censo:MaximumAllowableThreshold" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "censo:Threshold" -> "cereg:GroupThreshold" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "censo:ApplicabilityCondition" -> "censo:MatrixCondition" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "censo:ApplicabilityCondition" -> "censo:HardnessClassCondition" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "censo:ApplicabilityCondition" -> "censo:BioavailabilityCondition" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "censo:ComplianceOutcome" -> "censo:Compliant" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "censo:ComplianceOutcome" -> "censo:Exceedance" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "censo:ComplianceOutcome" -> "censo:IndeterminateCompliance" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "censo:IndeterminateCompliance" -> "censo:MethodInsufficient" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "censo:IndeterminateCompliance" -> "censo:PreconditionUnmet" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "censo:IndeterminateCompliance" -> "censo:PossibleExceedance" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "censo:IndeterminateCompliance" -> "censo:BoundNotEstablished" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "censo:IndeterminateCompliance" -> "censo:CensoredAmbiguous" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "censo:IndeterminateCompliance" -> "censo:NoThresholdDefined" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+
+  "censo:AssessedObservation" -> "censo:CensoredObservation" [style=dashed, color="#3b7a3b", arrowhead=none, label=<<FONT POINT-SIZE="9" COLOR="#3b7a3b">&#8801; union of the four</FONT>>, constraint=false];
+  "censo:AssessedObservation" -> "censo:EstimatedObservation" [style=dashed, color="#3b7a3b", arrowhead=none, constraint=false];
+  "censo:AssessedObservation" -> "censo:QuantifiedObservation" [style=dashed, color="#3b7a3b", arrowhead=none, constraint=false];
+  "censo:AssessedObservation" -> "censo:UnresolvedObservation" [style=dashed, color="#3b7a3b", arrowhead=none, constraint=false];
+  "censo:DetectedObservation" -> "censo:EstimatedObservation" [style=dashed, color="#3b7a3b", arrowhead=none, label=<<FONT POINT-SIZE="9" COLOR="#3b7a3b">&#8801; estimated &#8852; quantified</FONT>>, constraint=false];
+  "censo:DetectedObservation" -> "censo:QuantifiedObservation" [style=dashed, color="#3b7a3b", arrowhead=none, constraint=false];
+  "censo:ComplianceOutcome" -> "censo:Compliant" [style=dashed, color="#3b7a3b", arrowhead=none, label=<<FONT POINT-SIZE="9" COLOR="#3b7a3b">&#8801; union of THREE</FONT>>, constraint=false];
+  "censo:ComplianceOutcome" -> "censo:Exceedance" [style=dashed, color="#3b7a3b", arrowhead=none, constraint=false];
+  "censo:ComplianceOutcome" -> "censo:IndeterminateCompliance" [style=dashed, color="#3b7a3b", arrowhead=none, constraint=false];
+
+  "sosa:Observation" -> "censo:Analyte" [label="hasAnalyte"];
+  "censo:AnalyticalMethod" -> "censo:Analyte" [label="determinesAnalyte"];
+  "censo:AnalyticalMethod" -> "qudt:Unit" [label="limitUnit"];
+  "sosa:Observation" -> "sosa:FeatureOfInterest" [label="atStation"];
+  "sosa:Observation" -> "censo:Campaign" [label="duringCampaign"];
+  "sosa:Observation" -> "censo:Threshold" [label="assessableAgainst"];
+  "censo:Threshold" -> "censo:Analyte" [label="appliesToAnalyte"];
+  "censo:Threshold" -> "censo:ApplicabilityCondition" [label="requiresCondition"];
+  "censo:ApplicabilityCondition" -> "sosa:ObservableProperty" [label="requiresCovariate"];
+  "sosa:Observation" -> "censo:ApplicabilityCondition" [label="conditionSatisfied"];
+  "censo:Threshold" -> "censo:Regulation" [label="definedBy"];
+  "censo:Threshold" -> "qudt:Unit" [label="thresholdUnit"];
+  "cereg:RegulationPackage" -> "censo:Threshold" [label="cereg:definesThreshold"];
+
+  "cmp" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#ffffff" COLOR="#8a4b08"><TR><TD><B>the rule layer materialises</B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">censo:exceeds</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">censo:possiblyExceeds</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">censo:belowThreshold</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="8" COLOR="#8a4b08">owl:AllDisjointProperties<BR ALIGN="LEFT"/>exclusivity is PER observation&#8211;threshold<BR ALIGN="LEFT"/>pair, so two jurisdictions may<BR ALIGN="LEFT"/>disagree without contradiction<BR ALIGN="LEFT"/><BR ALIGN="LEFT"/>OWL cannot compare two data values.<BR ALIGN="LEFT"/>it classifies over these, it does<BR ALIGN="LEFT"/>not compute them<BR ALIGN="LEFT"/></FONT></TD></TR></TABLE>>];
+  "sosa:Observation" -> "cmp" [style=dashed, color="#8a4b08", arrowhead=none];
+  "cmp" -> "censo:Threshold" [style=dashed, color="#8a4b08"];
+  "cmp" -> "censo:ComplianceOutcome" [style=dashed, color="#8a4b08"];
+
+  "chmo:limitOfDetection" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#ffffff" COLOR="#bbbbbb"><TR><TD><FONT COLOR="#888888">CHMO:0002801 limit of detection</FONT></TD></TR><TR><TD><FONT POINT-SIZE="9" COLOR="#888888">a figure of merit of the METHOD</FONT></TD></TR></TABLE>>];
+  "ssn-system:DetectionLimit" -> "chmo:limitOfDetection" [style=bold, color="#b03030", penwidth=1.4, label=<<FONT POINT-SIZE="9" COLOR="#b03030">sensor &#8594; method</FONT>>];
+  "chmo:limitOfDetection" -> "sosa:Observation" [style=bold, color="#b03030", penwidth=1.8, label=<<FONT POINT-SIZE="10" COLOR="#b03030"><B>what CENSO adds</B><BR/>method &#8594; the RESULT,<BR/>as resultUpperBound</FONT>>];
+}

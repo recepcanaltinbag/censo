@@ -1,0 +1,30 @@
+# Why is this assessment not supportable? Return the whole derivation.
+# Exercises: the chain observation -> method -> quantification limit ->
+# threshold -> regulation, which is what a regulator can be shown.
+#
+# A boolean `unsupportable` column can be filtered but not explained. Here the
+# reason is reconstructible from the graph: this method, this limit, this
+# standard, this legal instrument.
+
+PREFIX censo: <https://w3id.org/censo/>
+PREFIX cereg: <https://w3id.org/censo/reg/>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX sosa:  <http://www.w3.org/ns/sosa/>
+
+SELECT ?substance ?loq ?threshold ?times_over ?regulation ?station
+WHERE {
+  ?obs a censo:MethodInsufficient ;
+       censo:hasAnalyte ?a ;
+       censo:atStation ?st ;
+       censo:assessableAgainst ?thr ;
+       sosa:usedProcedure ?m .
+  ?a rdfs:label ?substance .
+  ?m censo:limitOfQuantification ?loq .
+  ?thr censo:thresholdValue ?threshold ; censo:definedBy ?reg .
+  ?reg rdfs:label ?regulation .
+  BIND(ROUND(?loq / ?threshold) AS ?times_over)
+  BIND(STRAFTER(STR(?st), "station-") AS ?station)
+  FILTER(?loq > ?threshold)
+}
+ORDER BY DESC(?times_over)
+LIMIT 20

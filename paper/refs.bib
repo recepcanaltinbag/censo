@@ -1,0 +1,673 @@
+% ============================================================================
+%  Semantic Mass Balance — Ergene River Basin
+%  Bibliography
+%
+%  CONVENTION
+%  ----------
+%  Every DOI here is verified against CrossRef by
+%  scripts/09_verify_bibliography.py -> eval/bibliography_check.md
+%
+%  NEVER write a DOI that has not been resolved. An earlier draft carried a
+%  guessed DOI for the WaWO+ paper; it resolved to an unrelated article on
+%  landslide susceptibility. A plausible-looking DOI is worse than a missing
+%  one because it survives review until a reader clicks it.
+%
+%  note = {VERIFY: ...} marks a field still unchecked. It is NOT a licence to
+%  invent a value: an unverifiable entry carries no DOI at all.
+% ============================================================================
+
+
+% ---------------------------------------------------------------------------
+% 1. Ontology / vocabulary standards to be reused
+% ---------------------------------------------------------------------------
+
+@article{janowicz2019sosa,
+  author  = {Janowicz, Krzysztof and Haller, Armin and Cox, Simon J. D. and
+             Le Phuoc, Danh and Lefran{\c c}ois, Maxime},
+  title   = {{SOSA}: A lightweight ontology for sensors, observations, samples,
+             and actuators},
+  journal = {Journal of Web Semantics},
+  year    = {2019},
+  volume  = {56},
+  pages   = {1--10},
+  doi     = {10.1016/j.websem.2018.06.003}
+}
+
+@article{haller2019ssn,
+  author  = {Haller, Armin and Janowicz, Krzysztof and Cox, Simon J. D. and
+             Lefran{\c c}ois, Maxime and Taylor, Kerry and Le Phuoc, Danh and
+             Lieberman, Joshua and Garc{\'i}a-Castro, Ra{\'u}l and
+             Atkinson, Rob and Stadler, Claus},
+  title   = {The modular {SSN} ontology: A joint {W3C} and {OGC} standard
+             specifying the semantics of sensors, observations, sampling,
+             and actuation},
+  journal = {Semantic Web},
+  year    = {2018},
+  volume  = {10},
+  number  = {1},
+  pages   = {9--32},
+  doi     = {10.3233/SW-180320}
+}
+
+
+
+@techreport{w3c2013provo,
+  author      = {Lebo, Timothy and Sahoo, Satya and McGuinness, Deborah},
+  title       = {{PROV-O}: The {PROV} Ontology},
+  institution = {W3C Recommendation},
+  year        = {2013},
+  url         = {https://www.w3.org/TR/prov-o/}
+}
+
+@techreport{w3c2009skos,
+  author      = {Miles, Alistair and Bechhofer, Sean},
+  title       = {{SKOS} Simple Knowledge Organization System Reference},
+  institution = {W3C Recommendation},
+  year        = {2009},
+  url         = {https://www.w3.org/TR/skos-reference/}
+}
+
+@article{degtyarenko2008chebi,
+  author  = {Degtyarenko, Kirill and de Matos, Paula and Ennis, Marcus and
+             Hastings, Janna and Zbinden, Martin and McNaught, Alan and
+             Alc{\'a}ntara, Rafael and Darsow, Michael and Guedj, Micka{\"e}l and
+             Ashburner, Michael},
+  title   = {{ChEBI}: a database and ontology for chemical entities of
+             biological interest},
+  journal = {Nucleic Acids Research},
+  year    = {2007},
+  volume  = {36},
+  number  = {suppl 1},
+  pages   = {D344--D350},
+  doi     = {10.1093/nar/gkm791}
+}
+
+@article{calbimonte2012ssw,
+  author  = {Calbimonte, Jean-Paul and Jeung, Hoyoung and Corcho, Oscar and
+             Aberer, Karl},
+  title   = {Enabling Query Technologies for the Semantic Sensor Web},
+  journal = {International Journal on Semantic Web and Information Systems},
+  year    = {2012},
+  volume  = {8},
+  number  = {1},
+  pages   = {43--63},
+  doi     = {10.4018/jswis.2012010103}
+}
+
+% ETSI technical specifications are not indexed by CrossRef. The TS number
+% and version below are taken from the ontology's own rdfs:seeAlso, which points
+% at ts_10341010v020101p.pdf -> TS 103 410-10 V2.1.1. This is the version the
+% gap table parses (owl:versionIRI .../saref4watr/v2.1.1/, dcterms:issued
+% 2025-04-25); the earlier V1.1.1 dates from 2020.
+@techreport{etsi2025saref4watr,
+  author      = {{ETSI}},
+  title       = {{SmartM2M}; Extension to {SAREF}; Part 10: Water Domain},
+  institution = {ETSI},
+  year        = {2025},
+  number      = {TS 103 410-10 V2.1.1},
+  url         = {https://saref.etsi.org/saref4watr/v2.1.1/}
+}
+
+
+% ---------------------------------------------------------------------------
+% 2. Ontology engineering methodology & evaluation
+% ---------------------------------------------------------------------------
+
+@article{poveda2022lot,
+  author  = {Poveda-Villal{\'o}n, Mar{\'i}a and
+             Fern{\'a}ndez-Izquierdo, Alba and
+             Fern{\'a}ndez-L{\'o}pez, Mariano and
+             Garc{\'i}a-Castro, Ra{\'u}l},
+  title   = {{LOT}: An industrial oriented ontology engineering framework},
+  journal = {Engineering Applications of Artificial Intelligence},
+  year    = {2022},
+  volume  = {111},
+  pages   = {104755},
+  doi     = {10.1016/j.engappai.2022.104755}
+}
+
+@article{poveda2014oops,
+  author  = {Poveda-Villal{\'o}n, Mar{\'i}a and
+             G{\'o}mez-P{\'e}rez, Asunci{\'o}n and
+             Su{\'a}rez-Figueroa, Mari Carmen},
+  title   = {{OOPS!} ({OntOlogy} {Pitfall} {Scanner!}): An on-line tool for
+             ontology evaluation},
+  journal = {International Journal on Semantic Web and Information Systems},
+  year    = {2014},
+  volume  = {10},
+  number  = {2},
+  pages   = {7--34},
+  doi     = {10.4018/ijswis.2014040102}
+}
+
+@inproceedings{garijo2021foops,
+  author    = {Garijo, Daniel and Corcho, Oscar and
+               Poveda-Villal{\'o}n, Mar{\'i}a},
+  title     = {{FOOPS!}: An Ontology Pitfall Scanner for the {FAIR} Principles},
+  booktitle = {Proceedings of the ISWC 2021 Posters, Demos and Industry Tracks},
+  series    = {CEUR Workshop Proceedings},
+  volume    = {2980},
+  year      = {2021},
+  url       = {https://ceur-ws.org/Vol-2980/paper321.pdf}
+}
+
+@incollection{suarez2012neon,
+  author    = {Su{\'a}rez-Figueroa, Mari Carmen and
+               G{\'o}mez-P{\'e}rez, Asunci{\'o}n and
+               Fern{\'a}ndez-L{\'o}pez, Mariano},
+  title     = {The {NeOn} Methodology for Ontology Engineering},
+  booktitle = {Ontology Engineering in a Networked World},
+  publisher = {Springer},
+  year      = {2011},
+  pages     = {9--34},
+  doi       = {10.1007/978-3-642-24794-1_2}
+}
+
+@article{wilkinson2016fair,
+  author  = {Wilkinson, Mark D. and others},
+  title   = {The {FAIR} Guiding Principles for scientific data management
+             and stewardship},
+  journal = {Scientific Data},
+  year    = {2016},
+  volume  = {3},
+  pages   = {160018},
+  doi     = {10.1038/sdata.2016.18}
+}
+
+
+% ---------------------------------------------------------------------------
+% 3. Ontologies & knowledge graphs for the water domain  (the gap table)
+% ---------------------------------------------------------------------------
+
+@article{olivafelipe2017wawoplus,
+  author  = {Oliva-Felipe, Luis and G{\'o}mez-Sebasti{\`a}, Ignasi and
+             Verdaguer, Marta and S{\`a}nchez-Marr{\`e}, Miquel and
+             Poch, Manel and Cort{\'e}s, Ulises},
+  title   = {Reasoning about river basins: {WaWO+} revisited},
+  journal = {Environmental Modelling \& Software},
+  year    = {2017},
+  volume  = {89},
+  pages   = {106--119},
+  doi     = {10.1016/j.envsoft.2016.11.009}
+}
+
+@article{wang2020opo,
+  author  = {Wang, Xiaolei and Wei, Haitao and Chen, Nengcheng and
+             He, Xiaohui and Tian, Zhihui},
+  title   = {An Observational Process Ontology-Based Modeling Approach for
+             Water Quality Monitoring},
+  journal = {Water},
+  year    = {2020},
+  volume  = {12},
+  number  = {3},
+  pages   = {715},
+  doi     = {10.3390/w12030715}
+}
+
+@inproceedings{jajaga2015expert,
+  author    = {Jajaga, Edmond and Ahmedi, Lule and Ahmedi, Figene},
+  title     = {An Expert System for Water Quality Monitoring Based on Ontology},
+  booktitle = {Metadata and Semantics Research (MTSR 2015)},
+  series    = {Communications in Computer and Information Science},
+  volume    = {544},
+  pages     = {89--100},
+  publisher = {Springer},
+  year      = {2015},
+  doi       = {10.1007/978-3-319-24129-6_8}
+}
+
+@misc{whow2023onto,
+  author       = {{Water Health Open Knowledge Graph (WHOW) project}},
+  title        = {{WHOW} Water Monitoring Ontology},
+  howpublished = {\url{https://w3id.org/whow/onto/water-monitoring}},
+  year         = {2023},
+  note         = {Ontology retrieved and analysed 2026-08-03;
+                  31 classes, 20 object properties, 4 datatype properties}
+}
+
+@inproceedings{ahmedi2013wqm,
+  author    = {Ahmedi, Lule and Jajaga, Edmond},
+  title     = {An Ontology Framework for Water Quality Management},
+  booktitle = {Proceedings of the 6th International Workshop on Semantic
+               Sensor Networks (SSN)},
+  series    = {CEUR Workshop Proceedings},
+  volume    = {1063},
+  year      = {2013},
+  url       = {https://ceur-ws.org/Vol-1063/paper3.pdf}
+}
+
+% Verified against CrossRef 2026-08-03; DOI resolved.
+@article{whokg2025,
+  title   = {The Water Health Open Knowledge Graph},
+  author  = {Lippolis, Anna Sofia and Lodi, Giorgia and Nuzzolese, Andrea Giovanni},
+  journal = {Scientific Data},
+  year    = {2025},
+  volume   = {12},
+  doi     = {10.1038/s41597-025-04537-4}
+}
+
+% Verified against CrossRef 2026-08-03; DOI resolved.
+@incollection{water_onto_review,
+  key     = {Mehta et al.},
+  title   = {A Systematic Review of Ontologies for the Water Domain},
+  editor  = {Mehta, Shikha and Tiwari, Sanju and Siarry, Patrick and
+             Jabbar, M. A.},
+  booktitle = {Tools, Languages, Methodologies for Representing Semantics on the Web of Things},
+  publisher = {Wiley},
+  year    = {2022},
+  pages    = {21--39},
+  note    = {Chapter authors are not deposited with the DOI; cited by the
+             volume's editors.},
+  doi     = {10.1002/9781394171460.ch2}
+}
+
+
+% ---------------------------------------------------------------------------
+% 4. Censored environmental data  (the core methodological gap)
+% ---------------------------------------------------------------------------
+
+
+
+@article{lipinski2026sensitivity,
+  author  = {Lipi{\'n}ski, Seweryn},
+  title   = {Sensitivity of Inferred Heavy-Metal Pollution Patterns to
+             Preprocessing Choices in Open {European} Surface-Water
+             Monitoring Data},
+  journal = {Pollutants},
+  year    = {2026},
+  volume  = {6},
+  number  = {2},
+  pages   = {26},
+  doi     = {10.3390/pollutants6020026}
+}
+
+@misc{eea_waterbase,
+  author       = {{European Environment Agency}},
+  title        = {Waterbase --- Water Quality {ICM}},
+  howpublished = {\url{https://www.eea.europa.eu/data-and-maps/data/waterbase-water-quality-icm-2}},
+  note         = {CC BY 4.0},
+  year         = {2024}
+}
+
+@book{helsel2012nondetects,
+  author    = {Helsel, Dennis R.},
+  title     = {Statistics for Censored Environmental Data Using {Minitab}
+               and {R}},
+  edition   = {2nd},
+  publisher = {John Wiley \& Sons},
+  year      = {2012},
+  isbn      = {9780470479889}
+}
+
+@article{helsel2006fabricating,
+  author  = {Helsel, Dennis R.},
+  title   = {Fabricating data: How substituting values for nondetects can
+             ruin results, and what can be done about it},
+  journal = {Chemosphere},
+  year    = {2006},
+  volume  = {65},
+  number  = {11},
+  pages   = {2434--2439},
+  doi     = {10.1016/j.chemosphere.2006.04.051}
+}
+
+@article{loos2009eu,
+  author  = {Loos, Robert and Gawlik, Bernd Manfred and Locoro, Giovanni and
+             Rimaviciute, Erika and Contini, Serafino and Bidoglio, Giovanni},
+  title   = {{EU}-wide survey of polar organic persistent pollutants in
+             {European} river waters},
+  journal = {Environmental Pollution},
+  year    = {2009},
+  volume  = {157},
+  number  = {2},
+  pages   = {561--568},
+  doi     = {10.1016/j.envpol.2008.09.020}
+}
+
+
+% ---------------------------------------------------------------------------
+% 5. Regulation, risk assessment, ecotoxicity
+% ---------------------------------------------------------------------------
+
+@misc{eu2000wfd,
+  author       = {{European Parliament and Council of the European Union}},
+  title        = {Directive 2000/60/EC of the European Parliament and of the
+                  Council establishing a framework for Community action in the
+                  field of water policy},
+  howpublished = {Official Journal of the European Communities, L 327},
+  year         = {2000}
+}
+
+@misc{eu2008eqs,
+  author       = {{European Parliament and Council of the European Union}},
+  title        = {Directive 2008/105/EC on environmental quality standards in
+                  the field of water policy},
+  howpublished = {Official Journal of the European Union, L 348},
+  year         = {2008}
+}
+
+@misc{tr2012ysky,
+  author       = {{Republic of T\"urkiye, Ministry of Forestry and Water Affairs}},
+  title        = {Yer{\"u}st{\"u} Su Kalitesi Y{\"o}netmeli{\u g}i
+                  [Surface Water Quality Regulation]},
+  howpublished = {Resm{\^i} Gazete No. 28483, Republic of T{\"u}rkiye},
+  year         = {2012},
+  note         = {Amended 2015 (No. 29327) and 2016 (No. 29797)}
+}
+
+
+
+
+% ---------------------------------------------------------------------------
+% 6. River network topology, mass balance, source apportionment
+% ---------------------------------------------------------------------------
+
+
+
+
+
+% ---------------------------------------------------------------------------
+% 7. The source project (self-citation)
+% ---------------------------------------------------------------------------
+
+
+% Pages and OJ reference read off the primary text in
+% refs/legal/EU-2013-39.pdf (header "24.8.2013 ... L 226/1" .. "L 226/17").
+% EU legal acts carry a CELEX number, not a DOI; none is invented here.
+% Verified against the consolidated text's own amendment table:
+% "02008L0105 — EN — 10.05.2026 — 002.001", amended by ►M2 Directive (EU)
+% 2026/805 of 30 March 2026, OJ L 805, 20.4.2026, p. 1. Cited explicitly
+% because "the 2026 update" is unverifiable prose: a reviewer who recalls the
+% September 2025 provisional agreement needs the adopted instrument named.
+@misc{eu2026amend,
+  title        = {Directive ({EU}) 2026/805 of the {European} {Parliament} and
+                  of the {Council} of 30 {March} 2026 amending {Directive}
+                  2008/105/{EC} as regards environmental quality standards for
+                  surface water},
+  author       = {{European Parliament and Council of the European Union}},
+  year         = {2026},
+  howpublished = {Official Journal of the European Union, L 805, 20 April 2026,
+                  p.~1},
+  note         = {Consolidated text 02008L0105 in force from 10 May 2026}
+}
+
+@misc{eu2013priority,
+  title        = {Directive 2013/39/EU of the European Parliament and of the
+                  Council of 12 August 2013 amending Directives 2000/60/EC and
+                  2008/105/EC as regards priority substances in the field of
+                  water policy},
+  author       = {{European Parliament and Council of the European Union}},
+  year         = {2013},
+  howpublished = {Official Journal of the European Union L 226, 24 August 2013,
+                  pp. 1--17},
+  note         = {CELEX:32013L0039},
+  url          = {https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32013L0039}
+}
+
+% Quoted provision verified against the primary text: Article 3(3b) of the
+% consolidated 2008/105/EC, refs/legal/EU-2008-105_consolidated-2026-05-10.pdf,
+% page 5. EU acts carry a CELEX number, not a DOI.
+@misc{eu2009qaqc,
+  title        = {Commission Directive 2009/90/EC laying down, pursuant to
+                  Directive 2000/60/EC of the European Parliament and of the
+                  Council, technical specifications for chemical analysis and
+                  monitoring of water status},
+  author       = {{European Commission}},
+  year         = {2009},
+  howpublished = {Official Journal of the European Union L 201, 1 August 2009,
+                  pp. 36--38},
+  note         = {CELEX:32009L0090},
+  url          = {https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32009L0090}
+}
+
+% Verified against CrossRef on 2026-08-03; the DOI was resolved,
+% not transcribed from a citing paper.
+@article{moschet2014screening,
+  title   = {How a Complete Pesticide Screening Changes the Assessment of Surface Water Quality},
+  author  = {Moschet, Christoph and Wittmer, Irene and Simovic, Jelena and Junghans, Marion and Piazzoli, Alessandro and Singer, Heinz and Stamm, Christian and Leu, Christian and others},
+  journal = {Environmental Science \& Technology},
+  year    = {2014},
+  volume  = {48},
+  number  = {10},
+  pages   = {5423--5432},
+  doi     = {10.1021/es500371t}
+}
+
+% Verified against CrossRef on 2026-08-03; the DOI was resolved,
+% not transcribed from a citing paper.
+@article{malaj2014continental,
+  title   = {Organic chemicals jeopardize the health of freshwater ecosystems on the continental scale},
+  author  = {Malaj, Egina and von der Ohe, Peter C. and Grote, Matthias and Kühne, Ralph and Mondy, Cédric P. and Usseglio-Polatera, Philippe and Brack, Werner and Schäfer, Ralf B.},
+  journal = {Proceedings of the National Academy of Sciences},
+  year    = {2014},
+  volume  = {111},
+  number  = {26},
+  pages   = {9549--9554},
+  doi     = {10.1073/pnas.1321082111}
+}
+
+% Verified against CrossRef on 2026-08-03; the DOI was resolved,
+% not transcribed from a citing paper.
+@article{ahkola2024uncertainty,
+  title   = {Uncertainty in Environmental Micropollutant Modeling},
+  author  = {Ahkola, Heidi and Kotamäki, Niina and Siivola, Eero and Tiira, Jussi and Imoscopi, Stefano and Riva, Matteo and Tezel, Ulas and Juntunen, Janne},
+  journal = {Environmental Management},
+  year    = {2024},
+  volume  = {74},
+  number  = {2},
+  pages   = {380--398},
+  doi     = {10.1007/s00267-024-01989-z}
+}
+
+% Verified against CrossRef on 2026-08-03; the DOI was resolved,
+% not transcribed from a citing paper.
+@article{kase2018estrogens,
+  title   = {Screening and risk management solutions for steroidal estrogens in surface and wastewater},
+  author  = {Kase, Robert and Javurkova, Barbora and Simon, Eszter and Swart, Kees and Buchinger, Sebastian and Könemann, Sarah and Escher, Beate I. and Carere, Mario and others},
+  journal = {TrAC Trends in Analytical Chemistry},
+  year    = {2018},
+  volume  = {102},
+  pages   = {343--358},
+  doi     = {10.1016/j.trac.2018.02.013}
+}
+
+% Supplied by the author; DOI resolved against CrossRef 2026-08-03.
+@article{coquery2005analytical,
+  title   = {Priority substances of the European Water Framework Directive: analytical challenges in monitoring water quality},
+  author  = {Coquery, M. and Morin, A. and Bécue, A. and Lepot, B.},
+  journal = {TrAC Trends in Analytical Chemistry},
+  year    = {2005},
+  volume   = {24},
+  number   = {2},
+  pages    = {117--127},
+  doi     = {10.1016/j.trac.2004.11.004}
+}
+
+% Supplied by the author; DOI resolved against CrossRef 2026-08-03.
+@article{loos2024watchlist,
+  title   = {Summary recommendations on “Analytical methods for substances in the Watch List under the Water Framework Directive”},
+  author  = {Loos, Robert and Daouk, Silwan and Marinov, Dimitar and Gómez, Livia and Porcel-Rodríguez, Elena and Sanseverino, Isabella and Amalric, Laurence and Potalivo, Monica and others},
+  journal = {Science of The Total Environment},
+  year    = {2024},
+  volume   = {912},
+  pages    = {168707},
+  doi     = {10.1016/j.scitotenv.2023.168707}
+}
+
+% Supplied by the author; DOI resolved against CrossRef 2026-08-03.
+@article{weisner2022threereasons,
+  title   = {Three reasons why the Water Framework Directive (WFD) fails to identify pesticide risks},
+  author  = {Weisner, Oliver and Arle, Jens and Liebmann, Liana and Link, Moritz and Schäfer, Ralf B. and Schneeweiss, Anke and Schreiner, Verena C. and Vormeier, Philipp and others},
+  journal = {Water Research},
+  year    = {2022},
+  volume   = {208},
+  pages    = {117848},
+  doi     = {10.1016/j.watres.2021.117848}
+}
+
+% Supplied by the author; DOI resolved against CrossRef 2026-08-03.
+@inproceedings{saka2026acquirium,
+  title   = {Acquirium: Toward Interoperable Data Driven Applications in Water Treatment Systems},
+  author  = {Saka, Umut Mete and Chapin, Fletcher T. and Paul, Lazlo and Anwar, Avia and Struck, Scott and Mauter, Meagan S. and Fierro, Gabe},
+  booktitle = {Proceedings of the 13th ACM International Conference on Systems for Energy-Efficient Buildings, Cities, and Transportation},
+  year    = {2026},
+  pages    = {218--229},
+  doi     = {10.1145/3744256.3812557}
+}
+
+% DOI resolved against CrossRef 2026-08-03 before being written.
+@article{schwarzenbach2006challenge,
+  title   = {The Challenge of Micropollutants in Aquatic Systems},
+  author  = {Schwarzenbach, René P. and Escher, Beate I. and Fenner, Kathrin and Hofstetter, Thomas B. and Johnson, C. Annette and von Gunten, Urs and others},
+  journal = {Science},
+  year    = {2006},
+  volume   = {313},
+  number   = {5790},
+  pages    = {1072--1077},
+  doi     = {10.1126/science.1127291}
+}
+
+% DOI resolved against CrossRef 2026-08-03 before being written.
+@article{wilkinson2022pharma,
+  title   = {Pharmaceutical pollution of the world’s rivers},
+  author  = {Wilkinson, John L. and Boxall, Alistair B. A. and Kolpin, Dana W. and Leung, Kenneth M. Y. and Lai, Racliffe W. S. and Galbán-Malagón, Cristóbal and others},
+  journal = {Proceedings of the National Academy of Sciences},
+  year    = {2022},
+  volume   = {119},
+  number   = {8},
+  doi     = {10.1073/pnas.2113947119}
+}
+
+% DOI resolved against CrossRef 2026-08-03 before being written.
+@article{beketov2013biodiversity,
+  title   = {Pesticides reduce regional biodiversity of stream invertebrates},
+  author  = {Beketov, Mikhail A. and Kefford, Ben J. and Schäfer, Ralf B. and Liess, Matthias},
+  journal = {Proceedings of the National Academy of Sciences},
+  year    = {2013},
+  volume   = {110},
+  number   = {27},
+  pages    = {11039--11043},
+  doi     = {10.1073/pnas.1305618110}
+}
+
+% DOI resolved against CrossRef 2026-08-03 before being written.
+@article{geissen2015emerging,
+  title   = {Emerging pollutants in the environment: A challenge for water resource management},
+  author  = {Geissen, Violette and Mol, Hans and Klumpp, Erwin and Umlauf, Günter and Nadal, Marti and van der Ploeg, Martine and others},
+  journal = {International Soil and Water Conservation Research},
+  year    = {2015},
+  volume   = {3},
+  number   = {1},
+  pages    = {57--65},
+  doi     = {10.1016/j.iswcr.2015.03.002}
+}
+
+% ---------------------------------------------------------------------------
+% Censored data: the statistical literature this paper's premise rests on.
+% Helsel (2006, 2012) is the standard reference for why substitution is wrong;
+% these two are the modern review and the empirical demonstration on paired
+% censored/uncensored data.
+% ---------------------------------------------------------------------------
+@article{shoari2018nondetects,
+  author  = {Shoari, Niloofar and Dub{\'e}, Jean-S{\'e}bastien},
+  title   = {Toward improved analysis of concentration data: Embracing nondetects},
+  journal = {Environmental Toxicology and Chemistry},
+  year    = {2018},
+  volume  = {37},
+  number  = {3},
+  pages   = {643--656},
+  doi     = {10.1002/etc.4046}
+}
+
+@article{antweiler2008censored,
+  author  = {Antweiler, Ronald C. and Taylor, Howard E.},
+  title   = {Evaluation of Statistical Treatments of Left-Censored Environmental
+             Data using Coincident Uncensored Data Sets: {I.} Summary Statistics},
+  journal = {Environmental Science \& Technology},
+  year    = {2008},
+  volume  = {42},
+  number  = {10},
+  pages   = {3732--3738},
+  doi     = {10.1021/es071301c}
+}
+
+% ---------------------------------------------------------------------------
+% Conformity assessment. The construction this paper uses for the fourth
+% compliance outcome -- an interval around a reported value, compared against a
+% limit -- is the standard decision-rule/guard-band framework of metrology. It
+% is cited so that the contribution is the machine-readable form and the
+% continental application, not the idea.
+% ---------------------------------------------------------------------------
+@techreport{jcgm2012conformity,
+  author      = {{Joint Committee for Guides in Metrology}},
+  title       = {Evaluation of measurement data --- The role of measurement
+                 uncertainty in conformity assessment},
+  institution = {BIPM},
+  number      = {JCGM 106:2012},
+  year        = {2012},
+  url         = {https://www.bipm.org/en/committees/jc/jcgm/publications}
+}
+
+@techreport{eurachem2021compliance,
+  author      = {Ellison, S. L. R. and Williams, A.},
+  title       = {Use of Uncertainty Information in Compliance Assessment},
+  institution = {Eurachem/CITAC},
+  edition     = {2},
+  year        = {2021},
+  url         = {https://www.eurachem.org/index.php/publications/guides/uncertcompliance}
+}
+
+@techreport{iso17025,
+  author      = {{International Organization for Standardization}},
+  title       = {{ISO/IEC} 17025:2017 General requirements for the competence of
+                 testing and calibration laboratories},
+  institution = {ISO},
+  year        = {2017},
+  note        = {Clause 7.8.6 requires a documented decision rule when a
+                 statement of conformity is reported}
+}
+
+% ---------------------------------------------------------------------------
+% Mixtures. Annex I states four limits over a sum rather than over a substance,
+% and this paper measures how often the basket behind such a limit was ever
+% completely measured. These are the methodological references for why a
+% partial sum is not a conservative answer.
+% ---------------------------------------------------------------------------
+@article{backhaus2012mixtures,
+  author  = {Backhaus, Thomas and Faust, Michael},
+  title   = {Predictive Environmental Risk Assessment of Chemical Mixtures:
+             A Conceptual Framework},
+  journal = {Environmental Science \& Technology},
+  year    = {2012},
+  volume  = {46},
+  number  = {5},
+  pages   = {2564--2573},
+  doi     = {10.1021/es2034125}
+}
+
+@article{posthuma2019mixtures,
+  author  = {Posthuma, Leo and Altenburger, Rolf and Backhaus, Thomas and
+             Kortenkamp, Andreas and M{\"u}ller, Christin and Focks, Andreas and
+             de Zwart, Dick and Brack, Werner},
+  title   = {Improved component-based methods for mixture risk assessment are key
+             to characterize complex chemical pollution in surface waters},
+  journal = {Environmental Sciences Europe},
+  year    = {2019},
+  volume  = {31},
+  number  = {1},
+  pages   = {70},
+  doi     = {10.1186/s12302-019-0246-5}
+}
+
+@article{bouzidi2012compliance,
+  author  = {Bouzidi, Khalil Riad and Fies, Bruno and Faron-Zucker, Catherine and
+             Zarli, Alain and Le Thanh, Nhan},
+  title   = {Semantic Web Approach to Ease Regulation Compliance Checking in
+             Construction Industry},
+  journal = {Future Internet},
+  year    = {2012},
+  volume  = {4},
+  number  = {3},
+  pages   = {830--851},
+  doi     = {10.3390/fi4030830}
+}

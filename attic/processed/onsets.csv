@@ -1,0 +1,845 @@
+reach_id,up_station,down_station,campaign,campaign_label,analyte,group,up_value,down_value,lod,q_up,q_down,down_load,max_upstream_load,verdict
+R-32-10,32,10,C1,Aug-2017,4-Aminomethyl-benzenesulfonamide,micropollutant,0.0,0.18768622892595982,,8.0,1.3,0.24399209760374777,,onset_undecidable_no_lod
+R-32-10,32,10,C2,Nov-2017,4-Aminomethyl-benzenesulfonamide,micropollutant,0.0,0.2994343793386249,,8.0,1.3,0.38926469314021234,,onset_undecidable_no_lod
+R-32-10,32,10,C3,Feb-2018,Amoxicillin,micropollutant,0.0,0.35751224210759797,,25.0,1.0,0.35751224210759797,,onset_undecidable_no_lod
+R-32-10,32,10,C3,Feb-2018,Anthracene,micropollutant,0.0,177.8021574299106,,25.0,1.0,177.8021574299106,,onset_undecidable_no_lod
+R-32-10,32,10,C1,Aug-2017,As,metal,0.0,6.006833283000001,,8.0,1.3,7.8088832679000015,,onset_undecidable_no_lod
+R-32-10,32,10,C3,Feb-2018,Benzothiazole,micropollutant,0.0,18.8734401588424,,25.0,1.0,18.8734401588424,,onset_undecidable_no_lod
+R-32-10,32,10,C3,Feb-2018,Cd,metal,0.0,0.3922661959999997,,25.0,1.0,0.3922661959999997,,onset_undecidable_no_lod
+R-32-10,32,10,C1,Aug-2017,Di(2- ethylhexyl)phthalate (DEHP),micropollutant,0.0,13.92663974840519,,8.0,1.3,18.104631672926747,,onset_undecidable_no_lod
+R-32-10,32,10,C4,May-2018,Di(2- ethylhexyl)phthalate (DEHP),micropollutant,0.0,5.026366073108495,,14.0,0.9,4.523729465797645,,onset_undecidable_no_lod
+R-32-10,32,10,C2,Nov-2017,Drometrizole,micropollutant,0.0,0.7502523912445758,,8.0,1.3,0.9753281086179485,,onset_undecidable_no_lod
+R-32-10,32,10,C3,Feb-2018,Ethylhexylmethoxycinnamate,micropollutant,0.0,0.7399449085980312,,25.0,1.0,0.7399449085980312,,onset_undecidable_no_lod
+R-32-10,32,10,C3,Feb-2018,Galaxolide,micropollutant,0.0,0.29143417666434585,,25.0,1.0,0.29143417666434585,,onset_undecidable_no_lod
+R-32-10,32,10,C1,Aug-2017,Homosalate,micropollutant,0.0,7.570373242015033,,8.0,1.3,9.841485214619544,,onset_undecidable_no_lod
+R-32-10,32,10,C1,Aug-2017,N-Benzyldimethylamine,micropollutant,0.0,0.103125375119086,,8.0,1.3,0.1340629876548118,,onset_undecidable_no_lod
+R-32-10,32,10,C1,Aug-2017,NO2,conventional,0.0,0.475,,8.0,1.3,0.6174999999999999,,onset_undecidable_no_lod
+R-32-10,32,10,C2,Nov-2017,NO2,conventional,0.0,0.959,,8.0,1.3,1.2467,,onset_undecidable_no_lod
+R-32-10,32,10,C1,Aug-2017,NO3,conventional,0.0,0.17900000000000005,,8.0,1.3,0.23270000000000007,,onset_undecidable_no_lod
+R-32-10,32,10,C2,Nov-2017,NO3,conventional,0.0,8.297,,8.0,1.3,10.786100000000001,,onset_undecidable_no_lod
+R-32-10,32,10,C3,Feb-2018,Norfloxacin,micropollutant,0.0,0.8500074748375257,,25.0,1.0,0.8500074748375257,,onset_undecidable_no_lod
+R-32-10,32,10,C3,Feb-2018,Ofloxacin,micropollutant,0.0,0.2807750139253049,,25.0,1.0,0.2807750139253049,,onset_undecidable_no_lod
+R-32-10,32,10,C2,Nov-2017,Propiconazole,micropollutant,0.0,0.06946799843766473,0.06798867882490879,8.0,1.3,0.09030839796896414,0.5439094305992703,onset_possible
+R-32-10,32,10,C1,Aug-2017,Tetracycline,micropollutant,0.0,0.0792811346342901,,8.0,1.3,0.10306547502457712,,onset_undecidable_no_lod
+R-39-23,39,23,C2,Nov-2017,4-Aminomethyl-benzenesulfonamide,micropollutant,0.0,0.20438784034196414,,10.7,1.8,0.36789811261553546,,onset_undecidable_no_lod
+R-39-23,39,23,C1,Aug-2017,4-tert-Octylphenol diethoxylate,micropollutant,0.0,0.02492157268889446,,10.7,1.8,0.04485883084001003,,onset_undecidable_no_lod
+R-39-23,39,23,C3,Feb-2018,5-Methyl-1H-benzotriazole (5-Tolytriazole),micropollutant,0.0,0.025296231676479614,,170.0,2.2,0.055651709688255155,,onset_undecidable_no_lod
+R-39-23,39,23,C3,Feb-2018,8-Hydroxyquinoline,micropollutant,0.0,0.043344845244029595,,170.0,2.2,0.09535865953686512,,onset_undecidable_no_lod
+R-39-23,39,23,C3,Feb-2018,Acetaminophen (Paracetamol),micropollutant,0.0,2.384716680471458,,170.0,2.2,5.246376697037208,,onset_undecidable_no_lod
+R-39-23,39,23,C1,Aug-2017,Anthracene,micropollutant,0.0,89.14639868189903,,10.7,1.8,160.46351762741827,,onset_undecidable_no_lod
+R-39-23,39,23,C4,May-2018,Chlorpyrifos,micropollutant,0.0,0.20115476268570492,,41.0,1.9,0.38219404910283933,,onset_undecidable_no_lod
+R-39-23,39,23,C4,May-2018,Ciprofloxacin,micropollutant,0.0,0.7179024284710703,,41.0,1.9,1.3640146140950336,,onset_undecidable_no_lod
+R-39-23,39,23,C2,Nov-2017,Cyclopentadecanolide,micropollutant,0.0,35.50155609142811,,10.7,1.8,63.902800964570595,,onset_undecidable_no_lod
+R-39-23,39,23,C4,May-2018,Di(2- ethylhexyl)phthalate (DEHP),micropollutant,0.0,9.89869656261575,,41.0,1.9,18.807523468969926,,onset_undecidable_no_lod
+R-39-23,39,23,C2,Nov-2017,Erythromycin,micropollutant,0.0,0.18108585181755915,,10.7,1.8,0.3259545332716065,,onset_undecidable_no_lod
+R-39-23,39,23,C3,Feb-2018,Ethylhexylmethoxycinnamate,micropollutant,0.0,0.3480709874909987,,170.0,2.2,0.7657561724801971,,onset_undecidable_no_lod
+R-39-23,39,23,C4,May-2018,Ethylhexylmethoxycinnamate,micropollutant,0.0,0.5586068665157564,,41.0,1.9,1.0613530463799372,,onset_undecidable_no_lod
+R-39-23,39,23,C1,Aug-2017,Homosalate,micropollutant,0.0,6.150538301314354,,10.7,1.8,11.070968942365838,,onset_undecidable_no_lod
+R-39-23,39,23,C1,Aug-2017,Imazamox,micropollutant,0.0,0.07030172834383704,0.04013470736213615,10.7,1.8,0.12654311101890667,0.42944136877485684,onset_possible
+R-39-23,39,23,C1,Aug-2017,Methyl -iso-propylcyclohexenone,micropollutant,0.0,0.27822151687890756,,10.7,1.8,0.5007987303820336,,onset_undecidable_no_lod
+R-39-23,39,23,C2,Nov-2017,Methyl paraben,micropollutant,0.0,0.09868430704710035,,10.7,1.8,0.17763175268478062,,onset_undecidable_no_lod
+R-39-23,39,23,C1,Aug-2017,NO2,conventional,0.0,0.8260000000000001,,10.7,1.8,1.4868000000000001,,onset_undecidable_no_lod
+R-39-23,39,23,C2,Nov-2017,NO2,conventional,0.0,0.9039999999999999,,10.7,1.8,1.6272,,onset_undecidable_no_lod
+R-39-23,39,23,C4,May-2018,NO2,conventional,0.0,1.179,,41.0,1.9,2.2401,,onset_undecidable_no_lod
+R-39-23,39,23,C1,Aug-2017,NO3,conventional,0.0,1.249,,10.7,1.8,2.2482,,onset_undecidable_no_lod
+R-39-23,39,23,C2,Nov-2017,NO3,conventional,0.0,6.221,,10.7,1.8,11.1978,,onset_undecidable_no_lod
+R-39-23,39,23,C3,Feb-2018,Ofloxacin,micropollutant,0.0,0.19580561432391616,,170.0,2.2,0.4307723515126156,,onset_undecidable_no_lod
+R-39-23,39,23,C1,Aug-2017,Oxadiazon,micropollutant,0.0,0.5517617368582504,0.3647216734029204,10.7,1.8,0.9931711263448507,3.902521905411248,onset_possible
+R-39-23,39,23,C1,Aug-2017,Oxadixyl,micropollutant,0.0,2.721203471672515,0.0848415630713309,10.7,1.8,4.898166249010527,0.9078047248632405,onset_confirmed
+R-39-23,39,23,C4,May-2018,Pendimethalin,micropollutant,0.0,0.03610453200140361,0.018585497521815274,41.0,1.9,0.06859861080266685,0.7620053983944263,onset_possible
+R-39-23,39,23,C3,Feb-2018,Piperonylbutoxide,micropollutant,0.0,0.017639006700534803,,170.0,2.2,0.038805814741176566,,onset_undecidable_no_lod
+R-39-23,39,23,C1,Aug-2017,Pirimicarb,micropollutant,0.0,0.1481142053094314,0.12226493652653564,10.7,1.8,0.2666055695569765,1.3082348208339312,onset_possible
+R-39-23,39,23,C3,Feb-2018,Polychlorinated biphenyls,micropollutant,0.0,1.8920764790721256,,170.0,2.2,4.162568253958677,,onset_undecidable_no_lod
+R-39-23,39,23,C2,Nov-2017,Propiconazole,micropollutant,0.0,0.07541596623839945,0.06798867882490879,10.7,1.8,0.135748739229119,0.727478863426524,onset_possible
+R-39-23,39,23,C3,Feb-2018,Trimethoprim,micropollutant,0.0,0.03588842852080831,,170.0,2.2,0.07895454274577829,,onset_undecidable_no_lod
+R-41-19,41,19,C4,May-2018,2-Mercapto-benzothiazole,micropollutant,0.0,1.8846583303578588,,,4.0,7.538633321431435,,onset_undecidable_no_lod
+R-41-19,41,19,C1,Aug-2017,5-Methyl-1H-benzotriazole (5-Tolytriazole),micropollutant,0.0,0.09296324404975848,,,2.1,0.1952228125044928,,onset_undecidable_no_lod
+R-41-19,41,19,C2,Nov-2017,5-Methyl-1H-benzotriazole (5-Tolytriazole),micropollutant,0.0,0.06646116709022615,,,2.1,0.13956845088947492,,onset_undecidable_no_lod
+R-41-19,41,19,C4,May-2018,Amoxicillin,micropollutant,0.0,0.7080771516124131,,,4.0,2.8323086064496525,,onset_undecidable_no_lod
+R-41-19,41,19,C3,Feb-2018,As,metal,0.0,2.529700124166667,,,6.0,15.178200745000002,,onset_undecidable_no_lod
+R-41-19,41,19,C4,May-2018,As,metal,0.0,4.269069381333333,,,4.0,17.07627752533333,,onset_undecidable_no_lod
+R-41-19,41,19,C4,May-2018,Benzo[a]pyrene,micropollutant,0.0,0.004679577812508426,,,4.0,0.018718311250033703,,onset_undecidable_no_lod
+R-41-19,41,19,C3,Feb-2018,Benzylamine,micropollutant,0.0,0.05075770435538022,,,6.0,0.30454622613228133,,onset_undecidable_no_lod
+R-41-19,41,19,C1,Aug-2017,Benzyltrimethylammonium,micropollutant,0.0,0.011584216919774706,,,2.1,0.024326855531526883,,onset_undecidable_no_lod
+R-41-19,41,19,C2,Nov-2017,Br,conventional,0.0,0.497,,,2.1,1.0437,,onset_undecidable_no_lod
+R-41-19,41,19,C4,May-2018,Br,conventional,0.0,0.6869999999999999,,,4.0,2.7479999999999998,,onset_undecidable_no_lod
+R-41-19,41,19,C2,Nov-2017,Chlorsulfuron,micropollutant,0.0,0.05915677230320883,0.04387455551873308,,2.1,0.12422922183673854,,onset_undecidable_no_flow
+R-41-19,41,19,C1,Aug-2017,Ciprofloxacin,micropollutant,0.0,0.33204472453191153,,,2.1,0.6972939215170142,,onset_undecidable_no_lod
+R-41-19,41,19,C3,Feb-2018,Co,metal,0.0,0.5445926684666667,,,6.0,3.2675560108,,onset_undecidable_no_lod
+R-41-19,41,19,C4,May-2018,Di(2- ethylhexyl)phthalate (DEHP),micropollutant,0.0,160.61665215708317,,,4.0,642.4666086283327,,onset_undecidable_no_lod
+R-41-19,41,19,C4,May-2018,Dimethoate,micropollutant,0.0,0.27312903281678635,0.06908550185484376,,4.0,1.0925161312671454,,onset_undecidable_no_flow
+R-41-19,41,19,C1,Aug-2017,Ethylhexylmethoxycinnamate,micropollutant,0.0,0.6767367512164645,,,2.1,1.4211471775545754,,onset_undecidable_no_lod
+R-41-19,41,19,C4,May-2018,Ethylhexylmethoxycinnamate,micropollutant,0.0,1.0935123079817937,,,4.0,4.374049231927175,,onset_undecidable_no_lod
+R-41-19,41,19,C3,Feb-2018,Galaxolide,micropollutant,0.0,0.2186540076902187,,,6.0,1.3119240461413122,,onset_undecidable_no_lod
+R-41-19,41,19,C3,Feb-2018,Hexa(methoxymethyl)melamine,micropollutant,0.0,21.5281787838282,,,6.0,129.1690727029692,,onset_undecidable_no_lod
+R-41-19,41,19,C2,Nov-2017,Methyl paraben,micropollutant,0.0,0.1056107406709281,,,2.1,0.221782555408949,,onset_undecidable_no_lod
+R-41-19,41,19,C1,Aug-2017,Molinate,micropollutant,0.0,0.04740149770423155,0.03387847116631922,,2.1,0.09954314517888625,,onset_undecidable_no_flow
+R-41-19,41,19,C1,Aug-2017,Myclobutanil,micropollutant,0.0,0.2882291283545202,0.0037826264752148938,,2.1,0.6052811695444924,,onset_undecidable_no_flow
+R-41-19,41,19,C4,May-2018,NH3-N,conventional,0.0,0.8399999999999999,,,4.0,3.3599999999999994,,onset_undecidable_no_lod
+R-41-19,41,19,C2,Nov-2017,NO2,conventional,0.0,0.29100000000000004,,,2.1,0.6111000000000001,,onset_undecidable_no_lod
+R-41-19,41,19,C1,Aug-2017,NO3,conventional,0.0,4.402,,,2.1,9.244200000000001,,onset_undecidable_no_lod
+R-41-19,41,19,C3,Feb-2018,Norfloxacin,micropollutant,0.0,0.784816116817335,,,6.0,4.70889670090401,,onset_undecidable_no_lod
+R-41-19,41,19,C3,Feb-2018,Ofloxacin,micropollutant,0.0,0.32015769633227137,,,6.0,1.920946177993628,,onset_undecidable_no_lod
+R-41-19,41,19,C4,May-2018,Omethoate,micropollutant,0.0,0.10024809501624878,0.08702830579070181,,4.0,0.4009923800649951,,onset_undecidable_no_flow
+R-41-19,41,19,C4,May-2018,Oxadiazon,micropollutant,0.0,0.469663298922228,0.3647216734029204,,4.0,1.878653195688912,,onset_undecidable_no_flow
+R-41-19,41,19,C1,Aug-2017,PO4,conventional,0.0,0.35000000000000003,,,2.1,0.7350000000000001,,onset_undecidable_no_lod
+R-41-19,41,19,C1,Aug-2017,Prochloraz,micropollutant,0.0,0.06586410892701068,0.03821130585612481,,2.1,0.13831462874672243,,onset_undecidable_no_flow
+R-41-19,41,19,C4,May-2018,Terbuthylazine,micropollutant,0.0,0.02121019449839152,0.01783995438699649,,4.0,0.08484077799356608,,onset_undecidable_no_flow
+R-41-19,41,19,C3,Feb-2018,Tetracycline,micropollutant,0.0,0.07936550864061086,,,6.0,0.4761930518436651,,onset_undecidable_no_lod
+R-41-19,41,19,C4,May-2018,Tetracycline,micropollutant,0.0,0.12252739712599735,,,4.0,0.4901095885039894,,onset_undecidable_no_lod
+R-41-19,41,19,C1,Aug-2017,Ti,metal,0.0,3.495874928,,,2.1,7.341337348800001,,onset_undecidable_no_lod
+R-41-19,41,19,C4,May-2018,Triazophos,micropollutant,0.0,0.0752679175384312,,,4.0,0.3010716701537248,,onset_undecidable_no_lod
+R-41-19,41,19,C3,Feb-2018,Trimethoprim,micropollutant,0.0,0.013059807262596463,,,6.0,0.07835884357557878,,onset_undecidable_no_lod
+R-41-19,41,19,C3,Feb-2018,Tris(2-butoxyethyl) phosphate,micropollutant,0.0,0.03306833147217679,,,6.0,0.19840998883306074,,onset_undecidable_no_lod
+R-41-19,41,19,C3,Feb-2018,V,metal,0.0,6.131994610000002,,,6.0,36.79196766000001,,onset_undecidable_no_lod
+R-41-19,41,19,C1,Aug-2017,g-Methylionone,micropollutant,0.0,0.5375977238939443,,,2.1,1.1289552201772832,,onset_undecidable_no_lod
+R-42-4,42,4,C4,May-2018,"1,6-Dinitropyrene",micropollutant,0.0,0.1803264150528719,,7.4,9.0,1.622937735475847,,onset_undecidable_no_lod
+R-42-4,42,4,C3,Feb-2018,"2,4-Dihydroxybenzophenone",micropollutant,0.0,0.10908444725080378,,10.5,12.0,1.3090133670096453,,onset_undecidable_no_lod
+R-42-4,42,4,C1,Aug-2017,2-(2-Naphthalenyl)benzothiophene,micropollutant,0.0,16.578170124959982,,1.6,2.5,41.445425312399955,,onset_undecidable_no_lod
+R-42-4,42,4,C3,Feb-2018,2-(2-Naphthalenyl)benzothiophene,micropollutant,0.0,23.194727906059097,,10.5,12.0,278.33673487270914,,onset_undecidable_no_lod
+R-42-4,42,4,C3,Feb-2018,2-Mercapto-benzothiazole,micropollutant,0.0,0.35813763896154105,,10.5,12.0,4.297651667538492,,onset_undecidable_no_lod
+R-42-4,42,4,C1,Aug-2017,4-Chloroaniline,micropollutant,0.0,0.40731973979206937,,1.6,2.5,1.0182993494801735,,onset_undecidable_no_lod
+R-42-4,42,4,C1,Aug-2017,7H-Benzo(de)anthracen-7-one (Benzanthrone),micropollutant,0.0,5.375040682601147,,1.6,2.5,13.437601706502868,,onset_undecidable_no_lod
+R-42-4,42,4,C3,Feb-2018,7H-Benzo(de)anthracen-7-one (Benzanthrone),micropollutant,0.0,4.1801215308401565,,10.5,12.0,50.161458370081874,,onset_undecidable_no_lod
+R-42-4,42,4,C4,May-2018,Amoxicillin,micropollutant,0.0,1.800668835654128,,7.4,9.0,16.206019520887153,,onset_undecidable_no_lod
+R-42-4,42,4,C4,May-2018,Be,metal,0.0,0.7440761126666674,,7.4,9.0,6.696685014000007,,onset_undecidable_no_lod
+R-42-4,42,4,C2,Nov-2017,Benzo[a]pyrene,micropollutant,0.0,0.36800794773316486,,1.6,2.5,0.9200198693329121,,onset_undecidable_no_lod
+R-42-4,42,4,C3,Feb-2018,Benzo[a]pyrene,micropollutant,0.0,0.43086667033404,,10.5,12.0,5.17040004400848,,onset_undecidable_no_lod
+R-42-4,42,4,C3,Feb-2018,Boisvelone / Iso-Esuper,micropollutant,0.0,2.0033159114359536,,10.5,12.0,24.039790937231444,,onset_undecidable_no_lod
+R-42-4,42,4,C3,Feb-2018,Chlorpyrifos,micropollutant,0.0,0.13854242001900685,,10.5,12.0,1.6625090402280822,,onset_undecidable_no_lod
+R-42-4,42,4,C1,Aug-2017,Drometrizole,micropollutant,0.0,0.034178569353444,,1.6,2.5,0.08544642338361,,onset_undecidable_no_lod
+R-42-4,42,4,C4,May-2018,Drometrizole,micropollutant,0.0,0.2631717007775848,,7.4,9.0,2.368545306998263,,onset_undecidable_no_lod
+R-42-4,42,4,C1,Aug-2017,Epoxiconazole,micropollutant,0.0,0.035913700931124115,0.03141420280834735,1.6,2.5,0.08978425232781029,0.05026272449335576,onset_confirmed
+R-42-4,42,4,C4,May-2018,Flutolanil,micropollutant,0.0,0.04837175805090908,0.04764926745286796,7.4,9.0,0.43534582245818176,0.35260457915122295,onset_confirmed
+R-42-4,42,4,C3,Feb-2018,"Indeno[1,2,3-cd]pyrene",micropollutant,0.0,12.175768349611316,,10.5,12.0,146.10922019533578,,onset_undecidable_no_lod
+R-42-4,42,4,C2,Nov-2017,Methyl -iso-propylcyclohexenone,micropollutant,0.0,0.5618602802950718,,1.6,2.5,1.4046507007376796,,onset_undecidable_no_lod
+R-42-4,42,4,C1,Aug-2017,Myclobutanil,micropollutant,0.0,0.20054252029173658,0.0037826264752148938,1.6,2.5,0.5013563007293415,0.006052202360343831,onset_confirmed
+R-42-4,42,4,C3,Feb-2018,Norfloxacin,micropollutant,0.0,0.5049604726350938,,10.5,12.0,6.059525671621126,,onset_undecidable_no_lod
+R-42-4,42,4,C3,Feb-2018,Piperonylbutoxide,micropollutant,0.0,0.05901992269964334,,10.5,12.0,0.70823907239572,,onset_undecidable_no_lod
+R-42-4,42,4,C3,Feb-2018,Polychlorinated biphenyls,micropollutant,0.0,7.806881220411736,,10.5,12.0,93.68257464494083,,onset_undecidable_no_lod
+R-42-4,42,4,C1,Aug-2017,Propazine,micropollutant,0.0,0.013636765455240665,0.008743580815789019,1.6,2.5,0.03409191363810166,0.013989729305262431,onset_confirmed
+R-42-4,42,4,C1,Aug-2017,Pyriproxyfen,micropollutant,0.0,0.009812210578945197,0.01172355192856538,1.6,2.5,0.024530526447362994,0.018757683085704607,onset_confirmed
+R-42-4,42,4,C3,Feb-2018,Tonalide,micropollutant,0.0,0.4551189150722068,,10.5,12.0,5.461426980866482,,onset_undecidable_no_lod
+R-42-4,42,4,C3,Feb-2018,Triazophos,micropollutant,0.0,0.16644911527667366,,10.5,12.0,1.997389383320084,,onset_undecidable_no_lod
+R-42-4,42,4,C1,Aug-2017,g-Methylionone,micropollutant,0.0,1.3539498231403042,,1.6,2.5,3.3848745578507606,,onset_undecidable_no_lod
+R-44-13,44,13,C3,Feb-2018,4-Methyl-1H-benzotriazole,micropollutant,0.0,0.3114230956301795,,2.0,7.0,2.1799616694112567,,onset_undecidable_no_lod
+R-44-13,44,13,C3,Feb-2018,5-Methyl-1H-benzotriazole (5-Tolytriazole),micropollutant,0.0,0.10733807384132212,,2.0,7.0,0.7513665168892548,,onset_undecidable_no_lod
+R-44-13,44,13,C3,Feb-2018,8-Hydroxyquinoline,micropollutant,0.0,0.0443185079918002,,2.0,7.0,0.3102295559426014,,onset_undecidable_no_lod
+R-44-13,44,13,C2,Nov-2017,Acetaminophen (Paracetamol),micropollutant,0.0,0.06916221579116301,,1.8,1.0,0.06916221579116301,,onset_undecidable_no_lod
+R-44-13,44,13,C1,Aug-2017,Acetamiprid,micropollutant,0.0,0.05981072002865321,0.025237601919248082,1.8,1.0,0.05981072002865321,0.045427683454646546,onset_confirmed
+R-44-13,44,13,C3,Feb-2018,Aclonifen,micropollutant,0.0,0.12257607644625769,,2.0,7.0,0.8580325351238038,,onset_undecidable_no_lod
+R-44-13,44,13,C1,Aug-2017,Anthracene,micropollutant,0.0,106.61936935244265,,1.8,1.0,106.61936935244265,,onset_undecidable_no_lod
+R-44-13,44,13,C2,Nov-2017,As,metal,0.0,0.33729963713333333,,1.8,1.0,0.33729963713333333,,onset_undecidable_no_lod
+R-44-13,44,13,C1,Aug-2017,Atrazine-desethyl,micropollutant,0.0,0.06298671208354391,0.020072105707961772,1.8,1.0,0.06298671208354391,0.03612979027433119,onset_confirmed
+R-44-13,44,13,C1,Aug-2017,Azithromycin,micropollutant,0.0,1.9192495884580485,,1.8,1.0,1.9192495884580485,,onset_undecidable_no_lod
+R-44-13,44,13,C1,Aug-2017,Benzo[a]anthracene,micropollutant,0.0,5.686850395287105,,1.8,1.0,5.686850395287105,,onset_undecidable_no_lod
+R-44-13,44,13,C1,Aug-2017,Benzo[b]fluoranthene,micropollutant,0.0,0.6998863787396697,,1.8,1.0,0.6998863787396697,,onset_undecidable_no_lod
+R-44-13,44,13,C4,May-2018,Benzyltrimethylammonium,micropollutant,0.0,0.015827206054770306,,1.8,3.2,0.05064705937526498,,onset_undecidable_no_lod
+R-44-13,44,13,C3,Feb-2018,Boisvelone / Iso-Esuper,micropollutant,0.0,3.2829355492418206,,2.0,7.0,22.980548844692745,,onset_undecidable_no_lod
+R-44-13,44,13,C1,Aug-2017,Br,conventional,0.0,0.524,,1.8,1.0,0.524,,onset_undecidable_no_lod
+R-44-13,44,13,C1,Aug-2017,Clarithromycin,micropollutant,0.0,0.10962709752477193,,1.8,1.0,0.10962709752477193,,onset_undecidable_no_lod
+R-44-13,44,13,C2,Nov-2017,Cyclopentadecanolide,micropollutant,0.0,13.49317888221683,,1.8,1.0,13.49317888221683,,onset_undecidable_no_lod
+R-44-13,44,13,C4,May-2018,Cyclopentadecanolide,micropollutant,0.0,5.211981122005508,,1.8,3.2,16.678339590417625,,onset_undecidable_no_lod
+R-44-13,44,13,C1,Aug-2017,Cyprodinil,micropollutant,0.0,0.03564635967607835,0.034812935770800316,1.8,1.0,0.03564635967607835,0.06266328438744057,onset_possible
+R-44-13,44,13,C4,May-2018,Dicyclohexylamine,micropollutant,0.0,0.05073733965748684,,1.8,3.2,0.1623594869039579,,onset_undecidable_no_lod
+R-44-13,44,13,C4,May-2018,Drometrizole,micropollutant,0.0,0.5399005312434024,,1.8,3.2,1.7276816999788878,,onset_undecidable_no_lod
+R-44-13,44,13,C1,Aug-2017,Epoxiconazole,micropollutant,0.0,0.4207615161928974,0.03141420280834735,1.8,1.0,0.4207615161928974,0.05654556505502523,onset_confirmed
+R-44-13,44,13,C4,May-2018,Epoxiconazole,micropollutant,0.0,0.16193758733795863,0.03141420280834735,1.8,3.2,0.5182002794814676,0.05654556505502523,onset_confirmed
+R-44-13,44,13,C1,Aug-2017,Flutriafol,micropollutant,0.0,0.16479355164779483,0.06826245621547884,1.8,1.0,0.16479355164779483,0.12287242118786192,onset_confirmed
+R-44-13,44,13,C1,Aug-2017,Imazamox,micropollutant,0.0,0.7635317586260884,0.04013470736213615,1.8,1.0,0.7635317586260884,0.07224247325184507,onset_confirmed
+R-44-13,44,13,C1,Aug-2017,"Indeno[1,2,3-cd]pyrene",micropollutant,0.0,7.402280551947864,,1.8,1.0,7.402280551947864,,onset_undecidable_no_lod
+R-44-13,44,13,C1,Aug-2017,Mepiquat chloride,micropollutant,0.0,0.11408385322573267,0.07318328682657736,1.8,1.0,0.11408385322573267,0.13172991628783925,onset_possible
+R-44-13,44,13,C1,Aug-2017,Methyl -iso-propylcyclohexenone,micropollutant,0.0,0.17044027672975526,,1.8,1.0,0.17044027672975526,,onset_undecidable_no_lod
+R-44-13,44,13,C4,May-2018,Methyldihydrojasmonate,micropollutant,0.0,0.4809526360751174,,1.8,3.2,1.5390484354403757,,onset_undecidable_no_lod
+R-44-13,44,13,C1,Aug-2017,Metolachlor,micropollutant,0.0,0.024146413077266456,0.02101038555118056,1.8,1.0,0.024146413077266456,0.03781869399212501,onset_possible
+R-44-13,44,13,C4,May-2018,Molinate,micropollutant,0.0,0.11704879672980509,0.03387847116631922,1.8,3.2,0.3745561495353763,0.0609812480993746,onset_confirmed
+R-44-13,44,13,C1,Aug-2017,Monocrotophos,micropollutant,0.0,0.023519384626530214,0.01742814436892226,1.8,1.0,0.023519384626530214,0.03137065986406007,onset_possible
+R-44-13,44,13,C3,Feb-2018,Myclobutanil,micropollutant,0.0,0.0793531644839285,0.0037826264752148938,2.0,7.0,0.5554721513874995,0.0075652529504297876,onset_confirmed
+R-44-13,44,13,C3,Feb-2018,"N,N-Diethyl-m-toluamide",micropollutant,0.0,0.007506443160158582,,2.0,7.0,0.05254510212111008,,onset_undecidable_no_lod
+R-44-13,44,13,C4,May-2018,"N,N-Diethyl-m-toluamide",micropollutant,0.0,0.017594689233562208,,1.8,3.2,0.05630300554739907,,onset_undecidable_no_lod
+R-44-13,44,13,C1,Aug-2017,N-Ethyl-2-tolysulfonamide,micropollutant,0.0,0.10154884211377554,,1.8,1.0,0.10154884211377554,,onset_undecidable_no_lod
+R-44-13,44,13,C4,May-2018,NH3-N,conventional,0.0,0.56,,1.8,3.2,1.7920000000000003,,onset_undecidable_no_lod
+R-44-13,44,13,C1,Aug-2017,Oxadiazon,micropollutant,0.0,0.6754343946727478,0.3647216734029204,1.8,1.0,0.6754343946727478,0.6564990121252567,onset_confirmed
+R-44-13,44,13,C4,May-2018,Oxadiazon,micropollutant,0.0,1.155769358212252,0.3647216734029204,1.8,3.2,3.698461946279206,0.6564990121252567,onset_confirmed
+R-44-13,44,13,C3,Feb-2018,Pendimethalin,micropollutant,0.0,0.047835472841301824,0.018585497521815274,2.0,7.0,0.33484830988911274,0.03717099504363055,onset_confirmed
+R-44-13,44,13,C4,May-2018,Prochloraz,micropollutant,0.0,0.1705888913850751,0.03821130585612481,1.8,3.2,0.5458844524322404,0.06878035054102466,onset_confirmed
+R-44-13,44,13,C1,Aug-2017,Sulfamethoxazole,micropollutant,0.0,0.4033463046720985,,1.8,1.0,0.4033463046720985,,onset_undecidable_no_lod
+R-44-13,44,13,C4,May-2018,Tebuconazole,micropollutant,0.0,0.06862423277855283,0.04230345431623865,1.8,3.2,0.21959754489136907,0.07614621776922957,onset_confirmed
+R-44-13,44,13,C1,Aug-2017,Tetracycline,micropollutant,0.0,0.11827292317599546,,1.8,1.0,0.11827292317599546,,onset_undecidable_no_lod
+R-45-22,45,22,C1,Aug-2017,"1,2,3-Benzotriazole",micropollutant,0.0,1.1179408040590406,,0.8,3.8,4.248175055424354,,onset_undecidable_no_lod
+R-45-22,45,22,C4,May-2018,2-Mercapto-benzothiazole,micropollutant,0.0,2.023800655050628,,0.8,3.1,6.273782030656947,,onset_undecidable_no_lod
+R-45-22,45,22,C2,Nov-2017,4-Methyl-1H-benzotriazole,micropollutant,0.0,0.48714654108418554,,0.8,3.8,1.851156856119905,,onset_undecidable_no_lod
+R-45-22,45,22,C4,May-2018,4-Methyl-1H-benzotriazole,micropollutant,0.0,0.015837120946669468,,0.8,3.1,0.04909507493467535,,onset_undecidable_no_lod
+R-45-22,45,22,C2,Nov-2017,4-tert-Octylphenol diethoxylate,micropollutant,0.0,0.0528695304930492,,0.8,3.8,0.20090421587358695,,onset_undecidable_no_lod
+R-45-22,45,22,C2,Nov-2017,Aclonifen,micropollutant,0.0,0.100023,,0.8,3.8,0.38008739999999996,,onset_undecidable_no_lod
+R-45-22,45,22,C3,Feb-2018,Anthracene,micropollutant,0.0,71.83999274343506,,2.2,3.5,251.43997460202272,,onset_undecidable_no_lod
+R-45-22,45,22,C2,Nov-2017,As,metal,0.0,0.7588400864666667,,0.8,3.8,2.883592328573333,,onset_undecidable_no_lod
+R-45-22,45,22,C1,Aug-2017,Atrazine,micropollutant,0.0,0.018374133710309253,,0.8,3.8,0.06982170809917516,,onset_undecidable_no_lod
+R-45-22,45,22,C1,Aug-2017,Benzyltrimethylammonium,micropollutant,0.0,0.009668623944798642,,0.8,3.8,0.03674077099023484,,onset_undecidable_no_lod
+R-45-22,45,22,C2,Nov-2017,Boisvelone / Iso-Esuper,micropollutant,0.0,1.9851348807942601,,0.8,3.8,7.543512547018188,,onset_undecidable_no_lod
+R-45-22,45,22,C4,May-2018,Br,conventional,0.0,0.555,,0.8,3.1,1.7205000000000001,,onset_undecidable_no_lod
+R-45-22,45,22,C3,Feb-2018,Chlorpyrifos,micropollutant,0.0,0.20437222629569068,,2.2,3.5,0.7153027920349174,,onset_undecidable_no_lod
+R-45-22,45,22,C3,Feb-2018,Co,metal,0.0,0.637129997,,2.2,3.5,2.2299549895,,onset_undecidable_no_lod
+R-45-22,45,22,C1,Aug-2017,Dicyclohexylamine,micropollutant,0.0,0.045460865703767665,,0.8,3.8,0.17275128967431713,,onset_undecidable_no_lod
+R-45-22,45,22,C3,Feb-2018,Drometrizole,micropollutant,0.0,0.6108742360829355,,2.2,3.5,2.138059826290274,,onset_undecidable_no_lod
+R-45-22,45,22,C4,May-2018,Drometrizole,micropollutant,0.0,0.32051609846267287,,0.8,3.1,0.993599905234286,,onset_undecidable_no_lod
+R-45-22,45,22,C1,Aug-2017,Ethylhexylmethoxycinnamate,micropollutant,0.0,0.17130376789367274,,0.8,3.8,0.6509543179959564,,onset_undecidable_no_lod
+R-45-22,45,22,C3,Feb-2018,Ethylhexylmethoxycinnamate,micropollutant,0.0,0.4761598915281689,,2.2,3.5,1.666559620348591,,onset_undecidable_no_lod
+R-45-22,45,22,C1,Aug-2017,Hexa(methoxymethyl)melamine,micropollutant,0.0,26.562606969261314,,0.8,3.8,100.93790648319299,,onset_undecidable_no_lod
+R-45-22,45,22,C3,Feb-2018,Hexa(methoxymethyl)melamine,micropollutant,0.0,12.476311298673027,,2.2,3.5,43.667089545355594,,onset_undecidable_no_lod
+R-45-22,45,22,C4,May-2018,Hexa(methoxymethyl)melamine,micropollutant,0.0,20.627720831299527,,0.8,3.1,63.94593457702854,,onset_undecidable_no_lod
+R-45-22,45,22,C1,Aug-2017,Methyl -iso-propylcyclohexenone,micropollutant,0.0,0.4956593279976331,,0.8,3.8,1.8835054463910057,,onset_undecidable_no_lod
+R-45-22,45,22,C2,Nov-2017,Methyl paraben,micropollutant,0.0,0.09878989601662777,,0.8,3.8,0.3754016048631855,,onset_undecidable_no_lod
+R-45-22,45,22,C1,Aug-2017,Molinate,micropollutant,0.0,0.042639650184309895,0.03387847116631922,0.8,3.8,0.1620306707003776,0.027102776933055378,onset_confirmed
+R-45-22,45,22,C4,May-2018,Molinate,micropollutant,0.0,1.8920775751304306,0.03387847116631922,0.8,3.1,5.865440482904335,0.027102776933055378,onset_confirmed
+R-45-22,45,22,C1,Aug-2017,Myclobutanil,micropollutant,0.0,0.4606093218651332,0.0037826264752148938,0.8,3.8,1.750315423087506,0.0030261011801719154,onset_confirmed
+R-45-22,45,22,C1,Aug-2017,N-Benzyldimethylamine,micropollutant,0.0,0.0637606776775666,,0.8,3.8,0.24229057517475308,,onset_undecidable_no_lod
+R-45-22,45,22,C3,Feb-2018,N-methyl aniline,micropollutant,0.0,0.035644625144623826,,2.2,3.5,0.12475618800618339,,onset_undecidable_no_lod
+R-45-22,45,22,C4,May-2018,NH3-N,conventional,0.0,1.12,,0.8,3.1,3.4720000000000004,,onset_undecidable_no_lod
+R-45-22,45,22,C2,Nov-2017,Norfloxacin,micropollutant,0.0,2.8457157106787503,,0.8,3.8,10.81371970057925,,onset_undecidable_no_lod
+R-45-22,45,22,C1,Aug-2017,PO4,conventional,0.0,0.355,,0.8,3.8,1.349,,onset_undecidable_no_lod
+R-45-22,45,22,C1,Aug-2017,Piperonylbutoxide,micropollutant,0.0,0.012162945608857695,,0.8,3.8,0.046219193313659236,,onset_undecidable_no_lod
+R-45-22,45,22,C2,Nov-2017,Pyriproxyfen,micropollutant,0.0,0.008757688973850562,0.01172355192856538,0.8,3.8,0.033279218100632134,0.009378841542852304,onset_confirmed
+R-45-22,45,22,C1,Aug-2017,Terbuthylazine,micropollutant,0.0,0.040331530617189554,0.01783995438699649,0.8,3.8,0.1532598163453203,0.014271963509597191,onset_confirmed
+R-45-22,45,22,C2,Nov-2017,Tris(2-butoxyethyl) phosphate,micropollutant,0.0,0.9863313527687052,,0.8,3.8,3.7480591405210797,,onset_undecidable_no_lod
+R-45-22,45,22,C3,Feb-2018,Tris(2-butoxyethyl) phosphate,micropollutant,0.0,0.044917595401328586,,2.2,3.5,0.15721158390465007,,onset_undecidable_no_lod
+R-47-67,47,67,C3,Feb-2018,3-Chloroaniline,micropollutant,0.0,0.08089037827045213,,1.2,1.7,0.13751364305976863,,onset_undecidable_no_lod
+R-47-67,47,67,C1,Aug-2017,"4,4'-Dichlorobenzophenone",micropollutant,0.0,0.1592269242932597,,1.1,1.4,0.22291769401056355,,onset_undecidable_no_lod
+R-47-67,47,67,C2,Nov-2017,4-Chloroaniline,micropollutant,0.0,0.09743182250776801,,1.1,1.4,0.13640455151087522,,onset_undecidable_no_lod
+R-47-67,47,67,C2,Nov-2017,8-Hydroxyquinoline,micropollutant,0.0,0.1085430278075743,,1.1,1.4,0.151960238930604,,onset_undecidable_no_lod
+R-47-67,47,67,C4,May-2018,Amoxicillin,micropollutant,0.0,1.0603525186979805,,1.1,1.5,1.5905287780469708,,onset_undecidable_no_lod
+R-47-67,47,67,C4,May-2018,As,metal,0.0,6.415959640333333,,1.1,1.5,9.623939460499999,,onset_undecidable_no_lod
+R-47-67,47,67,C1,Aug-2017,Be,metal,0.0,0.027609355999999932,,1.1,1.4,0.038653098399999905,,onset_undecidable_no_lod
+R-47-67,47,67,C3,Feb-2018,Benzylamine,micropollutant,0.0,0.026104642229014565,,1.2,1.7,0.04437789178932476,,onset_undecidable_no_lod
+R-47-67,47,67,C2,Nov-2017,Br,conventional,0.0,0.45499999999999996,,1.1,1.4,0.6369999999999999,,onset_undecidable_no_lod
+R-47-67,47,67,C4,May-2018,Br,conventional,0.0,0.558,,1.1,1.5,0.8370000000000001,,onset_undecidable_no_lod
+R-47-67,47,67,C1,Aug-2017,Carbendazim,micropollutant,0.0,0.1332992904832245,0.02483323216832296,1.1,1.4,0.1866190066765143,0.027316555385155258,onset_confirmed
+R-47-67,47,67,C3,Feb-2018,Diuron,micropollutant,0.0,0.0624916045999648,,1.2,1.7,0.10623572781994016,,onset_undecidable_no_lod
+R-47-67,47,67,C1,Aug-2017,Ethylhexylmethoxycinnamate,micropollutant,0.0,0.23152245771085442,,1.1,1.4,0.3241314407951962,,onset_undecidable_no_lod
+R-47-67,47,67,C4,May-2018,Ethylhexylmethoxycinnamate,micropollutant,0.0,2.332617327948231,,1.1,1.5,3.4989259919223468,,onset_undecidable_no_lod
+R-47-67,47,67,C1,Aug-2017,Homosalate,micropollutant,0.0,19.579098899212212,,1.1,1.4,27.410738458897097,,onset_undecidable_no_lod
+R-47-67,47,67,C4,May-2018,Metolachlor,micropollutant,0.0,0.13155482671904956,0.02101038555118056,1.1,1.5,0.19733224007857433,0.023111424106298618,onset_confirmed
+R-47-67,47,67,C1,Aug-2017,NO2,conventional,0.0,0.194,,1.1,1.4,0.2716,,onset_undecidable_no_lod
+R-47-67,47,67,C4,May-2018,NO2,conventional,0.0,1.503,,1.1,1.5,2.2544999999999997,,onset_undecidable_no_lod
+R-47-67,47,67,C1,Aug-2017,NO3,conventional,0.0,5.431,,1.1,1.4,7.6034,,onset_undecidable_no_lod
+R-47-67,47,67,C4,May-2018,Terbuthylazine,micropollutant,0.0,0.04637376699591507,0.01783995438699649,1.1,1.5,0.06956065049387261,0.019623949825696138,onset_confirmed
+R-47-67,47,67,C1,Aug-2017,Ti,metal,0.0,5.062389453,,1.1,1.4,7.087345234199999,,onset_undecidable_no_lod
+R-47-67,47,67,C1,Aug-2017,Trimethoprim,micropollutant,0.0,0.031757381010937516,,1.1,1.4,0.04446033341531252,,onset_undecidable_no_lod
+R-47-67,47,67,C2,Nov-2017,Trimethoprim,micropollutant,0.0,0.07077806169010493,,1.1,1.4,0.0990892863661469,,onset_undecidable_no_lod
+R-47-67,47,67,C4,May-2018,Tris(2-butoxyethyl) phosphate,micropollutant,0.0,0.046113005971650405,,1.1,1.5,0.0691695089574756,,onset_undecidable_no_lod
+R-47-67,47,67,C1,Aug-2017,g-Methylionone,micropollutant,0.0,0.5306508758787609,,1.1,1.4,0.7429112262302653,,onset_undecidable_no_lod
+R-48-75,48,75,C3,Feb-2018,3-Chloroaniline,micropollutant,0.0,0.04821893959694254,,2.0,6.0,0.28931363758165524,,onset_undecidable_no_lod
+R-48-75,48,75,C2,Nov-2017,4-Aminomethyl-benzenesulfonamide,micropollutant,0.0,0.15001773564191623,,0.5,1.0,0.15001773564191623,,onset_undecidable_no_lod
+R-48-75,48,75,C2,Nov-2017,4-tert-Octylphenol diethoxylate,micropollutant,0.0,0.06819179212553969,,0.5,1.0,0.06819179212553969,,onset_undecidable_no_lod
+R-48-75,48,75,C1,Aug-2017,Aclonifen,micropollutant,0.0,0.06285600131105452,,0.5,1.0,0.06285600131105452,,onset_undecidable_no_lod
+R-48-75,48,75,C1,Aug-2017,Benzyltrimethylammonium,micropollutant,0.0,0.02257014138196198,,0.5,1.0,0.02257014138196198,,onset_undecidable_no_lod
+R-48-75,48,75,C2,Nov-2017,Cyclopentadecanolide,micropollutant,0.0,30.978827790960263,,0.5,1.0,30.978827790960263,,onset_undecidable_no_lod
+R-48-75,48,75,C1,Aug-2017,Di(2- ethylhexyl)phthalate (DEHP),micropollutant,0.0,9.320772948301173,,0.5,1.0,9.320772948301173,,onset_undecidable_no_lod
+R-48-75,48,75,C2,Nov-2017,Drometrizole,micropollutant,0.0,0.16086151410315197,,0.5,1.0,0.16086151410315197,,onset_undecidable_no_lod
+R-48-75,48,75,C1,Aug-2017,Epoxiconazole,micropollutant,0.0,0.03492280961147392,0.03141420280834735,0.5,1.0,0.03492280961147392,0.015707101404173675,onset_confirmed
+R-48-75,48,75,C1,Aug-2017,Ethylhexylmethoxycinnamate,micropollutant,0.0,0.5357681820649948,,0.5,1.0,0.5357681820649948,,onset_undecidable_no_lod
+R-48-75,48,75,C3,Feb-2018,Ethylhexylmethoxycinnamate,micropollutant,0.0,0.26971159567797337,,2.0,6.0,1.61826957406784,,onset_undecidable_no_lod
+R-48-75,48,75,C3,Feb-2018,Galaxolide,micropollutant,0.0,0.17775451365168685,,2.0,6.0,1.0665270819101211,,onset_undecidable_no_lod
+R-48-75,48,75,C1,Aug-2017,NO2,conventional,0.0,1.087,,0.5,1.0,1.087,,onset_undecidable_no_lod
+R-48-75,48,75,C2,Nov-2017,NO2,conventional,0.0,0.402,,0.5,1.0,0.402,,onset_undecidable_no_lod
+R-48-75,48,75,C4,May-2018,NO2,conventional,0.0,0.52,,1.2,4.0,2.08,,onset_undecidable_no_lod
+R-48-75,48,75,C1,Aug-2017,NO3,conventional,0.0,8.174,,0.5,1.0,8.174,,onset_undecidable_no_lod
+R-48-75,48,75,C2,Nov-2017,NO3,conventional,0.0,9.137,,0.5,1.0,9.137,,onset_undecidable_no_lod
+R-48-75,48,75,C2,Nov-2017,Norfloxacin,micropollutant,0.0,0.646113454238333,,0.5,1.0,0.646113454238333,,onset_undecidable_no_lod
+R-48-75,48,75,C3,Feb-2018,Norfloxacin,micropollutant,0.0,0.5362144757512498,,2.0,6.0,3.217286854507499,,onset_undecidable_no_lod
+R-48-75,48,75,C3,Feb-2018,Pendimethalin,micropollutant,0.0,0.024609546870221446,0.018585497521815274,2.0,6.0,0.14765728122132868,0.03717099504363055,onset_confirmed
+R-48-75,48,75,C1,Aug-2017,Sulfamethoxazole,micropollutant,0.0,0.31959645931446673,,0.5,1.0,0.31959645931446673,,onset_undecidable_no_lod
+R-48-75,48,75,C2,Nov-2017,Sulfamethoxazole,micropollutant,0.0,0.242613,,0.5,1.0,0.242613,,onset_undecidable_no_lod
+R-48-75,48,75,C2,Nov-2017,Trimethoprim,micropollutant,0.0,0.07764518630096726,,0.5,1.0,0.07764518630096726,,onset_undecidable_no_lod
+R-49-48,49,48,C4,May-2018,"1,6-Dinitropyrene",micropollutant,0.0,0.7318827019812973,,0.2,1.2,0.8782592423775568,,onset_undecidable_no_lod
+R-49-48,49,48,C2,Nov-2017,"2,2',4,4',5,6'-Hexabromodiphenyl ether",micropollutant,0.0,3.220189394842926,,0.3,0.5,1.610094697421463,,onset_undecidable_no_lod
+R-49-48,49,48,C1,Aug-2017,"2,4-Dihydroxybenzophenone",micropollutant,0.0,0.31665578490794055,,0.3,0.5,0.15832789245397028,,onset_undecidable_no_lod
+R-49-48,49,48,C2,Nov-2017,"2,4-Dihydroxybenzophenone",micropollutant,0.0,0.40891445788895125,,0.3,0.5,0.20445722894447563,,onset_undecidable_no_lod
+R-49-48,49,48,C1,Aug-2017,4-tert-Octylphenol diethoxylate,micropollutant,0.0,0.033967257482950375,,0.3,0.5,0.016983628741475187,,onset_undecidable_no_lod
+R-49-48,49,48,C3,Feb-2018,8-Hydroxyquinoline,micropollutant,0.0,0.04856523427612035,,1.4,2.0,0.0971304685522407,,onset_undecidable_no_lod
+R-49-48,49,48,C2,Nov-2017,Acetaminophen (Paracetamol),micropollutant,0.0,39.274112362167116,,0.3,0.5,19.637056181083558,,onset_undecidable_no_lod
+R-49-48,49,48,C3,Feb-2018,Ag,metal,0.0,0.06532468648333332,,1.4,2.0,0.13064937296666665,,onset_undecidable_no_lod
+R-49-48,49,48,C2,Nov-2017,Anthracene,micropollutant,0.0,255.92363341711967,,0.3,0.5,127.96181670855984,,onset_undecidable_no_lod
+R-49-48,49,48,C1,Aug-2017,Atrazine-desethyl,micropollutant,0.0,0.19359063335849455,0.020072105707961772,0.3,0.5,0.09679531667924728,0.006021631712388531,onset_confirmed
+R-49-48,49,48,C4,May-2018,Be,metal,0.0,1.3180448473333337,,0.2,1.2,1.5816538168000005,,onset_undecidable_no_lod
+R-49-48,49,48,C2,Nov-2017,Benzo[a]anthracene,micropollutant,0.0,24.043780262301738,,0.3,0.5,12.021890131150869,,onset_undecidable_no_lod
+R-49-48,49,48,C4,May-2018,Benzo[k]fluoranthene,micropollutant,0.0,0.47395013769640254,,0.2,1.2,0.568740165235683,,onset_undecidable_no_lod
+R-49-48,49,48,C1,Aug-2017,Boisvelone / Iso-Esuper,micropollutant,0.0,6.671923578053846,,0.3,0.5,3.335961789026923,,onset_undecidable_no_lod
+R-49-48,49,48,C3,Feb-2018,Cd,metal,0.0,0.2010696256666668,,1.4,2.0,0.4021392513333336,,onset_undecidable_no_lod
+R-49-48,49,48,C1,Aug-2017,Chlorpyrifos,micropollutant,0.0,0.620389902646015,,0.3,0.5,0.3101949513230075,,onset_undecidable_no_lod
+R-49-48,49,48,C3,Feb-2018,Chlorpyrifos,micropollutant,0.0,0.3522097934131758,,1.4,2.0,0.7044195868263516,,onset_undecidable_no_lod
+R-49-48,49,48,C3,Feb-2018,Ciprofloxacin,micropollutant,0.0,0.5866902458784491,,1.4,2.0,1.1733804917568982,,onset_undecidable_no_lod
+R-49-48,49,48,C4,May-2018,Ciprofloxacin,micropollutant,0.0,3.227048243596337,,0.2,1.2,3.872457892315604,,onset_undecidable_no_lod
+R-49-48,49,48,C1,Aug-2017,Clarithromycin,micropollutant,0.0,0.6876269897966281,,0.3,0.5,0.34381349489831403,,onset_undecidable_no_lod
+R-49-48,49,48,C2,Nov-2017,Clarithromycin,micropollutant,0.0,1.004462,,0.3,0.5,0.502231,,onset_undecidable_no_lod
+R-49-48,49,48,C3,Feb-2018,Co,metal,0.0,1.776640197,,1.4,2.0,3.553280394,,onset_undecidable_no_lod
+R-49-48,49,48,C3,Feb-2018,Di(2- ethylhexyl)phthalate (DEHP),micropollutant,0.0,37.099503892865826,,1.4,2.0,74.19900778573165,,onset_undecidable_no_lod
+R-49-48,49,48,C4,May-2018,Di(2- ethylhexyl)phthalate (DEHP),micropollutant,0.0,12.471889061720345,,0.2,1.2,14.966266874064413,,onset_undecidable_no_lod
+R-49-48,49,48,C3,Feb-2018,Doxycycline,micropollutant,0.0,0.1312901619233915,,1.4,2.0,0.262580323846783,,onset_undecidable_no_lod
+R-49-48,49,48,C1,Aug-2017,Drometrizole,micropollutant,0.0,0.2237034834418123,,0.3,0.5,0.11185174172090614,,onset_undecidable_no_lod
+R-49-48,49,48,C4,May-2018,Ethylhexylmethoxycinnamate,micropollutant,0.0,0.23989657191931396,,0.2,1.2,0.28787588630317673,,onset_undecidable_no_lod
+R-49-48,49,48,C4,May-2018,Fenpropimorph,micropollutant,0.0,0.03865152601806562,0.033417077369411255,0.2,1.2,0.046381831221678736,0.006683415473882251,onset_confirmed
+R-49-48,49,48,C2,Nov-2017,Galaxolide,micropollutant,0.0,6.892091613896251,,0.3,0.5,3.4460458069481255,,onset_undecidable_no_lod
+R-49-48,49,48,C1,Aug-2017,Imazalil,micropollutant,0.0,0.6850993109858359,0.07352903551783797,0.3,0.5,0.34254965549291794,0.02205871065535139,onset_confirmed
+R-49-48,49,48,C2,Nov-2017,Methyl -iso-propylcyclohexenone,micropollutant,0.0,0.5415904170894287,,0.3,0.5,0.27079520854471434,,onset_undecidable_no_lod
+R-49-48,49,48,C2,Nov-2017,Methylsalicylate,micropollutant,0.0,0.17743164501555164,,0.3,0.5,0.08871582250777582,,onset_undecidable_no_lod
+R-49-48,49,48,C1,Aug-2017,Microcystin-LR,micropollutant,0.0,6.295010288065844,,0.3,0.5,3.147505144032922,,onset_undecidable_no_lod
+R-49-48,49,48,C3,Feb-2018,Molinate,micropollutant,0.0,0.047792679673759345,0.03387847116631922,1.4,2.0,0.09558535934751869,0.04742985963284691,onset_confirmed
+R-49-48,49,48,C3,Feb-2018,Myclobutanil,micropollutant,0.0,0.020203190816094507,0.0037826264752148938,1.4,2.0,0.040406381632189015,0.005295677065300851,onset_confirmed
+R-49-48,49,48,C1,Aug-2017,N-Benzyldimethylamine,micropollutant,0.0,0.07014758997275983,,0.3,0.5,0.035073794986379914,,onset_undecidable_no_lod
+R-49-48,49,48,C1,Aug-2017,N-Ethyl-2-tolysulfonamide,micropollutant,0.0,0.03758047306871641,,0.3,0.5,0.018790236534358205,,onset_undecidable_no_lod
+R-49-48,49,48,C2,Nov-2017,N-Ethyl-2-tolysulfonamide,micropollutant,0.0,0.036220295402676385,,0.3,0.5,0.018110147701338192,,onset_undecidable_no_lod
+R-49-48,49,48,C3,Feb-2018,N-Ethyl-2-tolysulfonamide,micropollutant,0.0,0.0581877427519893,,1.4,2.0,0.1163754855039786,,onset_undecidable_no_lod
+R-49-48,49,48,C3,Feb-2018,N-methyl aniline,micropollutant,0.0,0.03295826752238162,,1.4,2.0,0.06591653504476323,,onset_undecidable_no_lod
+R-49-48,49,48,C2,Nov-2017,Oxybenzone,micropollutant,0.0,0.1391983901238334,,0.3,0.5,0.0695991950619167,,onset_undecidable_no_lod
+R-49-48,49,48,C3,Feb-2018,Oxybenzone,micropollutant,0.0,0.045269186161002506,,1.4,2.0,0.09053837232200501,,onset_undecidable_no_lod
+R-49-48,49,48,C4,May-2018,Prochloraz,micropollutant,0.0,0.27545702913187053,0.03821130585612481,0.2,1.2,0.33054843495824465,0.007642261171224962,onset_confirmed
+R-49-48,49,48,C2,Nov-2017,Pyriproxyfen,micropollutant,0.0,0.008516707211434044,0.01172355192856538,0.3,0.5,0.004258353605717022,0.003517065578569614,onset_confirmed
+R-49-48,49,48,C4,May-2018,Sulfamethoxazole,micropollutant,0.0,0.29387014895552543,,0.2,1.2,0.3526441787466305,,onset_undecidable_no_lod
+R-49-48,49,48,C1,Aug-2017,Terbutryn,micropollutant,0.0,0.02925094142802874,,0.3,0.5,0.01462547071401437,,onset_undecidable_no_lod
+R-49-48,49,48,C1,Aug-2017,Vancomycin,micropollutant,0.0,1.4666617675876936,,0.3,0.5,0.7333308837938468,,onset_undecidable_no_lod
+R-49-48,49,48,C2,Nov-2017,alpha-Terpineol,micropollutant,0.0,115.719308227522,,0.3,0.5,57.859654113761,,onset_undecidable_no_lod
+R-50-49,50,49,C2,Nov-2017,"1,3-Dinitropyrene",micropollutant,0.0,0.6801018313213435,,0.3,0.3,0.20403054939640305,,onset_undecidable_no_lod
+R-50-49,50,49,C2,Nov-2017,"1,8-Dinitropyrene",micropollutant,0.0,0.6938663531256125,,0.3,0.3,0.20815990593768374,,onset_undecidable_no_lod
+R-50-49,50,49,C3,Feb-2018,2-Methylanthraquinone,micropollutant,0.0,77.59851572764333,,0.9,1.4,108.63792201870066,,onset_undecidable_no_lod
+R-50-49,50,49,C2,Nov-2017,3-Chloroaniline,micropollutant,0.0,0.9903647309405432,,0.3,0.3,0.29710941928216295,,onset_undecidable_no_lod
+R-50-49,50,49,C2,Nov-2017,"4,4'-Dichlorobenzophenone",micropollutant,0.0,1.0968483409928307,,0.3,0.3,0.3290545022978492,,onset_undecidable_no_lod
+R-50-49,50,49,C1,Aug-2017,Acetamiprid,micropollutant,0.0,0.10990613116327447,0.025237601919248082,0.3,0.3,0.03297183934898234,0.007571280575774424,onset_confirmed
+R-50-49,50,49,C4,May-2018,Amoxicillin,micropollutant,0.0,1.4047378174584269,,0.8,0.2,0.28094756349168537,,onset_undecidable_no_lod
+R-50-49,50,49,C1,Aug-2017,Be,metal,0.0,0.018911895999999817,,0.3,0.3,0.005673568799999945,,onset_undecidable_no_lod
+R-50-49,50,49,C2,Nov-2017,Be,metal,0.0,0.0027985523333336204,,0.3,0.3,0.0008395657000000861,,onset_undecidable_no_lod
+R-50-49,50,49,C2,Nov-2017,Benzyltrimethylammonium,micropollutant,0.0,0.12022322935029554,,0.3,0.3,0.03606696880508866,,onset_undecidable_no_lod
+R-50-49,50,49,C1,Aug-2017,Chloramphenicol,micropollutant,0.0,0.09833710489126885,,0.3,0.3,0.02950113146738065,,onset_undecidable_no_lod
+R-50-49,50,49,C2,Nov-2017,Chloridazon,micropollutant,0.0,0.6814919562652537,0.13739574513087816,0.3,0.3,0.20444758687957612,0.041218723539263445,onset_confirmed
+R-50-49,50,49,C4,May-2018,Cybutryne,micropollutant,0.0,0.00328505426764105,,0.8,0.2,0.00065701085352821,,onset_undecidable_no_lod
+R-50-49,50,49,C2,Nov-2017,Cyclopentadecanolide,micropollutant,0.0,113.5448471171291,,0.3,0.3,34.06345413513873,,onset_undecidable_no_lod
+R-50-49,50,49,C4,May-2018,Cyclopentadecanolide,micropollutant,0.0,5.1638180549254376,,0.8,0.2,1.0327636109850875,,onset_undecidable_no_lod
+R-50-49,50,49,C2,Nov-2017,Di(2- ethylhexyl)phthalate (DEHP),micropollutant,0.0,12.737859529480975,,0.3,0.3,3.8213578588442925,,onset_undecidable_no_lod
+R-50-49,50,49,C2,Nov-2017,Dichlorvos,micropollutant,0.0,18.821947215524958,,0.3,0.3,5.6465841646574875,,onset_undecidable_no_lod
+R-50-49,50,49,C2,Nov-2017,Doxycycline,micropollutant,0.0,1.4254264400766563,,0.3,0.3,0.42762793202299687,,onset_undecidable_no_lod
+R-50-49,50,49,C4,May-2018,Fluoranthene,micropollutant,0.0,1.1047114659897594,,0.8,0.2,0.2209422931979519,,onset_undecidable_no_lod
+R-50-49,50,49,C1,Aug-2017,"Indeno[1,2,3-cd]pyrene",micropollutant,0.0,23.218701024843213,,0.3,0.3,6.965610307452963,,onset_undecidable_no_lod
+R-50-49,50,49,C4,May-2018,Mesotrione,micropollutant,0.0,0.5762571313571063,0.03551663274676704,0.8,0.2,0.11525142627142126,0.028413306197413637,onset_confirmed
+R-50-49,50,49,C2,Nov-2017,Methyl paraben,micropollutant,0.0,0.10335273342141718,,0.3,0.3,0.031005820026425154,,onset_undecidable_no_lod
+R-50-49,50,49,C2,Nov-2017,Monocrotophos,micropollutant,0.0,0.02217195563365365,0.01742814436892226,0.3,0.3,0.006651586690096095,0.005228443310676678,onset_confirmed
+R-50-49,50,49,C2,Nov-2017,Myclobutanil,micropollutant,0.0,0.10593544628840491,0.0037826264752148938,0.3,0.3,0.03178063388652147,0.001134787942564468,onset_confirmed
+R-50-49,50,49,C2,Nov-2017,N-Benzyldimethylamine,micropollutant,0.0,4.515612654434611,,0.3,0.3,1.3546837963303833,,onset_undecidable_no_lod
+R-50-49,50,49,C4,May-2018,N-Ethyl-2-tolysulfonamide,micropollutant,0.0,0.03807420162752103,,0.8,0.2,0.007614840325504206,,onset_undecidable_no_lod
+R-50-49,50,49,C1,Aug-2017,Norfloxacin,micropollutant,0.0,3.9474687604200462,,0.3,0.3,1.1842406281260138,,onset_undecidable_no_lod
+R-50-49,50,49,C2,Nov-2017,Ofloxacin,micropollutant,0.0,1.0769396097466033,,0.3,0.3,0.323081882923981,,onset_undecidable_no_lod
+R-50-49,50,49,C3,Feb-2018,Ofloxacin,micropollutant,0.0,0.09853103208977168,,0.9,1.4,0.13794344492568034,,onset_undecidable_no_lod
+R-50-49,50,49,C1,Aug-2017,Oxybenzone,micropollutant,0.0,0.017895328490268175,,0.3,0.3,0.005368598547080453,,onset_undecidable_no_lod
+R-50-49,50,49,C4,May-2018,Pendimethalin,micropollutant,0.0,0.04720552193893041,0.018585497521815274,0.8,0.2,0.009441104387786083,0.01486839801745222,onset_possible
+R-50-49,50,49,C1,Aug-2017,Piperonylbutoxide,micropollutant,0.0,0.13324078815653773,,0.3,0.3,0.039972236446961316,,onset_undecidable_no_lod
+R-50-49,50,49,C2,Nov-2017,Piperonylbutoxide,micropollutant,0.0,7.366925480427893,,0.3,0.3,2.210077644128368,,onset_undecidable_no_lod
+R-50-49,50,49,C3,Feb-2018,Piperonylbutoxide,micropollutant,0.0,0.13665686268763966,,0.9,1.4,0.19131960776269552,,onset_undecidable_no_lod
+R-50-49,50,49,C4,May-2018,Piperonylbutoxide,micropollutant,0.0,0.22951835913634136,,0.8,0.2,0.045903671827268275,,onset_undecidable_no_lod
+R-50-49,50,49,C1,Aug-2017,Prochloraz,micropollutant,0.0,0.174213621611121,0.03821130585612481,0.3,0.3,0.052264086483336296,0.011463391756837443,onset_confirmed
+R-50-49,50,49,C1,Aug-2017,Propiconazole,micropollutant,0.0,0.06966348342511165,0.06798867882490879,0.3,0.3,0.020899045027533494,0.020396603647472637,onset_confirmed
+R-50-49,50,49,C1,Aug-2017,Pyriproxyfen,micropollutant,0.0,0.011925997796546737,0.01172355192856538,0.3,0.3,0.003577799338964021,0.003517065578569614,onset_confirmed
+R-50-49,50,49,C1,Aug-2017,Quinalphos,micropollutant,0.0,0.14521598940423014,0.038205809212496215,0.3,0.3,0.04356479682126904,0.011461742763748865,onset_confirmed
+R-50-49,50,49,C2,Nov-2017,Tonalide,micropollutant,0.0,0.3226616508355128,,0.3,0.3,0.09679849525065383,,onset_undecidable_no_lod
+R-50-49,50,49,C1,Aug-2017,Triazophos,micropollutant,0.0,0.24411804498733958,,0.3,0.3,0.07323541349620187,,onset_undecidable_no_lod
+R-50-49,50,49,C2,Nov-2017,Triazophos,micropollutant,0.0,1.290998059785377,,0.3,0.3,0.38729941793561307,,onset_undecidable_no_lod
+R-50-49,50,49,C4,May-2018,V,metal,0.0,5.865704920000001,,0.8,0.2,1.1731409840000002,,onset_undecidable_no_lod
+R-50-49,50,49,C1,Aug-2017,g-Methylionone,micropollutant,0.0,1.9289834755958646,,0.3,0.3,0.5786950426787594,,onset_undecidable_no_lod
+R-52-53,52,53,C2,Nov-2017,"1,3-Dinitropyrene",micropollutant,0.0,0.5018057313552247,,0.5,1.0,0.5018057313552247,,onset_undecidable_no_lod
+R-52-53,52,53,C2,Nov-2017,"1,6-Dinitropyrene",micropollutant,0.0,0.26321991801352035,,0.5,1.0,0.26321991801352035,,onset_undecidable_no_lod
+R-52-53,52,53,C4,May-2018,"2,4,4'-tribromodiphenylether",micropollutant,0.0,95.06195010151656,,11.0,17.5,1663.5841267765397,,onset_undecidable_no_lod
+R-52-53,52,53,C2,Nov-2017,4-Chloroaniline,micropollutant,0.0,0.23178608869578352,,0.5,1.0,0.23178608869578352,,onset_undecidable_no_lod
+R-52-53,52,53,C3,Feb-2018,4-Chloroaniline,micropollutant,0.0,0.059214568688076015,,17.0,21.0,1.2435059424495962,,onset_undecidable_no_lod
+R-52-53,52,53,C4,May-2018,4-Methylbenzylidenecamphor,micropollutant,0.0,2.8698157629895555,,11.0,17.5,50.22177585231722,,onset_undecidable_no_lod
+R-52-53,52,53,C2,Nov-2017,4-tert-Octylphenol diethoxylate,micropollutant,0.0,0.15041259746647284,,0.5,1.0,0.15041259746647284,,onset_undecidable_no_lod
+R-52-53,52,53,C4,May-2018,7H-Benzo(de)anthracen-7-one (Benzanthrone),micropollutant,0.0,0.3061432158177999,,11.0,17.5,5.357506276811498,,onset_undecidable_no_lod
+R-52-53,52,53,C3,Feb-2018,8-Hydroxyquinoline,micropollutant,0.0,0.04098403031556983,,17.0,21.0,0.8606646366269665,,onset_undecidable_no_lod
+R-52-53,52,53,C4,May-2018,ATII (Traseolide),micropollutant,0.0,1.2353713948246978,,11.0,17.5,21.618999409432213,,onset_undecidable_no_lod
+R-52-53,52,53,C2,Nov-2017,Ag,metal,0.0,0.021011828892666663,,0.5,1.0,0.021011828892666663,,onset_undecidable_no_lod
+R-52-53,52,53,C2,Nov-2017,Anthracene,micropollutant,0.0,45.208612932904536,,0.5,1.0,45.208612932904536,,onset_undecidable_no_lod
+R-52-53,52,53,C2,Nov-2017,As,metal,0.0,1.9375560676666668,,0.5,1.0,1.9375560676666668,,onset_undecidable_no_lod
+R-52-53,52,53,C4,May-2018,As,metal,0.0,4.24010334,,11.0,17.5,74.20180845,,onset_undecidable_no_lod
+R-52-53,52,53,C1,Aug-2017,Benzo[k]fluoranthene,micropollutant,0.0,0.681890188514918,,0.5,1.0,0.681890188514918,,onset_undecidable_no_lod
+R-52-53,52,53,C4,May-2018,Fluoranthene,micropollutant,0.0,1.1974268594540913,,11.0,17.5,20.954970040446597,,onset_undecidable_no_lod
+R-52-53,52,53,C2,Nov-2017,"Indeno[1,2,3-cd]pyrene",micropollutant,0.0,11.149066110865075,,0.5,1.0,11.149066110865075,,onset_undecidable_no_lod
+R-52-53,52,53,C3,Feb-2018,N-Benzylmethylamine,micropollutant,0.0,0.08536216228646169,,17.0,21.0,1.7926054080156955,,onset_undecidable_no_lod
+R-52-53,52,53,C2,Nov-2017,Piperonylbutoxide,micropollutant,0.0,0.04442541433346034,,0.5,1.0,0.04442541433346034,,onset_undecidable_no_lod
+R-52-53,52,53,C3,Feb-2018,Polychlorinated biphenyls,micropollutant,0.0,2.4850807984082803,,17.0,21.0,52.18669676657389,,onset_undecidable_no_lod
+R-52-53,52,53,C3,Feb-2018,Prochloraz,micropollutant,0.0,0.04578687767185704,0.03821130585612481,17.0,21.0,0.9615244311089978,0.6495921995541218,onset_confirmed
+R-52-53,52,53,C2,Nov-2017,Prothioconazole,micropollutant,0.0,0.1790559900798507,0.13674535101834512,0.5,1.0,0.1790559900798507,0.06837267550917256,onset_confirmed
+R-52-53,52,53,C3,Feb-2018,Sulfamethoxazole,micropollutant,0.0,0.05880871460336809,,17.0,21.0,1.23498300667073,,onset_undecidable_no_lod
+R-56-5,56,5,C4,May-2018,"2,4-Dihydroxybenzophenone",micropollutant,0.0,0.041079934233350573,,6.0,7.0,0.28755953963345404,,onset_undecidable_no_lod
+R-56-5,56,5,C4,May-2018,2-Mercapto-benzothiazole,micropollutant,0.0,0.8252021750445753,,6.0,7.0,5.776415225312027,,onset_undecidable_no_lod
+R-56-5,56,5,C1,Aug-2017,ADBI (Celestolide),micropollutant,0.0,0.10810667468429037,,2.4,2.0,0.21621334936858075,,onset_undecidable_no_lod
+R-56-5,56,5,C3,Feb-2018,Acetaminophen (Paracetamol),micropollutant,0.0,0.23809249287972806,,8.0,11.0,2.619017421677009,,onset_undecidable_no_lod
+R-56-5,56,5,C1,Aug-2017,Ag,metal,0.0,0.15040152520000002,,2.4,2.0,0.30080305040000005,,onset_undecidable_no_lod
+R-56-5,56,5,C2,Nov-2017,Anthracene,micropollutant,0.0,309.0227156617198,,2.4,2.0,618.0454313234396,,onset_undecidable_no_lod
+R-56-5,56,5,C3,Feb-2018,Anthracene,micropollutant,0.0,97.54835024587895,,8.0,11.0,1073.0318527046684,,onset_undecidable_no_lod
+R-56-5,56,5,C2,Nov-2017,As,metal,0.0,0.2864421668666666,,2.4,2.0,0.5728843337333333,,onset_undecidable_no_lod
+R-56-5,56,5,C2,Nov-2017,Benzo[a]pyrene,micropollutant,0.0,0.30183534391342337,,2.4,2.0,0.6036706878268467,,onset_undecidable_no_lod
+R-56-5,56,5,C3,Feb-2018,Benzo[a]pyrene,micropollutant,0.0,0.21253613367822452,,8.0,11.0,2.3378974704604696,,onset_undecidable_no_lod
+R-56-5,56,5,C1,Aug-2017,Benzyltrimethylammonium,micropollutant,0.0,0.1323631916278955,,2.4,2.0,0.264726383255791,,onset_undecidable_no_lod
+R-56-5,56,5,C2,Nov-2017,Boisvelone / Iso-Esuper,micropollutant,0.0,7.212494150843158,,2.4,2.0,14.424988301686316,,onset_undecidable_no_lod
+R-56-5,56,5,C2,Nov-2017,Clarithromycin,micropollutant,0.0,0.126278,,2.4,2.0,0.252556,,onset_undecidable_no_lod
+R-56-5,56,5,C3,Feb-2018,Drometrizole,micropollutant,0.0,1.6707652592506241,,8.0,11.0,18.378417851756865,,onset_undecidable_no_lod
+R-56-5,56,5,C1,Aug-2017,Fenamiphos,micropollutant,0.0,0.050707718637524206,0.04889077379050424,2.4,2.0,0.10141543727504841,0.11733785709721016,onset_possible
+R-56-5,56,5,C3,Feb-2018,Galaxolide,micropollutant,0.0,0.6178647215289303,,8.0,11.0,6.796511936818234,,onset_undecidable_no_lod
+R-56-5,56,5,C1,Aug-2017,Homosalate,micropollutant,0.0,8.523790089446655,,2.4,2.0,17.04758017889331,,onset_undecidable_no_lod
+R-56-5,56,5,C2,Nov-2017,Methyl -iso-propylcyclohexenone,micropollutant,0.0,0.1462089124959626,,2.4,2.0,0.2924178249919252,,onset_undecidable_no_lod
+R-56-5,56,5,C2,Nov-2017,Methyl paraben,micropollutant,0.0,0.13932585591368338,,2.4,2.0,0.27865171182736675,,onset_undecidable_no_lod
+R-56-5,56,5,C4,May-2018,Methyldihydrojasmonate,micropollutant,0.0,0.6416870136898614,,6.0,7.0,4.49180909582903,,onset_undecidable_no_lod
+R-56-5,56,5,C1,Aug-2017,Molinate,micropollutant,0.0,0.24971955709297536,0.03387847116631922,2.4,2.0,0.4994391141859507,0.08130833079916613,onset_confirmed
+R-56-5,56,5,C3,Feb-2018,Myclobutanil,micropollutant,0.0,0.03162097444288692,0.0037826264752148938,8.0,11.0,0.3478307188717561,0.03026101180171915,onset_confirmed
+R-56-5,56,5,C1,Aug-2017,N-Benzylmethylamine,micropollutant,0.0,0.0672730024585173,,2.4,2.0,0.1345460049170346,,onset_undecidable_no_lod
+R-56-5,56,5,C3,Feb-2018,N-methyl aniline,micropollutant,0.0,0.06440058501904922,,8.0,11.0,0.7084064352095414,,onset_undecidable_no_lod
+R-56-5,56,5,C2,Nov-2017,Norfloxacin,micropollutant,0.0,1.388773157792406,,2.4,2.0,2.777546315584812,,onset_undecidable_no_lod
+R-56-5,56,5,C3,Feb-2018,Ofloxacin,micropollutant,0.0,0.21948185266705755,,8.0,11.0,2.414300379337633,,onset_undecidable_no_lod
+R-56-5,56,5,C3,Feb-2018,Oxybenzone,micropollutant,0.0,0.016607797393461486,,8.0,11.0,0.18268577132807634,,onset_undecidable_no_lod
+R-56-5,56,5,C1,Aug-2017,Pendimethalin,micropollutant,0.0,0.043334949780741774,0.018585497521815274,2.4,2.0,0.08666989956148355,0.044605194052356655,onset_confirmed
+R-56-5,56,5,C2,Nov-2017,Pirimicarb,micropollutant,0.0,0.31696443832320104,0.12226493652653564,2.4,2.0,0.6339288766464021,0.2934358476636855,onset_confirmed
+R-56-5,56,5,C2,Nov-2017,Propiconazole,micropollutant,0.0,0.1628338946964516,0.06798867882490879,2.4,2.0,0.3256677893929032,0.1631728291797811,onset_confirmed
+R-56-5,56,5,C1,Aug-2017,Pyriproxyfen,micropollutant,0.0,0.010111521848540186,0.01172355192856538,2.4,2.0,0.020223043697080372,0.02813652462855691,onset_possible
+R-56-5,56,5,C2,Nov-2017,Pyriproxyfen,micropollutant,0.0,0.009905056219172087,0.01172355192856538,2.4,2.0,0.019810112438344175,0.02813652462855691,onset_possible
+R-56-5,56,5,C4,May-2018,Quinalphos,micropollutant,0.0,0.35811322124718653,0.038205809212496215,6.0,7.0,2.5067925487303055,0.22923485527497728,onset_confirmed
+R-56-5,56,5,C2,Nov-2017,Terbutryn,micropollutant,0.0,0.008054683456844102,,2.4,2.0,0.016109366913688205,,onset_undecidable_no_lod
+R-57-6,57,6,C4,May-2018,"2,2',4,4',5,6'-Hexabromodiphenyl ether",micropollutant,0.0,4.259979375394932,,4.0,3.8,16.187921626500742,,onset_undecidable_no_lod
+R-57-6,57,6,C1,Aug-2017,2-(2-Naphthalenyl)benzothiophene,micropollutant,0.0,11.383143980151926,,3.9,2.9,33.01111754244059,,onset_undecidable_no_lod
+R-57-6,57,6,C4,May-2018,2-Mercapto-benzothiazole,micropollutant,0.0,0.6099499880823464,,4.0,3.8,2.317809954712916,,onset_undecidable_no_lod
+R-57-6,57,6,C2,Nov-2017,3-Chloroaniline,micropollutant,0.0,0.6921317612539809,,3.9,2.9,2.0071821076365444,,onset_undecidable_no_lod
+R-57-6,57,6,C1,Aug-2017,4-tert-Octylphenol diethoxylate,micropollutant,0.0,0.13365780663024976,,3.9,2.9,0.3876076392277243,,onset_undecidable_no_lod
+R-57-6,57,6,C3,Feb-2018,"5,6-Dimethyl-1H-benzotriazole",micropollutant,0.0,0.11216075348233846,,5.0,5.0,0.5608037674116924,,onset_undecidable_no_lod
+R-57-6,57,6,C1,Aug-2017,Acetamiprid,micropollutant,0.0,0.07343210799151746,0.025237601919248082,3.9,2.9,0.21295311317540064,0.09842664748506752,onset_confirmed
+R-57-6,57,6,C3,Feb-2018,Anthracene,micropollutant,0.0,141.02236736595484,,5.0,5.0,705.1118368297741,,onset_undecidable_no_lod
+R-57-6,57,6,C3,Feb-2018,Bayrepel,micropollutant,0.0,65.33257915751975,,5.0,5.0,326.6628957875987,,onset_undecidable_no_lod
+R-57-6,57,6,C4,May-2018,Benzo[a]pyrene,micropollutant,0.0,0.01015470732215783,,4.0,3.8,0.03858788782419975,,onset_undecidable_no_lod
+R-57-6,57,6,C4,May-2018,Benzyltrimethylammonium,micropollutant,0.0,0.020648314545695642,,4.0,3.8,0.07846359527364344,,onset_undecidable_no_lod
+R-57-6,57,6,C1,Aug-2017,Clarithromycin,micropollutant,0.0,0.07749812862460391,,3.9,2.9,0.22474457301135134,,onset_undecidable_no_lod
+R-57-6,57,6,C2,Nov-2017,Di(2- ethylhexyl)phthalate (DEHP),micropollutant,0.0,9.328459808516989,,3.9,2.9,27.052533444699268,,onset_undecidable_no_lod
+R-57-6,57,6,C2,Nov-2017,Dicyclohexylamine,micropollutant,0.0,0.054425783090228594,,3.9,2.9,0.15783477096166293,,onset_undecidable_no_lod
+R-57-6,57,6,C4,May-2018,Dicyclohexylamine,micropollutant,0.0,0.08075436837093887,,4.0,3.8,0.3068665998095677,,onset_undecidable_no_lod
+R-57-6,57,6,C2,Nov-2017,Drometrizole,micropollutant,0.0,0.7708280189392975,,3.9,2.9,2.235401254923963,,onset_undecidable_no_lod
+R-57-6,57,6,C3,Feb-2018,F,conventional,0.0,0.2727,,5.0,5.0,1.3635,,onset_undecidable_no_lod
+R-57-6,57,6,C2,Nov-2017,"Indeno[1,2,3-cd]pyrene",micropollutant,0.0,37.775162892460365,,3.9,2.9,109.54797238813505,,onset_undecidable_no_lod
+R-57-6,57,6,C2,Nov-2017,Methyl -iso-propylcyclohexenone,micropollutant,0.0,0.1857191138601508,,3.9,2.9,0.5385854301944373,,onset_undecidable_no_lod
+R-57-6,57,6,C2,Nov-2017,Methyl paraben,micropollutant,0.0,0.12866831201090945,,3.9,2.9,0.3731381048316374,,onset_undecidable_no_lod
+R-57-6,57,6,C3,Feb-2018,Methyl paraben,micropollutant,0.0,1.886253754035967,,5.0,5.0,9.431268770179834,,onset_undecidable_no_lod
+R-57-6,57,6,C3,Feb-2018,Methylsalicylate,micropollutant,0.0,3.3825502958425404,,5.0,5.0,16.9127514792127,,onset_undecidable_no_lod
+R-57-6,57,6,C3,Feb-2018,N-Ethyl-2-tolysulfonamide,micropollutant,0.0,0.02821296504574921,,5.0,5.0,0.14106482522874605,,onset_undecidable_no_lod
+R-57-6,57,6,C1,Aug-2017,NO3,conventional,0.0,0.2710000000000001,,3.9,2.9,0.7859000000000002,,onset_undecidable_no_lod
+R-57-6,57,6,C3,Feb-2018,Norfloxacin,micropollutant,0.0,0.5124307121419194,,5.0,5.0,2.562153560709597,,onset_undecidable_no_lod
+R-57-6,57,6,C1,Aug-2017,Pendimethalin,micropollutant,0.0,0.05426795030369149,0.018585497521815274,3.9,2.9,0.15737705588070533,0.07248344033507957,onset_confirmed
+R-57-6,57,6,C1,Aug-2017,Pyriproxyfen,micropollutant,0.0,0.012777537983058224,0.01172355192856538,3.9,2.9,0.03705486015086885,0.04572185252140498,onset_possible
+R-57-6,57,6,C2,Nov-2017,Pyriproxyfen,micropollutant,0.0,0.010767133379599222,0.01172355192856538,3.9,2.9,0.03122468680083774,0.04572185252140498,onset_possible
+R-57-6,57,6,C2,Nov-2017,Tetracycline,micropollutant,0.0,0.19389504442810832,,3.9,2.9,0.5622956288415141,,onset_undecidable_no_lod
+R-57-6,57,6,C2,Nov-2017,Trimethoprim,micropollutant,0.0,0.12260730321375195,,3.9,2.9,0.3555611793198806,,onset_undecidable_no_lod
+R-59-32,59,32,C1,Aug-2017,"2,4-Dihydroxybenzophenone",micropollutant,0.0,0.3472704818642129,,3.6,8.0,2.778163854913703,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,"2,4-Dihydroxybenzophenone",micropollutant,0.0,0.566476352787361,,3.6,8.0,4.531810822298888,,onset_undecidable_no_lod
+R-59-32,59,32,C4,May-2018,"2,4-Dihydroxybenzophenone",micropollutant,0.0,0.2388661312077078,,3.7,14.0,3.344125836907909,,onset_undecidable_no_lod
+R-59-32,59,32,C4,May-2018,2-(2-Naphthalenyl)benzothiophene,micropollutant,0.0,1.0279576295782207,,3.7,14.0,14.39140681409509,,onset_undecidable_no_lod
+R-59-32,59,32,C1,Aug-2017,2-Mercapto-benzothiazole,micropollutant,0.0,0.7735202097172871,,3.6,8.0,6.188161677738297,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,2-Mercapto-benzothiazole,micropollutant,0.0,1.4242855583046714,,3.6,8.0,11.394284466437371,,onset_undecidable_no_lod
+R-59-32,59,32,C1,Aug-2017,3-Chloroaniline,micropollutant,0.0,0.38786848173845706,,3.6,8.0,3.1029478539076565,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,3-Chloroaniline,micropollutant,0.0,0.3792152478938983,,3.6,8.0,3.0337219831511866,,onset_undecidable_no_lod
+R-59-32,59,32,C4,May-2018,3-Chloroaniline,micropollutant,0.0,0.688181758986404,,3.7,14.0,9.634544625809657,,onset_undecidable_no_lod
+R-59-32,59,32,C1,Aug-2017,4-Chloroaniline,micropollutant,0.0,0.443330159875037,,3.6,8.0,3.546641279000296,,onset_undecidable_no_lod
+R-59-32,59,32,C4,May-2018,4-Chloroaniline,micropollutant,0.0,0.5478737126520377,,3.7,14.0,7.670231977128527,,onset_undecidable_no_lod
+R-59-32,59,32,C1,Aug-2017,4-Methylbenzylidenecamphor,micropollutant,0.0,1.5557714143271955,,3.6,8.0,12.446171314617564,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,4-Methylbenzylidenecamphor,micropollutant,0.0,0.7513287870980192,,3.6,8.0,6.010630296784154,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,4-tert-Octylphenol diethoxylate,micropollutant,0.0,0.13743350387974715,,3.6,8.0,1.0994680310379772,,onset_undecidable_no_lod
+R-59-32,59,32,C1,Aug-2017,"5,6-Dimethyl-1H-benzotriazole",micropollutant,0.0,2.767712918354732,,3.6,8.0,22.141703346837858,,onset_undecidable_no_lod
+R-59-32,59,32,C3,Feb-2018,5-Methyl-1H-benzotriazole (5-Tolytriazole),micropollutant,0.0,0.20811837624226312,,4.0,25.0,5.202959406056578,,onset_undecidable_no_lod
+R-59-32,59,32,C4,May-2018,5-Methyl-1H-benzotriazole (5-Tolytriazole),micropollutant,0.0,0.9949659418375558,,3.7,14.0,13.929523185725781,,onset_undecidable_no_lod
+R-59-32,59,32,C1,Aug-2017,7H-Benzo(de)anthracen-7-one (Benzanthrone),micropollutant,0.0,0.28929890734701513,,3.6,8.0,2.314391258776121,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,7H-Benzo(de)anthracen-7-one (Benzanthrone),micropollutant,0.0,0.1824898285753196,,3.6,8.0,1.4599186286025567,,onset_undecidable_no_lod
+R-59-32,59,32,C3,Feb-2018,8-Hydroxyquinoline,micropollutant,0.0,0.06641104620309066,,4.0,25.0,1.6602761550772664,,onset_undecidable_no_lod
+R-59-32,59,32,C1,Aug-2017,ADBI (Celestolide),micropollutant,0.0,0.15641022658218487,,3.6,8.0,1.251281812657479,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,ADBI (Celestolide),micropollutant,0.0,0.1846021917326621,,3.6,8.0,1.4768175338612968,,onset_undecidable_no_lod
+R-59-32,59,32,C1,Aug-2017,AHDI (Phantolide),micropollutant,0.0,0.3511481342694362,,3.6,8.0,2.8091850741554896,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,AHDI (Phantolide),micropollutant,0.0,0.3725338477099056,,3.6,8.0,2.980270781679245,,onset_undecidable_no_lod
+R-59-32,59,32,C1,Aug-2017,Acetamiprid,micropollutant,0.0,0.0777974326832427,0.025237601919248082,3.6,8.0,0.6223794614659416,0.09085536690929309,onset_confirmed
+R-59-32,59,32,C2,Nov-2017,Acetamiprid,micropollutant,0.0,0.10982732038366157,0.025237601919248082,3.6,8.0,0.8786185630692925,0.09085536690929309,onset_confirmed
+R-59-32,59,32,C3,Feb-2018,Acetamiprid,micropollutant,0.0,0.03624368935344414,0.025237601919248082,4.0,25.0,0.9060922338361035,0.10095040767699233,onset_confirmed
+R-59-32,59,32,C1,Aug-2017,Aclonifen,micropollutant,0.0,0.07927684315266631,,3.6,8.0,0.6342147452213305,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,Aclonifen,micropollutant,0.0,0.0762,,3.6,8.0,0.6096,,onset_undecidable_no_lod
+R-59-32,59,32,C4,May-2018,Amoxicillin,micropollutant,0.0,1.294242290912832,,3.7,14.0,18.119392072779647,,onset_undecidable_no_lod
+R-59-32,59,32,C4,May-2018,As,metal,0.0,9.455994377000001,,3.7,14.0,132.38392127800003,,onset_undecidable_no_lod
+R-59-32,59,32,C1,Aug-2017,Atrazine,micropollutant,0.0,0.007692089797059848,,3.6,8.0,0.06153671837647878,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,Atrazine-desethyl,micropollutant,0.0,0.020899137220009488,0.020072105707961772,3.6,8.0,0.1671930977600759,0.07225958054866238,onset_confirmed
+R-59-32,59,32,C4,May-2018,Azoxystrobin,micropollutant,0.0,0.09973099238123943,0.028404122629112363,3.7,14.0,1.3962338933373521,0.10509525372771575,onset_confirmed
+R-59-32,59,32,C4,May-2018,Bayrepel,micropollutant,0.0,15.337705038482028,,3.7,14.0,214.7278705387484,,onset_undecidable_no_lod
+R-59-32,59,32,C4,May-2018,Benzo[a]pyrene,micropollutant,0.0,0.017461095831393096,,3.7,14.0,0.24445534163950333,,onset_undecidable_no_lod
+R-59-32,59,32,C4,May-2018,Benzo[k]fluoranthene,micropollutant,0.0,0.06822394777043381,,3.7,14.0,0.9551352687860732,,onset_undecidable_no_lod
+R-59-32,59,32,C1,Aug-2017,Benzylamine,micropollutant,0.0,0.07120731126967218,,3.6,8.0,0.5696584901573775,,onset_undecidable_no_lod
+R-59-32,59,32,C1,Aug-2017,Benzyltrimethylammonium,micropollutant,0.0,0.06364741190871394,,3.6,8.0,0.5091792952697115,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,Benzyltrimethylammonium,micropollutant,0.0,0.2672993739653077,,3.6,8.0,2.1383949917224614,,onset_undecidable_no_lod
+R-59-32,59,32,C3,Feb-2018,Benzyltrimethylammonium,micropollutant,0.0,0.0970318541902278,,4.0,25.0,2.425796354755695,,onset_undecidable_no_lod
+R-59-32,59,32,C4,May-2018,Benzyltrimethylammonium,micropollutant,0.0,0.036916070917213974,,3.7,14.0,0.5168249928409956,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,Boisvelone / Iso-Esuper,micropollutant,0.0,3.62400401327316,,3.6,8.0,28.99203210618528,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,Carbendazim,micropollutant,0.0,1.5585744539694473,0.02483323216832296,3.6,8.0,12.468595631755578,0.08939963580596266,onset_confirmed
+R-59-32,59,32,C3,Feb-2018,Carbendazim,micropollutant,0.0,0.9342936471358505,0.02483323216832296,4.0,25.0,23.35734117839626,0.09933292867329184,onset_confirmed
+R-59-32,59,32,C4,May-2018,Carbendazim,micropollutant,0.0,0.4819482788276259,0.02483323216832296,3.7,14.0,6.747275903586763,0.09188295902279496,onset_confirmed
+R-59-32,59,32,C2,Nov-2017,Chlorpyrifos,micropollutant,0.0,0.1951932300741627,,3.6,8.0,1.5615458405933016,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,Chlorsulfuron,micropollutant,0.0,0.061699646862442864,0.04387455551873308,3.6,8.0,0.4935971748995429,0.15794839986743908,onset_confirmed
+R-59-32,59,32,C4,May-2018,Ciprofloxacin,micropollutant,0.0,1.3079009407340756,,3.7,14.0,18.31061317027706,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,Clarithromycin,micropollutant,0.0,0.176212,,3.6,8.0,1.409696,,onset_undecidable_no_lod
+R-59-32,59,32,C3,Feb-2018,Co,metal,0.0,1.8852528700000002,,4.0,25.0,47.131321750000005,,onset_undecidable_no_lod
+R-59-32,59,32,C3,Feb-2018,Cr,metal,0.0,65.91138542333333,,4.0,25.0,1647.7846355833333,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,Cyclopentadecanolide,micropollutant,0.0,9.09422777560258,,3.6,8.0,72.75382220482064,,onset_undecidable_no_lod
+R-59-32,59,32,C1,Aug-2017,Dicyclohexylamine,micropollutant,0.0,0.4774657375261002,,3.6,8.0,3.8197259002088018,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,Dicyclohexylamine,micropollutant,0.0,0.35188091473566024,,3.6,8.0,2.815047317885282,,onset_undecidable_no_lod
+R-59-32,59,32,C3,Feb-2018,Dicyclohexylamine,micropollutant,0.0,0.054449039294643155,,4.0,25.0,1.3612259823660788,,onset_undecidable_no_lod
+R-59-32,59,32,C4,May-2018,Dicyclohexylamine,micropollutant,0.0,0.19192261434233623,,3.7,14.0,2.686916600792707,,onset_undecidable_no_lod
+R-59-32,59,32,C1,Aug-2017,Diuron,micropollutant,0.0,0.8725481998890579,,3.6,8.0,6.980385599112463,,onset_undecidable_no_lod
+R-59-32,59,32,C3,Feb-2018,Diuron,micropollutant,0.0,1.442693922970868,,4.0,25.0,36.0673480742717,,onset_undecidable_no_lod
+R-59-32,59,32,C4,May-2018,Diuron,micropollutant,0.0,0.4280857668399474,,3.7,14.0,5.993200735759264,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,Doxycycline,micropollutant,0.0,0.5837394028465039,,3.6,8.0,4.6699152227720315,,onset_undecidable_no_lod
+R-59-32,59,32,C3,Feb-2018,Doxycycline,micropollutant,0.0,0.07099072039028653,,4.0,25.0,1.7747680097571634,,onset_undecidable_no_lod
+R-59-32,59,32,C3,Feb-2018,Drometrizole,micropollutant,0.0,0.2921361793754946,,4.0,25.0,7.3034044843873644,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,Epoxiconazole,micropollutant,0.0,0.035944152342834955,0.03141420280834735,3.6,8.0,0.28755321874267964,0.11309113011005047,onset_confirmed
+R-59-32,59,32,C4,May-2018,Epoxiconazole,micropollutant,0.0,0.04140351456051304,0.03141420280834735,3.7,14.0,0.5796492038471825,0.1162325503908852,onset_confirmed
+R-59-32,59,32,C1,Aug-2017,Hg,metal,0.0,0.03,,3.6,8.0,0.24,,onset_undecidable_no_lod
+R-59-32,59,32,C1,Aug-2017,Mepiquat chloride,micropollutant,0.0,0.23464741244609544,0.07318328682657736,3.6,8.0,1.8771792995687635,0.2634598325756785,onset_confirmed
+R-59-32,59,32,C2,Nov-2017,Mepiquat chloride,micropollutant,0.0,0.24865121290332956,0.07318328682657736,3.6,8.0,1.9892097032266365,0.2634598325756785,onset_confirmed
+R-59-32,59,32,C1,Aug-2017,Methyl -iso-propylcyclohexenone,micropollutant,0.0,0.10823335940472688,,3.6,8.0,0.865866875237815,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,Methyl paraben,micropollutant,0.0,0.09688691382365405,,3.6,8.0,0.7750953105892324,,onset_undecidable_no_lod
+R-59-32,59,32,C3,Feb-2018,Methyldihydrojasmonate,micropollutant,0.0,0.8791585742947606,,4.0,25.0,21.978964357369016,,onset_undecidable_no_lod
+R-59-32,59,32,C4,May-2018,Methyldihydrojasmonate,micropollutant,0.0,0.5396567460933591,,3.7,14.0,7.555194445307028,,onset_undecidable_no_lod
+R-59-32,59,32,C4,May-2018,Metolachlor,micropollutant,0.0,0.03766914844877105,0.02101038555118056,3.7,14.0,0.5273680782827946,0.07773842653936808,onset_confirmed
+R-59-32,59,32,C1,Aug-2017,Microcystin-RR,micropollutant,0.0,0.2862058847963688,,3.6,8.0,2.2896470783709506,,onset_undecidable_no_lod
+R-59-32,59,32,C3,Feb-2018,Molinate,micropollutant,0.0,0.04482023017638572,0.03387847116631922,4.0,25.0,1.120505754409643,0.1355138846652769,onset_confirmed
+R-59-32,59,32,C2,Nov-2017,Myclobutanil,micropollutant,0.0,0.08895450612717354,0.0037826264752148938,3.6,8.0,0.7116360490173883,0.013617455310773617,onset_confirmed
+R-59-32,59,32,C1,Aug-2017,N-Benzylmethylamine,micropollutant,0.0,0.07637277220387167,,3.6,8.0,0.6109821776309734,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,N-Benzylmethylamine,micropollutant,0.0,0.09140021856188908,,3.6,8.0,0.7312017484951127,,onset_undecidable_no_lod
+R-59-32,59,32,C1,Aug-2017,N-Ethyl-2-tolysulfonamide,micropollutant,0.0,0.12965757638619044,,3.6,8.0,1.0372606110895235,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,N-Ethyl-2-tolysulfonamide,micropollutant,0.0,0.09807638151085071,,3.6,8.0,0.7846110520868057,,onset_undecidable_no_lod
+R-59-32,59,32,C3,Feb-2018,N-Ethyl-2-tolysulfonamide,micropollutant,0.0,0.06821154856993962,,4.0,25.0,1.7052887142484905,,onset_undecidable_no_lod
+R-59-32,59,32,C4,May-2018,N-Ethyl-2-tolysulfonamide,micropollutant,0.0,0.04044446913657286,,3.7,14.0,0.5662225679120201,,onset_undecidable_no_lod
+R-59-32,59,32,C1,Aug-2017,NH3-N,conventional,0.0,18.200000000000003,,3.6,8.0,145.60000000000002,,onset_undecidable_no_lod
+R-59-32,59,32,C4,May-2018,NH3-N,conventional,0.0,6.719999999999999,,3.7,14.0,94.07999999999998,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,Norfloxacin,micropollutant,0.0,1.4466931421092422,,3.6,8.0,11.573545136873937,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,Ofloxacin,micropollutant,0.0,0.8061532552925915,,3.6,8.0,6.449226042340732,,onset_undecidable_no_lod
+R-59-32,59,32,C3,Feb-2018,Omethoate,micropollutant,0.0,0.13747069376073354,0.08702830579070181,4.0,25.0,3.4367673440183384,0.34811322316280724,onset_confirmed
+R-59-32,59,32,C3,Feb-2018,Oxadiazon,micropollutant,0.0,0.4791563903618601,0.3647216734029204,4.0,25.0,11.978909759046502,1.4588866936116816,onset_confirmed
+R-59-32,59,32,C1,Aug-2017,Oxybenzone,micropollutant,0.0,0.05153288435488084,,3.6,8.0,0.41226307483904673,,onset_undecidable_no_lod
+R-59-32,59,32,C3,Feb-2018,Oxybenzone,micropollutant,0.0,0.029363706975998723,,4.0,25.0,0.7340926743999681,,onset_undecidable_no_lod
+R-59-32,59,32,C1,Aug-2017,Pentachlorobenzene,micropollutant,0.0,0.3721062068238148,,3.6,8.0,2.9768496545905183,,onset_undecidable_no_lod
+R-59-32,59,32,C1,Aug-2017,Piperonylbutoxide,micropollutant,0.0,0.0949359617055917,,3.6,8.0,0.7594876936447336,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,Piperonylbutoxide,micropollutant,0.0,0.5431663458576315,,3.6,8.0,4.345330766861052,,onset_undecidable_no_lod
+R-59-32,59,32,C3,Feb-2018,Piperonylbutoxide,micropollutant,0.0,0.059432867018082404,,4.0,25.0,1.4858216754520601,,onset_undecidable_no_lod
+R-59-32,59,32,C1,Aug-2017,Pirimicarb,micropollutant,0.0,0.16470651453897395,0.12226493652653564,3.6,8.0,1.3176521163117916,0.4401537714955283,onset_confirmed
+R-59-32,59,32,C2,Nov-2017,Polychlorinated biphenyls,micropollutant,0.0,114.8688237457381,,3.6,8.0,918.9505899659048,,onset_undecidable_no_lod
+R-59-32,59,32,C1,Aug-2017,Prochloraz,micropollutant,0.0,0.16764410173375544,0.03821130585612481,3.6,8.0,1.3411528138700435,0.13756070108204932,onset_confirmed
+R-59-32,59,32,C4,May-2018,Propiconazole,micropollutant,0.0,0.11506479177531073,0.06798867882490879,3.7,14.0,1.6109070848543503,0.2515581116521625,onset_confirmed
+R-59-32,59,32,C1,Aug-2017,Pyriproxyfen,micropollutant,0.0,0.007246553638368797,0.01172355192856538,3.6,8.0,0.05797242910695038,0.042204786942835366,onset_confirmed
+R-59-32,59,32,C2,Nov-2017,Pyriproxyfen,micropollutant,0.0,0.11665010739229197,0.01172355192856538,3.6,8.0,0.9332008591383357,0.042204786942835366,onset_confirmed
+R-59-32,59,32,C2,Nov-2017,Quinalphos,micropollutant,0.0,0.15941423618471628,0.038205809212496215,3.6,8.0,1.2753138894777303,0.13754091316498637,onset_confirmed
+R-59-32,59,32,C4,May-2018,Quinalphos,micropollutant,0.0,0.09409182595159944,0.038205809212496215,3.7,14.0,1.317285563322392,0.141361494086236,onset_confirmed
+R-59-32,59,32,C3,Feb-2018,Sb,metal,0.0,7.141066640333333,,4.0,25.0,178.52666600833334,,onset_undecidable_no_lod
+R-59-32,59,32,C4,May-2018,Sb,metal,0.0,11.192900213333331,,3.7,14.0,156.70060298666664,,onset_undecidable_no_lod
+R-59-32,59,32,C1,Aug-2017,Sulfamethoxazole,micropollutant,0.0,0.32994806846468694,,3.6,8.0,2.6395845477174955,,onset_undecidable_no_lod
+R-59-32,59,32,C3,Feb-2018,Sulfamethoxazole,micropollutant,0.0,0.0444519695323092,,4.0,25.0,1.11129923830773,,onset_undecidable_no_lod
+R-59-32,59,32,C4,May-2018,Sulfamethoxazole,micropollutant,0.0,0.11325248078811007,,3.7,14.0,1.5855347310335408,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,Tebuconazole,micropollutant,0.0,0.101096063708803,0.04230345431623865,3.6,8.0,0.808768509670424,0.15229243553845914,onset_confirmed
+R-59-32,59,32,C1,Aug-2017,Terbutryn,micropollutant,0.0,0.01748097953743374,,3.6,8.0,0.13984783629946992,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,Terbutryn,micropollutant,0.0,0.012800532957362023,,3.6,8.0,0.10240426365889618,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,Tetracycline,micropollutant,0.0,0.27865754786296115,,3.6,8.0,2.229260382903689,,onset_undecidable_no_lod
+R-59-32,59,32,C4,May-2018,Tetracycline,micropollutant,0.0,0.24438485113315206,,3.7,14.0,3.4213879158641287,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,Thiophanate-methyl,micropollutant,0.0,0.031036841285764907,0.021191653548848974,3.6,8.0,0.24829473028611926,0.0762899527758563,onset_confirmed
+R-59-32,59,32,C3,Feb-2018,Thiophanate-methyl,micropollutant,0.0,0.4982477493608886,0.021191653548848974,4.0,25.0,12.456193734022216,0.0847666141953959,onset_confirmed
+R-59-32,59,32,C1,Aug-2017,Tris(2-butoxyethyl) phosphate,micropollutant,0.0,8.971461599067585,,3.6,8.0,71.77169279254068,,onset_undecidable_no_lod
+R-59-32,59,32,C4,May-2018,V,metal,0.0,1.5847937900000022,,3.7,14.0,22.18711306000003,,onset_undecidable_no_lod
+R-59-32,59,32,C2,Nov-2017,alpha-Terpineol,micropollutant,0.0,26.829020149140916,,3.6,8.0,214.63216119312733,,onset_undecidable_no_lod
+R-59-32,59,32,C4,May-2018,alpha-Terpineol,micropollutant,0.0,20.620366339745875,,3.7,14.0,288.6851287564422,,onset_undecidable_no_lod
+R-60-16,60,16,C1,Aug-2017,"1,2,3-Benzotriazole",micropollutant,0.0,0.8848829303311052,,0.5,0.65,0.5751739047152185,,onset_undecidable_no_lod
+R-60-16,60,16,C2,Nov-2017,4-Aminomethyl-benzenesulfonamide,micropollutant,0.0,0.1637875099417113,,0.5,0.65,0.10646188146211234,,onset_undecidable_no_lod
+R-60-16,60,16,C2,Nov-2017,4-Methyl-1H-benzotriazole,micropollutant,0.0,0.03976011062564016,,0.5,0.65,0.025844071906666103,,onset_undecidable_no_lod
+R-60-16,60,16,C3,Feb-2018,4-Methyl-1H-benzotriazole,micropollutant,0.0,0.10973288644784195,,34.0,17.0,1.865459069613313,,onset_undecidable_no_lod
+R-60-16,60,16,C4,May-2018,4-Methyl-1H-benzotriazole,micropollutant,0.0,0.03550939334420808,,18.0,1.22,0.043321459879933855,,onset_undecidable_no_lod
+R-60-16,60,16,C3,Feb-2018,Acetaminophen (Paracetamol),micropollutant,0.0,0.14805264270992613,,34.0,17.0,2.516894926068744,,onset_undecidable_no_lod
+R-60-16,60,16,C4,May-2018,Acetaminophen (Paracetamol),micropollutant,0.0,0.1920331601411625,,18.0,1.22,0.23428045537221825,,onset_undecidable_no_lod
+R-60-16,60,16,C1,Aug-2017,As,metal,0.0,8.218077383,,0.5,0.65,5.341750298950001,,onset_undecidable_no_lod
+R-60-16,60,16,C1,Aug-2017,Benzo[a]anthracene,micropollutant,0.0,4.493316397508014,,0.5,0.65,2.9206556583802095,,onset_undecidable_no_lod
+R-60-16,60,16,C3,Feb-2018,Benzo[a]pyrene,micropollutant,0.0,0.06669586307703498,,34.0,17.0,1.1338296723095946,,onset_undecidable_no_lod
+R-60-16,60,16,C4,May-2018,Benzo[a]pyrene,micropollutant,0.0,0.009396035505016763,,18.0,1.22,0.011463163316120451,,onset_undecidable_no_lod
+R-60-16,60,16,C1,Aug-2017,Benzylamine,micropollutant,0.0,0.1393656380971361,,0.5,0.65,0.09058766476313847,,onset_undecidable_no_lod
+R-60-16,60,16,C4,May-2018,Benzyltrimethylammonium,micropollutant,0.0,0.016821386673801612,,18.0,1.22,0.020522091742037965,,onset_undecidable_no_lod
+R-60-16,60,16,C2,Nov-2017,Carbendazim,micropollutant,0.0,0.04102500726001163,0.02483323216832296,0.5,0.65,0.026666254719007562,0.01241661608416148,onset_confirmed
+R-60-16,60,16,C2,Nov-2017,Chlorpyrifos,micropollutant,0.0,0.3304226477390061,,0.5,0.65,0.21477472103035397,,onset_undecidable_no_lod
+R-60-16,60,16,C3,Feb-2018,Ciprofloxacin,micropollutant,0.0,0.979558195625408,,34.0,17.0,16.652489325631937,,onset_undecidable_no_lod
+R-60-16,60,16,C1,Aug-2017,Clarithromycin,micropollutant,0.0,0.09339805082585986,,0.5,0.65,0.06070873303680891,,onset_undecidable_no_lod
+R-60-16,60,16,C4,May-2018,Cybutryne,micropollutant,0.0,0.001898710310169779,,18.0,1.22,0.0023164265784071303,,onset_undecidable_no_lod
+R-60-16,60,16,C1,Aug-2017,Di(2- ethylhexyl)phthalate (DEHP),micropollutant,0.0,13.728321933301315,,0.5,0.65,8.923409256645854,,onset_undecidable_no_lod
+R-60-16,60,16,C1,Aug-2017,Dicyclohexylamine,micropollutant,0.0,0.11398558315904476,,0.5,0.65,0.0740906290533791,,onset_undecidable_no_lod
+R-60-16,60,16,C4,May-2018,Dicyclohexylamine,micropollutant,0.0,0.05694883868376764,,18.0,1.22,0.06947758319419652,,onset_undecidable_no_lod
+R-60-16,60,16,C1,Aug-2017,Diuron,micropollutant,0.0,0.08932385235886181,,0.5,0.65,0.05806050403326018,,onset_undecidable_no_lod
+R-60-16,60,16,C2,Nov-2017,Drometrizole,micropollutant,0.0,0.6708301903862716,,0.5,0.65,0.4360396237510765,,onset_undecidable_no_lod
+R-60-16,60,16,C3,Feb-2018,Drometrizole,micropollutant,0.0,0.23507817543907603,,34.0,17.0,3.9963289824642922,,onset_undecidable_no_lod
+R-60-16,60,16,C4,May-2018,Drometrizole,micropollutant,0.0,0.24205622590523287,,18.0,1.22,0.2953085956043841,,onset_undecidable_no_lod
+R-60-16,60,16,C1,Aug-2017,Epoxiconazole,micropollutant,0.0,0.042925503073962076,0.03141420280834735,0.5,0.65,0.02790157699807535,0.015707101404173675,onset_confirmed
+R-60-16,60,16,C1,Aug-2017,Flutriafol,micropollutant,0.0,0.3310733943798275,0.06826245621547884,0.5,0.65,0.2151977063468879,0.03413122810773942,onset_confirmed
+R-60-16,60,16,C3,Feb-2018,Hexa(methoxymethyl)melamine,micropollutant,0.0,24.937876444495316,,34.0,17.0,423.9438995564204,,onset_undecidable_no_lod
+R-60-16,60,16,C3,Feb-2018,Methyldihydrojasmonate,micropollutant,0.0,0.4667262541829541,,34.0,17.0,7.93434632111022,,onset_undecidable_no_lod
+R-60-16,60,16,C4,May-2018,Methyldihydrojasmonate,micropollutant,0.0,0.4762796002905433,,18.0,1.22,0.5810611123544628,,onset_undecidable_no_lod
+R-60-16,60,16,C4,May-2018,"N,N-Diethyl-m-toluamide",micropollutant,0.0,0.01048334426090775,,18.0,1.22,0.012789679998307456,,onset_undecidable_no_lod
+R-60-16,60,16,C1,Aug-2017,N-Benzyldimethylamine,micropollutant,0.0,0.020231330119044863,,0.5,0.65,0.013150364577379161,,onset_undecidable_no_lod
+R-60-16,60,16,C1,Aug-2017,NH3-N,conventional,0.0,1.4,,0.5,0.65,0.9099999999999999,,onset_undecidable_no_lod
+R-60-16,60,16,C4,May-2018,NH3-N,conventional,0.0,1.12,,18.0,1.22,1.3664,,onset_undecidable_no_lod
+R-60-16,60,16,C3,Feb-2018,Norfloxacin,micropollutant,0.0,0.677546583563863,,34.0,17.0,11.518291920585671,,onset_undecidable_no_lod
+R-60-16,60,16,C4,May-2018,Ofloxacin,micropollutant,0.0,0.20128971515070349,,18.0,1.22,0.24557345248385826,,onset_undecidable_no_lod
+R-60-16,60,16,C1,Aug-2017,Omethoate,micropollutant,0.0,0.12858104687754304,0.08702830579070181,0.5,0.65,0.08357768047040298,0.043514152895350905,onset_confirmed
+R-60-16,60,16,C1,Aug-2017,Piperonylbutoxide,micropollutant,0.0,0.020907867602738578,,0.5,0.65,0.013590113941780077,,onset_undecidable_no_lod
+R-60-16,60,16,C1,Aug-2017,Pyriproxyfen,micropollutant,0.0,0.006792310517041795,0.01172355192856538,0.5,0.65,0.004415001836077167,0.00586177596428269,onset_possible
+R-60-16,60,16,C2,Nov-2017,Pyriproxyfen,micropollutant,0.0,0.007611758166550857,0.01172355192856538,0.5,0.65,0.004947642808258057,0.00586177596428269,onset_possible
+R-60-16,60,16,C4,May-2018,Tebuconazole,micropollutant,0.0,0.059259401770918596,0.04230345431623865,18.0,1.22,0.07229647016052068,0.7614621776922957,onset_possible
+R-60-16,60,16,C1,Aug-2017,Tetracycline,micropollutant,0.0,0.173137062174141,,0.5,0.65,0.11253909041319164,,onset_undecidable_no_lod
+R-60-16,60,16,C2,Nov-2017,Trimethoprim,micropollutant,0.0,0.06276700148908865,,0.5,0.65,0.040798550967907625,,onset_undecidable_no_lod
+R-60-16,60,16,C2,Nov-2017,Tris(2-butoxyethyl) phosphate,micropollutant,0.0,0.09529865551400116,,0.5,0.65,0.061944126084100756,,onset_undecidable_no_lod
+R-60-16,60,16,C4,May-2018,Tris(2-butoxyethyl) phosphate,micropollutant,0.0,0.03663902751339084,,18.0,1.22,0.044699613566336824,,onset_undecidable_no_lod
+R-62-42,62,42,C2,Nov-2017,"2,4-Dihydroxybenzophenone",micropollutant,0.0,0.8478535062322083,,1.4,1.6,1.3565656099715335,,onset_undecidable_no_lod
+R-62-42,62,42,C2,Nov-2017,2-(2-Naphthalenyl)benzothiophene,micropollutant,0.0,9.345974486453153,,1.4,1.6,14.953559178325046,,onset_undecidable_no_lod
+R-62-42,62,42,C2,Nov-2017,3-Chloroaniline,micropollutant,0.0,0.3394351298799231,,1.4,1.6,0.5430962078078769,,onset_undecidable_no_lod
+R-62-42,62,42,C1,Aug-2017,4-Methylbenzylidenecamphor,micropollutant,0.0,1.523077123888784,,1.4,1.6,2.4369233982220546,,onset_undecidable_no_lod
+R-62-42,62,42,C2,Nov-2017,7H-Benzo(de)anthracen-7-one (Benzanthrone),micropollutant,0.0,0.6980713432326335,,1.4,1.6,1.1169141491722137,,onset_undecidable_no_lod
+R-62-42,62,42,C3,Feb-2018,8-Hydroxyquinoline,micropollutant,0.0,0.021359477283520657,,18.0,10.5,0.2242745114769669,,onset_undecidable_no_lod
+R-62-42,62,42,C2,Nov-2017,Ag,metal,0.0,0.19540794953333337,,1.4,1.6,0.31265271925333343,,onset_undecidable_no_lod
+R-62-42,62,42,C3,Feb-2018,Anthracene,micropollutant,0.0,25.74409425572406,,18.0,10.5,270.31298968510265,,onset_undecidable_no_lod
+R-62-42,62,42,C4,May-2018,As,metal,0.0,7.961528964333333,,16.0,7.4,58.915314336066665,,onset_undecidable_no_lod
+R-62-42,62,42,C1,Aug-2017,Atrazine,micropollutant,0.0,0.011733719249260834,,1.4,1.6,0.018773950798817336,,onset_undecidable_no_lod
+R-62-42,62,42,C1,Aug-2017,Atrazine-desethyl,micropollutant,0.0,0.039255209865481935,0.020072105707961772,1.4,1.6,0.0628083357847711,0.02810094799114648,onset_confirmed
+R-62-42,62,42,C2,Nov-2017,Azithromycin,micropollutant,0.0,0.10677284307487205,,1.4,1.6,0.17083654891979527,,onset_undecidable_no_lod
+R-62-42,62,42,C1,Aug-2017,Benzo[a]pyrene,micropollutant,0.0,0.11128258106922868,,1.4,1.6,0.1780521297107659,,onset_undecidable_no_lod
+R-62-42,62,42,C4,May-2018,Benzothiazole,micropollutant,0.0,34.797961402976995,,16.0,7.4,257.50491438202977,,onset_undecidable_no_lod
+R-62-42,62,42,C4,May-2018,Benzyltrimethylammonium,micropollutant,0.0,0.022110237763376197,,16.0,7.4,0.16361575944898388,,onset_undecidable_no_lod
+R-62-42,62,42,C2,Nov-2017,Boisvelone / Iso-Esuper,micropollutant,0.0,6.842335650146249,,1.4,1.6,10.947737040234,,onset_undecidable_no_lod
+R-62-42,62,42,C3,Feb-2018,Carbendazim,micropollutant,0.0,0.031024258442663273,0.02483323216832296,18.0,10.5,0.3257547136479644,0.44699817902981326,onset_possible
+R-62-42,62,42,C2,Nov-2017,Erythromycin,micropollutant,0.0,0.4082372969563856,,1.4,1.6,0.653179675130217,,onset_undecidable_no_lod
+R-62-42,62,42,C1,Aug-2017,Fluoranthene,micropollutant,0.0,2.197175352244835,,1.4,1.6,3.5154805635917366,,onset_undecidable_no_lod
+R-62-42,62,42,C4,May-2018,Galaxolide,micropollutant,0.0,0.18637003266787117,,16.0,7.4,1.3791382417422466,,onset_undecidable_no_lod
+R-62-42,62,42,C1,Aug-2017,Hg,metal,0.0,0.37,,1.4,1.6,0.592,,onset_undecidable_no_lod
+R-62-42,62,42,C4,May-2018,Homosalate,micropollutant,0.0,16.111412079460766,,16.0,7.4,119.22444938800967,,onset_undecidable_no_lod
+R-62-42,62,42,C3,Feb-2018,Mepiquat chloride,micropollutant,0.0,0.07740222436141905,0.07318328682657736,18.0,10.5,0.8127233557949001,1.3172991628783925,onset_possible
+R-62-42,62,42,C3,Feb-2018,Methyldihydrojasmonate,micropollutant,0.0,0.7739361287595174,,18.0,10.5,8.126329351974933,,onset_undecidable_no_lod
+R-62-42,62,42,C1,Aug-2017,Microcystin-RR,micropollutant,0.0,0.2673591623559434,,1.4,1.6,0.4277746597695095,,onset_undecidable_no_lod
+R-62-42,62,42,C3,Feb-2018,Myclobutanil,micropollutant,0.0,0.02192931308524411,0.0037826264752148938,18.0,10.5,0.23025778739506314,0.06808727655386809,onset_confirmed
+R-62-42,62,42,C3,Feb-2018,N-Ethyl-2-tolysulfonamide,micropollutant,0.0,0.03763082553270572,,18.0,10.5,0.39512366809341004,,onset_undecidable_no_lod
+R-62-42,62,42,C1,Aug-2017,Norfloxacin,micropollutant,0.0,2.722237205845928,,1.4,1.6,4.355579529353485,,onset_undecidable_no_lod
+R-62-42,62,42,C3,Feb-2018,Ofloxacin,micropollutant,0.0,0.24040107928737445,,18.0,10.5,2.5242113325174316,,onset_undecidable_no_lod
+R-62-42,62,42,C4,May-2018,Ofloxacin,micropollutant,0.0,0.5895042998325334,,16.0,7.4,4.362331818760747,,onset_undecidable_no_lod
+R-62-42,62,42,C1,Aug-2017,Pendimethalin,micropollutant,0.0,0.06623433207023946,0.018585497521815274,1.4,1.6,0.10597493131238314,0.026019696530541384,onset_confirmed
+R-62-42,62,42,C1,Aug-2017,Pirimicarb,micropollutant,0.0,0.21086288715901175,0.12226493652653564,1.4,1.6,0.33738061945441883,0.17117091113714988,onset_confirmed
+R-62-42,62,42,C4,May-2018,Prochloraz,micropollutant,0.0,0.0634508728829563,0.03821130585612481,16.0,7.4,0.4695364593338766,0.611380893697997,onset_possible
+R-62-42,62,42,C1,Aug-2017,Sulfamethoxazole,micropollutant,0.0,0.5579993226441781,,1.4,1.6,0.892798916230685,,onset_undecidable_no_lod
+R-62-42,62,42,C3,Feb-2018,Tetraacetylethylenediamine,micropollutant,0.0,1.0959606989227477,,18.0,10.5,11.50758733868885,,onset_undecidable_no_lod
+R-62-42,62,42,C3,Feb-2018,Trimethoprim,micropollutant,0.0,0.018185697233622553,,18.0,10.5,0.1909498209530368,,onset_undecidable_no_lod
+R-62-42,62,42,C4,May-2018,V,metal,0.0,5.312274140000001,,16.0,7.4,39.31082863600001,,onset_undecidable_no_lod
+R-65-58,65,58,C1,Aug-2017,"1,2,3-Benzotriazole",micropollutant,0.0,17.575635172726876,,1.7,3.5,61.51472310454407,,onset_undecidable_no_lod
+R-65-58,65,58,C3,Feb-2018,"1,2,3-Benzotriazole",micropollutant,0.0,0.3590062981973782,,2.0,6.0,2.1540377891842692,,onset_undecidable_no_lod
+R-65-58,65,58,C4,May-2018,"1,2,3-Benzotriazole",micropollutant,0.0,0.8864620538792631,,1.9,6.2,5.496064734051432,,onset_undecidable_no_lod
+R-65-58,65,58,C4,May-2018,2-Mercapto-benzothiazole,micropollutant,0.0,2.679176088676179,,1.9,6.2,16.61089174979231,,onset_undecidable_no_lod
+R-65-58,65,58,C4,May-2018,3-Chloroaniline,micropollutant,0.0,0.12278572888219312,,1.9,6.2,0.7612715190695973,,onset_undecidable_no_lod
+R-65-58,65,58,C3,Feb-2018,"4,4'-Dichlorobenzophenone",micropollutant,0.0,0.7001513623446356,,2.0,6.0,4.200908174067814,,onset_undecidable_no_lod
+R-65-58,65,58,C3,Feb-2018,4-Aminomethyl-benzenesulfonamide,micropollutant,0.0,0.023702368854620223,,2.0,6.0,0.14221421312772134,,onset_undecidable_no_lod
+R-65-58,65,58,C4,May-2018,4-Chloroaniline,micropollutant,0.0,0.07673671796236428,,1.9,6.2,0.47576765136665855,,onset_undecidable_no_lod
+R-65-58,65,58,C1,Aug-2017,4-tert-Octylphenol diethoxylate,micropollutant,0.0,0.09512977606114766,,1.7,3.5,0.3329542162140168,,onset_undecidable_no_lod
+R-65-58,65,58,C1,Aug-2017,"5,6-Dimethyl-1H-benzotriazole",micropollutant,0.0,5.530497057182414,,1.7,3.5,19.356739700138448,,onset_undecidable_no_lod
+R-65-58,65,58,C2,Nov-2017,"5,6-Dimethyl-1H-benzotriazole",micropollutant,0.0,0.38429435744772067,,1.7,3.5,1.3450302510670222,,onset_undecidable_no_lod
+R-65-58,65,58,C4,May-2018,"5,6-Dimethyl-1H-benzotriazole",micropollutant,0.0,0.0665555117508019,,1.9,6.2,0.41264417285497185,,onset_undecidable_no_lod
+R-65-58,65,58,C1,Aug-2017,7H-Benzo(de)anthracen-7-one (Benzanthrone),micropollutant,0.0,1.0181771232920929,,1.7,3.5,3.563619931522325,,onset_undecidable_no_lod
+R-65-58,65,58,C2,Nov-2017,7H-Benzo(de)anthracen-7-one (Benzanthrone),micropollutant,0.0,1.0181771232920929,,1.7,3.5,3.563619931522325,,onset_undecidable_no_lod
+R-65-58,65,58,C3,Feb-2018,8-Hydroxyquinoline,micropollutant,0.0,0.027310658297717172,,2.0,6.0,0.16386394978630303,,onset_undecidable_no_lod
+R-65-58,65,58,C2,Nov-2017,Acetaminophen (Paracetamol),micropollutant,0.0,1.1984186030387456,,1.7,3.5,4.194465110635609,,onset_undecidable_no_lod
+R-65-58,65,58,C1,Aug-2017,Acetamiprid,micropollutant,0.0,0.11271811098248212,0.025237601919248082,1.7,3.5,0.39451338843868744,0.04290392326272174,onset_confirmed
+R-65-58,65,58,C3,Feb-2018,Acetamiprid,micropollutant,0.0,0.044230090687764546,0.025237601919248082,2.0,6.0,0.2653805441265873,0.050475203838496165,onset_confirmed
+R-65-58,65,58,C2,Nov-2017,Ag,metal,0.0,0.12658248056666668,,1.7,3.5,0.4430386819833334,,onset_undecidable_no_lod
+R-65-58,65,58,C1,Aug-2017,Azithromycin,micropollutant,0.0,0.2881456518264601,,1.7,3.5,1.0085097813926105,,onset_undecidable_no_lod
+R-65-58,65,58,C1,Aug-2017,Benzo[a]pyrene,micropollutant,0.0,0.26229895112293444,,1.7,3.5,0.9180463289302705,,onset_undecidable_no_lod
+R-65-58,65,58,C1,Aug-2017,Br,conventional,0.0,0.48300000000000004,,1.7,3.5,1.6905000000000001,,onset_undecidable_no_lod
+R-65-58,65,58,C2,Nov-2017,Br,conventional,0.0,0.373,,1.7,3.5,1.3054999999999999,,onset_undecidable_no_lod
+R-65-58,65,58,C4,May-2018,Br,conventional,0.0,0.475,,1.9,6.2,2.945,,onset_undecidable_no_lod
+R-65-58,65,58,C3,Feb-2018,Ciprofloxacin,micropollutant,0.0,0.5345966540983644,,2.0,6.0,3.2075799245901866,,onset_undecidable_no_lod
+R-65-58,65,58,C2,Nov-2017,Clarithromycin,micropollutant,0.0,0.03294,,1.7,3.5,0.11528999999999999,,onset_undecidable_no_lod
+R-65-58,65,58,C4,May-2018,Cr,metal,0.0,26.84410853333333,,1.9,6.2,166.43347290666665,,onset_undecidable_no_lod
+R-65-58,65,58,C2,Nov-2017,Cyprodinil,micropollutant,0.0,0.042997857079771475,0.034812935770800316,1.7,3.5,0.15049249977920015,0.05918199081036053,onset_confirmed
+R-65-58,65,58,C1,Aug-2017,Dicyclohexylamine,micropollutant,0.0,0.06836779546827354,,1.7,3.5,0.2392872841389574,,onset_undecidable_no_lod
+R-65-58,65,58,C3,Feb-2018,Diphenylamine,micropollutant,0.0,0.21862632530967502,,2.0,6.0,1.3117579518580502,,onset_undecidable_no_lod
+R-65-58,65,58,C1,Aug-2017,Diuron,micropollutant,0.0,1.1043783931490174,,1.7,3.5,3.8653243760215608,,onset_undecidable_no_lod
+R-65-58,65,58,C2,Nov-2017,Diuron,micropollutant,0.0,0.332949,,1.7,3.5,1.1653215,,onset_undecidable_no_lod
+R-65-58,65,58,C1,Aug-2017,Fluoranthene,micropollutant,0.0,2.0483134376902807,,1.7,3.5,7.169097031915983,,onset_undecidable_no_lod
+R-65-58,65,58,C2,Nov-2017,Imazamox,micropollutant,0.0,0.059814147491043336,0.04013470736213615,1.7,3.5,0.20934951621865167,0.06822900251563147,onset_confirmed
+R-65-58,65,58,C1,Aug-2017,"Indeno[1,2,3-cd]pyrene",micropollutant,0.0,4.039940267401283,,1.7,3.5,14.13979093590449,,onset_undecidable_no_lod
+R-65-58,65,58,C1,Aug-2017,Mepiquat chloride,micropollutant,0.0,0.1696135842477306,0.07318328682657736,1.7,3.5,0.5936475448670571,0.1244115876051815,onset_confirmed
+R-65-58,65,58,C2,Nov-2017,Methyl -iso-propylcyclohexenone,micropollutant,0.0,0.13120340198729963,,1.7,3.5,0.4592119069555487,,onset_undecidable_no_lod
+R-65-58,65,58,C2,Nov-2017,Methyldihydrojasmonate,micropollutant,0.0,1.8807701234474077,,1.7,3.5,6.582695432065927,,onset_undecidable_no_lod
+R-65-58,65,58,C3,Feb-2018,Myclobutanil,micropollutant,0.0,0.006855547671837202,0.0037826264752148938,2.0,6.0,0.04113328603102322,0.0075652529504297876,onset_confirmed
+R-65-58,65,58,C2,Nov-2017,NO2,conventional,0.0,0.71,,1.7,3.5,2.485,,onset_undecidable_no_lod
+R-65-58,65,58,C1,Aug-2017,Nonylphenol diethoxylate,micropollutant,0.0,0.4836571895062194,,1.7,3.5,1.6928001632717677,,onset_undecidable_no_lod
+R-65-58,65,58,C2,Nov-2017,Nonylphenol diethoxylate,micropollutant,0.0,0.4587891875208912,,1.7,3.5,1.6057621563231192,,onset_undecidable_no_lod
+R-65-58,65,58,C4,May-2018,Nonylphenol diethoxylate,micropollutant,0.0,0.05691119728785971,,1.9,6.2,0.3528494231847302,,onset_undecidable_no_lod
+R-65-58,65,58,C3,Feb-2018,Ofloxacin,micropollutant,0.0,0.2539753638574121,,2.0,6.0,1.5238521831444727,,onset_undecidable_no_lod
+R-65-58,65,58,C1,Aug-2017,Omethoate,micropollutant,0.0,0.1901495149689434,0.08702830579070181,1.7,3.5,0.6655233023913019,0.14794811984419307,onset_confirmed
+R-65-58,65,58,C1,Aug-2017,Pirimicarb,micropollutant,0.0,0.8000411241335196,0.12226493652653564,1.7,3.5,2.8001439344673185,0.20785039209511058,onset_confirmed
+R-65-58,65,58,C3,Feb-2018,Polychlorinated biphenyls,micropollutant,0.0,2.4079891126424844,,2.0,6.0,14.447934675854906,,onset_undecidable_no_lod
+R-65-58,65,58,C4,May-2018,Pyraclostrobin,micropollutant,0.0,0.023463201903098852,0.01625287527387758,1.9,6.2,0.14547185179921288,0.030880463020367403,onset_confirmed
+R-65-58,65,58,C1,Aug-2017,Tebuconazole,micropollutant,0.0,0.2138502483798893,0.04230345431623865,1.7,3.5,0.7484758693296125,0.0719158723376057,onset_confirmed
+R-65-58,65,58,C2,Nov-2017,Tebuconazole,micropollutant,0.0,1.4029991479187958,0.04230345431623865,1.7,3.5,4.910497017715786,0.0719158723376057,onset_confirmed
+R-65-58,65,58,C1,Aug-2017,Terbutryn,micropollutant,0.0,0.007252160543983675,,1.7,3.5,0.025382561903942863,,onset_undecidable_no_lod
+R-65-58,65,58,C1,Aug-2017,Tetracycline,micropollutant,0.0,0.10410745959046323,,1.7,3.5,0.36437610856662134,,onset_undecidable_no_lod
+R-65-58,65,58,C2,Nov-2017,Tris(2-butoxyethyl) phosphate,micropollutant,0.0,0.07533372010161939,,1.7,3.5,0.26366802035566783,,onset_undecidable_no_lod
+R-65-58,65,58,C4,May-2018,V,metal,0.0,24.801647999999997,,1.9,6.2,153.7702176,,onset_undecidable_no_lod
+R-65-58,65,58,C1,Aug-2017,alpha-Terpineol,micropollutant,0.0,215.63258856725247,,1.7,3.5,754.7140599853836,,onset_undecidable_no_lod
+R-68-12,68,12,C1,Aug-2017,"1,2,3-Benzotriazole",micropollutant,0.0,2.457604445025465,,0.7,2.1,5.160969334553476,,onset_undecidable_no_lod
+R-68-12,68,12,C4,May-2018,"1,2,3-Benzotriazole",micropollutant,0.0,0.26897144974216,,0.7,2.1,0.564840044458536,,onset_undecidable_no_lod
+R-68-12,68,12,C1,Aug-2017,4-Aminomethyl-benzenesulfonamide,micropollutant,0.0,0.2550213325541965,,0.7,2.1,0.5355447983638127,,onset_undecidable_no_lod
+R-68-12,68,12,C3,Feb-2018,4-Methyl-1H-benzotriazole,micropollutant,0.0,0.04905925815384829,,0.8,2.9,0.14227184864616005,,onset_undecidable_no_lod
+R-68-12,68,12,C4,May-2018,"5,6-Dimethyl-1H-benzotriazole",micropollutant,0.0,0.48707658085205097,,0.7,2.1,1.022860819789307,,onset_undecidable_no_lod
+R-68-12,68,12,C1,Aug-2017,Acetamiprid,micropollutant,0.0,0.056238415876914125,0.025237601919248082,0.7,2.1,0.11810067334151966,0.017666321343473658,onset_confirmed
+R-68-12,68,12,C1,Aug-2017,Aclonifen,micropollutant,0.0,0.2253298648817402,,0.7,2.1,0.47319271625165443,,onset_undecidable_no_lod
+R-68-12,68,12,C3,Feb-2018,Anthracene,micropollutant,0.0,17.583641643792017,,0.8,2.9,50.992560766996846,,onset_undecidable_no_lod
+R-68-12,68,12,C1,Aug-2017,As,metal,0.0,1.034689642,,0.7,2.1,2.1728482482,,onset_undecidable_no_lod
+R-68-12,68,12,C2,Nov-2017,Atrazine-desethyl,micropollutant,0.0,0.026127543469700452,0.020072105707961772,0.7,2.1,0.05486784128637095,0.01405047399557324,onset_confirmed
+R-68-12,68,12,C1,Aug-2017,Azithromycin,micropollutant,0.0,0.5421346513799623,,0.7,2.1,1.1384827678979208,,onset_undecidable_no_lod
+R-68-12,68,12,C1,Aug-2017,Benzylamine,micropollutant,0.0,0.09468180256070906,,0.7,2.1,0.19883178537748902,,onset_undecidable_no_lod
+R-68-12,68,12,C2,Nov-2017,Chlorpyrifos,micropollutant,0.0,0.26445846209049434,,0.7,2.1,0.5553627703900381,,onset_undecidable_no_lod
+R-68-12,68,12,C3,Feb-2018,Ciprofloxacin,micropollutant,0.0,1.4408670261048044,,0.8,2.9,4.178514375703933,,onset_undecidable_no_lod
+R-68-12,68,12,C1,Aug-2017,Clarithromycin,micropollutant,0.0,0.15523967590776977,,0.7,2.1,0.32600331940631655,,onset_undecidable_no_lod
+R-68-12,68,12,C4,May-2018,Co,metal,0.0,2.4451870930000004,,0.7,2.1,5.134892895300001,,onset_undecidable_no_lod
+R-68-12,68,12,C2,Nov-2017,Cyclopentadecanolide,micropollutant,0.0,12.354011679065675,,0.7,2.1,25.94342452603792,,onset_undecidable_no_lod
+R-68-12,68,12,C3,Feb-2018,Di(2- ethylhexyl)phthalate (DEHP),micropollutant,0.0,13.521866282344837,,0.8,2.9,39.21341221880002,,onset_undecidable_no_lod
+R-68-12,68,12,C1,Aug-2017,Dicyclohexylamine,micropollutant,0.0,0.08083837313327433,,0.7,2.1,0.16976058357987608,,onset_undecidable_no_lod
+R-68-12,68,12,C2,Nov-2017,Dicyclohexylamine,micropollutant,0.0,0.0921616531702129,,0.7,2.1,0.1935394716574471,,onset_undecidable_no_lod
+R-68-12,68,12,C1,Aug-2017,Diuron,micropollutant,0.0,0.06553851725609558,,0.7,2.1,0.13763088623780073,,onset_undecidable_no_lod
+R-68-12,68,12,C2,Nov-2017,Drometrizole,micropollutant,0.0,0.9100689204607969,,0.7,2.1,1.9111447329676736,,onset_undecidable_no_lod
+R-68-12,68,12,C3,Feb-2018,Ethylhexylmethoxycinnamate,micropollutant,0.0,3.367598235470888,,0.8,2.9,9.766034882865576,,onset_undecidable_no_lod
+R-68-12,68,12,C1,Aug-2017,Hexa(methoxymethyl)melamine,micropollutant,0.0,516.164240226588,,0.7,2.1,1083.9449044758348,,onset_undecidable_no_lod
+R-68-12,68,12,C2,Nov-2017,Methyl paraben,micropollutant,0.0,0.11691958404412775,,0.7,2.1,0.24553112649266828,,onset_undecidable_no_lod
+R-68-12,68,12,C4,May-2018,Methyldihydrojasmonate,micropollutant,0.0,0.5190362040747307,,0.7,2.1,1.0899760285569347,,onset_undecidable_no_lod
+R-68-12,68,12,C3,Feb-2018,Myclobutanil,micropollutant,0.0,0.061198156298510234,0.0037826264752148938,0.8,2.9,0.17747465326567968,0.0030261011801719154,onset_confirmed
+R-68-12,68,12,C1,Aug-2017,N-Benzyldimethylamine,micropollutant,0.0,0.015126688617990195,,0.7,2.1,0.03176604609777941,,onset_undecidable_no_lod
+R-68-12,68,12,C2,Nov-2017,N-Ethyl-2-tolysulfonamide,micropollutant,0.0,0.06519454470942107,,0.7,2.1,0.13690854388978427,,onset_undecidable_no_lod
+R-68-12,68,12,C4,May-2018,NH3-N,conventional,0.0,0.8399999999999999,,0.7,2.1,1.7639999999999998,,onset_undecidable_no_lod
+R-68-12,68,12,C3,Feb-2018,Nonylphenol diethoxylate,micropollutant,0.0,0.2307181299348246,,0.8,2.9,0.6690825768109914,,onset_undecidable_no_lod
+R-68-12,68,12,C3,Feb-2018,Ofloxacin,micropollutant,0.0,0.2432836481985236,,0.8,2.9,0.7055225797757184,,onset_undecidable_no_lod
+R-68-12,68,12,C4,May-2018,Ofloxacin,micropollutant,0.0,0.14721429130143213,,0.7,2.1,0.3091500117330075,,onset_undecidable_no_lod
+R-68-12,68,12,C1,Aug-2017,Omethoate,micropollutant,0.0,0.12103987999463899,0.08702830579070181,0.7,2.1,0.2541837479887419,0.06091981405349126,onset_confirmed
+R-68-12,68,12,C1,Aug-2017,PO4,conventional,0.0,7.972,,0.7,2.1,16.741200000000003,,onset_undecidable_no_lod
+R-68-12,68,12,C4,May-2018,PO4,conventional,0.0,1.6420000000000001,,0.7,2.1,3.4482000000000004,,onset_undecidable_no_lod
+R-68-12,68,12,C2,Nov-2017,Piperonylbutoxide,micropollutant,0.0,0.025218897493187113,,0.7,2.1,0.05295968473569294,,onset_undecidable_no_lod
+R-68-12,68,12,C2,Nov-2017,Pirimicarb,micropollutant,0.0,0.3513958568381019,0.12226493652653564,0.7,2.1,0.7379312993600141,0.08558545556857494,onset_confirmed
+R-68-12,68,12,C2,Nov-2017,Polychlorinated biphenyls,micropollutant,0.0,3.063138951640694,,0.7,2.1,6.432591798445458,,onset_undecidable_no_lod
+R-68-12,68,12,C1,Aug-2017,Prochloraz,micropollutant,0.0,0.19794290740664802,0.03821130585612481,0.7,2.1,0.41568010555396084,0.026747914099287368,onset_confirmed
+R-68-12,68,12,C2,Nov-2017,Propiconazole,micropollutant,0.0,0.11902273965147864,0.06798867882490879,0.7,2.1,0.24994775326810514,0.047592075177436154,onset_confirmed
+R-68-12,68,12,C1,Aug-2017,Tetracycline,micropollutant,0.0,0.10600538059873543,,0.7,2.1,0.2226112992573444,,onset_undecidable_no_lod
+R-68-12,68,12,C1,Aug-2017,Tris(2-butoxyethyl) phosphate,micropollutant,0.0,0.17958609977763695,,0.7,2.1,0.3771308095330376,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,"1,3-Dinitropyrene",micropollutant,0.0,1.5792003771289504,,,0.3,0.4737601131386851,,onset_undecidable_no_lod
+R-70-50,70,50,C3,Feb-2018,"1,3-Dinitropyrene",micropollutant,0.0,1.01538246428989,,0.074,0.9,0.9138442178609011,,onset_undecidable_no_lod
+R-70-50,70,50,C4,May-2018,"1,3-Dinitropyrene",micropollutant,0.0,1.1814824829543784,,,0.8,0.9451859863635028,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,"1,6-Dinitropyrene",micropollutant,0.0,1.2318199950916713,,,0.3,0.36954599852750136,,onset_undecidable_no_lod
+R-70-50,70,50,C2,Nov-2017,"1,6-Dinitropyrene",micropollutant,0.0,0.3823744197781602,,,0.3,0.11471232593344806,,onset_undecidable_no_lod
+R-70-50,70,50,C3,Feb-2018,"1,6-Dinitropyrene",micropollutant,0.0,0.9857101583564797,,0.074,0.9,0.8871391425208317,,onset_undecidable_no_lod
+R-70-50,70,50,C4,May-2018,"1,6-Dinitropyrene",micropollutant,0.0,0.6507235736052751,,,0.8,0.5205788588842201,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,"1,8-Dinitropyrene",micropollutant,0.0,1.1261414207264346,,,0.3,0.33784242621793037,,onset_undecidable_no_lod
+R-70-50,70,50,C3,Feb-2018,"1,8-Dinitropyrene",micropollutant,0.0,1.1615734457535365,,0.074,0.9,1.0454161011781828,,onset_undecidable_no_lod
+R-70-50,70,50,C4,May-2018,"1,8-Dinitropyrene",micropollutant,0.0,0.6545509033586041,,,0.8,0.5236407226868833,,onset_undecidable_no_lod
+R-70-50,70,50,C4,May-2018,"2,2',4,4',5,6'-Hexabromodiphenyl ether",micropollutant,0.0,7.432131772190186,,,0.8,5.945705417752149,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,"2,3,3',4,4',5,5',6-Octabromodiphenyl ether",micropollutant,0.0,2.6348313843730056,,,0.3,0.7904494153119016,,onset_undecidable_no_lod
+R-70-50,70,50,C4,May-2018,"2,4,4'-tribromodiphenylether",micropollutant,0.0,1824.5471021163362,,,0.8,1459.637681693069,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,3-Chloroaniline,micropollutant,0.0,1.487072341710764,,,0.3,0.4461217025132292,,onset_undecidable_no_lod
+R-70-50,70,50,C3,Feb-2018,3-Chloroaniline,micropollutant,0.0,0.13429383768495873,,0.074,0.9,0.12086445391646286,,onset_undecidable_no_lod
+R-70-50,70,50,C4,May-2018,3-Chloroaniline,micropollutant,0.0,5.427907007539987,,,0.8,4.34232560603199,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,"4,4'-Dichlorobenzophenone",micropollutant,0.0,0.7530883378715877,,,0.3,0.2259265013614763,,onset_undecidable_no_lod
+R-70-50,70,50,C3,Feb-2018,"4,4'-Dichlorobenzophenone",micropollutant,0.0,0.1602237175346208,,0.074,0.9,0.14420134578115873,,onset_undecidable_no_lod
+R-70-50,70,50,C4,May-2018,"4,4'-Dichlorobenzophenone",micropollutant,0.0,1.6628563566720627,,,0.8,1.3302850853376502,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,4-Chloroaniline,micropollutant,0.0,1.3614867251579512,,,0.3,0.40844601754738535,,onset_undecidable_no_lod
+R-70-50,70,50,C2,Nov-2017,4-Chloroaniline,micropollutant,0.0,0.3479742710216953,,,0.3,0.10439228130650859,,onset_undecidable_no_lod
+R-70-50,70,50,C3,Feb-2018,4-Chloroaniline,micropollutant,0.0,0.10545402711752644,,0.074,0.9,0.0949086244057738,,onset_undecidable_no_lod
+R-70-50,70,50,C4,May-2018,4-Chloroaniline,micropollutant,0.0,5.838770484804511,,,0.8,4.6710163878436095,,onset_undecidable_no_lod
+R-70-50,70,50,C2,Nov-2017,4-tert-Octylphenol diethoxylate,micropollutant,0.0,0.14193544052644796,,,0.3,0.04258063215793439,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,"5,6-Dimethyl-1H-benzotriazole",micropollutant,0.0,0.4537063104131843,,,0.3,0.1361118931239553,,onset_undecidable_no_lod
+R-70-50,70,50,C2,Nov-2017,"5,6-Dimethyl-1H-benzotriazole",micropollutant,0.0,1.8159587989554562,,,0.3,0.5447876396866368,,onset_undecidable_no_lod
+R-70-50,70,50,C4,May-2018,"5,6-Dimethyl-1H-benzotriazole",micropollutant,0.0,1.0465287988517469,,,0.8,0.8372230390813975,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,7H-Benzo(de)anthracen-7-one (Benzanthrone),micropollutant,0.0,2.6474346766469874,,,0.3,0.7942304029940962,,onset_undecidable_no_lod
+R-70-50,70,50,C2,Nov-2017,7H-Benzo(de)anthracen-7-one (Benzanthrone),micropollutant,0.0,2.4487114732289483,,,0.3,0.7346134419686845,,onset_undecidable_no_lod
+R-70-50,70,50,C3,Feb-2018,7H-Benzo(de)anthracen-7-one (Benzanthrone),micropollutant,0.0,0.40608677701141627,,0.074,0.9,0.36547809931027464,,onset_undecidable_no_lod
+R-70-50,70,50,C4,May-2018,7H-Benzo(de)anthracen-7-one (Benzanthrone),micropollutant,0.0,0.3154808996594664,,,0.8,0.25238471972757315,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,ADBI (Celestolide),micropollutant,0.0,0.5888281551764779,,,0.3,0.17664844655294337,,onset_undecidable_no_lod
+R-70-50,70,50,C2,Nov-2017,ADBI (Celestolide),micropollutant,0.0,0.5294961382689942,,,0.3,0.15884884148069825,,onset_undecidable_no_lod
+R-70-50,70,50,C3,Feb-2018,ADBI (Celestolide),micropollutant,0.0,0.16891220158247197,,0.074,0.9,0.15202098142422477,,onset_undecidable_no_lod
+R-70-50,70,50,C4,May-2018,ADBI (Celestolide),micropollutant,0.0,0.4896969984787903,,,0.8,0.39175759878303223,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,AHDI (Phantolide),micropollutant,0.0,3.4384853783691876,,,0.3,1.0315456135107561,,onset_undecidable_no_lod
+R-70-50,70,50,C2,Nov-2017,AHDI (Phantolide),micropollutant,0.0,1.6076803144244418,,,0.3,0.4823040943273325,,onset_undecidable_no_lod
+R-70-50,70,50,C3,Feb-2018,AHDI (Phantolide),micropollutant,0.0,0.5323226024101506,,0.074,0.9,0.47909034216913554,,onset_undecidable_no_lod
+R-70-50,70,50,C4,May-2018,AHDI (Phantolide),micropollutant,0.0,0.8976478304167134,,,0.8,0.7181182643333708,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,Acetaminophen (Paracetamol),micropollutant,0.0,0.6552360951369626,,,0.3,0.19657082854108876,,onset_undecidable_no_lod
+R-70-50,70,50,C3,Feb-2018,Aclonifen,micropollutant,0.0,0.08809509024431178,,0.074,0.9,0.07928558121988061,,onset_undecidable_no_lod
+R-70-50,70,50,C2,Nov-2017,Ag,metal,0.0,0.45747818463333334,,,0.3,0.13724345539,,onset_undecidable_no_lod
+R-70-50,70,50,C3,Feb-2018,Ag,metal,0.0,0.038007976019999994,,0.074,0.9,0.034207178417999994,,onset_undecidable_no_lod
+R-70-50,70,50,C2,Nov-2017,Anthracene,micropollutant,0.0,69.93498146954833,,,0.3,20.9804944408645,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,As,metal,0.0,45.19015066,,,0.3,13.557045197999999,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,Atrazine-desethyl,micropollutant,0.0,0.023845286088114256,0.020072105707961772,,0.3,0.0071535858264342765,,onset_undecidable_no_flow
+R-70-50,70,50,C2,Nov-2017,Atrazine-desethyl,micropollutant,0.0,0.0690496199044446,0.020072105707961772,,0.3,0.020714885971333377,,onset_undecidable_no_flow
+R-70-50,70,50,C1,Aug-2017,Benzo[a]pyrene,micropollutant,0.0,0.3904424700532043,,,0.3,0.11713274101596129,,onset_undecidable_no_lod
+R-70-50,70,50,C2,Nov-2017,Benzo[b]fluoranthene,micropollutant,0.0,1.4293695272567546,,,0.3,0.42881085817702635,,onset_undecidable_no_lod
+R-70-50,70,50,C2,Nov-2017,Benzo[ghi]perylene,micropollutant,0.0,12.473402881209195,,,0.3,3.7420208643627584,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,Benzo[k]fluoranthene,micropollutant,0.0,0.7149386078753943,,,0.3,0.2144815823626183,,onset_undecidable_no_lod
+R-70-50,70,50,C2,Nov-2017,Benzo[k]fluoranthene,micropollutant,0.0,0.343511,,,0.3,0.1030533,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,Benzylamine,micropollutant,0.0,0.7436742615547415,,,0.3,0.22310227846642244,,onset_undecidable_no_lod
+R-70-50,70,50,C2,Nov-2017,Benzylamine,micropollutant,0.0,0.1753310533160836,,,0.3,0.05259931599482508,,onset_undecidable_no_lod
+R-70-50,70,50,C3,Feb-2018,Benzylamine,micropollutant,0.0,0.025247625992932496,,0.074,0.9,0.022722863393639246,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,Boisvelone / Iso-Esuper,micropollutant,0.0,2.371789205645005,,,0.3,0.7115367616935016,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,Cadusafos,micropollutant,0.0,0.1455924422963204,0.05974731477260577,,0.3,0.04367773268889612,,onset_undecidable_no_flow
+R-70-50,70,50,C4,May-2018,Co,metal,0.0,1.1621719923333333,,,0.8,0.9297375938666668,,onset_undecidable_no_lod
+R-70-50,70,50,C4,May-2018,Dicyclohexylamine,micropollutant,0.0,0.45962721302533616,,,0.8,0.36770177042026897,,onset_undecidable_no_lod
+R-70-50,70,50,C2,Nov-2017,Diuron,micropollutant,0.0,1.038118,,,0.3,0.31143540000000003,,onset_undecidable_no_lod
+R-70-50,70,50,C4,May-2018,Diuron,micropollutant,0.0,0.5335128823864339,,,0.8,0.42681030590914715,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,Doxycycline,micropollutant,0.0,0.7216406541016079,,,0.3,0.21649219623048238,,onset_undecidable_no_lod
+R-70-50,70,50,C3,Feb-2018,Doxycycline,micropollutant,0.0,0.1724635734658392,,0.074,0.9,0.1552172161192553,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,Fluoranthene,micropollutant,0.0,1.8262652092240996,,,0.3,0.5478795627672298,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,Hg,metal,0.0,0.81,,,0.3,0.243,,onset_undecidable_no_lod
+R-70-50,70,50,C2,Nov-2017,"Indeno[1,2,3-cd]pyrene",micropollutant,0.0,41.74021242056954,,,0.3,12.522063726170861,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,Mepiquat chloride,micropollutant,0.0,0.18912518912518916,0.07318328682657736,,0.3,0.056737556737556746,,onset_undecidable_no_flow
+R-70-50,70,50,C2,Nov-2017,Mepiquat chloride,micropollutant,0.0,0.4431254431254431,0.07318328682657736,,0.3,0.13293763293763292,,onset_undecidable_no_flow
+R-70-50,70,50,C3,Feb-2018,Mepiquat chloride,micropollutant,0.0,0.07325957572243663,0.07318328682657736,0.074,0.9,0.06593361815019297,0.005415563225166725,onset_confirmed
+R-70-50,70,50,C1,Aug-2017,Methyl paraben,micropollutant,0.0,4.308410530585403,,,0.3,1.2925231591756208,,onset_undecidable_no_lod
+R-70-50,70,50,C4,May-2018,Methyl paraben,micropollutant,0.0,0.1782804765501189,,,0.8,0.1426243812400951,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,Methyldihydrojasmonate,micropollutant,0.0,0.9880980668467656,,,0.3,0.29642942005402967,,onset_undecidable_no_lod
+R-70-50,70,50,C4,May-2018,Methyldihydrojasmonate,micropollutant,0.0,0.5093786725950249,,,0.8,0.40750293807601995,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,Methylsalicylate,micropollutant,0.0,8.02097869479234,,,0.3,2.4062936084377022,,onset_undecidable_no_lod
+R-70-50,70,50,C4,May-2018,Methylsalicylate,micropollutant,0.0,0.27915742362170615,,,0.8,0.22332593889736493,,onset_undecidable_no_lod
+R-70-50,70,50,C2,Nov-2017,Microcystin-RR,micropollutant,0.0,1.2497332558588303,,,0.3,0.3749199767576491,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,N-Benzylmethylamine,micropollutant,0.0,0.09054696276542681,,,0.3,0.027164088829628043,,onset_undecidable_no_lod
+R-70-50,70,50,C2,Nov-2017,N-Benzylmethylamine,micropollutant,0.0,0.32336415716627204,,,0.3,0.09700924714988161,,onset_undecidable_no_lod
+R-70-50,70,50,C3,Feb-2018,N-Benzylmethylamine,micropollutant,0.0,0.3138086767097775,,0.074,0.9,0.28242780903879977,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,NH3-N,conventional,0.0,12.88,,,0.3,3.864,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,Nonylphenol diethoxylate,micropollutant,0.0,8.294786527059564,,,0.3,2.488435958117869,,onset_undecidable_no_lod
+R-70-50,70,50,C2,Nov-2017,Nonylphenol diethoxylate,micropollutant,0.0,18.40324603814919,,,0.3,5.520973811444757,,onset_undecidable_no_lod
+R-70-50,70,50,C4,May-2018,Oxybenzone,micropollutant,0.0,0.006915157085844289,,,0.8,0.005532125668675432,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,PO4,conventional,0.0,1.9209999999999998,,,0.3,0.5762999999999999,,onset_undecidable_no_lod
+R-70-50,70,50,C3,Feb-2018,PO4,conventional,0.0,3.7745,,0.074,0.9,3.39705,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,Pirimicarb,micropollutant,0.0,0.3251224429704361,0.12226493652653564,,0.3,0.09753673289113082,,onset_undecidable_no_flow
+R-70-50,70,50,C2,Nov-2017,Pyriproxyfen,micropollutant,0.0,0.022808228029320702,0.01172355192856538,,0.3,0.00684246840879621,,onset_undecidable_no_flow
+R-70-50,70,50,C1,Aug-2017,Sulfamethoxazole,micropollutant,0.0,0.5305041276264297,,,0.3,0.1591512382879289,,onset_undecidable_no_lod
+R-70-50,70,50,C4,May-2018,Sulfamethoxazole,micropollutant,0.0,0.28485904268198414,,,0.8,0.22788723414558731,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,Ti,metal,0.0,8.254237191,,,0.3,2.4762711573,,onset_undecidable_no_lod
+R-70-50,70,50,C4,May-2018,Ti,metal,0.0,5.445073206333333,,,0.8,4.356058565066667,,onset_undecidable_no_lod
+R-70-50,70,50,C1,Aug-2017,Tris(2-butoxyethyl) phosphate,micropollutant,0.0,207.37314084088283,,,0.3,62.21194225226485,,onset_undecidable_no_lod
+R-70-50,70,50,C4,May-2018,alpha-Terpineol,micropollutant,0.0,56.850984724910894,,,0.8,45.48078777992872,,onset_undecidable_no_lod
+R-70-50,70,50,C2,Nov-2017,g-Methylionone,micropollutant,0.0,6.166061211932771,,,0.3,1.849818363579831,,onset_undecidable_no_lod
+R-73-60,73,60,C2,Nov-2017,4-Chloroaniline,micropollutant,0.0,0.1586226027656391,,1.8,0.5,0.07931130138281955,,onset_undecidable_no_lod
+R-73-60,73,60,C1,Aug-2017,4-Methyl-1H-benzotriazole,micropollutant,0.0,0.27976304244883704,,1.8,0.5,0.13988152122441852,,onset_undecidable_no_lod
+R-73-60,73,60,C1,Aug-2017,Aclonifen,micropollutant,0.0,0.18644089440549616,,1.8,0.5,0.09322044720274808,,onset_undecidable_no_lod
+R-73-60,73,60,C2,Nov-2017,Aclonifen,micropollutant,0.0,0.08764,,1.8,0.5,0.04382,,onset_undecidable_no_lod
+R-73-60,73,60,C2,Nov-2017,As,metal,0.0,0.2364628663666666,,1.8,0.5,0.1182314331833333,,onset_undecidable_no_lod
+R-73-60,73,60,C4,May-2018,Cyclopentadecanolide,micropollutant,0.0,3.5498239845500175,,2.3,18.0,63.89683172190031,,onset_undecidable_no_lod
+R-73-60,73,60,C1,Aug-2017,Ethylhexylmethoxycinnamate,micropollutant,0.0,0.23041908838593084,,1.8,0.5,0.11520954419296542,,onset_undecidable_no_lod
+R-73-60,73,60,C4,May-2018,Hexa(methoxymethyl)melamine,micropollutant,0.0,17.88833609729132,,2.3,18.0,321.99004975124376,,onset_undecidable_no_lod
+R-73-60,73,60,C1,Aug-2017,Imazamox,micropollutant,0.0,0.04456795949945922,0.04013470736213615,1.8,0.5,0.02228397974972961,0.07224247325184507,onset_possible
+R-73-60,73,60,C4,May-2018,Metolachlor,micropollutant,0.0,0.029906557802584072,0.02101038555118056,2.3,18.0,0.5383180404465133,0.048323886767715284,onset_confirmed
+R-73-60,73,60,C4,May-2018,Molinate,micropollutant,0.0,10.136037296758438,0.03387847116631922,2.3,18.0,182.4486713416519,0.07792048368253421,onset_confirmed
+R-73-60,73,60,C3,Feb-2018,Myclobutanil,micropollutant,0.0,0.014008295635395228,0.0037826264752148938,2.7,34.0,0.4762820516034378,0.010213091483080214,onset_confirmed
+R-73-60,73,60,C1,Aug-2017,NO3,conventional,0.0,0.701,,1.8,0.5,0.3505,,onset_undecidable_no_lod
+R-73-60,73,60,C2,Nov-2017,Norfloxacin,micropollutant,0.0,1.1015506528540224,,1.8,0.5,0.5507753264270112,,onset_undecidable_no_lod
+R-73-60,73,60,C2,Nov-2017,Ofloxacin,micropollutant,0.0,0.19710163299675934,,1.8,0.5,0.09855081649837967,,onset_undecidable_no_lod
+R-73-60,73,60,C4,May-2018,Oxybenzone,micropollutant,0.0,0.005898459085422723,,2.3,18.0,0.106172263537609,,onset_undecidable_no_lod
+R-73-60,73,60,C1,Aug-2017,PO4,conventional,0.0,0.365,,1.8,0.5,0.1825,,onset_undecidable_no_lod
+R-73-60,73,60,C1,Aug-2017,Prochloraz,micropollutant,0.0,0.05277329095768912,0.03821130585612481,1.8,0.5,0.02638664547884456,0.06878035054102466,onset_possible
+R-73-60,73,60,C4,May-2018,Prochloraz,micropollutant,0.0,0.13936293510595302,0.03821130585612481,2.3,18.0,2.5085328319071545,0.08788600346908707,onset_confirmed
+R-73-60,73,60,C1,Aug-2017,Propiconazole,micropollutant,0.0,0.09908240426131225,0.06798867882490879,1.8,0.5,0.049541202130656124,0.12237962188483582,onset_possible
+R-73-60,73,60,C1,Aug-2017,Terbutryn,micropollutant,0.0,0.005508368985915719,,1.8,0.5,0.0027541844929578597,,onset_undecidable_no_lod

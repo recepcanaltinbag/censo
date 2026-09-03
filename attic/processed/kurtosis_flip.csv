@@ -1,0 +1,80 @@
+analyte,n_obs,n_nondetect,pct_nondetect,K_conc_zero,K_conc_lod,K_load_zero,K_load_lod,class_zero,class_lod,changed
+Acetamiprid,300,181,60.3,69.05145723211186,72.38717618136317,29.961128147180645,21.01694159362553,"biodegradable, specific source","biodegradable, specific source",False
+Acetochlor,300,300,100.0,,1.0,,36.250392431272054,,"biodegradable, dispersed source",False
+Atrazine-desethyl,300,222,74.0,293.88897500615883,294.77699045399083,276.60095992884624,178.99166665482068,"biodegradable, specific source","biodegradable, specific source",False
+Azinphos-methyl,300,300,100.0,,1.0,,36.25039243127214,,"biodegradable, dispersed source",False
+Azoxystrobin,300,286,95.3,297.49935797760435,297.8038277073157,213.00034589199257,30.935119266555905,"biodegradable, specific source","biodegradable, specific source",False
+Boscalid,300,300,100.0,,1.0,,36.250392431272054,,"biodegradable, dispersed source",False
+Buprofezin,300,299,99.7,298.00334448160424,298.0033444815788,281.00354609929593,36.25065088455086,"biodegradable, specific source","biodegradable, specific source",False
+Cadusafos,300,223,74.3,11.56545736487963,19.82105816785426,89.18918970282104,51.587459463934344,"biodegradable, specific source","biodegradable, specific source",False
+Carbendazim,300,101,33.7,12.522614125254705,12.70076004557873,58.893465941412806,58.94719001094034,"biodegradable, specific source","biodegradable, specific source",False
+Carbofuran,300,290,96.7,149.48673932968154,174.72252109464657,208.41219279433707,35.389366399802036,"biodegradable, specific source","biodegradable, specific source",False
+Chloridazon,300,295,98.3,85.07501454116718,95.06911332480729,280.34736704336,34.460652820642395,"biodegradable, specific source","biodegradable, specific source",False
+Chlorsulfuron,300,275,91.7,269.67282454636427,273.5944907812917,144.16062755874037,32.89143555771677,"biodegradable, specific source","biodegradable, specific source",False
+Clofentezine,300,300,100.0,,1.0,,36.2503924312721,,"biodegradable, dispersed source",False
+Clothianidin,300,300,100.0,,1.0,,36.250392431272076,,"biodegradable, dispersed source",False
+Cyprodinil,300,285,95.0,83.37010868531348,131.17776674392803,78.8621475539543,36.2558869209144,"biodegradable, specific source","biodegradable, specific source",False
+Cyromazine,300,300,100.0,,1.0,,36.25039243127212,,"biodegradable, dispersed source",False
+Diazinon,300,300,100.0,,1.0,,36.25039243127203,,"biodegradable, dispersed source",False
+Difenoconazole,300,299,99.7,298.00334448160766,298.00334448161743,281.0035460992935,36.25057107708651,"biodegradable, specific source","biodegradable, specific source",False
+Dimethoate,300,293,97.7,169.59032649188006,179.3988511988843,136.89226553342075,35.69085882626535,"biodegradable, specific source","biodegradable, specific source",False
+Dimethomorph,300,300,100.0,,1.0,,36.25039243127208,,"biodegradable, dispersed source",False
+Epoxiconazole,300,244,81.3,91.62854860717945,116.9320335954952,58.89604686727797,27.82254695627579,"biodegradable, specific source","biodegradable, specific source",False
+Ethofumesate,300,300,100.0,,1.0,,36.25039243127209,,"biodegradable, dispersed source",False
+Ethoprophos,300,299,99.7,298.00334448159975,298.0033444815872,281.0035460992903,36.2546919445834,"biodegradable, specific source","biodegradable, specific source",False
+Fenamiphos,300,299,99.7,298.00334448160027,298.00334448167877,281.00354609928655,36.25057046230374,"biodegradable, specific source","biodegradable, specific source",False
+Fenarimol,300,300,100.0,,1.0,,36.250392431272154,,"biodegradable, dispersed source",False
+Fenpropimorph,300,297,99.0,112.52139970095931,162.95183429069772,131.26011570830602,36.25540041432931,"biodegradable, specific source","biodegradable, specific source",False
+Fenthion,300,300,100.0,,1.0,,36.25039243127203,,"biodegradable, dispersed source",False
+Fluopyram,300,300,100.0,,1.0,,36.2503924312721,,"biodegradable, dispersed source",False
+Fluquinconazole,300,300,100.0,,1.0,,36.25039243127213,,"biodegradable, dispersed source",False
+Flutolanil,300,279,93.0,239.1921709179886,245.73003092547262,77.4870638299109,31.912570907476347,"biodegradable, specific source","biodegradable, specific source",False
+Flutriafol,300,294,98.0,93.69695603151703,137.76233608074077,80.98154771799636,36.26465157928497,"biodegradable, specific source","biodegradable, specific source",False
+Fosthiazate,300,300,100.0,,1.0,,36.250392431272125,,"biodegradable, dispersed source",False
+Hexaconazole,300,295,98.3,59.6570418672642,105.22325124905221,247.55901991395618,35.71723472966705,"biodegradable, specific source","biodegradable, specific source",False
+Hexythiazox,300,299,99.7,298.00334448160476,298.00334448161317,281.0035460992901,36.254785267820246,"biodegradable, specific source","biodegradable, specific source",False
+Imazalil,300,293,97.7,137.24910022099945,143.54985082001892,91.15937208802184,35.27686015161982,"biodegradable, specific source","biodegradable, specific source",False
+Imazamox,300,275,91.7,91.7182927936431,113.55979844553359,143.95972057195854,34.518712721144425,"biodegradable, specific source","biodegradable, specific source",False
+Imidacloprid,300,297,99.0,283.0038502852541,294.76758095234896,277.0180723724263,36.20772291347724,"biodegradable, specific source","biodegradable, specific source",False
+Lenacil,300,297,99.0,194.92671565529307,206.23727994756138,167.72328004852378,36.069402325498494,"biodegradable, specific source","biodegradable, specific source",False
+Linuron,300,300,100.0,,1.0,,36.25039243127206,,"biodegradable, dispersed source",False
+Malathion,300,300,100.0,,1.0,,36.250392431272125,,"biodegradable, dispersed source",False
+Mandipropamid,300,299,99.7,298.0033444816019,298.0033444816025,281.00354609928957,36.25191784244988,"biodegradable, specific source","biodegradable, specific source",False
+Mepiquat chloride,300,141,47.0,4.966959063537873,7.525346520125746,65.81289881830044,57.183189269673726,"biodegradable, dispersed source","biodegradable, dispersed source",False
+Mesotrione,300,296,98.7,124.5853447638557,128.7609604175626,214.3319171337121,34.6573704847215,"biodegradable, specific source","biodegradable, specific source",False
+Metalaxyl,300,293,97.7,63.61593241115209,110.85981460348444,96.85127727622233,36.260322825157004,"biodegradable, specific source","biodegradable, specific source",False
+Methamidophos,300,300,100.0,,1.0,,36.25039243127201,,"biodegradable, dispersed source",False
+Methidathion,300,300,100.0,,1.0,,36.2503924312721,,"biodegradable, dispersed source",False
+Methomyl,300,300,100.0,,1.0,,36.250392431272026,,"biodegradable, dispersed source",False
+Methoxyfenozide,300,300,100.0,,1.0,,36.25039243127203,,"biodegradable, dispersed source",False
+Metolachlor,300,240,80.0,19.710595841673904,35.28605893054342,67.80718172300216,29.08529140895029,"biodegradable, specific source","biodegradable, specific source",False
+Metrafenone,300,300,100.0,,1.0,,36.2503924312721,,"biodegradable, dispersed source",False
+Molinate,300,251,83.7,293.22805229206074,293.27565826595287,84.13348028154952,84.14882608111617,"biodegradable, specific source","biodegradable, specific source",False
+Monocrotophos,300,274,91.3,18.50035173567889,45.965901165785525,32.6511323218055,35.98931552208547,"biodegradable, specific source","biodegradable, specific source",False
+Myclobutanil,300,220,73.3,71.07986148128022,72.44707232390935,100.21256041084219,100.49671557204073,"biodegradable, specific source","biodegradable, specific source",False
+Omethoate,300,257,85.7,67.07733752809031,91.49691357108742,41.93516104507003,35.75846798435856,"biodegradable, specific source","biodegradable, specific source",False
+Oxadiazon,300,277,92.3,73.11758644455026,109.96904908781187,159.42674473794528,34.91833157555268,"biodegradable, specific source","biodegradable, specific source",False
+Oxadixyl,300,299,99.7,298.0033444816004,298.00334448159816,281.00354609929616,35.52677661482464,"biodegradable, specific source","biodegradable, specific source",False
+Penconazole,300,299,99.7,298.00334448160646,298.0033444815947,281.00354609928115,36.252767929373874,"biodegradable, specific source","biodegradable, specific source",False
+Pendimethalin,300,253,84.3,241.40916583428753,245.74544628290894,157.19488459447533,57.06048520157617,"biodegradable, specific source","biodegradable, specific source",False
+Pinoxaden,300,300,100.0,,1.0,,36.250392431272125,,"biodegradable, dispersed source",False
+Pirimicarb,300,267,89.0,45.24080435675412,61.86635444163786,25.06712455105485,35.68832715716964,"biodegradable, specific source","biodegradable, specific source",False
+Prochloraz,300,190,63.3,7.901393490348599,11.333373148556609,54.579665420473304,34.851590537959176,"biodegradable, dispersed source","biodegradable, specific source",True
+Prometryn,300,293,97.7,190.421460604826,205.65588828161498,68.41373350117853,36.195017317420344,"biodegradable, specific source","biodegradable, specific source",False
+Propazine,300,297,99.0,103.5031545720143,118.05062060664334,117.7591546512487,36.25967242238874,"biodegradable, specific source","biodegradable, specific source",False
+Propetamphos,300,296,98.7,93.4126362915521,128.88799229174822,149.3778162588823,36.262630055258825,"biodegradable, specific source","biodegradable, specific source",False
+Propiconazole,300,268,89.3,294.6049794815124,296.751953244002,140.37074998984482,32.578625886267744,"biodegradable, specific source","biodegradable, specific source",False
+Prothioconazole,300,298,99.3,149.6451709448136,185.23932809204493,264.82555355346983,36.25152571535741,"biodegradable, specific source","biodegradable, specific source",False
+Pyraclostrobin,300,294,98.0,133.35327614025005,144.89888637161053,269.480994575709,33.66496530486252,"biodegradable, specific source","biodegradable, specific source",False
+Pyridaben,300,295,98.3,76.31571059876488,117.31558882746441,132.92463324633832,36.25908562959488,"biodegradable, specific source","biodegradable, specific source",False
+Pyrimethanil,300,300,100.0,,1.0,,36.250392431272125,,"biodegradable, dispersed source",False
+Pyriproxyfen,300,262,87.3,233.52471917986358,243.92261508849637,53.32366267580895,27.131000897656158,"biodegradable, specific source","biodegradable, specific source",False
+Quinalphos,300,231,77.0,11.436430331469838,12.676029566232444,34.075858199494824,19.206040587442324,"biodegradable, specific source","biodegradable, specific source",False
+Spiroxamine,300,298,99.3,260.9829999523879,274.84734576969277,250.34720450168086,36.22264190712312,"biodegradable, specific source","biodegradable, specific source",False
+Tebuconazole,300,273,91.0,111.13343546764256,125.81302822070538,48.3765701607355,29.7546634537091,"biodegradable, specific source","biodegradable, specific source",False
+Terbuthylazine,300,292,97.3,132.11395809389336,208.84910535948023,105.94936585004125,36.252969816910436,"biodegradable, specific source","biodegradable, specific source",False
+Thiacloprid,300,293,97.7,69.87307569335805,91.21590146637462,272.2229675340106,36.24316221126213,"biodegradable, specific source","biodegradable, specific source",False
+Thiophanate-methyl,300,285,95.0,87.74180209024577,94.4402515217961,64.7068653883938,53.403216873768706,"biodegradable, specific source","biodegradable, specific source",False
+Tolfenpyrad,300,300,100.0,,1.0,,36.250392431272154,,"biodegradable, dispersed source",False
+Triasulfuron,300,300,100.0,,1.0,,36.25039243127217,,"biodegradable, dispersed source",False
+Trifloxystrobin,300,299,99.7,298.00334448159253,298.0033444816124,281.00354609929013,36.254266364592674,"biodegradable, specific source","biodegradable, specific source",False

@@ -1,0 +1,4 @@
+case,substance,cas,loq_ug_l,threshold_ug_l,value_ug_l,censored,country
+compliant,Anthracene,120-12-7,0.04,0.1,0.04,yes,ES
+cannot_decide,Imidacloprid,138261-41-3,0.01,0.0068,0.01,yes,ES
+quantified_exceedance,Nickel and its compounds,7440-02-0,3,2,5.49083,no,RO

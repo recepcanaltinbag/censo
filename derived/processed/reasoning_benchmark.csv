@@ -1,0 +1,6 @@
+observations,triples_asserted,triples_after_closure,triples_entailed,rl_closure_seconds,shacl_seconds,shacl_conforms
+50,972,2672,1700,3.426,0.758,True
+100,1472,3963,2491,5.769,1.102,True
+200,2474,6556,4082,13.89,2.1,True
+400,4477,11733,7256,39.665,5.872,True
+800,8484,22096,13612,125.686,11.781,True

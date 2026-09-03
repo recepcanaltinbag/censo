@@ -1,0 +1,824 @@
+@prefix censo:   <https://w3id.org/censo/> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann:    <http://purl.org/vocab/vann/> .
+@prefix sosa:    <http://www.w3.org/ns/sosa/> .
+@prefix ssn:     <http://www.w3.org/ns/ssn/> .
+@prefix qudt:    <http://qudt.org/schema/qudt/> .
+@prefix prov:    <http://www.w3.org/ns/prov#> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+
+################################################################################
+#  CENSO — Censored ENvironmental Sensor Observations
+#  v1.0.0 — first public release
+#
+#  A domain-independent extension of SOSA/SSN for observations produced by
+#  analytical methods that have a detection limit.
+#
+#  THE PROBLEM
+#  -----------
+#  sosa:Observation carries sosa:hasSimpleResult, a point value. The standard has
+#  no notion of a detection limit, so it cannot express the most common outcome
+#  in trace-level monitoring:
+#
+#      "the substance was looked for and not found"
+#
+#  which asserts an UPPER BOUND, not a value, and is an OPEN-WORLD statement: the
+#  substance may be present below the limit. Recording it as 0 forces open-world
+#  data into a closed-world model. The information destroyed is the MODALITY, not
+#  the magnitude — a type error, not a rounding convention.
+#
+#  A threshold, correspondingly, is not a number. It is a conditional judgement
+#  with preconditions (matrix, analytical fraction, speciation or bioavailability
+#  basis, required covariates, regulation version). Where the preconditions are
+#  unmet, compliance is undecidable even though both a value and a threshold
+#  exist. Existing models keep the number and discard the preconditions, so they
+#  report compliance for cases in which no assessment is possible.
+#
+#  WHAT THE AXIOMS DO
+#  ------------------
+#  The axioms below are chosen to CATCH ERRORS, not to decorate. Specifically:
+#    * detection statuses are disjoint AND exhaustive, so an observation asserted
+#      both censored and quantified makes the ontology inconsistent;
+#    * the three compliance outcomes are exhaustive, and exclusive PER
+#      OBSERVATION-THRESHOLD PAIR rather than per observation: two verdicts about
+#      the same pair are a contradiction, two verdicts about two jurisdictions'
+#      thresholds are not. The subclasses of the third outcome record WHY it was
+#      reached and are deliberately NOT disjoint from one another, for the same
+#      reason;
+#    * owl:hasKey makes duplicate observations detectable;
+#    * minimum-cardinality restrictions on analyte, unit, procedure and on a
+#      threshold's value, unit and source document state what a usable record
+#      MUST carry. Read them as the specification, not as the enforcement: under
+#      the open world assumption a missing value is unknown, not absent, so a
+#      minimum cardinality ENTAILS the existence of a filler and never rejects
+#      anything. It is censo-shapes.ttl that rejects, because SHACL closes the
+#      world locally, which is precisely why the shapes ship beside the axioms
+#      rather than duplicating them.
+#  The disjointness, exhaustiveness and hasKey axioms above DO reject: each one
+#  fires on a defect that was actually present in the dataset this ontology was
+#  built from, and scripts/test_axioms.py removes the named axiom to show the
+#  case stops failing without it.
+#
+#  WHAT OWL CANNOT DO HERE — stated plainly
+#  ----------------------------------------
+#  1. OWL cannot compare two data property values. "resultLowerBound greater than
+#     thresholdValue" is not expressible. The comparison is therefore performed
+#     by the rule layer, which MATERIALISES censo:exceeds / censo:possiblyExceeds
+#     / censo:belowThreshold. OWL then classifies over those object properties.
+#     We do not claim a DL reasoner computes compliance.
+#  2. Under the open-world assumption, "none of the other three outcomes applies"
+#     cannot be inferred, because an unasserted property is not a false one. This
+#     is the same OWA that makes CENSO right for censoring, and it cuts both
+#     ways: censo:IndeterminateCompliance must be MATERIALISED under a locally
+#     closed world (SHACL, or a rule with negation-as-failure over a completed
+#     assessment), not inferred by subsumption. See censo-shapes.ttl.
+#     The covering axiom below still earns its place: once an outcome is
+#     asserted, it forces exactly one, and any second assertion is a clash.
+#
+#  NUMERIC TYPE
+#  ------------
+#  Concentrations, limits and thresholds are xsd:decimal, not xsd:double.
+#  Regulatory limits are published as exact decimals and compliance turns on
+#  exact comparison; binary floating point introduces representation error into
+#  a legal judgement. Decimal also avoids the lexical-form ambiguity that makes
+#  double literals fragile across RDF toolchains.
+#
+#  APPLICABILITY
+#  -------------
+#  Any measurement process with a detection limit: water and air quality, food
+#  safety residues, clinical assays, soil contaminants, occupational exposure.
+################################################################################
+
+censo: a owl:Ontology ;
+    dcterms:title "CENSO: an ontology for censored environmental observations"@en ;
+    dcterms:description """CENSO extends SOSA/SSN with detection and quantification
+limits, interval-valued results, applicability conditions on regulatory
+thresholds, and a three-valued compliance assessment in which "cannot be
+determined" is an explicit, queryable outcome, subtyped by the reason it cannot. Designed for measurement
+processes in which non-detection is the normal result and must be represented as
+an open-world upper bound rather than as zero."""@en ;
+    dcterms:creator [ a foaf:Person ; foaf:name "Recep Can Altınbağ" ] ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:created "2026-08-03"^^xsd:date ;
+    vann:preferredNamespacePrefix "censo" ;
+    vann:preferredNamespaceUri "https://w3id.org/censo/" ;
+    owl:versionIRI <https://w3id.org/censo/1.0.0> ;
+    owl:versionInfo "1.0.0" ;
+    rdfs:seeAlso <http://www.w3.org/ns/sosa/> ;
+    owl:imports <http://www.w3.org/ns/sosa/> ,
+                <http://www.w3.org/ns/ssn/> ,
+                <http://www.w3.org/ns/prov#> ,
+                <http://www.w3.org/2004/02/skos/core> .
+
+################################################################################
+#  1. Analyte
+################################################################################
+
+censo:Analyte a owl:Class ;
+    rdfs:subClassOf sosa:ObservableProperty ;
+    rdfs:label "Analyte"@en ;
+    rdfs:comment """A substance whose concentration is the observed property.
+
+An Analyte is NOT the substance. It is a sosa:ObservableProperty — the
+concentration OF a substance — while a chemical ontology's class is the
+substance itself, whose instances are molecules. The distinction decides how
+the two are related: ontology/censo-alignment.ttl points each analyte at its
+ChEBI class with rdfs:seeAlso, and reserves owl:sameAs for the relation that IS
+an identity, between two regulation packages' names for one observable
+property. That is what lets a European and a Turkish package resolve to one
+thing, which is the precondition for comparing them.
+
+This comment used to claim the alignment was made with skos:exactMatch. It was
+made with nothing at all: the only occurrence of skos:exactMatch in the whole
+ontology was inside this sentence, and the comparison worked by joining CAS
+strings in Python. The alignment module now exists and the audit checks that
+every substance the dual-regulation analysis treats as co-regulated is
+reconciled by it."""@en .
+
+censo:casNumber a owl:DatatypeProperty ;
+    rdfs:domain censo:Analyte ;
+    rdfs:range xsd:string ;
+    rdfs:label "CAS registry number"@en ;
+    rdfs:comment """Preferred join key across heterogeneous sources; more
+reliable than trade or trivial names.
+
+NOT owl:FunctionalProperty, and the correction is worth recording. It was
+declared functional, and the released EU package violates that on three
+entries, because Annex I names more than one registry number for a single
+regulated substance: diclofenac as the free acid (15307-86-5) and as the sodium
+salt (15307-79-6), and likewise acetamiprid and imidacloprid. A regulatory
+entry is not a single chemical species, and the data were right.
+
+The violation was invisible. A functional datatype property with two distinct
+literals on one subject makes the ontology inconsistent under DL semantics, but
+OWL 2 RL derives owl:sameAs between the literals and stops there, so owlrl
+reports no owl:Nothing and the audit's package-consistency check passed on every
+run. scripts/99_audit.py::check_functional_properties now looks directly."""@en .
+
+################################################################################
+#  2. Analytical method and its limits
+################################################################################
+
+censo:AnalyticalMethod a owl:Class ;
+    rdfs:subClassOf sosa:Procedure ;
+    rdfs:label "Analytical method"@en ;
+    rdfs:comment """A procedure determining the concentration of an analyte,
+characterised by a limit of detection and a limit of quantification. The limits
+belong to the METHOD, not to the substance: the same analyte may be censored at
+one laboratory and quantified at another. Attaching limits to the analyte — the
+common shortcut — makes cross-laboratory comparison unsound."""@en ;
+    skos:definition "A sosa:Procedure with a detection limit."@en .
+
+################################################################################
+#  2a. Where the limit belongs, in three steps
+#
+#  SOSA/SSN was designed for SENSING: a device observes in situ, continuously,
+#  with a fixed measurement range. That is why ssn-system:DetectionLimit is a
+#  ssn-system:SystemProperty -- for a sensor the limit really is a permanent
+#  property of the instrument.
+#
+#  Trace organic monitoring is not sensing. It is sampling: a specimen is taken
+#  at one place and instant, transported, preserved, and analysed later by a
+#  method with its own calibration and its own limits for that analyte and that
+#  matrix. So the limit is a property of the METHOD, not of a device.
+#
+#  That is where CHMO, the OBO Chemical Methods Ontology, puts it, and CHMO is
+#  the closest prior art there is: it declares `limit of detection` and `limit of
+#  quantification` from the IUPAC Gold Book and types them as a `figure of merit`
+#  of an assay. A better place than a sensor -- and still not a place from which
+#  any particular result can be called censored, because nothing in CHMO relates
+#  a limit to a result.
+#
+#  THE THIRD STEP IS THE CONTRIBUTION. The limit has to be CARRIED ONTO THE
+#  RESULT, as censo:resultUpperBound on the observation itself, because
+#  "censored" is a property of a measurement and not of the procedure that
+#  produced it. Two observations from the same method, one below the limit and
+#  one above, differ in exactly this and in nothing else. A limit held on the
+#  method describes what could have been detected; a bound held on the result
+#  says what this measurement established.
+#
+#  So: sensor (SSN-system) -> method (CHMO) -> result (here). The gap table's
+#  `LOD bound to` column is that sequence, and it is the discriminating column.
+#
+#  PER-RUN LIMITS, AND WHY THERE IS NO CLASS FOR THEM
+#  --------------------------------------------------
+#  Limits vary between analytical runs: the same method recalibrated tomorrow
+#  has different ones. Earlier versions of this file declared
+#  censo:AnalyticalRun, censo:producedByRun and censo:runUsedMethod for that,
+#  and they are retired, for two reasons.
+#
+#  First, they were redundant with a vocabulary this file already imports. A run
+#  is a prov:Activity; it prov:used a sample and the observation
+#  prov:wasGeneratedBy it, and the method it executed carries the limits through
+#  sosa:usedProcedure. Declaring censo: terms for that reinvents PROV-O.
+#
+#  Second, and this is the harder reason: no European monitoring release reports
+#  a run identifier, and minting one per aggregated station-year would be
+#  FALSE -- an annual mean spans many runs, so asserting that it was produced by
+#  one is not a simplification but a wrong statement. The shapes in this project
+#  were already corrected once for a constraint that could only be satisfied by
+#  manufacturing its own evidence (a detection limit invented at LOQ/3). A class
+#  instantiated the same way would repeat that mistake, and this vocabulary now
+#  fails its own build on any term that no shipped graph exercises
+#  (scripts/99_audit.py, check_no_dead_terms).
+#
+#  What the vocabulary does instead is honest about the granularity it has: the
+#  limit is asserted on the method and the bound it produces is asserted on the
+#  result. Where a publisher does have run-level provenance, PROV expresses it
+#  with no extension needed, and censo:resultUpperBound is where its consequence
+#  lands either way.
+################################################################################
+
+
+
+
+censo:limitOfDetection a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain censo:AnalyticalMethod ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "limit of detection (LOD)"@en ;
+    rdfs:comment """Lowest concentration reliably distinguishable from a blank.
+Below it, presence can be neither asserted nor denied. Expressed in
+censo:limitUnit."""@en .
+
+censo:limitOfQuantification a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain censo:AnalyticalMethod ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "limit of quantification (LOQ)"@en ;
+    rdfs:comment "Lowest concentration measurable with stated accuracy and precision."@en .
+
+censo:limitUnit a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain censo:AnalyticalMethod ;
+    rdfs:range qudt:Unit ;
+    rdfs:label "limit unit"@en ;
+    rdfs:comment "Unit of LOD and LOQ. Mandatory: a bare limit is not comparable to anything."@en .
+
+censo:determinesAnalyte a owl:ObjectProperty ;
+    rdfs:domain censo:AnalyticalMethod ;
+    rdfs:range censo:Analyte ;
+    rdfs:label "determines analyte"@en ;
+    rdfs:comment "The analyte this method measures. One method may cover many analytes, each with its own limits, so limits are asserted per method-analyte pair."@en .
+
+censo:calibrationR2 a owl:DatatypeProperty ;
+    rdfs:domain censo:AnalyticalMethod ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "calibration coefficient of determination"@en ;
+    rdfs:comment "R² of the calibration curve; a quality indicator for the reported limits."@en .
+
+# A method with no unit cannot support any censoring statement: a bare limit is
+# not comparable to anything, and the unit is the one datum every release does
+# carry. The restriction is stated here.
+#
+# WHICH LIMIT IS REQUIRED, AND WHY IT IS NOT STATED HERE.
+# This block used to require exactly one censo:limitOfDetection as well. No
+# European monitoring release reports one -- WISE-6 has a field for the
+# quantification limit and none for the detection limit -- and the legal tests
+# the vocabulary is built to express are written about the QUANTIFICATION limit
+# (Art. 3(3b) of 2008/105/EC, Art. 4(1) of 2009/90/EC). So the axiom demanded a
+# datum that does not exist, and the only graph that ever satisfied it did so by
+# manufacturing it at LOD = LOQ/3. censo-shapes.ttl was relaxed to require *a*
+# limit and this was not, which left the shipped ABox contradicting its own TBox
+# in 1,159 methods while both validators looked straight past it: OWL 2 RL
+# ignores a minimum cardinality in superclass position, and the relaxed shape
+# accepts the LOQ alone.
+#
+# The requirement that survives is a DISJUNCTION -- at least one of LOD, LOQ --
+# and owl:unionOf in superclass position is outside OWL 2 RL, the profile this
+# ontology commits to. It therefore lives where it can actually be enforced, as
+# censo:AnalyticalMethodLimitShape in censo-shapes.ttl. This is the same division of
+# labour the header states for censo:IndeterminateCompliance: what OWL cannot
+# decide is not asserted in OWL and pretended to hold.
+censo:AnalyticalMethod rdfs:subClassOf
+    [ a owl:Restriction ; owl:onProperty censo:limitUnit ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ] .
+
+################################################################################
+#  3. Detection status — the epistemic core
+#
+#  Disjoint AND exhaustive over observations that were actually made.
+#
+#  The absence of an observation individual is a FIFTH, distinct situation
+#  ("never measured") and is deliberately NOT modelled as a class: under the open
+#  world assumption, not asserting an observation is exactly the right way to say
+#  it was not made. This is the distinction a `WHERE concentration = 0` query in
+#  a closed-world store cannot make, and conflating it with non-detection
+#  manufactures spurious findings.
+################################################################################
+
+censo:CensoredObservation a owl:Class ;
+    rdfs:subClassOf sosa:Observation ;
+    rdfs:label "Censored observation"@en ;
+    rdfs:comment """The analyte was sought and not detected. Asserts only that the
+true concentration lies in [0, LOD]. It does NOT assert absence. Storing such an
+observation as 0 destroys the distinction and biases every derived aggregate
+downwards."""@en ;
+    skos:definition "Observation whose result is below the method's limit of detection."@en ;
+    skos:example "Atrazine sought and not detected by a method whose limit of detection is 0.02 µg/L: the concentration lies in [0, 0.02], which is not the same claim as zero."@en .
+
+censo:EstimatedObservation a owl:Class ;
+    rdfs:subClassOf sosa:Observation ;
+    rdfs:label "Estimated observation"@en ;
+    rdfs:comment """Detected, but between LOD and LOQ, so the reported magnitude
+is indicative only. Reporting it as a point estimate overstates what the method
+supports. Datasets frequently contain such values presented as if quantified."""@en .
+
+censo:QuantifiedObservation a owl:Class ;
+    rdfs:subClassOf sosa:Observation ;
+    rdfs:label "Quantified observation"@en ;
+    rdfs:comment "Detected at or above the limit of quantification; the magnitude is usable."@en .
+
+censo:UnresolvedObservation a owl:Class ;
+    rdfs:subClassOf sosa:Observation ;
+    rdfs:label "Unresolved observation"@en ;
+    rdfs:comment """Made, but its detection status cannot be established, typically
+because the applicable LOD/LOQ for the analyte-method pair is unknown. Such
+observations are structurally undecidable and must be excluded from inference
+rather than silently treated as quantified."""@en .
+
+censo:AssessedObservation a owl:Class ;
+    rdfs:subClassOf sosa:Observation ;
+    rdfs:label "Assessed observation"@en ;
+    rdfs:comment "An observation whose detection status has been determined; the union of the four statuses."@en ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:unionOf ( censo:CensoredObservation censo:EstimatedObservation
+                      censo:QuantifiedObservation censo:UnresolvedObservation ) ] .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( censo:CensoredObservation censo:EstimatedObservation
+                  censo:QuantifiedObservation censo:UnresolvedObservation ) .
+
+# Detected = estimated or quantified: the analyte was found, whether or not a
+# number could be attached to it. The union is worth naming because presence is
+# far more robust than magnitude near the limit -- an estimated result carries a
+# concentration nobody should compare against a standard, and yet it settles the
+# question of whether the substance was there. Reasoning that turns on presence
+# rather than on magnitude therefore operates on this class. (The spatial
+# detection-onset analysis this comment used to cite is not part of the work
+# reported alongside this vocabulary; the class stands on its own.)
+censo:DetectedObservation a owl:Class ;
+    rdfs:label "Detected observation"@en ;
+    rdfs:comment "The analyte was found, whether or not it could be quantified."@en ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:unionOf ( censo:EstimatedObservation censo:QuantifiedObservation ) ] .
+
+censo:DetectedObservation owl:disjointWith censo:CensoredObservation .
+
+################################################################################
+#  4. Interval-valued results
+#
+#  Censoring makes a result an interval. The bounds are MATERIALISED by the rule
+#  layer from the reported value and the method limits; OWL classifies over them.
+################################################################################
+
+censo:resultLowerBound a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain sosa:Observation ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "result lower bound"@en ;
+    rdfs:seeAlso <https://www.w3.org/TR/xmlschema11-2/#decimal> ;
+    rdfs:comment "Smallest concentration consistent with the observation; 0 when censored."@en .
+
+censo:resultUpperBound a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain sosa:Observation ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "result upper bound"@en ;
+    rdfs:comment "Largest concentration consistent with the observation; the LOD when censored."@en .
+
+censo:reportedValue a owl:DatatypeProperty ;
+    rdfs:domain sosa:Observation ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "reported value"@en ;
+    rdfs:comment """The number as it appears in the source record, kept verbatim for
+provenance. Never use it directly in inference: in many datasets a reported 0 is
+a non-detection, not a measured zero."""@en .
+
+censo:hasAnalyte a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain sosa:Observation ;
+    rdfs:range censo:Analyte ;
+    rdfs:label "has analyte"@en ;
+    rdfs:comment "The substance this observation is about; exactly one."@en .
+
+censo:atStation a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain sosa:Observation ;
+    rdfs:range sosa:FeatureOfInterest ;
+    rdfs:label "at station"@en ;
+    rdfs:comment "Where the sample was taken."@en .
+
+censo:duringCampaign a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain sosa:Observation ;
+    rdfs:range censo:Campaign ;
+    rdfs:label "during campaign"@en ;
+    rdfs:comment "The sampling campaign the observation belongs to; part of the observation's identity key."@en .
+
+censo:Campaign a owl:Class ;
+    rdfs:subClassOf prov:Activity ;
+    rdfs:label "Sampling campaign"@en ;
+    rdfs:comment "A bounded sampling exercise. Making it explicit lets the same station be compared across time and prevents campaigns being conflated."@en .
+
+# IDENTITY. An observation is uniquely determined by analyte, station and
+# campaign. Two individuals agreeing on all three are the same observation, so
+# duplicated rows in a source spreadsheet become detectable rather than
+# double-counted.
+sosa:Observation owl:hasKey ( censo:hasAnalyte censo:atStation censo:duringCampaign ) .
+
+# An observation with no analyte, no station or no procedure is not
+# interpretable; these restrictions reject it instead of carrying it forward.
+censo:AssessedObservation rdfs:subClassOf
+    [ a owl:Restriction ; owl:onProperty censo:hasAnalyte ;
+      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onClass censo:Analyte ] ,
+    [ a owl:Restriction ; owl:onProperty censo:atStation ;
+      owl:minCardinality "1"^^xsd:nonNegativeInteger ] ,
+    [ a owl:Restriction ; owl:onProperty sosa:usedProcedure ;
+      owl:minCardinality "1"^^xsd:nonNegativeInteger ] .
+
+# A censored observation asserts an upper bound and nothing more; its lower
+# bound is necessarily zero.
+censo:CensoredObservation rdfs:subClassOf
+    [ a owl:Restriction ; owl:onProperty censo:resultLowerBound ;
+      owl:hasValue "0.0"^^xsd:decimal ] .
+
+################################################################################
+#  5. Thresholds as conditional judgements
+################################################################################
+
+censo:Threshold a owl:Class ;
+    rdfs:label "Threshold"@en ;
+    rdfs:comment "A concentration limit set by a regulation, together with the conditions under which it may lawfully be applied."@en .
+
+censo:AnnualAverageThreshold a owl:Class ;
+    rdfs:subClassOf censo:Threshold ;
+    rdfs:label "Annual average threshold"@en ;
+    rdfs:comment """Long-term limit (e.g. AA-EQS). Applies to a temporal mean, not
+to a single sample; comparing one grab sample against it is a category error that
+this class exists to make visible."""@en .
+
+censo:MaximumAllowableThreshold a owl:Class ;
+    rdfs:subClassOf censo:Threshold ;
+    rdfs:label "Maximum allowable threshold"@en ;
+    rdfs:comment "Short-term limit (e.g. MAC-EQS); may be compared against a single observation."@en .
+
+# Two members, not three. censo:ClassBoundaryThreshold was retired: it named a
+# real distinction -- conventional determinands are assessed against quality
+# class boundaries, not against an EQS -- but no regulation package this work
+# ships declares one, so the class was a promise rather than a term. The axiom
+# that matters is unchanged: an annual mean and a maximum allowable limit are
+# different kinds of judgement, and scripts/test_axioms.py T8 fires on a graph
+# that conflates them.
+[] a owl:AllDisjointClasses ;
+    owl:members ( censo:AnnualAverageThreshold
+                  censo:MaximumAllowableThreshold ) .
+
+censo:thresholdValue a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain censo:Threshold ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "threshold value"@en ;
+    rdfs:comment "The numeric limit, meaningful only with its unit and applicability conditions."@en .
+
+censo:thresholdUnit a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain censo:Threshold ;
+    rdfs:range qudt:Unit ;
+    rdfs:label "threshold unit"@en ;
+    rdfs:comment "Unit of the threshold; must be commensurable with the observation unit before comparison."@en .
+
+censo:appliesToAnalyte a owl:ObjectProperty ;
+    rdfs:domain censo:Threshold ;
+    rdfs:range censo:Analyte ;
+    rdfs:label "applies to analyte"@en ;
+    rdfs:comment "The substance constrained. Group thresholds use cereg:appliesToGroup instead."@en .
+
+censo:definedBy a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain censo:Threshold ;
+    rdfs:range censo:Regulation ;
+    rdfs:label "defined by"@en ;
+    rdfs:comment "The legal instrument establishing the threshold. Mandatory: an uncited threshold cannot be defended."@en .
+
+censo:Regulation a owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:label "Regulation"@en ;
+    rdfs:comment "A dated, versioned legal instrument. Thresholds must cite one, because they change."@en .
+
+# A threshold without a value, a unit or a citation is not usable.
+censo:Threshold rdfs:subClassOf
+    [ a owl:Restriction ; owl:onProperty censo:thresholdValue ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ] ,
+    [ a owl:Restriction ; owl:onProperty censo:thresholdUnit ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ] ,
+    [ a owl:Restriction ; owl:onProperty censo:definedBy ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ] .
+
+# ---- preconditions -----------------------------------------------------------
+
+censo:ApplicabilityCondition a owl:Class ;
+    rdfs:label "Applicability condition"@en ;
+    rdfs:comment "A condition that must hold before a threshold may be applied to an observation."@en .
+
+censo:requiresCondition a owl:ObjectProperty ;
+    rdfs:domain censo:Threshold ;
+    rdfs:range censo:ApplicabilityCondition ;
+    rdfs:label "requires condition"@en ;
+    rdfs:comment "A precondition of the threshold. Unmet preconditions yield no verdict, not a default pass."@en .
+
+censo:MatrixCondition a owl:Class ;
+    rdfs:subClassOf censo:ApplicabilityCondition ;
+    rdfs:label "Matrix condition"@en ;
+    rdfs:comment "Restricts the threshold to a matrix: inland surface water, coastal water, biota, sediment."@en .
+
+censo:BioavailabilityCondition a owl:Class ;
+    rdfs:subClassOf censo:ApplicabilityCondition ;
+    rdfs:label "Bioavailability condition"@en ;
+    rdfs:comment """The threshold is a bioavailable concentration (as for nickel,
+lead, copper and zinc under EU EQS) and requires hardness, dissolved organic
+carbon and pH for normalisation. Absent those covariates, no compliance
+statement is possible."""@en .
+
+censo:HardnessClassCondition a owl:Class ;
+    rdfs:subClassOf censo:ApplicabilityCondition ;
+    rdfs:label "Hardness class condition"@en ;
+    rdfs:comment """The threshold varies by water hardness class, as for cadmium.
+Without a hardness measurement the applicable class — and therefore the
+applicable threshold — is unknown."""@en .
+
+censo:requiresCovariate a owl:ObjectProperty ;
+    rdfs:domain censo:ApplicabilityCondition ;
+    rdfs:range sosa:ObservableProperty ;
+    rdfs:label "requires covariate"@en ;
+    rdfs:comment "An observable property that must be co-measured for the condition to be evaluable."@en .
+
+censo:conditionSatisfied a owl:ObjectProperty ;
+    rdfs:domain sosa:Observation ;
+    rdfs:range censo:ApplicabilityCondition ;
+    rdfs:label "condition satisfied"@en ;
+    rdfs:comment "Materialised by the rule layer when the observation demonstrably meets the condition."@en .
+
+censo:assessableAgainst a owl:ObjectProperty ;
+    rdfs:domain sosa:Observation ;
+    rdfs:range censo:Threshold ;
+    rdfs:label "assessable against"@en ;
+    rdfs:comment """Materialised when EVERY condition the threshold requires is
+satisfied for this observation. Only then may a verdict be drawn. Universal
+quantification over a materialised set is a closed-world check, so it lives in
+SHACL, not in OWL."""@en .
+
+################################################################################
+#  6. Three-valued compliance, subtyped by the reason
+#
+#  Exhaustive. Materialisation of the three comparison properties is
+#  done by the rule layer (OWL cannot compare two data values); OWL then forces
+#  exactly one outcome and reports a clash if a pipeline ever asserts two.
+################################################################################
+
+censo:exceeds a owl:ObjectProperty ;
+    rdfs:domain sosa:Observation ;
+    rdfs:range censo:Threshold ;
+    rdfs:subPropertyOf censo:assessableAgainst ;
+    rdfs:label "exceeds"@en ;
+    rdfs:comment "Materialised when resultLowerBound > thresholdValue: exceedance holds for every value consistent with the observation."@en .
+
+censo:possiblyExceeds a owl:ObjectProperty ;
+    rdfs:domain sosa:Observation ;
+    rdfs:range censo:Threshold ;
+    rdfs:subPropertyOf censo:assessableAgainst ;
+    rdfs:label "possibly exceeds"@en ;
+    rdfs:comment "Materialised when resultLowerBound <= thresholdValue < resultUpperBound: the interval straddles the limit."@en .
+
+censo:belowThreshold a owl:ObjectProperty ;
+    rdfs:domain sosa:Observation ;
+    rdfs:range censo:Threshold ;
+    rdfs:subPropertyOf censo:assessableAgainst ;
+    rdfs:label "below threshold"@en ;
+    rdfs:comment "Materialised when resultUpperBound <= thresholdValue."@en .
+
+# The three comparisons are mutually exclusive by construction; asserting two of
+# them for the same observation-threshold pair is a pipeline bug, and this makes
+# it an inconsistency instead of a silent contradiction.
+#
+# THIS is where the outcome logic is exclusive. Not at the class level: a
+# compliance outcome belongs to an observation-threshold PAIR, and the same
+# measurement may be compliant against one jurisdiction's standard and
+# indeterminate against another's. Disjointness here forbids two verdicts about
+# one pair and permits different verdicts about different thresholds, which is
+# exactly the distinction the multi-regulation assessment needs.
+[] a owl:AllDisjointProperties ;
+    owl:members ( censo:exceeds censo:possiblyExceeds censo:belowThreshold ) .
+
+# The same statement, pairwise. owl:AllDisjointProperties(p q r) and the three
+# owl:propertyDisjointWith axioms are equivalent in OWL 2, so this adds no
+# semantics -- but OWL 2 RL rule prp-adp is not implemented by owlrl, the pure
+# Python engine this pipeline uses, while prp-pdw is. Without these three
+# triples the axiom is asserted and never checked: scripts/test_axioms.py T4
+# passed only because a class-level disjointness axiom happened to catch the
+# same case, and when that axiom was removed the test went green-to-red and
+# showed that per-pair exclusivity had never been enforced here at all. An
+# axiom no reasoner in the pipeline evaluates is documentation, not a
+# constraint.
+censo:exceeds          owl:propertyDisjointWith censo:possiblyExceeds ,
+                                                censo:belowThreshold .
+censo:possiblyExceeds  owl:propertyDisjointWith censo:belowThreshold .
+
+censo:ComplianceOutcome a owl:Class ;
+    rdfs:label "Compliance outcome"@en ;
+    rdfs:comment """The verdict of comparing an observation against a threshold.
+THREE-valued: the standard is met, it is not met, or compliance cannot be
+determined. The three are what the Directive itself admits, and the third is
+what closed-world models cannot express. The reason a verdict cannot be
+determined is carried by the subclasses of IndeterminateCompliance rather than
+by a fourth top value, which would assert a distinction the Directive does not
+make."""@en .
+
+censo:Exceedance a owl:Class ;
+    rdfs:subClassOf censo:ComplianceOutcome ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:intersectionOf ( sosa:Observation
+                             [ a owl:Restriction ; owl:onProperty censo:exceeds ;
+                               owl:someValuesFrom censo:Threshold ] ) ] ;
+    rdfs:label "Exceedance"@en ;
+    rdfs:comment "Exceedance is established: it holds for every value consistent with the observation."@en .
+
+# MOVED UNDER IndeterminateCompliance, from a fourth top-level value beside
+# Exceedance and Compliant.
+#
+# The arithmetic never agreed with the taxonomy. The headline share of
+# assessments this record cannot decide has always been computed as the sum of
+# PossibleExceedance, MethodInsufficient, PreconditionUnmet and the rows with no
+# bound at all -- 43.8 % of every station-year a European standard reaches. The
+# vocabulary said the outcome space was four-valued while the paper's own
+# central number counted it as three. One of the two was wrong, and it was the
+# vocabulary: "the interval straddles the limit, so the measurement cannot
+# decide" IS a compliance that cannot be determined. What distinguishes it from
+# the others is the REASON, and a reason is what a subclass carries.
+#
+# Three top values are then exactly what the Directive asks for -- the standard
+# is met, it is not met, or it cannot be determined -- and the subclasses say
+# why. A fourth top value would be the vocabulary asserting a distinction the
+# Directive does not make.
+censo:PossibleExceedance a owl:Class ;
+    rdfs:subClassOf censo:IndeterminateCompliance ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:intersectionOf ( sosa:Observation
+                             [ a owl:Restriction ; owl:onProperty censo:possiblyExceeds ;
+                               owl:someValuesFrom censo:Threshold ] ) ] ;
+    rdfs:label "Possible exceedance"@en ;
+    rdfs:comment """The interval straddles the threshold; the measurement
+cannot decide. A subclass of IndeterminateCompliance recording that the reason
+is the width of the interval, not a defect of the record: unlike the other
+three, this observation was measured, reported and assessable, and the method
+still could not answer the question."""@en .
+
+censo:Compliant a owl:Class ;
+    rdfs:subClassOf censo:ComplianceOutcome ;
+    owl:equivalentClass [ a owl:Class ;
+        owl:intersectionOf ( sosa:Observation
+                             [ a owl:Restriction ; owl:onProperty censo:belowThreshold ;
+                               owl:someValuesFrom censo:Threshold ] ) ] ;
+    rdfs:label "Compliant"@en ;
+    rdfs:comment "Compliance is established: it holds for every value consistent with the observation."@en .
+
+censo:IndeterminateCompliance a owl:Class ;
+    rdfs:subClassOf censo:ComplianceOutcome ;
+    rdfs:label "Indeterminate compliance"@en ;
+    rdfs:comment """No compliance statement is supportable. The third of the
+three outcomes the Directive admits, and the only one a two-valued schema has
+nowhere to put. It is ABSTRACT in practice: every instance carries one of the
+subclasses below, which record WHY no statement is supportable —
+
+(a) NoThresholdDefined  — the regulation sets no limit for this analyte here;
+(b) MethodInsufficient  — the observation is censored and the method's LOQ
+    exceeds the threshold, so compliance cannot be demonstrated even in
+    principle;
+(c) PreconditionUnmet   — a precondition is unmet: unknown fraction, missing
+    bioavailability covariates, unknown hardness class;
+(d) PossibleExceedance  — the result was measured and assessable, and its
+    interval straddles the limit, so the method cannot decide either way;
+(e) BoundNotEstablished — the record states no bound to compare at all;
+(f) CensoredAmbiguous   — censored with the threshold inside [0, LOD], the
+    narrower case at the DETECTION limit, which no monitoring release states.
+
+Case (b) is the sharpest: a laboratory can report "not detected" for a substance
+whose LOQ is a hundredfold above the legal limit, and a closed-world system
+records that as compliance.
+
+PRECEDENCE. A censored result whose LOQ exceeds the threshold has an interval
+that straddles it too, so (b) and (d) both describe it. Article 3(3b) is
+decisive — the result "shall not be considered" — and such an observation is
+recorded under MethodInsufficient. This is a rule-layer priority and NOT an
+owl:disjointWith axiom between the two: the same observation may legitimately be
+MethodInsufficient against one jurisdiction's standard and PossibleExceedance
+against another's, and class-level disjointness would forbid the two-regulation
+assessment this vocabulary exists to support. Exclusivity lives where it always
+has, on the comparison properties, per observation-threshold pair.
+
+NOTE ON INFERENCE. This class cannot be defined as "neither of the other two",
+because under the open-world assumption an unasserted property is not a false
+one. It is materialised under a locally closed world; see censo-shapes.ttl."""@en ;
+    skos:example "Imidacloprid measured by a method quantifying at 2.065 µg/L against an EU annual-average standard of 0.0068 µg/L: no result the method could return would decide compliance."@en .
+
+censo:MethodInsufficient a owl:Class ;
+    rdfs:subClassOf censo:IndeterminateCompliance ;
+    rdfs:label "Method insufficient"@en ;
+    rdfs:comment """Case (b): the observation is CENSORED and its
+limitOfQuantification exceeds the thresholdValue, so Article 3(3b) of Directive
+2008/105/EC provides that the result "shall not be considered" for status
+assessment. The censoring condition is part of the case: a quantified result
+above the standard is evidence of exceedance whatever the method's limit was, and
+is not set aside by this provision."""@en ;
+    skos:scopeNote """Article 3(3b) is written about the limit of
+QUANTIFICATION, and this class is scoped to it.
+
+A narrower case exists in principle: a threshold falling below the limit of
+DETECTION, where the measurement cannot even establish presence. An earlier
+version declared censo:CensoredAmbiguous for it. No European monitoring release
+states a detection limit -- WISE-6 carries procedureLOQValue and nothing else --
+so no row can be shown to be in that case, and a class no data can reach is a
+promise rather than a term. It is retired, on the same rule that retired
+censo:ClassBoundaryThreshold and censo:FractionCondition, and the distinction is
+recorded here instead: where a release does report a detection limit, the
+narrower case is the one where the threshold falls below it, and it is strictly
+inside this class."""@en .
+
+censo:PreconditionUnmet a owl:Class ;
+    rdfs:subClassOf censo:IndeterminateCompliance ;
+    rdfs:label "Precondition unmet"@en ;
+    rdfs:comment "Case (c): a required applicability condition is not satisfied."@en .
+
+censo:NoThresholdDefined a owl:Class ;
+    rdfs:subClassOf censo:IndeterminateCompliance ;
+    rdfs:label "No threshold defined"@en ;
+    rdfs:comment "Case (a): the regulation sets no limit for this analyte in this matrix."@en .
+
+
+# ADDED with the move of PossibleExceedance under this parent. Making the parent
+# abstract left one real population with nowhere to go: the 45,467 station-years
+# that carry neither a censoring flag nor a limit, 6.5 % of every assessment a
+# European standard reaches, which the pipeline had been assigning to the bare
+# parent. A class hierarchy whose parent is instantiated directly is a hierarchy
+# with a hole in it, and the hole was the largest single reason in the record
+# after the two named provisions.
+#
+# It covers the second, much smaller population for the same reason: a row whose
+# value falls below the limit it was measured with contradicts itself, so no
+# interval it implies can be trusted either. In both cases what is missing is
+# not the verdict but the BOUND the verdict would compare, which is what the
+# name says.
+censo:BoundNotEstablished a owl:Class ;
+    rdfs:subClassOf censo:IndeterminateCompliance ;
+    rdfs:label "Bound not established"@en ;
+    rdfs:comment """Case (e): the record establishes no bound to compare against
+the threshold. Either nothing says whether the number is a measurement — neither
+a censoring flag nor a limit is reported, so no interval can be built — or the
+number contradicts the limit reported beside it. The distinction from
+MethodInsufficient matters: there the bound is known and known to be too wide,
+here there is no bound at all, and the two call for different repairs."""@en .
+
+# EXHAUSTIVE: the three outcomes cover ComplianceOutcome, so a verdict is always
+# one of them and "nothing recorded" is not a quiet fourth option. Three, not
+# four: PossibleExceedance moved under IndeterminateCompliance, where the
+# paper's own arithmetic had been counting it all along.
+#
+# DELIBERATELY NOT DISJOINT AT THE CLASS LEVEL. An earlier version asserted
+# owl:AllDisjointClasses over these, which made it an inconsistency for a
+# single observation to carry two outcomes. That was wrong, and wrong in a way
+# that contradicted the vocabulary's own purpose: a compliance outcome is not a
+# property of an observation, it is a property of an OBSERVATION-THRESHOLD
+# PAIR. One measurement may be compliant against one jurisdiction's standard
+# and indeterminate against another's -- the ordinary situation in a graph
+# holding two regulation packages, and the thing pluggable regulations exist to
+# make expressible. A class-level disjointness axiom forbade it.
+#
+# Exclusivity is kept where it belongs: the owl:AllDisjointProperties axiom
+# over exceeds / possiblyExceeds / belowThreshold, above, makes two verdicts
+# about THE SAME pair a contradiction, while leaving different verdicts about
+# different thresholds consistent. The outcome logic is therefore still a
+# partition -- per observation and threshold, which is the level at which the
+# regulation itself is written.
+censo:ComplianceOutcome owl:equivalentClass [ a owl:Class ;
+    owl:unionOf ( censo:Exceedance censo:Compliant
+                  censo:IndeterminateCompliance ) ] .
+
+# A censored observation cannot establish exceedance: its lower bound is zero,
+# so no threshold above zero can be exceeded with certainty. Asserting otherwise
+# is a modelling error and this makes it an inconsistency.
+censo:CensoredObservation rdfs:subClassOf
+    [ a owl:Class ; owl:complementOf
+      [ a owl:Restriction ; owl:onProperty censo:exceeds ;
+        owl:someValuesFrom censo:Threshold ] ] .
+
+# An unresolved observation has no detection status, so no verdict may be drawn
+# from it at all.
+censo:UnresolvedObservation rdfs:subClassOf
+    [ a owl:Class ; owl:complementOf
+      [ a owl:Restriction ; owl:onProperty censo:assessableAgainst ;
+        owl:someValuesFrom censo:Threshold ] ] .
+
+censo:censoringRecovered a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain sosa:Observation ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "censoring recovered"@en ;
+    rdfs:comment """True when the detection status was RECONSTRUCTED after the
+fact, typically because the source recorded a non-detection as 0 and the status
+was recovered by joining the analyte's LOD. Such observations carry an extra
+assumption and must remain distinguishable from those whose censoring was
+recorded at source."""@en .

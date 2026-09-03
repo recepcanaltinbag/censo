@@ -1,0 +1,29 @@
+# Where do the two jurisdictions set different limits for the same substance?
+# Exercises: censo:definedBy -- a threshold is an individual with its own IRI
+# and its own issuing regulation, so two instruments coexist in one graph
+# instead of one overwriting the other.
+#
+# This is the query a threshold COLUMN cannot express. A column holds one
+# number per substance. Here each standard is an object, joined to the other
+# jurisdiction on the registry number rather than on the name.
+
+PREFIX censo: <https://w3id.org/censo/>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?substance ?cas ?eu_limit ?tr_limit
+       (ROUND(100 * ?tr_limit / ?eu_limit) / 100 AS ?tr_over_eu)
+WHERE {
+  ?eu_thr a censo:AnnualAverageThreshold ;
+          censo:appliesToAnalyte ?eu_a ;
+          censo:thresholdValue ?eu_limit ;
+          censo:definedBy <https://w3id.org/censo/reg/eu-2008-105-2026> .
+  ?eu_a rdfs:label ?substance ; censo:casNumber ?cas .
+
+  ?tr_a censo:casNumber ?cas .
+  ?tr_thr a censo:AnnualAverageThreshold ;
+          censo:appliesToAnalyte ?tr_a ;
+          censo:thresholdValue ?tr_limit ;
+          censo:definedBy <https://w3id.org/censo/reg/tr-ysky-2016> .
+  FILTER(?eu_limit != ?tr_limit)
+}
+ORDER BY DESC(?tr_over_eu)

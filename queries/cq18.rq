@@ -1,0 +1,34 @@
+# For which substances would a method adequate under one instrument be
+# inadequate under the other?
+# Exercises: adequacy is a RELATION between the quantification limit and the
+# standard, not a property of the method -- so it moves when the standard does.
+#
+# The clearest thing a threshold column cannot hold: "is this method good
+# enough?" has no answer until a standard is named, and a different answer when
+# a different standard is named.
+
+PREFIX censo: <https://w3id.org/censo/>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?substance ?loq ?eu_limit ?tr_limit
+       (IF(?loq > ?eu_limit, "inadequate", "adequate") AS ?under_eu)
+       (IF(?loq > ?tr_limit, "inadequate", "adequate") AS ?under_tr)
+WHERE {
+  ?eu_thr a censo:AnnualAverageThreshold ;
+          censo:appliesToAnalyte ?a ;
+          censo:thresholdValue ?eu_limit ;
+          censo:definedBy <https://w3id.org/censo/reg/eu-2008-105-2026> .
+  ?a rdfs:label ?substance ; censo:casNumber ?cas .
+  ?tr_a censo:casNumber ?cas .
+  ?tr_thr a censo:AnnualAverageThreshold ;
+          censo:appliesToAnalyte ?tr_a ;
+          censo:thresholdValue ?tr_limit ;
+          censo:definedBy <https://w3id.org/censo/reg/tr-ysky-2016> .
+  ?m a censo:AnalyticalMethod ;
+     censo:determinesAnalyte ?a ;
+     censo:limitOfQuantification ?loq .
+  # the rows that make the point: adequacy differs between the instruments
+  FILTER((?loq > ?eu_limit) != (?loq > ?tr_limit))
+}
+ORDER BY ?substance
+LIMIT 30

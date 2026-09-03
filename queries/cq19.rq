@@ -1,0 +1,22 @@
+# Substances for which NO method in the record can decide the standard.
+# Exercises: censo:MethodInsufficient aggregated per analyte -- a property of
+# the monitoring programme, derived rather than recorded.
+#
+# The finding this returns is in no column of the source data. It follows from
+# comparing each method's quantification limit against the standard for the
+# substance it determines, which is a join the ontology makes by construction.
+
+PREFIX censo: <https://w3id.org/censo/>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?substance (COUNT(?obs) AS ?assessments)
+                  (SUM(?flag) AS ?insufficient)
+WHERE {
+  ?obs censo:hasAnalyte ?a ; censo:assessableAgainst ?thr .
+  ?a rdfs:label ?substance .
+  OPTIONAL { ?obs a censo:MethodInsufficient . BIND(1 AS ?mi) }
+  BIND(COALESCE(?mi, 0) AS ?flag)
+}
+GROUP BY ?substance
+HAVING (COUNT(?obs) >= 20 && SUM(?flag) = COUNT(?obs))
+ORDER BY DESC(?assessments)

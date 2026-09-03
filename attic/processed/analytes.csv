@@ -1,0 +1,259 @@
+parameter,group,unit,n,n_zero,n_pos,n_neg,pct_zero,min_positive,lod,loq,r2,eqs_aa,eqs_max,has_lodloq,has_eqs,loq_gt_eqs_aa,loq_gt_eqs_max
+"1,2,3-Benzotriazole",micropollutant,ug/L,300,81,219,0,27.0,0.22617983904599617,,,,,,False,False,False,False
+"1,2,5,6,9,10-Hexabromocyclododecane",micropollutant,ug/L,300,299,1,0,99.67,0.15529193282423193,,,,0.0016,0.5,False,True,False,False
+"1,3-Dinitropyrene",micropollutant,ug/L,300,283,17,0,94.33,0.2781475075039936,,,,,,False,False,False,False
+"1,6-Dinitropyrene",micropollutant,ug/L,300,272,28,0,90.67,0.11129751921367968,,,,,,False,False,False,False
+"1,8-Dinitropyrene",micropollutant,ug/L,300,278,22,0,92.67,0.09375309164776512,,,,,,False,False,False,False
+1-Hydroxyibuprofen,micropollutant,ug/L,300,285,15,0,95.0,7.505959850709293,,,,,,False,False,False,False
+17-alpha-Estradiol,micropollutant,ug/L,300,300,0,0,100.0,,,,,,,False,False,False,False
+17-alpha-Ethinylestradiol,micropollutant,ug/L,300,300,0,0,100.0,,,,,0.5,0.9,False,True,False,False
+17-beta-Estradiol,micropollutant,ug/L,300,300,0,0,100.0,,,,,0.5,0.5,False,True,False,False
+"2,2',3,3',4,4',5,5',6,6'-Decabromodiphenyl ether",micropollutant,ug/L,300,300,0,0,100.0,,,,,,0.14,False,True,False,False
+"2,2',3,3',4,4',5,5',6-Nonabromodiphenyl ether",micropollutant,ug/L,300,300,0,0,100.0,,,,,,0.14,False,True,False,False
+"2,2',3,4,4',5',6-Heptabromodiphenyl ether",micropollutant,ug/L,300,300,0,0,100.0,,,,,,0.14,False,True,False,False
+"2,2',3,4,4',5,5',6-Octabromodiphenyl ether",micropollutant,ug/L,300,299,1,0,99.67,0.5948969845817983,,,,,0.14,False,True,False,False
+"2,2',4,4',5,5'-Hexabromodiphenyl ether",micropollutant,ug/L,300,298,2,0,99.33,3.57111120885481,,,,,0.14,False,True,False,False
+"2,2',4,4',5,6'-Hexabromodiphenyl ether",micropollutant,ug/L,300,297,3,0,99.0,3.220189394842926,,,,,0.14,False,True,False,False
+"2,2',4,4'-Tetrabromodiphenyl ether",micropollutant,ug/L,300,300,0,0,100.0,,,,,,0.14,False,True,False,False
+"2,3,3',4,4',5,5',6-Octabromodiphenyl ether",micropollutant,ug/L,300,295,5,0,98.33,1.5470357807699777,,,,,0.14,False,True,False,False
+"2,4,4'-tribromodiphenylether",micropollutant,ug/L,300,295,5,0,98.33,95.06195010151656,,,,,,False,False,False,False
+"2,4,6-Tribromophenol",micropollutant,ug/L,300,300,0,0,100.0,,,,,,,False,False,False,False
+"2,4-Dibromophenol",micropollutant,ug/L,300,300,0,0,100.0,,,,,,,False,False,False,False
+"2,4-Dihydroxybenzophenone",micropollutant,ug/L,300,213,87,0,71.0,0.041079934233350573,,,,,,False,False,False,False
+"2,4-Dinitrophenol",micropollutant,ug/L,300,300,0,0,100.0,,,,,,,False,False,False,False
+2-(2-Naphthalenyl)benzothiophene,micropollutant,ug/L,300,273,27,0,91.0,0.7304298424588115,,,,,,False,False,False,False
+2-Hydroxyibuprofen,micropollutant,ug/L,300,300,0,0,100.0,,,,,,,False,False,False,False
+2-Mercapto-benzothiazole,micropollutant,ug/L,300,205,95,0,68.33,0.35813763896154105,,,,3.0,7.0,False,True,False,False
+2-Methylanthraquinone,micropollutant,ug/L,300,299,1,0,99.67,77.59851572764333,,,,,,False,False,False,False
+3-Chloroaniline,micropollutant,ug/L,300,190,110,0,63.33,0.025563127490166815,,,,,,False,False,False,False
+3-Nitrobenzanthrone,micropollutant,ug/L,300,299,1,0,99.67,72.09640403503724,,,,,,False,False,False,False
+"4,4'-Dichlorobenzophenone",micropollutant,ug/L,300,269,31,0,89.67,0.1180888993329001,,,,,,False,False,False,False
+4-Aminomethyl-benzenesulfonamide,micropollutant,ug/L,300,98,202,0,32.67,0.023702368854620223,,,,,,False,False,False,False
+4-Chloroaniline,micropollutant,ug/L,300,188,112,0,62.67,0.0567886392175022,,,,0.005,85.0,False,True,False,False
+4-Methyl-1H-benzotriazole,micropollutant,ug/L,300,63,237,0,21.0,0.014712692153587614,,,,,,False,False,False,False
+4-Methylbenzylidenecamphor,micropollutant,ug/L,300,267,33,0,89.0,0.5461550923211311,,,,,,False,False,False,False
+4-Nonylphenoxy acetic acid,micropollutant,ug/L,300,300,0,0,100.0,,,,,0.3,2.0,False,True,False,False
+4-tert-Octylphenol diethoxylate,micropollutant,ug/L,300,82,218,0,27.33,0.015867524478902422,,,,0.1,0.1,False,True,False,False
+4-tert-Octylphenol monoethoxylate,micropollutant,ug/L,300,300,0,0,100.0,,,,,0.1,0.1,False,True,False,False
+"5,6-Dimethyl-1H-benzotriazole",micropollutant,ug/L,300,152,148,0,50.67,0.03934027871176684,,,,,,False,False,False,False
+5-Methyl-1H-benzotriazole (5-Tolytriazole),micropollutant,ug/L,300,72,228,0,24.0,0.025296231676479614,,,,,,False,False,False,False
+7H-Benzo(de)anthracen-7-one (Benzanthrone),micropollutant,ug/L,300,207,93,0,69.0,0.057689997593340286,,,,,,False,False,False,False
+8-Hydroxyquinoline,micropollutant,ug/L,300,187,113,0,62.33,0.021359477283520657,,,,,,False,False,False,False
+ADBI (Celestolide),micropollutant,ug/L,300,236,64,0,78.67,0.03019566731674323,,,,,,False,False,False,False
+AHDI (Phantolide),micropollutant,ug/L,300,226,74,0,75.33,0.08469472675919956,,,,,,False,False,False,False
+ATII (Traseolide),micropollutant,ug/L,300,298,2,0,99.33,1.2353713948246978,,,,,,False,False,False,False
+Acetaminophen (Paracetamol),micropollutant,ug/L,300,82,218,0,27.33,0.04674929477494806,,,,,,False,False,False,False
+Acetamiprid,micropollutant,ug/L,300,181,119,0,60.33,0.025503016453665935,0.025237601919248082,0.08412533973082695,0.9943,42.0,42.0,True,True,False,False
+Acetochlor,micropollutant,ug/L,300,300,0,0,100.0,,0.060251157277958364,0.20083719092652788,0.9954,0.3,10.1,True,True,False,False
+Aclonifen,micropollutant,ug/L,300,237,63,0,79.0,0.06006249932676414,,,,0.12,0.12,False,True,False,False
+Ag,metal,ug/L,300,242,58,0,80.67,0.007932048676,,,,3.4,47.0,False,True,False,False
+Al,metal,ug/L,300,0,300,0,0.0,35.074356550000005,,,,2.2,27.0,False,True,False,False
+Alachlor,micropollutant,ug/L,300,300,0,0,100.0,,,,,0.3,0.7,False,True,False,False
+Amoxicillin,micropollutant,ug/L,300,248,52,0,82.67,0.35751224210759797,,,,,,False,False,False,False
+Anthracene,micropollutant,ug/L,300,244,56,0,81.33,9.143066908928555,,,,,,False,False,False,False
+As,metal,ug/L,300,86,214,0,28.67,0.03772685256666665,,,,53.0,53.0,False,True,False,False
+Atrazine,micropollutant,ug/L,300,266,34,0,88.67,0.007275864366014555,,,,0.6,2.0,False,True,False,False
+Atrazine-desethyl,micropollutant,ug/L,300,222,78,0,74.0,0.020899137220009488,0.020072105707961772,0.06690701902653924,0.996,0.3,3.0,True,True,False,False
+Azinphos-methyl,micropollutant,ug/L,300,300,0,0,100.0,,1.724742560072543,5.749141866908477,0.9917,0.05,0.4,True,True,True,True
+Azithromycin,micropollutant,ug/L,300,216,84,0,72.0,0.06709384899761156,,,,0.09,0.09,False,True,False,False
+Azoxystrobin,micropollutant,ug/L,300,286,14,0,95.33,0.02888573348895292,0.028404122629112363,0.09468040876370787,0.9952,0.2,6.0,True,True,False,False
+B,metal,ug/L,300,0,300,0,0.0,12.857958816666667,,,,6.5,65.0,False,True,False,False
+Ba,metal,ug/L,300,0,300,0,0.0,6.461559572,,,,1.3,5.7,False,True,False,False
+Bayrepel,micropollutant,ug/L,300,294,6,0,98.0,1.95292424709631,,,,,,False,False,False,False
+Be,metal,ug/L,300,154,145,1,51.33,0.0014680129999996433,,,,0.05,0.05,False,True,False,False
+"Benzaldehyde, (phenylmethylene)hydrazone",micropollutant,ug/L,300,300,0,0,100.0,,,,,,,False,False,False,False
+Benzenesulfonamide,micropollutant,ug/L,300,294,6,0,98.0,3.2564957745410776,,,,,,False,False,False,False
+Benzo[a]anthracene,micropollutant,ug/L,300,288,12,0,96.0,1.135808210978259,,,,,,False,False,False,False
+Benzo[a]pyrene,micropollutant,ug/L,300,241,59,0,80.33,0.004679577812508426,,,,0.00017,0.27,False,True,False,False
+Benzo[b]fluoranthene,micropollutant,ug/L,300,293,7,0,97.67,0.26916941998448546,,,,,0.017,False,True,False,False
+Benzo[ghi]perylene,micropollutant,ug/L,300,289,11,0,96.33,0.890976319122261,,,,,0.0082,False,True,False,False
+Benzo[k]fluoranthene,micropollutant,ug/L,300,241,59,0,80.33,0.023419477950095455,,,,,0.017,False,True,False,False
+Benzothiazole,micropollutant,ug/L,300,286,14,0,95.33,9.538390505847474,,,,,,False,False,False,False
+Benzylamine,micropollutant,ug/L,300,242,58,0,80.67,0.02097317148723389,,,,,,False,False,False,False
+Benzyldimethyldodecylammonium,micropollutant,ug/L,300,0,300,0,0.0,0.01467464795077214,,,,,,False,False,False,False
+Benzyldimethylhexadecylammonium,micropollutant,ug/L,300,300,0,0,100.0,,,,,,,False,False,False,False
+Benzyldimethyltetradecylammonium,micropollutant,ug/L,300,2,298,0,0.67,0.017290768653300776,,,,,,False,False,False,False
+Benzyltrimethylammonium,micropollutant,ug/L,300,161,139,0,53.67,0.006913620950339438,,,,,,False,False,False,False
+Bifenox,micropollutant,ug/L,300,300,0,0,100.0,,,,,0.012,0.012,False,True,False,False
+Bisphenol-A,micropollutant,ug/L,300,292,8,0,97.33,12.123377396689294,,,,0.1,0.15,False,True,False,False
+Boisvelone / Iso-Esuper,micropollutant,ug/L,300,215,85,0,71.67,1.661765429307586,,,,,,False,False,False,False
+Boscalid,micropollutant,ug/L,300,300,0,0,100.0,,0.13399086571371976,0.4466362190457326,0.997,19.0,113.0,True,True,False,False
+Br,conventional,mg/L,300,33,267,0,11.0,0.049,,,,,,False,False,False,False
+Buprofezin,micropollutant,ug/L,300,299,1,0,99.67,0.05546925762014124,0.038330347673624324,0.12776782557874775,0.9967,3.5,3.5,True,True,False,False
+Butylmethoxydibenzoylmethane,micropollutant,ug/L,300,299,1,0,99.67,0.39641725504945957,,,,,,False,False,False,False
+Cadusafos,micropollutant,ug/L,300,223,77,0,74.33,0.07585499234197764,0.05974731477260577,0.1991577159086859,0.9972,0.01,0.02,True,True,True,True
+Carbazole,micropollutant,ug/L,300,295,5,0,98.33,0.10856991528199199,,,,,,False,False,False,False
+Carbendazim,micropollutant,ug/L,300,101,199,0,33.67,0.025539621623414714,0.02483323216832296,0.08277744056107653,0.9949,2.7,77.0,True,True,False,False
+Carbofuran,micropollutant,ug/L,300,290,10,0,96.67,0.01619871420780036,0.015188083955876392,0.050626946519587976,0.9965,2.3,2.3,True,True,False,False
+Cd,metal,ug/L,300,235,65,0,78.33,0.0008956166666664045,,,,0.25,1.5,False,True,False,False
+Chloramphenicol,micropollutant,ug/L,300,293,7,0,97.67,0.060947313073567905,,,,,,False,False,False,False
+Chlorfenvinphos,micropollutant,ug/L,300,298,2,0,99.33,0.43764748386972285,,,,0.1,0.3,False,True,False,False
+Chloridazon,micropollutant,ug/L,300,295,5,0,98.33,0.13754234681008193,0.13739574513087816,0.4579858171029272,0.9966,6.0,6.0,True,True,False,False
+Chlorpyrifos,micropollutant,ug/L,300,249,51,0,83.0,0.12840779968239063,,,,0.03,0.1,False,True,False,False
+Chlorsulfuron,micropollutant,ug/L,300,275,25,0,91.67,0.046877070919347834,0.04387455551873308,0.14624851839577693,0.9951,0.02,0.6,True,True,True,False
+Ciprofloxacin,micropollutant,ug/L,300,81,219,0,27.0,0.33204472453191153,,,,,,False,False,False,False
+Cl,conventional,mg/L,300,1,299,0,0.33,6.8417,,,,,,False,False,False,False
+Clarithromycin,micropollutant,ug/L,300,203,97,0,67.67,0.021267350060043475,,,,0.09,0.09,False,True,False,False
+Clofentezine,micropollutant,ug/L,300,300,0,0,100.0,,0.04382076101448863,0.14606920338162876,0.9773,0.12,0.5,True,True,True,False
+Clothianidin,micropollutant,ug/L,300,300,0,0,100.0,,0.13583585498351416,0.45278618327838055,0.9939,1.2,1.2,True,True,False,False
+Co,metal,ug/L,300,23,277,0,7.67,0.03414098218666667,,,,0.3,2.0,False,True,False,False
+Cr,metal,ug/L,300,32,268,0,10.67,0.01768200067,,,,1.9,19.0,False,True,False,False
+Cu,metal,ug/L,300,0,300,0,0.0,1.1649742589999998,,,,0.05,0.4,False,True,False,False
+Cybutryne,micropollutant,ug/L,300,292,8,0,97.33,0.0018980220553609605,,,,0.0025,0.016,False,True,False,False
+Cyclopentadecanolide,micropollutant,ug/L,300,250,50,0,83.33,0.720268032210443,,,,,,False,False,False,False
+Cypermethrin,micropollutant,ug/L,300,299,1,0,99.67,6.237562096466023,,,,8e-05,0.0006,False,True,False,False
+Cyprodinil,micropollutant,ug/L,300,285,15,0,95.0,0.03500350095447244,0.034812935770800316,0.11604311923600105,0.9934,4.3,21.0,True,True,False,False
+Cyromazine,micropollutant,ug/L,300,300,0,0,100.0,,0.03467711766953353,0.11559039223177844,0.8436,0.2,16.0,True,True,False,False
+Damascone,micropollutant,ug/L,300,299,1,0,99.67,814.1967384586127,,,,,,False,False,False,False
+Di(2- ethylhexyl)phthalate (DEHP),micropollutant,ug/L,300,105,195,0,35.0,2.871919829375464,,,,1.3,,False,True,False,False
+Diazinon,micropollutant,ug/L,300,300,0,0,100.0,,0.052719518742862036,0.17573172914287344,0.9983,36.0,101.0,True,True,False,False
+Dichlorvos,micropollutant,ug/L,300,291,9,0,97.0,0.1962413108813593,,,,,,False,False,False,False
+Dicloxacillin,micropollutant,ug/L,300,300,0,0,100.0,,,,,,,False,False,False,False
+Dicyclohexylamine,micropollutant,ug/L,300,95,205,0,31.67,0.013214104733799654,,,,,,False,False,False,False
+Difenoconazole,micropollutant,ug/L,300,299,1,0,99.67,0.04422743238285521,0.0338007744679513,0.11266924822650433,0.9927,0.2,5.5,True,True,False,False
+Dimethoate,micropollutant,ug/L,300,293,7,0,97.67,0.27312903281678635,0.06908550185484376,0.23028500618281253,0.9911,15.0,15.0,True,True,False,False
+Dimethomorph,micropollutant,ug/L,300,300,0,0,100.0,,0.015094170029293742,0.05031390009764581,0.9974,3.5,61.0,True,True,False,False
+Diphenylamine,micropollutant,ug/L,300,297,3,0,99.0,0.21862632530967502,,,,1.0,60.0,False,True,False,False
+Diuron,micropollutant,ug/L,300,140,160,0,46.67,0.030737775656294295,,,,0.2,1.8,False,True,False,False
+Dodecyl sulfate,micropollutant,ug/L,300,299,1,0,99.67,20.06907968506748,,,,,,False,False,False,False
+Doxycycline,micropollutant,ug/L,300,274,26,0,91.33,0.04050122827186705,,,,,,False,False,False,False
+Drometrizole,micropollutant,ug/L,300,198,102,0,66.0,0.022470858828448934,,,,,,False,False,False,False
+EC50-15 min,toxicity,df,300,30,270,0,10.0,0.5094243504839531,,,,,,False,False,False,False
+EC50-5 min,toxicity,df,300,31,269,0,10.33,0.5149330587023687,,,,,,False,False,False,False
+Ekoton,flow,m3/sn,76,3,73,0,3.95,0.074,,,,,,False,False,False,False
+Epoxiconazole,micropollutant,ug/L,300,244,56,0,81.33,0.031967594445263224,0.03141420280834735,0.10471400936115782,0.9899,0.8,0.8,True,True,False,False
+Erythromycin,micropollutant,ug/L,300,276,24,0,92.0,0.08254877882385046,,,,0.09,0.09,False,True,False,False
+Ethofumesate,micropollutant,ug/L,300,300,0,0,100.0,,0.1148493116736847,0.3828310389122824,0.9961,48.0,324.0,True,True,False,False
+Ethoprophos,micropollutant,ug/L,300,299,1,0,99.67,0.2145697796899945,0.08218550613744396,0.2739516871248132,0.9933,0.21,6.4,True,True,True,False
+Ethyl paraben,micropollutant,ug/L,300,300,0,0,100.0,,,,,,,False,False,False,False
+Ethylhexylmethoxycinnamate,micropollutant,ug/L,300,210,90,0,70.0,0.12147303726489099,,,,6.0,6.0,False,True,False,False
+F,conventional,mg/L,225,2,223,0,0.89,0.0669,,,,,,False,False,False,False
+Fenamiphos,micropollutant,ug/L,300,299,1,0,99.67,0.050707718637524206,0.04889077379050424,0.16296924596834744,0.9907,0.01,0.08,True,True,True,True
+Fenarimol,micropollutant,ug/L,300,300,0,0,100.0,,0.21039432951662052,0.7013144317220683,0.9933,0.07,0.07,True,True,True,True
+Fenpropimorph,micropollutant,ug/L,300,297,3,0,99.0,0.03865152601806562,0.033417077369411255,0.11139025789803753,0.991,0.1,30.0,True,True,True,False
+Fenthion,micropollutant,ug/L,300,300,0,0,100.0,,0.33766934166730966,1.1255644722243656,0.9902,3.5,103.0,True,True,False,False
+Fl,conventional,mg/L,75,0,75,0,0.0,0.249,,,,,,False,False,False,False
+Fluopyram,micropollutant,ug/L,300,300,0,0,100.0,,0.009482306701960702,0.031607689006535676,0.9979,50.0,275.0,True,True,False,False
+Fluoranthene,micropollutant,ug/L,300,267,33,0,89.0,0.1551817347215652,,,,0.0063,0.12,False,True,False,False
+Fluquinconazole,micropollutant,ug/L,300,300,0,0,100.0,,0.08094166091714804,0.26980553639049343,0.9856,3.1,3.1,True,True,False,False
+Flutolanil,micropollutant,ug/L,300,279,21,0,93.0,0.04837175805090908,0.04764926745286796,0.15883089150955987,0.9891,55.0,975.0,True,True,False,False
+Flutriafol,micropollutant,ug/L,300,294,6,0,98.0,0.08274408651319816,0.06826245621547884,0.2275415207182628,0.993,25.0,79.0,True,True,False,False
+Fosthiazate,micropollutant,ug/L,300,300,0,0,100.0,,2.7091772479628258,9.030590826542753,0.9057,42.0,42.0,True,True,False,False
+Galaxolide,micropollutant,ug/L,300,169,131,0,56.33,0.06858050695289357,,,,,,False,False,False,False
+Hexa(methoxymethyl)melamine,micropollutant,ug/L,300,34,266,0,11.33,6.697606697606697,,,,,,False,False,False,False
+Hexachlorobenzene,micropollutant,ug/L,300,300,0,0,100.0,,,,,0.05,0.05,False,True,False,False
+Hexaconazole,micropollutant,ug/L,300,295,5,0,98.33,0.023123757790651647,0.022811389319285117,0.07603796439761706,0.9892,11.0,115.0,True,True,False,False
+Hexylcinnamaldehyde,micropollutant,ug/L,300,298,2,0,99.33,1.103642795793662,,,,,,False,False,False,False
+Hexythiazox,micropollutant,ug/L,300,299,1,0,99.67,0.16364192914736314,0.03138835529783443,0.10462785099278143,0.9975,0.4,0.4,True,True,False,False
+Hg,metal,ug/L,75,63,12,0,84.0,0.03,,,,0.07,0.07,False,True,False,False
+Homosalate,micropollutant,ug/L,300,266,34,0,88.67,5.943698750621412,,,,,,False,False,False,False
+Imazalil,micropollutant,ug/L,300,293,7,0,97.67,0.2096023334420523,0.07352903551783797,0.2450967850594599,0.9922,50.0,73.0,True,True,False,False
+Imazamox,micropollutant,ug/L,300,275,25,0,91.67,0.04025721249179917,0.04013470736213615,0.13378235787378717,0.9961,,,True,False,False,False
+Imidacloprid,micropollutant,ug/L,300,297,3,0,99.0,0.7176922931325598,0.6194075722193858,2.0646919073979526,0.9948,0.14,1.4,True,True,True,True
+"Indeno[1,2,3-cd]pyrene",micropollutant,ug/L,300,275,25,0,91.67,2.331044024158516,,,,0.0,0.0,False,True,False,False
+Isobutyl paraben,micropollutant,ug/L,300,300,0,0,100.0,,,,,,,False,False,False,False
+Isoproturon,micropollutant,ug/L,300,300,0,0,100.0,,,,,0.3,1.0,False,True,False,False
+KOI,conventional,mg KOİ/L,300,0,300,0,0.0,17.384493333333335,,,,,,False,False,False,False
+Lenacil,micropollutant,ug/L,300,297,3,0,99.0,0.6417736770191044,0.08487966671099871,0.2829322223699957,0.9909,1.0,1.0,True,True,False,False
+Linuron,micropollutant,ug/L,300,300,0,0,100.0,,0.027051224604292504,0.09017074868097502,0.9974,5.6,56.0,True,True,False,False
+Malathion,micropollutant,ug/L,300,300,0,0,100.0,,0.8947182730780701,2.982394243593567,0.9847,42.0,42.0,True,True,False,False
+Mandipropamid,micropollutant,ug/L,300,299,1,0,99.67,0.041237925464602504,0.02480213463873035,0.08267378212910118,0.9953,46.0,250.0,True,True,False,False
+Mepiquat chloride,micropollutant,ug/L,300,141,159,0,47.0,0.07325957572243663,0.07318328682657736,0.24394428942192456,0.9973,20.0,20.0,True,True,False,False
+Mesotrione,micropollutant,ug/L,300,296,4,0,98.67,0.0755385350473132,0.03551663274676704,0.1183887758225568,0.9898,44.0,705.0,True,True,False,False
+Metalaxyl,micropollutant,ug/L,300,293,7,0,97.67,0.043711474603197784,0.042309653709739006,0.14103217903246337,0.9985,17.0,5320.0,True,True,False,False
+Methamidophos,micropollutant,ug/L,300,300,0,0,100.0,,0.21405261314095997,0.7135087104698666,0.9925,0.2,0.2,True,True,True,True
+Methidathion,micropollutant,ug/L,300,300,0,0,100.0,,0.6959177176802097,2.319725725600699,0.9848,42.0,42.0,True,True,False,False
+Methomyl,micropollutant,ug/L,300,300,0,0,100.0,,0.018143697911833102,0.06047899303944368,0.9866,42.0,42.0,True,True,False,False
+Methoxyfenozide,micropollutant,ug/L,300,300,0,0,100.0,,0.13572073732637405,0.45240245775458016,0.9889,11.0,110.0,True,True,False,False
+Methyl -iso-propylcyclohexenone,micropollutant,ug/L,300,257,43,0,85.67,0.10297527944182855,,,,,,False,False,False,False
+Methyl paraben,micropollutant,ug/L,300,254,46,0,84.67,0.09234299297256807,,,,,,False,False,False,False
+Methyldihydrojasmonate,micropollutant,ug/L,300,99,201,0,33.0,0.24661400927380642,,,,,,False,False,False,False
+Methylsalicylate,micropollutant,ug/L,300,272,28,0,90.67,0.11604655739415054,,,,,,False,False,False,False
+Metolachlor,micropollutant,ug/L,300,240,60,0,80.0,0.021671317523767934,0.02101038555118056,0.07003461850393519,0.9976,3.3,88.0,True,True,False,False
+Metrafenone,micropollutant,ug/L,300,300,0,0,100.0,,0.022055710287438326,0.07351903429146109,0.9982,12.0,13.0,True,True,False,False
+Microcystin-LR,micropollutant,ug/L,300,299,1,0,99.67,6.295010288065844,,,,,,False,False,False,False
+Microcystin-RR,micropollutant,ug/L,300,261,39,0,87.0,0.060724747367326484,,,,,,False,False,False,False
+Microcystin‐YR,micropollutant,ug/L,300,300,0,0,100.0,,,,,,,False,False,False,False
+Molinate,micropollutant,ug/L,300,251,49,0,83.67,0.04244483820480912,0.03387847116631922,0.11292823722106408,0.9882,136.0,460.0,True,True,False,False
+Monocrotophos,micropollutant,ug/L,300,274,26,0,91.33,0.01807640684942134,0.01742814436892226,0.05809381456307419,0.998,0.4,45.0,True,True,False,False
+Musk ambrette,micropollutant,ug/L,300,300,0,0,100.0,,,,,,,False,False,False,False
+Musk ketone,micropollutant,ug/L,300,300,0,0,100.0,,,,,,,False,False,False,False
+Musk xylene,micropollutant,ug/L,300,300,0,0,100.0,,,,,1.8,585.0,False,True,False,False
+Myclobutanil,micropollutant,ug/L,300,220,80,0,73.33,0.005176387275348037,0.0037826264752148938,0.012608754917382978,0.9867,9.6,9.6,True,True,False,False
+"N,N-Diethyl-m-toluamide",micropollutant,ug/L,300,9,291,0,3.0,0.005022623532173729,,,,,,False,False,False,False
+N-Benzyldimethylamine,micropollutant,ug/L,300,148,152,0,49.33,0.01111626014259778,,,,,,False,False,False,False
+N-Benzylmethylamine,micropollutant,ug/L,300,236,64,0,78.67,0.04099525667401446,,,,,,False,False,False,False
+N-Ethyl-2-tolysulfonamide,micropollutant,ug/L,300,179,121,0,59.67,0.025201570516223896,,,,,,False,False,False,False
+N-methyl aniline,micropollutant,ug/L,300,274,26,0,91.33,0.027080081994363913,,,,,,False,False,False,False
+N-phenyl-2-napthylamine,micropollutant,ug/L,300,300,0,0,100.0,,,,,,,False,False,False,False
+NH3-N,conventional,mg N/L,300,26,274,0,8.67,0.27999999999999964,,,,,,False,False,False,False
+NO2,conventional,mg/L,300,149,151,0,49.67,0.0419,,,,,,False,False,False,False
+NO3,conventional,mg/L,300,84,216,0,28.0,0.06899999999999996,,,,,,False,False,False,False
+Ni,metal,ug/L,300,0,300,0,0.0,22.46281231,,,,4.0,34.0,False,True,False,False
+Nonylphenol diethoxylate,micropollutant,ug/L,300,94,206,0,31.33,0.045487947048252646,,,,0.3,2.0,False,True,False,False
+Norfloxacin,micropollutant,ug/L,300,152,148,0,50.67,0.4873111865032647,,,,,,False,False,False,False
+Ofloxacin,micropollutant,ug/L,300,81,219,0,27.0,0.03298084768057071,,,,,,False,False,False,False
+Omethoate,micropollutant,ug/L,300,257,43,0,85.67,0.08709545945735259,0.08702830579070181,0.29009435263567274,0.9936,16.0,16.0,True,True,False,False
+Oxadiazon,micropollutant,ug/L,300,277,23,0,92.33,0.38631163607847446,0.3647216734029204,1.215738911343068,0.9916,0.3,9.0,True,True,True,False
+Oxadixyl,micropollutant,ug/L,300,299,1,0,99.67,2.721203471672515,0.0848415630713309,0.2828052102377696,0.986,306.0,306.0,True,True,False,False
+Oxybenzone,micropollutant,ug/L,300,131,169,0,43.67,0.005898459085422723,,,,,,False,False,False,False
+PO4,conventional,mg/L,300,49,251,0,16.33,0.0871,,,,,,False,False,False,False
+Pb,metal,ug/L,300,1,299,0,0.33,4.313915162,,,,1.2,14.0,False,True,False,False
+Penconazole,micropollutant,ug/L,300,299,1,0,99.67,0.05917368597365526,0.034480412152886025,0.11493470717628676,0.9954,1.2,1.9,True,True,False,False
+Pendimethalin,micropollutant,ug/L,300,253,47,0,84.33,0.019018985882681194,0.018585497521815274,0.061951658406050915,0.9955,0.5,8.0,True,True,False,False
+Pentachlorobenzene,micropollutant,ug/L,300,297,3,0,99.0,0.3338718362950996,,,,0.007,0.007,False,True,False,False
+Pinoxaden,micropollutant,ug/L,300,300,0,0,100.0,,0.006752043901554426,0.022506813005181422,0.9988,,,True,False,False,False
+Piperonylbutoxide,micropollutant,ug/L,300,141,159,0,47.0,0.005520698186093654,,,,,,False,False,False,False
+Pirimicarb,micropollutant,ug/L,300,267,33,0,89.0,0.13332244662540976,0.12226493652653564,0.40754978842178546,0.9916,3.3,21.0,True,True,False,False
+Polychlorinated biphenyls,micropollutant,ug/L,300,126,174,0,42.0,1.6812006418349215,,,,,,False,False,False,False
+Prochloraz,micropollutant,ug/L,300,190,110,0,63.33,0.03015352550574443,0.03821130585612481,0.12737101952041602,0.9943,11.0,13.0,True,True,False,False
+Prometryn,micropollutant,ug/L,300,293,7,0,97.67,0.01130400476609602,0.009516017788132863,0.03172005929377621,0.9973,0.3,2.0,True,True,False,False
+Propazine,micropollutant,ug/L,300,297,3,0,99.0,0.013636765455240665,0.008743580815789019,0.029145269385963398,0.9957,0.3,4.1,True,True,False,False
+Propetamphos,micropollutant,ug/L,300,296,4,0,98.67,0.24716200164002455,0.16437742189695248,0.5479247396565082,0.9944,11.0,13.0,True,True,False,False
+Propiconazole,micropollutant,ug/L,300,268,32,0,89.33,0.06946799843766473,0.06798867882490879,0.22662892941636262,0.9911,0.7,50.0,True,True,False,False
+Propyl paraben,micropollutant,ug/L,300,298,2,0,99.33,0.04151690403622969,,,,,,False,False,False,False
+Prothioconazole,micropollutant,ug/L,300,298,2,0,99.33,0.16125327329020767,0.13674535101834512,0.45581783672781706,0.9985,,,True,False,False,False
+Pyraclostrobin,micropollutant,ug/L,300,294,6,0,98.0,0.023463201903098852,0.01625287527387758,0.05417625091292527,0.9985,0.08,0.08,True,True,False,False
+Pyridaben,micropollutant,ug/L,300,295,5,0,98.33,0.012768164311994904,0.012363651131211828,0.041212170437372755,0.9966,0.25,0.25,True,True,False,False
+Pyrimethanil,micropollutant,ug/L,300,300,0,0,100.0,,0.06792154936812014,0.22640516456040044,0.9981,12.0,139.0,True,True,False,False
+Pyriproxyfen,micropollutant,ug/L,300,262,38,0,87.33,0.006792310517041795,0.01172355192856538,0.03907850642855127,0.9971,0.02,0.4,True,True,True,False
+Quinalphos,micropollutant,ug/L,300,231,69,0,77.0,0.04051088305545573,0.038205809212496215,0.1273526973749874,0.9951,0.2,1.4,True,True,False,False
+Quinoxyfen,micropollutant,ug/L,300,297,3,0,99.0,0.015642813645604686,,,,0.15,2.7,False,True,False,False
+Renk,conventional,ADMI,300,0,300,0,0.0,7.0,,,,,,False,False,False,False
+SO4,conventional,mg/L,300,0,300,0,0.0,2.8249999999999997,,,,,,False,False,False,False
+Sb,metal,ug/L,300,125,174,1,41.67,0.0007269613333336228,,,,7.8,103.0,False,True,False,False
+Simazine,micropollutant,ug/L,300,300,0,0,100.0,,,,,1.0,4.0,False,True,False,False
+Sn,metal,ug/L,300,0,300,0,0.0,0.5217673393333336,,,,0.01,,False,True,False,False
+Spiroxamine,micropollutant,ug/L,300,298,2,0,99.33,0.06291361064739161,0.018221710496361322,0.060739034987871074,0.9929,42.0,42.0,True,True,False,False
+Sulfamethoxazole,micropollutant,ug/L,300,156,144,0,52.0,0.040092707086708326,,,,5.1,575.0,False,True,False,False
+Sıcaklık,conventional,oC,300,0,300,0,0.0,5.0,,,,,,False,False,False,False
+TOK,conventional,mg C/L,300,1,299,0,0.33,0.35849999999999993,,,,,,False,False,False,False
+Tebuconazole,micropollutant,ug/L,300,273,27,0,91.0,0.044540625187330624,0.04230345431623865,0.14101151438746215,0.9977,23.0,121.0,True,True,False,False
+Terbuthylazine,micropollutant,ug/L,300,292,8,0,97.33,0.0182602417369553,0.01783995438699649,0.05946651462332163,0.996,0.2,3.5,True,True,False,False
+Terbutryn,micropollutant,ug/L,300,245,55,0,81.67,0.0038368370108746042,,,,0.065,0.34,False,True,False,False
+Tetraacetylethylenediamine,micropollutant,ug/L,300,295,5,0,98.33,1.0959606989227477,,,,,,False,False,False,False
+Tetrabromobisphenol A,micropollutant,ug/L,300,298,2,0,99.33,0.28156756624957857,,,,0.9,9.0,False,True,False,False
+Tetracycline,micropollutant,ug/L,300,261,39,0,87.0,0.0460446339046957,,,,,,False,False,False,False
+Thiacloprid,micropollutant,ug/L,300,293,7,0,97.67,0.09990715719358931,0.08682554171532375,0.28941847238441254,0.9975,0.13,2.0,True,True,True,False
+Thiophanate-methyl,micropollutant,ug/L,300,285,15,0,95.0,0.025777844237818606,0.021191653548848974,0.07063884516282992,0.9939,42.0,42.0,True,True,False,False
+Thioridazine,micropollutant,ug/L,300,300,0,0,100.0,,,,,,,False,False,False,False
+Ti,metal,ug/L,300,42,258,0,14.0,0.023386157820000003,,,,2.0,20.0,False,True,False,False
+Tolfenpyrad,micropollutant,ug/L,300,300,0,0,100.0,,0.02094515584942755,0.06981718616475849,0.9975,0.2,0.2,True,True,False,False
+Tonalide,micropollutant,ug/L,300,287,13,0,95.67,0.18953190355867622,,,,,,False,False,False,False
+Triasulfuron,micropollutant,ug/L,300,300,0,0,100.0,,0.049618423241835574,0.16539474413945193,0.9976,0.012,0.12,True,True,True,True
+Triazophos,micropollutant,ug/L,300,286,14,0,95.33,0.05010197596871946,,,,,,False,False,False,False
+Triclosan,micropollutant,ug/L,300,300,0,0,100.0,,,,,177.0,8163.0,False,True,False,False
+Trifloxystrobin,micropollutant,ug/L,300,299,1,0,99.67,0.198331493872768,0.015512938736173099,0.05170979578724366,0.9986,42.0,42.0,True,True,False,False
+Trifluralin,micropollutant,ug/L,300,296,4,0,98.67,0.038523427521998825,,,,0.03,,False,True,False,False
+Trimethoprim,micropollutant,ug/L,300,235,65,0,78.33,0.013059807262596463,,,,,,False,False,False,False
+Triphenylphosphineoxide,micropollutant,ug/L,300,285,15,0,95.0,0.6755593913243245,,,,0.12,1.1,False,True,False,False
+Triphenyltin,micropollutant,ug/L,300,300,0,0,100.0,,,,,0.05,0.05,False,True,False,False
+Tris(1-chloro-2-propanyl) phosphate,micropollutant,ug/L,300,300,0,0,100.0,,,,,,,False,False,False,False
+Tris(2-butoxyethyl) phosphate,micropollutant,ug/L,300,72,228,0,24.0,0.0258007527652129,,,,,,False,False,False,False
+V,metal,ug/L,300,60,240,0,20.0,0.10297086133333362,,,,10.0,10.0,False,True,False,False
+Vancomycin,micropollutant,ug/L,300,298,2,0,99.33,0.30756884372404664,,,,,,False,False,False,False
+Yabatas,flow,m3/sn,300,18,282,0,6.0,0.05,,,,,,False,False,False,False
+Zn,metal,ug/L,300,0,300,0,0.0,0.175061132,,,,31.0,46.0,False,True,False,False
+alpha-Terpineol,micropollutant,ug/L,300,263,37,0,87.67,20.620366339745875,,,,,,False,False,False,False
+g-Methylionone,micropollutant,ug/L,300,250,50,0,83.33,0.24290970475178153,,,,,,False,False,False,False
+pH,conventional,,300,0,300,0,0.0,6.19,,,,,,False,False,False,False

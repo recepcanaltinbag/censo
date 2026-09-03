@@ -1,0 +1,19 @@
+# Pinned to the versions the reported numbers were produced with.
+# Python 3.8.8. Pure Python throughout: no JVM, no external reasoner.
+rdflib==7.6.0
+owlrl==6.0.2          # OWL 2 RL entailment
+pyshacl==0.28.1       # closed-world validation and materialisation
+openpyxl==3.0.7       # campaign workbooks
+pyshp==2.4.2          # shapefiles, imported as `shapefile`
+pyproj==3.5.0         # CRS transforms to EPSG:3035 (equal-area)
+numpy==1.20.1
+matplotlib==3.3.4     # figures; Arial is resolved from the system
+pypdf==5.9.0          # parsing the legal texts
+
+# Transitive, pinned because leaving it free breaks the environment above.
+# matplotlib and pypdf both pull Pillow, and pip now resolves it to 10.4, whose
+# PIL/_typing.py imports numpy.typing.NDArray -- added in numpy 1.21. Against
+# the numpy pinned here, `import pypdf` raises AttributeError before any of
+# this pipeline runs. 9.5.0 is the last release that works with numpy 1.20 and
+# still has a cp38 wheel.
+Pillow==9.5.0
