@@ -128,6 +128,40 @@ a measurement or a bound, so it cannot mark the difference between them, and a
 vocabulary carrying it separates the two readings no better than one carrying
 no limit at all. The distinction has to move with the limit, onto the result.
 
+\subsection{What adopting it changes, question by question}
+\label{sec:disc-usecases}
+The contribution is easier to judge from the questions it makes askable than
+from a class hierarchy, so seven are run against the shipped graph and reported
+with their answers\src{scripts/21\_use\_cases.py}. Three are worth stating here.
+
+\paragraph{A competent authority asks which of its verdicts are unsupportable.}
+One \texttt{GROUP BY} over the outcome classes returns the report split six
+ways rather than two, and each undecidable row carries the reason it could not
+be decided. In a two-valued schema those rows are not missing --- they are
+present, counted as compliant or as exceeding depending on the substitution
+constant, with nothing in the output recording that a choice was made.
+
+\paragraph{A laboratory manager asks which methods to upgrade.}
+Ranking \texttt{censo:MethodInsufficient} by substance returns the list a
+method-development budget should be spent against. It cannot be produced from a
+table of concentrations, because every row on it looks like compliance: the
+laboratory appears efficient and the substance appears clean, and the two
+appearances have one cause.
+
+\paragraph{Anyone asks why a single row is undecidable.}
+The answer is in the graph rather than in the pipeline's source. A permethrin
+station-year returns an upper bound of \num{0.02}\,\si{\micro\gram\per\litre}
+against a standard of \num{0.00027} --- a limit \num{74} times the threshold it
+was meant to decide. The bound is what the non-detection established, the
+threshold is what it had to decide, and the first exceeding the second is the
+entire finding, legible without reading any code.
+
+The counts in that report are of the materialised graph, which is a
+\num{40000}-row sample; the population figures are those of
+Section~\ref{sec:results-wbabox}. What the queries establish is that the
+questions are askable and what an answer looks like, which is what somebody
+deciding whether to adopt a vocabulary needs and what a term list cannot show.
+
 \subsection{Limitations}
 \begin{itemize}
   \item \textbf{The standards are applied counterfactually.} Annex~I as

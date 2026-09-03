@@ -83,6 +83,9 @@ STAGES = [
     # other way -- "skipped, not failed, when an optional input is absent".
     ("17_run_competency_questions.py", "run the competency questions", False),
     ("18_shacl_validate.py", "SHACL validation and materialisation", False),
+    # Reads the same graph; runs after 18 so the materialised entailments
+    # are present. Not a test -- it is the adoption document.
+    ("21_use_cases.py", "answer the seven use-case questions", False),
     ("90_figures.py", "draw every figure and ship its data", False),
     # After BOTH 07, which writes the gap matrix it reads, and 90, which ships
     # the witness row it argues over. It turns the gap table from a term list

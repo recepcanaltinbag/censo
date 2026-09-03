@@ -158,10 +158,12 @@ CASES = [
      "the same substance, and do they agree?",
      "Needs a name-matching script, and gets one verdict per run because the "
      "threshold is a column rather than a citable object.",
-     """SELECT ?eu ?tr WHERE {
-          ?eu owl:sameAs ?tr .
+     """SELECT ?eu ?tr ?cas WHERE {
+          { ?eu owl:sameAs ?tr } UNION { ?tr owl:sameAs ?eu }
+          ?eu censo:casNumber ?cas .
           FILTER (STRSTARTS(STR(?eu), "https://w3id.org/censo/reg/analyte-eu-"))
-        } LIMIT 8""",
+          FILTER (STRSTARTS(STR(?tr), "https://w3id.org/censo/reg/analyte-tr-"))
+        } ORDER BY ?cas LIMIT 8""",
      "The substances are reconciled by owl:sameAs in "
      "ontology/censo-alignment.ttl, so the comparison is an entailment rather "
      "than a string join across two spellings. Both packages can be loaded at "
@@ -196,6 +198,14 @@ def main() -> int:
          "against the shipped graph: `derived/abox/censo-waterbase.ttl` plus "
          "the vocabulary, both regulation packages and the alignment "
          f"({len(g):,} triples).\n",
+         "**The counts are of the materialised graph, not of the "
+         "population.** The knowledge graph is a 40,000-row reservoir sample "
+         "with a fixed seed, because a pure-Python triple store cannot hold "
+         "4.19 million station-years; the manuscript's headline figures are "
+         "computed over every assessable row by "
+         "`scripts/22_waterbase_external.py` and are larger. What these "
+         "queries demonstrate is that the question is *askable* and what the "
+         "answer looks like, not the size of the finding.\n",
          "The competency questions in `queries/` are tied to axioms — each "
          "shows that a construct works. This document answers a different "
          "question, the one somebody deciding whether to adopt this actually "
