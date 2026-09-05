@@ -50,6 +50,184 @@ FILES = [
 ]
 
 
+# The documentation page is GENERATED, and this is why.
+#
+# index.html was hand-maintained, so it drifted -- exactly the failure the rest
+# of this script exists to prevent for the RDF. By the time anyone looked, it
+# announced version 1.0.0 after the vocabulary had moved to 2.0.0, counted 40
+# classes where there are 32, gave the EU package 117 thresholds where it has
+# 103, listed no censo-alignment.ttl, and still described the argument in
+# retired terms: "the detection limit belongs to the analytical run" (that class
+# is gone) and "compliance becomes four-valued" (it is three-valued, with the
+# third subtyped by the reason). A human-facing page that contradicts the file
+# beside it is worse than no page: it is the vocabulary's own front door.
+#
+# Every count below is read from the artefacts. The CSS is carried verbatim,
+# because it is design and not data.
+
+CSS = """:root{--ink:#1f1f1f;--muted:#5c6470;--line:#e3e6ea;--acc:#123f66;--bg:#fff}
+@media(prefers-color-scheme:dark){:root{--ink:#e8eaed;--muted:#9aa3ae;--line:#2a2f36;--acc:#8ab0d6;--bg:#15181c}}
+*{box-sizing:border-box}
+body{margin:0;padding:2.5rem 1.25rem 4rem;background:var(--bg);color:var(--ink);
+font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+main{max-width:46rem;margin:0 auto}
+h1{font-size:1.7rem;line-height:1.25;margin:0 0 .4rem;letter-spacing:-.01em}
+h2{font-size:1.05rem;margin:2.4rem 0 .7rem;letter-spacing:-.005em}
+.iri{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9rem;
+color:var(--acc);word-break:break-all}
+p{margin:.7rem 0} .lede{color:var(--muted);margin-bottom:1.6rem}
+table{border-collapse:collapse;width:100%;font-size:.86rem;margin:.6rem 0;
+display:block;overflow-x:auto}
+th,td{text-align:left;padding:.5rem .7rem;border-bottom:1px solid var(--line);
+vertical-align:top}
+th{color:var(--muted);font-weight:600}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.85em}
+a{color:var(--acc)} .k{display:flex;gap:1.5rem;flex-wrap:wrap;margin:1.2rem 0}
+.k div{min-width:5rem} .k b{display:block;font-size:1.35rem;line-height:1.2}
+.k span{font-size:.76rem;color:var(--muted)}
+blockquote{margin:1rem 0;padding:.1rem 0 .1rem 1rem;border-left:3px solid var(--line);
+color:var(--muted);font-size:.92rem}
+footer{margin-top:3rem;padding-top:1.2rem;border-top:1px solid var(--line);
+font-size:.83rem;color:var(--muted)}"""
+
+
+def render_index(version, prev_versions):
+    """Build index.html from the artefacts, so it cannot say something else."""
+    import rdflib
+    from rdflib import RDF, RDFS, OWL, URIRef
+    from rdflib.namespace import DCTERMS
+    CENSO = rdflib.Namespace("https://w3id.org/censo/")
+
+    voc = rdflib.Graph()
+    for f in ("censo-core.ttl", "censo-regulation.ttl"):
+        voc.parse(ONTO / f, format="turtle")
+    n_cls = len({s for s in voc.subjects(RDF.type, OWL.Class)
+                 if isinstance(s, URIRef)})
+    n_prop = len({s for t in (OWL.ObjectProperty, OWL.DatatypeProperty)
+                  for s in voc.subjects(RDF.type, t) if isinstance(s, URIRef)})
+
+    pkgs = []
+    for f in sorted((ONTO / "reg").glob("*.ttl")):
+        g = rdflib.Graph()
+        g.parse(f, format="turtle")
+        title = next((str(o) for o in g.objects(None, DCTERMS.title)), f.stem)
+        pkgs.append((f.stem, title,
+                     len(list(g.subject_objects(CENSO.thresholdValue)))))
+    n_thr = sum(n for _, _, n in pkgs)
+
+    align = ONTO / "censo-alignment.ttl"
+    n_align = 0
+    if align.exists():
+        ag = rdflib.Graph()
+        ag.parse(align, format="turtle")
+        n_align = (len(list(ag.triples((None, OWL.sameAs, None))))
+                   + len([1 for _, _, o in ag.triples((None, RDFS.seeAlso, None))
+                          if "CHEBI" in str(o)]))
+
+    rows = [("https://w3id.org/censo/",
+             "the vocabulary &mdash; Turtle, RDF/XML or JSON-LD by content "
+             "negotiation"),
+            ("https://w3id.org/censo/" + version, "this release specifically")]
+    for v in prev_versions:
+        rows.append(("https://w3id.org/censo/" + v,
+                     "the " + v + " release, unchanged since it was published"))
+    rows.append(("https://w3id.org/censo/reg/",
+                 "the regulation-package vocabulary"))
+    for stem, title, n in pkgs:
+        rows.append(("https://w3id.org/censo/reg/" + stem,
+                     title + " &mdash; " + str(n) + " thresholds"))
+    rows.append(("https://w3id.org/censo/shapes",
+                 "SHACL shapes for validation and materialisation"))
+    if n_align:
+        rows.append(("https://w3id.org/censo/alignment",
+                     "pointers to ChEBI and CHMO &mdash; imported by nothing, "
+                     "so take it only if you want it"))
+
+    files = [("censo-full.ttl", "Turtle"), ("censo-full.owl", "RDF/XML"),
+             ("censo-full.jsonld", "JSON-LD"),
+             ("censo-regulation.ttl", "regulation vocabulary"),
+             ("censo-shapes.ttl", "SHACL")]
+    if n_align:
+        files.append(("censo-alignment.ttl", "external alignment"))
+    files += [("reg/" + stem + ".ttl", title) for stem, title, _ in pkgs]
+
+    H = []
+    A = H.append
+    A('<!doctype html>')
+    A('<html lang="en"><head><meta charset="utf-8">')
+    A('<meta name="viewport" content="width=device-width,initial-scale=1">')
+    A('<title>CENSO &mdash; an ontology for censored environmental '
+      'observations</title>')
+    A("<style>")
+    A(CSS)
+    A("</style></head><body><main>")
+    A("")
+    A("<h1>CENSO</h1>")
+    A('<p class="lede">An ontology for censored environmental observations '
+      '&middot; version ' + version + "</p>")
+    A('<p class="iri">https://w3id.org/censo/</p>')
+    A("")
+    A('<div class="k">')
+    for val, lab in ((n_cls, "classes"), (n_prop, "properties"),
+                     (n_thr, "thresholds"), (len(pkgs), "jurisdictions")):
+        A("<div><b>" + str(val) + "</b><span>" + lab + "</span></div>")
+    A("</div>")
+    A("")
+    A("<h2>What it is</h2>")
+    A("<p>CENSO extends SOSA/SSN for measurements produced by a method that "
+      "has a limit of detection. Its modelling commitment is that the limit is "
+      "<em>carried onto the result</em>. SSN-System binds a detection limit to "
+      "a <em>sensor</em>; CHMO, the closest prior art, binds it to the "
+      "<em>method</em>, as a figure of merit of an assay. Neither can say that "
+      "a particular measurement fell below it &mdash; and "
+      "&ldquo;censored&rdquo; is a property of a result, not of the procedure "
+      "that produced it.</p>")
+    A("<p>Because the limit reaches the result, a non-detection is typed as "
+      "the interval [0,&nbsp;LOQ] it actually establishes rather than stored "
+      "as a zero, and compliance is <strong>three-valued</strong>: compliant, "
+      "exceeding, or not determinable &mdash; with the third subtyped by the "
+      "<em>reason</em> it could not be decided.</p>")
+    A("<p>The third outcome is not a convenience:</p>")
+    A("<blockquote>Where a result is referred to as &ldquo;less than limit of "
+      "quantification&rdquo;, and the limit of quantification of that "
+      "technique is above the EQS, the result for the substance being measured "
+      "shall not be considered for the purposes of assessing the overall "
+      "chemical status of that water body.<br>&mdash; Directive 2008/105/EC, "
+      "Article 3(3b)</blockquote>")
+    A("<p>That outcome is neither compliant nor exceeding. A two-valued data "
+      "model cannot express it, so compliance with the provision cannot be "
+      "audited.</p>")
+    A("")
+    A("<h2>Resolvable IRIs</h2>")
+    A("<table><tr><th>IRI</th><th>Resolves to</th></tr>")
+    for iri, what in rows:
+        A('<tr><td class="iri">' + iri + "</td><td>" + what + "</td></tr>")
+    A("</table>")
+    A("<p>Regulation packages contribute individuals only &mdash; no class, "
+      "no property &mdash; which is what makes one safe to load in place of, "
+      "or alongside, another.</p>")
+    A("")
+    A("<h2>Files</h2>")
+    A("<table><tr><th>File</th><th>Format</th></tr>")
+    for f, kind in files:
+        A("<tr><td><code>" + f + "</code></td><td>" + kind + "</td></tr>")
+    A("</table>")
+    A("")
+    A("<h2>Reuse</h2>")
+    A("<p>CC&nbsp;BY&nbsp;4.0. Built on SOSA/SSN, PROV-O, SKOS and QUDT, and "
+      "aligned outward rather than renamed: " + str(n_align) + " pointers into "
+      "ChEBI and CHMO ship in <code>censo-alignment.ttl</code>, which nothing "
+      "imports, so a consumer who does not want those commitments need not "
+      "take them.</p>")
+    A("")
+    A("<footer>Generated by <code>scripts/97_assemble_publish.py</code> from "
+      "the published artefacts &mdash; every count on this page is read from "
+      "the files it describes, because a front door that contradicts the "
+      "vocabulary behind it is worse than no front door.</footer>")
+    A("</main></body></html>")
+    return "\n".join(H) + "\n"
+
+
 def digest(p: Path) -> str:
     return hashlib.sha256(p.read_bytes()).hexdigest()[:12]
 
@@ -128,6 +306,10 @@ def main() -> int:
         return 0
 
     SITE.mkdir(parents=True, exist_ok=True)
+    prev = sorted(d.name for d in (SITE / "releases").glob("*")
+                  if d.is_dir() and d.name != version)
+    (SITE / "index.html").write_text(render_index(version, prev),
+                                     encoding="utf-8")
     for src, dst in pairs:
         d = SITE / dst
         d.parent.mkdir(parents=True, exist_ok=True)
