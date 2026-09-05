@@ -30,7 +30,7 @@ SELECT ?outcome (COUNT(?o) AS ?n) WHERE {
 | Exceedance | 857 |
 | PossibleExceedance | 343 |
 
-*17.8s*
+*18.1s*
 
 **What a two-valued schema returns instead.** Returns two columns, compliant and exceeding, and every undecidable row lands in one of them. Which one depends on the substitution constant the pipeline happened to use, and nothing in the output records that a choice was made.
 

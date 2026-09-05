@@ -38,8 +38,8 @@ express."""@en ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
     vann:preferredNamespacePrefix "censosh" ;
     vann:preferredNamespaceUri "https://w3id.org/censo/shapes#" ;
-    owl:versionIRI <https://w3id.org/censo/shapes/1.0.0> ;
-    owl:versionInfo "1.0.0" ;
+    owl:versionIRI <https://w3id.org/censo/shapes/2.0.0> ;
+    owl:versionInfo "2.0.0" ;
     rdfs:seeAlso <https://w3id.org/censo/> .
 
 censo:ObservationShape a sh:NodeShape ;

@@ -5,14 +5,48 @@
 \label{sec:methods-vocab}
 CENSO\footnote{\url{https://w3id.org/censo/}, CC~BY~4.0.} extends
 SOSA/SSN~\cite{janowicz2019sosa,haller2019ssn} for observations from a method
-with a detection limit, reusing PROV-O~\cite{w3c2013provo} for the analytical
-run, SKOS~\cite{w3c2009skos} for substance concepts and QUDT for units;
-substances are aligned to ChEBI~\cite{degtyarenko2008chebi} where an identifier
-exists (\num{180} of \num{240}). It follows LOT~\cite{poveda2022lot} (successor
-to NeOn~\cite{suarez2012neon}), whose competency questions produced the
-evaluation in Section~\ref{sec:results-cq}, and is published for
-reuse~\cite{wilkinson2016fair}. Four commitments distinguish it from the
-vocabularies surveyed in Section~\ref{sec:results-gap}.
+with a detection limit, reusing PROV-O~\cite{w3c2013provo} for campaigns and
+legal instruments, SKOS~\cite{w3c2009skos} for substance concepts and QUDT for
+units. It follows LOT~\cite{poveda2022lot} (successor to
+NeOn~\cite{suarez2012neon}), whose competency questions produced the evaluation
+in Section~\ref{sec:results-cq}, and is published for
+reuse~\cite{wilkinson2016fair}.
+
+It ships as four files, and the separation is the design. \texttt{censo-core}
+carries the vocabulary; \texttt{censo-regulation} the terms a legal package
+needs; \texttt{censo-shapes} the closed-world constraints, because what OWL
+cannot decide is not asserted in OWL and pretended to hold; and
+\texttt{censo-alignment} the pointers outward, which nothing imports so that a
+consumer who does not want commitments about ChEBI need not take them. The
+regulation packages under \texttt{reg/} contribute individuals only --- no
+package declares a class or a property, which is what makes swapping one for
+another safe. Sixty-seven terms, none of them unexercised: the audit fails the
+build on any declared term that appears in no shipped graph, package, shape or
+competency question, a check written after two of the four commitments below
+were found to have shipped as vocabulary that nothing instantiated.
+
+Four commitments distinguish it from the vocabularies surveyed in
+Section~\ref{sec:results-gap}, and Figure~\ref{fig:vocab} draws all four.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\textwidth]{fig09_ontology_graph.pdf}
+\caption{What CENSO inherits and what it adds, organised by the four
+commitments rather than by namespace. Grey dashed boxes are classes taken from
+SOSA/SSN, PROV-O and QUDT; coloured boxes are declared here. The red chain at
+the lower left is the argument in one line: \texttt{ssn-system:DetectionLimit}
+binds the limit to a \emph{sensor}, CHMO's \texttt{limit of detection} binds it
+to the \emph{method} as a figure of merit of an assay, and neither can say that
+a particular measurement fell below it --- which needs the limit carried onto
+the \emph{result}, as \texttt{censo:resultUpperBound} on the observation.
+Hollow arrowheads are \texttt{rdfs:subClassOf}; green dashed edges are the
+covering axioms, which are what make a taxonomy exhaustive and what a subclass
+diagram alone cannot show. The layout is authored, but every edge is verified
+against the vocabulary before the figure is written and an edge with no triple
+behind it stops the build, so the figure cannot drift from the ontology --- it
+can only fail to compile\src{scripts/91\_ontology\_figure.py}. The verification
+record ships as \texttt{eval/ontology\_figure.md}.}
+\label{fig:vocab}
+\end{figure}
 
 \paragraph{The limit is carried onto the result.}
 \texttt{censo:AnalyticalMethod} is a \texttt{sosa:Procedure} carrying a unit and
@@ -40,7 +74,7 @@ and the bound it produces still lands on
 A \texttt{censo:Analyte} is a \texttt{sosa:ObservableProperty} --- the
 concentration \emph{of} a substance --- and not the substance, whose instances
 are molecules. The two are related by \texttt{rdfs:seeAlso} to the substance's
-ChEBI class, in a separate module the vocabulary does not
+ChEBI~\cite{degtyarenko2008chebi} class, in a separate module the vocabulary does not
 import\src{scripts/20\_align\_external.py}: \num{299} of \num{354} analytes
 across the two packages resolve to exactly one ChEBI class by CAS registry
 number, \num{26} resolve to more than one and are deliberately left unaligned,

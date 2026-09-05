@@ -14,7 +14,10 @@
 
 ################################################################################
 #  CENSO — Censored ENvironmental Sensor Observations
-#  v1.0.0 — first public release
+#  v2.0.0 — see CHANGELOG.md. MAJOR because terms were REMOVED: 21 of
+#  them, each either redundant with a vocabulary this file imports or a
+#  class no shipped data could reach. https://w3id.org/censo/1.0.0 still
+#  resolves to what 1.0.0 was.
 #
 #  A domain-independent extension of SOSA/SSN for observations produced by
 #  analytical methods that have a detection limit.
@@ -107,8 +110,8 @@ an open-world upper bound rather than as zero."""@en ;
     dcterms:created "2026-08-03"^^xsd:date ;
     vann:preferredNamespacePrefix "censo" ;
     vann:preferredNamespaceUri "https://w3id.org/censo/" ;
-    owl:versionIRI <https://w3id.org/censo/1.0.0> ;
-    owl:versionInfo "1.0.0" ;
+    owl:versionIRI <https://w3id.org/censo/2.0.0> ;
+    owl:versionInfo "2.0.0" ;
     rdfs:seeAlso <http://www.w3.org/ns/sosa/> ;
     owl:imports <http://www.w3.org/ns/sosa/> ,
                 <http://www.w3.org/ns/ssn/> ,

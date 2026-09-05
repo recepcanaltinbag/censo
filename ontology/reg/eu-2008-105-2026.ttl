@@ -17,8 +17,8 @@
     dcterms:title "Directive 2008/105/EC, Annex I, consolidated text in force 10 May 2026"@en ;
     dcterms:description """Environmental quality standards for priority substances in inland surface waters, from the consolidated text of Directive 2008/105/EC as amended, in force on 10 May 2026. Parsed from the EUR-Lex primary text by scripts/10_parse_eu_eqs.py."""@en ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
-    owl:versionIRI <https://w3id.org/censo/reg/eu-2008-105-2026/1.0.0> ;
-    owl:versionInfo "1.0.0" ;
+    owl:versionIRI <https://w3id.org/censo/reg/eu-2008-105-2026/2.0.0> ;
+    owl:versionInfo "2.0.0" ;
     vann:preferredNamespacePrefix "cereg" ;
     vann:preferredNamespaceUri "https://w3id.org/censo/reg/" ;
     owl:imports <https://w3id.org/censo/reg/> ;

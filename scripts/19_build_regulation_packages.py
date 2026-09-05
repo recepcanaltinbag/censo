@@ -102,6 +102,8 @@ def lit(v: float) -> str:
     sh:datatype xsd:decimal.
     """
     return f'"{dec(v)}"^^xsd:decimal'
+
+
 def disp(v):
     """Human-readable form for an rdfs:label: no trailing '.0'.
 
@@ -515,7 +517,7 @@ def main() -> int:
         legal_reference="Yerüstü Su Kalitesi Yönetmeliği, Tablo 4 (2016)",
         source_url="https://www.mevzuat.gov.tr/",
         source_local="refs/legal/YSKY.pdf",
-        version="1.0.0", rows=rows,
+        version="2.0.0", rows=rows,
         analyte_prefix="cereg:analyte-tr-")
     report.append(("tr-ysky-2016", out, n_a, n_aa, n_mac))
     print(f"  {out.relative_to(ROOT)}: {n_a} analytes, "
@@ -572,14 +574,15 @@ def main() -> int:
             source_url=("https://eur-lex.europa.eu/legal-content/EN/TXT/"
                         "?uri=CELEX:02008L0105-20260510"),
             source_local="refs/legal/EU-2008-105_consolidated-2026-05-10.pdf",
-            # Stays at 1.0.0. Group (sum) standards being held apart from
-            # per-analyte thresholds, and analytes carrying every CAS the
-            # Annex names, are corrections to a package that has not yet been
-            # released under a DOI and whose permanent-identifier request is
-            # still open. There is therefore no 1.0.0 in anyone's hands to be
-            # invalidated; a version bump here would record a history that
-            # never reached a user.
-            version="1.0.0", rows=rows,
+            # 2.0.0. This used to say "stays at 1.0.0 -- no DOI, the
+            # permanent-identifier request is still open, so there is no 1.0.0
+            # in anyone's hands to invalidate". That reasoning stopped holding
+            # when the packages went up at the IRI w3id.org redirects to: they
+            # ARE dereferenceable, and this release removes cereg:groupCoverage
+            # from every group and adds a censo:MatrixCondition to every
+            # threshold. A consumer who read the 1.0.0 files would break on
+            # both. The old files stay reachable under releases/1.0.0/.
+            version="2.0.0", rows=rows,
             analyte_prefix="cereg:analyte-eu-")
         report.append(("eu-2008-105-2026", out, n_a, n_aa, n_mac))
         print(f"  {out.relative_to(ROOT)}: {n_a} analytes, "

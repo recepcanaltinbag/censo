@@ -6,7 +6,30 @@ part worth keeping. Newest first. Numbers quoted here are recomputed by
 
 ---
 
-## Unreleased
+## 2.0.0 — 2026-09-04
+
+**MAJOR, because terms were removed.** Twenty-one of the ninety-three declared
+terms are retired: each was either redundant with a vocabulary this ontology
+already imports (PROV-O, OWL versioning, ChEBI), a redundant reification of
+something already derivable, a class contradicting the ontology's own
+open-world commitment, or a class no shipped data could reach. A consumer who
+loaded 1.0.0 will break on 2.0.0, and semantic versioning exists to say so.
+
+`https://w3id.org/censo/1.0.0` still resolves to what 1.0.0 was. That had to be
+fixed to be true: `scripts/97_assemble_publish.py` read the version out of the
+file and copied the current build into `releases/<version>/`, so every run
+silently rewrote `releases/1.0.0/` with whatever the vocabulary currently was —
+it had already become a 50-class file where 1.0.0 was 58. A release directory is
+immutable now, and the assembler refuses rather than overwrites.
+
+The regulation packages move to 2.0.0 with it. Their comment used to justify
+staying at 1.0.0 on the grounds that no DOI had been issued and the
+permanent-identifier request was open, so no 1.0.0 was in anyone's hands. That
+stopped holding once the packages went up at the IRI w3id.org redirects to: this
+release removes `cereg:groupCoverage` from every group and adds a
+`censo:MatrixCondition` to every threshold, and a consumer of the 1.0.0 files
+would break on both.
+
 
 ### FIXED — four unowned numbers, and each one made a different check lie
 

@@ -42,8 +42,8 @@ an open-world upper bound rather than as zero."""@en ;
         prov:,
         sosa:,
         ssn: ;
-    owl:versionIRI <https://w3id.org/censo/1.0.0> ;
-    owl:versionInfo "1.0.0" .
+    owl:versionIRI <https://w3id.org/censo/2.0.0> ;
+    owl:versionInfo "2.0.0" .
 
 censo:AssessedObservation a owl:Class ;
     rdfs:label "Assessed observation"@en ;
@@ -229,8 +229,8 @@ derived thresholds such as a total-pesticide sum."""@en ;
         prov:,
         sosa:,
         ssn: ;
-    owl:versionIRI <https://w3id.org/censo/reg/1.0.0> ;
-    owl:versionInfo "1.0.0" .
+    owl:versionIRI <https://w3id.org/censo/reg/2.0.0> ;
+    owl:versionInfo "2.0.0" .
 
 cereg:ArithmeticMean a cereg:AggregationFunction ;
     rdfs:label "arithmetic mean"@en .
@@ -733,9 +733,6 @@ sosa:Observation a owl:Class ;
     owl:hasKey ( censo:hasAnalyte censo:atStation censo:duringCampaign ) .
 
 [] a owl:AllDisjointClasses ;
-    owl:members ( cereg:RegulationPackage cereg:SubstanceGroup cereg:AggregationFunction cereg:TranscriptionStatus ) .
-
-[] a owl:AllDisjointClasses ;
     owl:members ( censo:AnnualAverageThreshold censo:MaximumAllowableThreshold ) .
 
 [] a owl:AllDisjointProperties ;
@@ -743,4 +740,7 @@ sosa:Observation a owl:Class ;
 
 [] a owl:AllDisjointClasses ;
     owl:members ( censo:CensoredObservation censo:EstimatedObservation censo:QuantifiedObservation censo:UnresolvedObservation ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( cereg:RegulationPackage cereg:SubstanceGroup cereg:AggregationFunction cereg:TranscriptionStatus ) .
 

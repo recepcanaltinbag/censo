@@ -17,8 +17,8 @@
     dcterms:title "Turkish Surface Water Quality Regulation, Table 4 (2016)"@en ;
     dcterms:description """Environmental quality standards for inland surface waters, transcribed from Table 4 of the Yerustu Su Kalitesi Yonetmeligi as amended in 2016. Values were parsed from the official text by scripts/08_verify_thresholds.py, not from any secondary compilation."""@en ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
-    owl:versionIRI <https://w3id.org/censo/reg/tr-ysky-2016/1.0.0> ;
-    owl:versionInfo "1.0.0" ;
+    owl:versionIRI <https://w3id.org/censo/reg/tr-ysky-2016/2.0.0> ;
+    owl:versionInfo "2.0.0" ;
     vann:preferredNamespacePrefix "cereg" ;
     vann:preferredNamespaceUri "https://w3id.org/censo/reg/" ;
     owl:imports <https://w3id.org/censo/reg/> ;

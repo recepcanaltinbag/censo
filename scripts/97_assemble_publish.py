@@ -86,6 +86,27 @@ def main() -> int:
     m = re.search(r'owl:versionInfo\s+"([^"]+)"', core.read_text(encoding="utf-8"))
     version = m.group(1) if m else None
     if version:
+        # A RELEASE DIRECTORY IS IMMUTABLE, and this did not enforce it.
+        #
+        # The version is read from the file, so as long as owl:versionInfo said
+        # "1.0.0" every run rewrote releases/1.0.0/ with whatever the vocabulary
+        # currently was. Twenty-one terms were retired and releases/1.0.0/
+        # quietly became a 50-class file where it had been 58 -- so anyone who
+        # dereferenced https://w3id.org/censo/1.0.0 before and after got
+        # different axioms under one version IRI, which is the single promise a
+        # version IRI makes.
+        #
+        # Refuse instead. If the vocabulary changed, the version has to change;
+        # that is what the version is for.
+        frozen = SITE / "releases" / version / "censo-full.ttl"
+        if frozen.exists() and digest(frozen) != digest(core):
+            sys.exit(
+                f"releases/{version}/censo-full.ttl already exists and differs "
+                f"from the current build.\n"
+                f"A published release is immutable: bump owl:versionInfo in "
+                f"ontology/censo-core.ttl (removing a term is a MAJOR change) "
+                f"and re-run scripts/16_export_for_scanners.py, or restore the "
+                f"archived file if the change was unintended.")
         pairs.append((core, f"releases/{version}/censo-full.ttl"))
         pairs.append((ONTO / "dist" / "censo-full.owl",
                       f"releases/{version}/censo-full.owl"))

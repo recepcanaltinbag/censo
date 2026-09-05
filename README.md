@@ -160,4 +160,4 @@ attic/        retired: the single-basin pipeline this paper no longer reports
 ## Citing
 
 See `CITATION.cff`. The ontology and both regulation packages are versioned at
-1.0.0 under <https://w3id.org/censo/>.
+2.0.0 under <https://w3id.org/censo/>; <https://w3id.org/censo/1.0.0> still resolves to what 1.0.0 was.
