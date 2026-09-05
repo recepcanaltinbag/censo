@@ -1,0 +1,5 @@
+case,substance,threshold_ug_l,lower_bound,upper_bound,reported_value,censored,two_valued_zero,two_valued_half,two_valued_full,two_valued_depends_on_constant
+Compliant,Naphthalene,2.0,0.0,0.0099999998,0.01,yes,compliant,compliant,compliant,no
+MethodInsufficient,Permethrin,0.00027,0.0,0.02,0.02,yes,compliant,exceeding,exceeding,yes
+PossibleExceedance,Clarithromycin,0.13,0.124,0.254,0.189,no,exceeding,exceeding,exceeding,no
+PreconditionUnmet,Cadmium and its compounds (depending on water hardness classes) ( 9 ),0.08,0.0,0.3,0.3,yes,compliant,exceeding,exceeding,yes

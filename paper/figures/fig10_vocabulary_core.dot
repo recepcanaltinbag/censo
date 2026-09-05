@@ -1,0 +1,51 @@
+digraph CENSOcore {
+  rankdir=LR;
+  bgcolor="white";
+  splines=spline;
+  nodesep=0.30;
+  ranksep=0.95;
+  node [shape=plaintext, fontname="Helvetica", fontsize=13];
+  edge [fontname="Helvetica", fontsize=11, color="#1f4e79"];
+
+  "sosa:Observation" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#f4f4f4" COLOR="#bbbbbb"><TR><TD ALIGN="CENTER"><FONT COLOR="#666666"><B>sosa:Observation</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">censo:resultLowerBound</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">censo:resultUpperBound</FONT></TD></TR></TABLE>>];
+  "censo:AnalyticalMethod" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#dbe7f3" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:AnalyticalMethod</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">censo:limitOfQuantification</FONT></TD></TR></TABLE>>];
+  "censo:CensoredObservation" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#c9dcc9" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Censored<BR/>Observation</B></FONT></TD></TR></TABLE>>];
+  "censo:QuantifiedObservation" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#c9dcc9" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Quantified<BR/>Observation</B></FONT></TD></TR></TABLE>>];
+  "censo:UnresolvedObservation" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#c9dcc9" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Unresolved<BR/>Observation</B></FONT></TD></TR></TABLE>>];
+  "censo:Threshold" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#dbe7f3" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Threshold</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">censo:thresholdValue</FONT></TD></TR></TABLE>>];
+  "censo:ApplicabilityCondition" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#dbe7f3" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Applicability<BR/>Condition</B></FONT></TD></TR></TABLE>>];
+  "censo:ComplianceOutcome" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#f6e3c8" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:ComplianceOutcome</B></FONT></TD></TR></TABLE>>];
+  "censo:Compliant" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#f6e3c8" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Compliant</B></FONT></TD></TR></TABLE>>];
+  "censo:Exceedance" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#f6e3c8" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Exceedance</B></FONT></TD></TR></TABLE>>];
+  "censo:IndeterminateCompliance" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#f6e3c8" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Indeterminate<BR/>Compliance</B></FONT></TD></TR></TABLE>>];
+  "censo:MethodInsufficient" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#f6e3c8" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Method<BR/>Insufficient</B></FONT></TD></TR></TABLE>>];
+  "censo:PreconditionUnmet" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#f6e3c8" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Precondition<BR/>Unmet</B></FONT></TD></TR></TABLE>>];
+  "censo:PossibleExceedance" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#f6e3c8" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:Possible<BR/>Exceedance</B></FONT></TD></TR></TABLE>>];
+  "censo:BoundNotEstablished" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#f6e3c8" COLOR="#333333"><TR><TD ALIGN="CENTER"><FONT COLOR="#000000"><B>censo:BoundNot<BR/>Established</B></FONT></TD></TR></TABLE>>];
+  "d_sensor" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#ffffff" COLOR="#cccccc"><TR><TD><FONT COLOR="#999999">ssn-system:DetectionLimit</FONT></TD></TR><TR><TD><FONT POINT-SIZE="10" COLOR="#999999">on the SENSOR</FONT></TD></TR></TABLE>>];
+  "d_method" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#ffffff" COLOR="#cccccc"><TR><TD><FONT COLOR="#999999">CHMO:0002801</FONT></TD></TR><TR><TD><FONT POINT-SIZE="10" COLOR="#999999">on the METHOD</FONT></TD></TR></TABLE>>];
+  "d_sensor" -> "d_method" [color="#b03030", penwidth=1.4, label=<<FONT POINT-SIZE="10" COLOR="#b03030">a better place</FONT>>];
+  "d_method" -> "sosa:Observation" [color="#b03030", penwidth=2.0, label=<<FONT POINT-SIZE="11" COLOR="#b03030"><B>CENSO: onto the RESULT</B><BR/>so THIS measurement can be<BR/>called a bound</FONT>>];
+
+  "sosa:Observation" -> "censo:CensoredObservation" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "sosa:Observation" -> "censo:QuantifiedObservation" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "sosa:Observation" -> "censo:UnresolvedObservation" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "censo:ComplianceOutcome" -> "censo:Compliant" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "censo:ComplianceOutcome" -> "censo:Exceedance" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "censo:ComplianceOutcome" -> "censo:IndeterminateCompliance" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "censo:IndeterminateCompliance" -> "censo:MethodInsufficient" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "censo:IndeterminateCompliance" -> "censo:PreconditionUnmet" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "censo:IndeterminateCompliance" -> "censo:PossibleExceedance" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "censo:IndeterminateCompliance" -> "censo:BoundNotEstablished" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
+  "censo:AnalyticalMethod" -> "sosa:Observation" [dir=back, color="#1f4e79", label="usedProcedure"];
+  "sosa:Observation" -> "censo:Threshold" [label="assessableAgainst"];
+  "censo:Threshold" -> "censo:ApplicabilityCondition" [label="requiresCondition"];
+  "sosa:Observation" -> "censo:ComplianceOutcome" [style=dashed, color="#8a4b08", label=<<FONT POINT-SIZE="10" COLOR="#8a4b08">the rule layer materialises<BR/>exceeds / possiblyExceeds / belowThreshold<BR/>OWL classifies over them</FONT>>];
+
+  "ax1" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="7" BGCOLOR="#fbfbf7" COLOR="#b9a97e"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="11"><B>disjoint AND exhaustive</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#444444">a row asserted both censored and quantified<BR ALIGN="LEFT"/>makes the ontology INCONSISTENT.<BR ALIGN="LEFT"/>censored &#8658; resultLowerBound = 0, so half-LOQ<BR ALIGN="LEFT"/>substitution violates an axiom<BR ALIGN="LEFT"/></FONT></TD></TR></TABLE>>];
+  { rank=same; "censo:CensoredObservation"; "ax1"; }
+  "censo:CensoredObservation" -> "ax1" [style=dotted, color="#999999", arrowhead=none, constraint=false];
+  "ax2" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="7" BGCOLOR="#fbfbf7" COLOR="#b9a97e"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="11"><B>THREE values, not two</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#444444">and the third says WHY it could not be decided.<BR ALIGN="LEFT"/>a two-valued schema has nowhere to put these<BR ALIGN="LEFT"/>rows, so it reports them as one of the other two<BR ALIGN="LEFT"/></FONT></TD></TR></TABLE>>];
+  { rank=same; "censo:IndeterminateCompliance"; "ax2"; }
+  "censo:IndeterminateCompliance" -> "ax2" [style=dotted, color="#999999", arrowhead=none, constraint=false];
+}

@@ -558,6 +558,28 @@ def main() -> int:
             return 1
         print(f"  wrote paper/figures/{STEM}.{fmt}")
 
+    # ---- the distilled figure -------------------------------------------
+    bad = verify_core(g)
+    if bad:
+        print(f"  FAIL the distilled figure draws {len(bad)} edge(s) the "
+              f"ontology does not have:")
+        for b in bad:
+            print(f"        {b}")
+        return 1
+    csrc = core_dot()
+    (FIGS / f"{CORE_STEM}.dot").write_text(csrc, encoding="utf-8")
+    for fmt in ("svg", "pdf", "png"):
+        r = subprocess.run(["dot", f"-T{fmt}", "-o",
+                            str(FIGS / f"{CORE_STEM}.{fmt}")],
+                           input=csrc.encode("utf-8"), stderr=subprocess.PIPE)
+        if r.returncode != 0:
+            print("  FAIL graphviz (core):", r.stderr.decode()[:300])
+            return 1
+    n_core = len(CORE_SUB) + len(CORE_OBJ) + sum(
+        len(a) for _, _, _, a in CORE_NODES)
+    print(f"  wrote paper/figures/{CORE_STEM}.svg/.pdf/.png  "
+          f"({len(CORE_NODES)} nodes, {n_core} edges verified)")
+
     n_edges = len(SUBCLASS) + len(OBJPROP) + sum(len(v) for v in ATTRS.values())
     EVAL.mkdir(parents=True, exist_ok=True)
     L = ["# The vocabulary figure\n",
@@ -595,6 +617,172 @@ def main() -> int:
     print(f"  {n_edges} edge(s) verified against the ontology, 0 unsupported")
     return 0
 
+
+
+# =========================================================================== #
+#  THE DISTILLED FIGURE
+#
+#  fig09 is a reference diagram: every class, every commitment, forty-odd
+#  boxes. That is the right thing to be able to consult and the wrong thing to
+#  put in front of a reader who has not yet been told what the argument is.
+#  A reader absorbs one picture; this is the one.
+#
+#  Sixteen nodes, one path through them: a limit lands on a method, the method
+#  produces a result, the result is an interval with an epistemic status, the
+#  status meets a threshold that has conditions, and what comes out is one of
+#  three values rather than two. Everything that is not on that path is left
+#  to fig09.
+#
+#  Same guarantee: every edge is checked against the vocabulary before it is
+#  drawn.
+# =========================================================================== #
+
+CORE_STEM = "fig10_vocabulary_core"
+
+CORE_NODES = [
+    ("sosa:Observation", "sosa:Observation", INHERITED,
+     ["censo:resultLowerBound", "censo:resultUpperBound"]),
+    ("censo:AnalyticalMethod", "censo:AnalyticalMethod", NEW,
+     ["censo:limitOfQuantification"]),
+    ("censo:CensoredObservation", "censo:Censored\nObservation", EPISTEMIC, []),
+    ("censo:QuantifiedObservation", "censo:Quantified\nObservation", EPISTEMIC, []),
+    ("censo:UnresolvedObservation", "censo:Unresolved\nObservation", EPISTEMIC, []),
+    ("censo:Threshold", "censo:Threshold", NEW, ["censo:thresholdValue"]),
+    ("censo:ApplicabilityCondition", "censo:Applicability\nCondition", NEW, []),
+    ("censo:ComplianceOutcome", "censo:ComplianceOutcome", OUTCOME, []),
+    ("censo:Compliant", "censo:Compliant", OUTCOME, []),
+    ("censo:Exceedance", "censo:Exceedance", OUTCOME, []),
+    ("censo:IndeterminateCompliance", "censo:Indeterminate\nCompliance", OUTCOME, []),
+    ("censo:MethodInsufficient", "censo:Method\nInsufficient", OUTCOME, []),
+    ("censo:PreconditionUnmet", "censo:Precondition\nUnmet", OUTCOME, []),
+    ("censo:PossibleExceedance", "censo:Possible\nExceedance", OUTCOME, []),
+    ("censo:BoundNotEstablished", "censo:BoundNot\nEstablished", OUTCOME, []),
+]
+
+CORE_SUB = [
+    ("censo:CensoredObservation", "sosa:Observation"),
+    ("censo:QuantifiedObservation", "sosa:Observation"),
+    ("censo:UnresolvedObservation", "sosa:Observation"),
+    ("censo:Compliant", "censo:ComplianceOutcome"),
+    ("censo:Exceedance", "censo:ComplianceOutcome"),
+    ("censo:IndeterminateCompliance", "censo:ComplianceOutcome"),
+    ("censo:MethodInsufficient", "censo:IndeterminateCompliance"),
+    ("censo:PreconditionUnmet", "censo:IndeterminateCompliance"),
+    ("censo:PossibleExceedance", "censo:IndeterminateCompliance"),
+    ("censo:BoundNotEstablished", "censo:IndeterminateCompliance"),
+]
+
+CORE_OBJ = [
+    ("censo:assessableAgainst", "sosa:Observation", "censo:Threshold"),
+    ("censo:requiresCondition", "censo:Threshold",
+     "censo:ApplicabilityCondition"),
+]
+
+
+def core_dot() -> str:
+    """The distilled figure: one path, sixteen nodes."""
+    def box(nid, label, fill, attrs, dashed=False):
+        head = "<BR/>".join(esc(x) for x in label.split("\n"))
+        col = "#bbbbbb" if dashed else "#333333"
+        hc = "#666666" if dashed else "#000000"
+        rows = [f'<TR><TD ALIGN="CENTER"><FONT COLOR="{hc}"><B>{head}</B>'
+                f'</FONT></TD></TR>']
+        for a in attrs:
+            rows.append(f'<TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">'
+                        f'{esc(a)}</FONT></TD></TR>')
+        return (f'  "{nid}" [label=<<TABLE BORDER="0" CELLBORDER="1" '
+                f'CELLSPACING="0" CELLPADDING="6" BGCOLOR="{fill}" '
+                f'COLOR="{col}">{"".join(rows)}</TABLE>>];')
+
+    L = ['digraph CENSOcore {', '  rankdir=LR;', '  bgcolor="white";',
+         '  splines=spline;', '  nodesep=0.30;', '  ranksep=0.95;',
+         '  node [shape=plaintext, fontname="Helvetica", fontsize=13];',
+         '  edge [fontname="Helvetica", fontsize=11, color="%s"];' % EDGE_OBJ,
+         '']
+    for nid, label, fill, attrs in CORE_NODES:
+        L.append(box(nid, label, fill, attrs, dashed=nid.startswith("sosa:")))
+
+    # the displaced positions, drawn as the one-line argument
+    L.append('  "d_sensor" [label=<<TABLE BORDER="0" CELLBORDER="1" '
+             'CELLSPACING="0" CELLPADDING="6" BGCOLOR="#ffffff" '
+             'COLOR="#cccccc"><TR><TD><FONT COLOR="#999999">'
+             'ssn-system:DetectionLimit</FONT></TD></TR><TR><TD>'
+             '<FONT POINT-SIZE="10" COLOR="#999999">on the SENSOR</FONT>'
+             '</TD></TR></TABLE>>];')
+    L.append('  "d_method" [label=<<TABLE BORDER="0" CELLBORDER="1" '
+             'CELLSPACING="0" CELLPADDING="6" BGCOLOR="#ffffff" '
+             'COLOR="#cccccc"><TR><TD><FONT COLOR="#999999">'
+             'CHMO:0002801</FONT></TD></TR><TR><TD>'
+             '<FONT POINT-SIZE="10" COLOR="#999999">on the METHOD</FONT>'
+             '</TD></TR></TABLE>>];')
+    L.append(f'  "d_sensor" -> "d_method" [color="#b03030", penwidth=1.4, '
+             f'label=<<FONT POINT-SIZE="10" COLOR="#b03030">'
+             f'a better place</FONT>>];')
+    L.append(f'  "d_method" -> "sosa:Observation" [color="#b03030", '
+             f'penwidth=2.0, label=<<FONT POINT-SIZE="11" COLOR="#b03030">'
+             f'<B>CENSO: onto the RESULT</B><BR/>'
+             f'so THIS measurement can be<BR/>called a bound</FONT>>];')
+    L.append('')
+    for c, p in CORE_SUB:
+        L.append(f'  "{p}" -> "{c}" [dir=back, arrowtail=onormal, '
+                 f'arrowhead=none, color="{EDGE_SUB}"];')
+    L.append(f'  "censo:AnalyticalMethod" -> "sosa:Observation" '
+             f'[dir=back, color="{EDGE_OBJ}", label="usedProcedure"];')
+    for p, d, r in CORE_OBJ:
+        L.append(f'  "{d}" -> "{r}" [label="{p.split(":",1)[1]}"];')
+    L.append(f'  "sosa:Observation" -> "censo:ComplianceOutcome" '
+             f'[style=dashed, color="{EDGE_AX}", '
+             f'label=<<FONT POINT-SIZE="10" COLOR="{EDGE_AX}">'
+             f'the rule layer materialises<BR/>'
+             f'exceeds / possiblyExceeds / belowThreshold<BR/>'
+             f'OWL classifies over them</FONT>>];')
+    L.append('')
+    L.append('  "ax1" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" '
+             'CELLPADDING="7" BGCOLOR="#fbfbf7" COLOR="#b9a97e">'
+             '<TR><TD ALIGN="LEFT"><FONT POINT-SIZE="11"><B>disjoint AND '
+             'exhaustive</B></FONT></TD></TR><TR><TD ALIGN="LEFT">'
+             '<FONT POINT-SIZE="10" COLOR="#444444">'
+             'a row asserted both censored and quantified<BR ALIGN="LEFT"/>'
+             'makes the ontology INCONSISTENT.<BR ALIGN="LEFT"/>'
+             'censored &#8658; resultLowerBound = 0, so half-LOQ<BR ALIGN="LEFT"/>'
+             'substitution violates an axiom<BR ALIGN="LEFT"/>'
+             '</FONT></TD></TR></TABLE>>];')
+    L.append('  { rank=same; "censo:CensoredObservation"; "ax1"; }')
+    L.append('  "censo:CensoredObservation" -> "ax1" '
+             '[style=dotted, color="#999999", arrowhead=none, constraint=false];')
+    L.append('  "ax2" [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" '
+             'CELLPADDING="7" BGCOLOR="#fbfbf7" COLOR="#b9a97e">'
+             '<TR><TD ALIGN="LEFT"><FONT POINT-SIZE="11"><B>THREE values, '
+             'not two</B></FONT></TD></TR><TR><TD ALIGN="LEFT">'
+             '<FONT POINT-SIZE="10" COLOR="#444444">'
+             'and the third says WHY it could not be decided.<BR ALIGN="LEFT"/>'
+             'a two-valued schema has nowhere to put these<BR ALIGN="LEFT"/>'
+             'rows, so it reports them as one of the other two<BR ALIGN="LEFT"/>'
+             '</FONT></TD></TR></TABLE>>];')
+    L.append('  { rank=same; "censo:IndeterminateCompliance"; "ax2"; }')
+    L.append('  "censo:IndeterminateCompliance" -> "ax2" '
+             '[style=dotted, color="#999999", arrowhead=none, constraint=false];')
+    L.append('}')
+    return "\n".join(L)
+
+
+def verify_core(g: Graph) -> list[str]:
+    bad = []
+    for c, p in CORE_SUB:
+        if (iri(c), RDFS.subClassOf, iri(p)) not in g:
+            bad.append(f"rdfs:subClassOf missing: {c} -> {p}")
+    for p, d, r in CORE_OBJ:
+        if (iri(p), RDFS.domain, iri(d)) not in g:
+            bad.append(f"rdfs:domain mismatch: {p} is not on {d}")
+        if (iri(p), RDFS.range, iri(r)) not in g:
+            bad.append(f"rdfs:range mismatch: {p} does not reach {r}")
+    for nid, _, _, attrs in CORE_NODES:
+        if nid.startswith("censo:") and (iri(nid), RDF.type, OWL.Class) not in g:
+            bad.append(f"not an owl:Class: {nid}")
+        for a in attrs:
+            if (iri(a), RDF.type, OWL.DatatypeProperty) not in g:
+                bad.append(f"not an owl:DatatypeProperty: {a}")
+    return bad
 
 if __name__ == "__main__":
     sys.exit(main())

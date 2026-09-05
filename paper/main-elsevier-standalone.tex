@@ -504,6 +504,24 @@ Four commitments distinguish it from the vocabularies surveyed in
 Section~\ref{sec:results-gap}, and Figure~\ref{fig:vocab} draws all four.
 
 \begin{figure}[htbp]\centering
+\includegraphics[width=\textwidth]{fig10_vocabulary_core.pdf}
+\caption{The vocabulary distilled to the one path the argument runs along, in
+fifteen classes. A limit is declared on a method, the method produces a result,
+the result is an interval carrying an epistemic status, the status meets a
+threshold that has conditions, and what comes out is one of \emph{three}
+values rather than two. The red chain at the left is the contribution stated as
+a sequence: \texttt{ssn-system:DetectionLimit} binds the limit to a
+\emph{sensor}; CHMO's \texttt{limit of detection}, the closest prior art,
+binds it to the \emph{method} as a figure of merit of an assay; neither can say
+that a particular measurement fell below it, which needs the limit carried onto
+the \emph{result}. Every edge is verified against the vocabulary before the
+figure is drawn\src{scripts/91\_ontology\_figure.py}. The complete diagram,
+with all four commitments and their axioms, is
+Figure~\ref{fig:vocab-full}.}
+\label{fig:vocab}
+\end{figure}
+
+\begin{figure}[htbp]\centering
 \includegraphics[width=\textwidth]{fig09_ontology_graph.pdf}
 \caption{What CENSO inherits and what it adds, organised by the four
 commitments rather than by namespace. Grey dashed boxes are classes taken from
@@ -520,7 +538,7 @@ against the vocabulary before the figure is written and an edge with no triple
 behind it stops the build, so the figure cannot drift from the ontology --- it
 can only fail to compile\src{scripts/91\_ontology\_figure.py}. The verification
 record ships as \texttt{eval/ontology\_figure.md}.}
-\label{fig:vocab}
+\label{fig:vocab-full}
 \end{figure}
 
 \paragraph{The limit is carried onto the result.}
@@ -1501,6 +1519,38 @@ is in \texttt{supplementary/S13\_reasoning\_cost.csv}. A deployment over a
 whole basin would use a store with native rule support, so those figures bound
 this pipeline and not the approach. Every other answer comes from asserted triples. They run on public
 data, and their SPARQL, rows and times are in the supplementary material.
+
+\subsection{Four real rows, decided twice}
+\label{sec:results-walkthrough}
+Figure~\ref{fig:walkthrough} takes one station-year from each of four outcome
+classes and decides it twice: once by the vocabulary, once by a two-valued
+pipeline at each of the three substitution constants in
+use\src{scripts/92\_decision\_walkthrough.py}. The rows are the first match per
+class in sorted order, so the selection cannot flatter the argument, and the
+two-valued verdicts are computed by the same function that produces the counts
+in Section~\ref{sec:results-wbabox} rather than by a second implementation.
+
+\textbf{Two of the four get a different two-valued verdict depending on which
+constant the pipeline happened to use}, and nothing in a two-valued output
+records that a choice was made. Permethrin is the clearest: a quantification
+limit of \num{0.02}\,\si{\micro\gram\per\litre} against a standard of
+\num{0.00027} --- \num{74} times the threshold it was meant to decide --- reads
+as compliant at zero and as exceeding at half. The first case is included
+because both systems agree on it: a bound that clears the standard decides the
+question, and a vocabulary that could not say so would be useless.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\textwidth]{fig11_decision_walkthrough.pdf}
+\caption{One real station-year per outcome class, decided by CENSO (left, the
+interval the observation establishes against the standard) and by a two-valued
+schema (right, at each substitution constant). The shaded bar is what the
+measurement supports: for a non-detection it runs from zero, because that is
+what ``not detected'' permits. Red line, the standard. Where the right-hand
+column changes with the constant, the reported verdict is the convention rather
+than the measurement. Every value is read from the shipped graph and ships in
+\texttt{supplementary/figure\_data/fig11\_decision\_walkthrough.csv}.}
+\label{fig:walkthrough}
+\end{figure}
 
 \subsection{The shipped graph is validated against the shipped shapes}
 \label{sec:results-shacl}

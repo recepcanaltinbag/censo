@@ -50,7 +50,7 @@ Every cell above is decided by the stated method: does the ontology have a TERM 
 
 These concepts appear in a comment or definition but the ontology has no term for them. In large ontologies this is noise: ENVO's "undecidable" hit is *indeterminate root nodule*.
 
-- **ENVO**: threshold (64), undecidable (20), interval_result (10), applicability (5)
+- **ENVO**: threshold (64), interval_result (10), applicability (5), undecidable (20)
 
 ## Profile: reuse, FAIR and measurement modality
 
@@ -93,12 +93,12 @@ Keyword presence is only half the comparison. This table asks whether an ontolog
 - `permissibleMaths :: permissible maths`
 
 **applicability**
-- `applicableUSCustomaryUnit :: applicableUSCustomaryUnit`
-- `applicableUSCustomaryUnit :: applicable US Customary unit`
-- `applicableISOUnit :: applicableISOUnit`
-- `applicableISOUnit :: applicable ISO unit`
+- `applicablePlanckUnit :: applicablePlanckUnit`
+- `applicablePlanckUnit :: applicable Planck unit`
 - `applicableSystem :: applicableSystem`
 - `applicableSystem :: applicable system`
+- `applicableISOUnit :: applicableISOUnit`
+- `applicableISOUnit :: applicable ISO unit`
 - … and 12 more
 
 ### SAREF core
@@ -124,8 +124,8 @@ Keyword presence is only half the comparison. This table asks whether an ontolog
 **interval result**
 - `upperBound :: upperBound`
 - `upperBound :: upper bound`
-- `lowerBound :: lowerBound`
-- `lowerBound :: lower bound`
+- `lowerBoundIncluded :: lowerBoundIncluded`
+- `lowerBoundIncluded :: lower bound included`
 - `upperBoundIncluded :: upperBoundIncluded`
 - `upperBoundIncluded :: upper bound included`
 - … and 2 more
@@ -141,8 +141,8 @@ Keyword presence is only half the comparison. This table asks whether an ontolog
 - `ExceededThreshold :: ExceededThreshold`
 
 **interval result**
-- `hasRangeMaxValue :: hasRangeMaxValue`
 - `hasRangeMinValue :: hasRangeMinValue`
+- `hasRangeMaxValue :: hasRangeMaxValue`
 
 ### CHMO (chemical methods)
 
@@ -160,21 +160,21 @@ Keyword presence is only half the comparison. This table asks whether an ontolog
 ### AFO (Allotrope)
 
 **threshold**
+- `AFR_0002236 :: cycle threshold value setting (qPCR)`
+- `AFR_0002928 :: fluorescence intensity threshold setting`
+- `AFR_0002943 :: minimum assay bead count threshold setting`
+- `AFR_0001692 :: height threshold for peak integration setting (chromatography)`
 - `AFR_0002235 :: automatic cycle threshold enabled setting`
 - `AFR_0002835 :: maximum allowable baseline drift setting`
-- `AFR_0001691 :: area threshold for peak integration setting (chromatography)`
-- `AFR_0002928 :: fluorescence intensity threshold setting`
-- `AFR_0002834 :: maximum allowable noise setting`
-- `AFR_0002246 :: cycle threshold result (qPCR)`
 - … and 5 more
 
 **interval result**
-- `AFR_0003203 :: isolation window lower limit`
-- `AFX_0000672 :: minimum value inclusive`
-- `AFR_0001616 :: library search lower limit`
-- `AFR_0002440 :: minimum value`
 - `AFRL_0000042 :: upper bound`
-- `AFX_0000675 :: maximum value exclusive`
+- `AFR_0002441 :: maximum value`
+- `AFRL_0000566 :: minimum value role`
+- `AFR_0002440 :: minimum value`
+- `AFR_0002195 :: bin upper limit`
+- `AFX_0000671 :: minimum value exclusive`
 - … and 11 more
 
 **applicability**
@@ -186,56 +186,56 @@ Keyword presence is only half the comparison. This table asks whether an ontolog
 - `STATO_0000190 :: threshold cycle`
 
 **interval result**
-- `STATO_0000231 :: 95% confidence interval`
-- `STATO_0000021 :: 90% confidence interval`
-- `STATO_0000127 :: 99% confidence interval`
-- `STATO_0000455 :: credible interval`
 - `STATO_0000175 :: confidence interval calculation`
+- `STATO_0000127 :: 99% confidence interval`
+- `STATO_0000196 :: confidence interval`
+- `STATO_0000456 :: 95% credible interval`
 - `STATO_0000458 :: 99% credible interval`
+- `STATO_0000214 :: 50% confidence interval`
 - … and 3 more
 
 ### CENSO (this work)
 
 **detection limit**
-- `limitOfDetection :: limitOfDetection`
-- `limitOfDetection :: limit of detection (LOD)`
 - `limitOfQuantification :: limitOfQuantification`
 - `limitOfQuantification :: limit of quantification (LOQ)`
+- `limitOfDetection :: limitOfDetection`
+- `limitOfDetection :: limit of detection (LOD)`
 
 **censoring**
-- `CensoredObservation :: CensoredObservation`
-- `CensoredObservation :: Censored observation`
 - `censoringRecovered :: censoringRecovered`
 - `censoringRecovered :: censoring recovered`
 - `belowThreshold :: below threshold`
+- `CensoredObservation :: CensoredObservation`
+- `CensoredObservation :: Censored observation`
 
 **undecidable**
-- `IndeterminateCompliance :: Indeterminate compliance`
 - `UnresolvedObservation :: UnresolvedObservation`
 - `UnresolvedObservation :: Unresolved observation`
+- `IndeterminateCompliance :: Indeterminate compliance`
 
 **threshold**
-- `thresholdValue :: thresholdValue`
-- `thresholdValue :: threshold value`
-- `AnnualAverageThreshold :: AnnualAverageThreshold`
-- `AnnualAverageThreshold :: Annual average threshold`
 - `NoThresholdDefined :: NoThresholdDefined`
 - `NoThresholdDefined :: No threshold defined`
+- `Exceedance :: Exceedance`
+- `belowThreshold :: belowThreshold`
+- `AnnualAverageThreshold :: AnnualAverageThreshold`
+- `AnnualAverageThreshold :: Annual average threshold`
 - … and 9 more
 
 **interval result**
-- `resultUpperBound :: resultUpperBound`
-- `resultUpperBound :: result upper bound`
 - `resultLowerBound :: resultLowerBound`
 - `resultLowerBound :: result lower bound`
+- `resultUpperBound :: resultUpperBound`
+- `resultUpperBound :: result upper bound`
 
 **applicability**
-- `BioavailabilityCondition :: BioavailabilityCondition`
-- `BioavailabilityCondition :: Bioavailability condition`
-- `HardnessClassCondition :: Hardness class condition`
 - `PreconditionUnmet :: PreconditionUnmet`
 - `PreconditionUnmet :: Precondition unmet`
-- `MatrixCondition :: Matrix condition`
+- `ApplicabilityCondition :: ApplicabilityCondition`
+- `ApplicabilityCondition :: Applicability condition`
+- `BioavailabilityCondition :: BioavailabilityCondition`
+- `BioavailabilityCondition :: Bioavailability condition`
 - … and 2 more
 
 ### CENSO-REG (this work)

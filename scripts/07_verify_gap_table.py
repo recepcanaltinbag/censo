@@ -356,7 +356,15 @@ def scan(g):
     for t in entity_types:
         entities |= {s for s in g.subjects(RDF.type, t) if isinstance(s, URIRef)}
 
-    for e in entities:
+    # SORTED. `entities` is a set, so iterating it directly ordered the
+    # evidence lists by Python's set iteration -- which varies between runs.
+    # The scored cells were identical either way, but the examples the report
+    # prints for each concept changed on every rebuild, and the prose-only
+    # counts came out in a different order. README.md promises "deterministic:
+    # fixed seeds, sorted iteration"; this file was not keeping it, and a
+    # referee re-running the pipeline would have got a different artefact for
+    # the same input.
+    for e in sorted(entities, key=str):
         local = str(e).rsplit("#", 1)[-1].rsplit("/", 1)[-1]
         consider(local, local, True)
         for p in (RDFS.label, SKOS.prefLabel):
@@ -612,11 +620,13 @@ def main() -> int:
         A("These concepts appear in a comment or definition but the ontology has "
           "no term for them. In large ontologies this is noise: ENVO's "
           "\"undecidable\" hit is *indeterminate root nodule*.\n")
-        for name, d in prose_only.items():
+        for name, d in prose_only.items():   # TARGETS order, already fixed
             hits = {k: v for k, v in d.items() if v}
             if not hits:
                 continue
-            A(f"- **{name}**: " + ", ".join(f"{k} ({len(v)})" for k, v in hits.items()))
+            A(f"- **{name}**: "
+              + ", ".join(f"{k} ({len(v)})"
+                          for k, v in sorted(hits.items())))
         A("")
 
     A("## Profile: reuse, FAIR and measurement modality\n")

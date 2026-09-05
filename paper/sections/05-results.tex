@@ -703,6 +703,38 @@ whole basin would use a store with native rule support, so those figures bound
 this pipeline and not the approach. Every other answer comes from asserted triples. They run on public
 data, and their SPARQL, rows and times are in the supplementary material.
 
+\subsection{Four real rows, decided twice}
+\label{sec:results-walkthrough}
+Figure~\ref{fig:walkthrough} takes one station-year from each of four outcome
+classes and decides it twice: once by the vocabulary, once by a two-valued
+pipeline at each of the three substitution constants in
+use\src{scripts/92\_decision\_walkthrough.py}. The rows are the first match per
+class in sorted order, so the selection cannot flatter the argument, and the
+two-valued verdicts are computed by the same function that produces the counts
+in Section~\ref{sec:results-wbabox} rather than by a second implementation.
+
+\textbf{Two of the four get a different two-valued verdict depending on which
+constant the pipeline happened to use}, and nothing in a two-valued output
+records that a choice was made. Permethrin is the clearest: a quantification
+limit of \num{0.02}\,\si{\micro\gram\per\litre} against a standard of
+\num{0.00027} --- \num{74} times the threshold it was meant to decide --- reads
+as compliant at zero and as exceeding at half. The first case is included
+because both systems agree on it: a bound that clears the standard decides the
+question, and a vocabulary that could not say so would be useless.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\textwidth]{fig11_decision_walkthrough.pdf}
+\caption{One real station-year per outcome class, decided by CENSO (left, the
+interval the observation establishes against the standard) and by a two-valued
+schema (right, at each substitution constant). The shaded bar is what the
+measurement supports: for a non-detection it runs from zero, because that is
+what ``not detected'' permits. Red line, the standard. Where the right-hand
+column changes with the constant, the reported verdict is the convention rather
+than the measurement. Every value is read from the shipped graph and ships in
+\texttt{supplementary/figure\_data/fig11\_decision\_walkthrough.csv}.}
+\label{fig:walkthrough}
+\end{figure}
+
 \subsection{The shipped graph is validated against the shipped shapes}
 \label{sec:results-shacl}
 The published shapes are run over the published graph --- \num{633960} triples

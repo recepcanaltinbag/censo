@@ -29,6 +29,24 @@ Four commitments distinguish it from the vocabularies surveyed in
 Section~\ref{sec:results-gap}, and Figure~\ref{fig:vocab} draws all four.
 
 \begin{figure}[htbp]\centering
+\includegraphics[width=\textwidth]{fig10_vocabulary_core.pdf}
+\caption{The vocabulary distilled to the one path the argument runs along, in
+fifteen classes. A limit is declared on a method, the method produces a result,
+the result is an interval carrying an epistemic status, the status meets a
+threshold that has conditions, and what comes out is one of \emph{three}
+values rather than two. The red chain at the left is the contribution stated as
+a sequence: \texttt{ssn-system:DetectionLimit} binds the limit to a
+\emph{sensor}; CHMO's \texttt{limit of detection}, the closest prior art,
+binds it to the \emph{method} as a figure of merit of an assay; neither can say
+that a particular measurement fell below it, which needs the limit carried onto
+the \emph{result}. Every edge is verified against the vocabulary before the
+figure is drawn\src{scripts/91\_ontology\_figure.py}. The complete diagram,
+with all four commitments and their axioms, is
+Figure~\ref{fig:vocab-full}.}
+\label{fig:vocab}
+\end{figure}
+
+\begin{figure}[htbp]\centering
 \includegraphics[width=\textwidth]{fig09_ontology_graph.pdf}
 \caption{What CENSO inherits and what it adds, organised by the four
 commitments rather than by namespace. Grey dashed boxes are classes taken from
@@ -45,7 +63,7 @@ against the vocabulary before the figure is written and an edge with no triple
 behind it stops the build, so the figure cannot drift from the ontology --- it
 can only fail to compile\src{scripts/91\_ontology\_figure.py}. The verification
 record ships as \texttt{eval/ontology\_figure.md}.}
-\label{fig:vocab}
+\label{fig:vocab-full}
 \end{figure}
 
 \paragraph{The limit is carried onto the result.}
