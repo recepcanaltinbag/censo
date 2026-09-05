@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CENSO — an ontology for censored environmental observations</title>
+<title>CENSO &mdash; an ontology for censored environmental observations</title>
 <style>
 :root{--ink:#1f1f1f;--muted:#5c6470;--line:#e3e6ea;--acc:#123f66;--bg:#fff}
 @media(prefers-color-scheme:dark){:root{--ink:#e8eaed;--muted:#9aa3ae;--line:#2a2f36;--acc:#8ab0d6;--bg:#15181c}}
@@ -30,70 +30,50 @@ font-size:.83rem;color:var(--muted)}
 </style></head><body><main>
 
 <h1>CENSO</h1>
-<p class="lede">An ontology for censored environmental observations · version 1.0.0</p>
+<p class="lede">An ontology for censored environmental observations &middot; version 2.0.0</p>
 <p class="iri">https://w3id.org/censo/</p>
 
 <div class="k">
-<div><b>40</b><span>classes</span></div>
-<div><b>45</b><span>properties</span></div>
-<div><b>551</b><span>thresholds</span></div>
+<div><b>32</b><span>classes</span></div>
+<div><b>35</b><span>properties</span></div>
+<div><b>537</b><span>thresholds</span></div>
 <div><b>2</b><span>jurisdictions</span></div>
 </div>
 
 <h2>What it is</h2>
-<p>CENSO extends SOSA/SSN for measurements produced by a method that has a limit
-of detection. Its single modelling commitment is that <strong>the detection
-limit belongs to the analytical run, not to the instrument</strong>. Because the
-limit travels with the result, a non-detection can be typed as the interval
-<code>[0, LOD]</code> it actually establishes rather than stored as a zero, and
-compliance becomes four-valued: <em>compliant</em>, <em>exceeding</em>,
-<em>possibly exceeding</em>, and <em>cannot be determined</em>.</p>
-
-<p>The fourth outcome is not a convenience:</p>
-<blockquote>Where a result is referred to as &ldquo;less than limit of
-quantification&rdquo;, and the limit of quantification of that technique is above
-the EQS, the result for the substance being measured shall not be considered for
-the purposes of assessing the overall chemical status of that water body.
-<br>— Directive 2008/105/EC, Article 3(3b)</blockquote>
-<p>That outcome is neither compliant nor exceeding. A two-valued data model
-cannot express it, so compliance with the provision cannot be audited.</p>
+<p>CENSO extends SOSA/SSN for measurements produced by a method that has a limit of detection. Its modelling commitment is that the limit is <em>carried onto the result</em>. SSN-System binds a detection limit to a <em>sensor</em>; CHMO, the closest prior art, binds it to the <em>method</em>, as a figure of merit of an assay. Neither can say that a particular measurement fell below it &mdash; and &ldquo;censored&rdquo; is a property of a result, not of the procedure that produced it.</p>
+<p>Because the limit reaches the result, a non-detection is typed as the interval [0,&nbsp;LOQ] it actually establishes rather than stored as a zero, and compliance is <strong>three-valued</strong>: compliant, exceeding, or not determinable &mdash; with the third subtyped by the <em>reason</em> it could not be decided.</p>
+<p>The third outcome is not a convenience:</p>
+<blockquote>Where a result is referred to as &ldquo;less than limit of quantification&rdquo;, and the limit of quantification of that technique is above the EQS, the result for the substance being measured shall not be considered for the purposes of assessing the overall chemical status of that water body.<br>&mdash; Directive 2008/105/EC, Article 3(3b)</blockquote>
+<p>That outcome is neither compliant nor exceeding. A two-valued data model cannot express it, so compliance with the provision cannot be audited.</p>
 
 <h2>Resolvable IRIs</h2>
-<table>
-<tr><th>IRI</th><th>Resolves to</th></tr>
-<tr><td class="iri">https://w3id.org/censo/</td><td>the vocabulary — Turtle, RDF/XML or JSON-LD by content negotiation</td></tr>
-<tr><td class="iri">https://w3id.org/censo/1.0.0</td><td>this release specifically</td></tr>
+<table><tr><th>IRI</th><th>Resolves to</th></tr>
+<tr><td class="iri">https://w3id.org/censo/</td><td>the vocabulary &mdash; Turtle, RDF/XML or JSON-LD by content negotiation</td></tr>
+<tr><td class="iri">https://w3id.org/censo/2.0.0</td><td>this release specifically</td></tr>
+<tr><td class="iri">https://w3id.org/censo/1.0.0</td><td>the 1.0.0 release, unchanged since it was published</td></tr>
 <tr><td class="iri">https://w3id.org/censo/reg/</td><td>the regulation-package vocabulary</td></tr>
-<tr><td class="iri">https://w3id.org/censo/reg/eu-2008-105-2026</td><td>EU Annex I as in force 10 May 2026 — 117 thresholds</td></tr>
-<tr><td class="iri">https://w3id.org/censo/reg/tr-ysky-2016</td><td>Turkish surface water standards — 434 thresholds</td></tr>
+<tr><td class="iri">https://w3id.org/censo/reg/eu-2008-105-2026</td><td>Directive 2008/105/EC, Annex I, consolidated text in force 10 May 2026 &mdash; 103 thresholds</td></tr>
+<tr><td class="iri">https://w3id.org/censo/reg/tr-ysky-2016</td><td>Turkish Surface Water Quality Regulation, Table 4 (2016) &mdash; 434 thresholds</td></tr>
 <tr><td class="iri">https://w3id.org/censo/shapes</td><td>SHACL shapes for validation and materialisation</td></tr>
+<tr><td class="iri">https://w3id.org/censo/alignment</td><td>pointers to ChEBI and CHMO &mdash; imported by nothing, so take it only if you want it</td></tr>
 </table>
-<p>Regulation packages contribute <em>individuals only</em> — no class, no
-property — which is what makes one safe to load in place of, or alongside,
-another.</p>
+<p>Regulation packages contribute individuals only &mdash; no class, no property &mdash; which is what makes one safe to load in place of, or alongside, another.</p>
 
 <h2>Files</h2>
-<table>
-<tr><th>File</th><th>Format</th></tr>
-<tr><td><a href="censo-full.ttl">censo-full.ttl</a></td><td>Turtle</td></tr>
-<tr><td><a href="censo-full.owl">censo-full.owl</a></td><td>RDF/XML</td></tr>
-<tr><td><a href="censo-full.jsonld">censo-full.jsonld</a></td><td>JSON-LD</td></tr>
-<tr><td><a href="censo-regulation.ttl">censo-regulation.ttl</a></td><td>regulation vocabulary</td></tr>
-<tr><td><a href="censo-shapes.ttl">censo-shapes.ttl</a></td><td>SHACL</td></tr>
-<tr><td><a href="reg/eu-2008-105-2026.ttl">reg/eu-2008-105-2026.ttl</a></td><td>EU package</td></tr>
-<tr><td><a href="reg/tr-ysky-2016.ttl">reg/tr-ysky-2016.ttl</a></td><td>Turkish package</td></tr>
+<table><tr><th>File</th><th>Format</th></tr>
+<tr><td><code>censo-full.ttl</code></td><td>Turtle</td></tr>
+<tr><td><code>censo-full.owl</code></td><td>RDF/XML</td></tr>
+<tr><td><code>censo-full.jsonld</code></td><td>JSON-LD</td></tr>
+<tr><td><code>censo-regulation.ttl</code></td><td>regulation vocabulary</td></tr>
+<tr><td><code>censo-shapes.ttl</code></td><td>SHACL</td></tr>
+<tr><td><code>censo-alignment.ttl</code></td><td>external alignment</td></tr>
+<tr><td><code>reg/eu-2008-105-2026.ttl</code></td><td>Directive 2008/105/EC, Annex I, consolidated text in force 10 May 2026</td></tr>
+<tr><td><code>reg/tr-ysky-2016.ttl</code></td><td>Turkish Surface Water Quality Regulation, Table 4 (2016)</td></tr>
 </table>
 
 <h2>Reuse</h2>
-<p>Built on SOSA/SSN, PROV-O, SKOS and QUDT. Every threshold carries
-<code>cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource</code>,
-because both packages are parsed from the legal texts themselves rather than
-from a secondary compilation.</p>
+<p>CC&nbsp;BY&nbsp;4.0. Built on SOSA/SSN, PROV-O, SKOS and QUDT, and aligned outward rather than renamed: 329 pointers into ChEBI and CHMO ship in <code>censo-alignment.ttl</code>, which nothing imports, so a consumer who does not want those commitments need not take them.</p>
 
-<footer>
-Licence CC BY 4.0 · maintained by Recep Can Altınbağ, Boğaziçi University,
-Institute of Environmental Sciences ·
-<a href="https://github.com/recepcanaltinbag/censo">source</a> ·
-generated 2026-08-03
-</footer>
+<footer>Generated by <code>scripts/97_assemble_publish.py</code> from the published artefacts &mdash; every count on this page is read from the files it describes, because a front door that contradicts the vocabulary behind it is worse than no front door.</footer>
 </main></body></html>
