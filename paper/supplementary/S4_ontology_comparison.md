@@ -50,7 +50,7 @@ Every cell above is decided by the stated method: does the ontology have a TERM 
 
 These concepts appear in a comment or definition but the ontology has no term for them. In large ontologies this is noise: ENVO's "undecidable" hit is *indeterminate root nodule*.
 
-- **ENVO**: threshold (64), interval_result (10), applicability (5), undecidable (20)
+- **ENVO**: applicability (5), interval_result (10), threshold (64), undecidable (20)
 
 ## Profile: reuse, FAIR and measurement modality
 
@@ -87,18 +87,18 @@ Keyword presence is only half the comparison. This table asks whether an ontolog
 ### QUDT schema
 
 **threshold**
-- `permissibleTransformation :: permissibleTransformation`
-- `permissibleTransformation :: permissible transformation`
 - `permissibleMaths :: permissibleMaths`
 - `permissibleMaths :: permissible maths`
+- `permissibleTransformation :: permissibleTransformation`
+- `permissibleTransformation :: permissible transformation`
 
 **applicability**
-- `applicablePlanckUnit :: applicablePlanckUnit`
-- `applicablePlanckUnit :: applicable Planck unit`
-- `applicableSystem :: applicableSystem`
-- `applicableSystem :: applicable system`
+- `applicableCGSUnit :: applicableCGSUnit`
+- `applicableCGSUnit :: applicable CGS unit`
 - `applicableISOUnit :: applicableISOUnit`
 - `applicableISOUnit :: applicable ISO unit`
+- `applicableImperialUnit :: applicableImperialUnit`
+- `applicableImperialUnit :: applicable Imperial unit`
 - … and 12 more
 
 ### SAREF core
@@ -122,12 +122,12 @@ Keyword presence is only half the comparison. This table asks whether an ontolog
 ### WHOW water-monitoring
 
 **interval result**
-- `upperBound :: upperBound`
-- `upperBound :: upper bound`
+- `lowerBound :: lowerBound`
+- `lowerBound :: lower bound`
 - `lowerBoundIncluded :: lowerBoundIncluded`
 - `lowerBoundIncluded :: lower bound included`
-- `upperBoundIncluded :: upperBoundIncluded`
-- `upperBoundIncluded :: upper bound included`
+- `upperBound :: upperBound`
+- `upperBound :: upper bound`
 - … and 2 more
 
 ### DoCE (Rio Doce WQ)
@@ -141,14 +141,14 @@ Keyword presence is only half the comparison. This table asks whether an ontolog
 - `ExceededThreshold :: ExceededThreshold`
 
 **interval result**
-- `hasRangeMinValue :: hasRangeMinValue`
 - `hasRangeMaxValue :: hasRangeMaxValue`
+- `hasRangeMinValue :: hasRangeMinValue`
 
 ### CHMO (chemical methods)
 
 **detection limit**
-- `CHMO_0002802 :: limit of quantification`
 - `CHMO_0002801 :: limit of detection`
+- `CHMO_0002802 :: limit of quantification`
 
 **undecidable**
 - `CHMO_0001861 :: double quantum transitions for finding unresolved lines`
@@ -160,21 +160,21 @@ Keyword presence is only half the comparison. This table asks whether an ontolog
 ### AFO (Allotrope)
 
 **threshold**
-- `AFR_0002236 :: cycle threshold value setting (qPCR)`
-- `AFR_0002928 :: fluorescence intensity threshold setting`
-- `AFR_0002943 :: minimum assay bead count threshold setting`
+- `AFX_0001732 :: reference value`
+- `AFR_0001612 :: hit quality index threshold`
+- `AFR_0001691 :: area threshold for peak integration setting (chromatography)`
 - `AFR_0001692 :: height threshold for peak integration setting (chromatography)`
 - `AFR_0002235 :: automatic cycle threshold enabled setting`
-- `AFR_0002835 :: maximum allowable baseline drift setting`
+- `AFR_0002236 :: cycle threshold value setting (qPCR)`
 - … and 5 more
 
 **interval result**
-- `AFRL_0000042 :: upper bound`
-- `AFR_0002441 :: maximum value`
-- `AFRL_0000566 :: minimum value role`
-- `AFR_0002440 :: minimum value`
-- `AFR_0002195 :: bin upper limit`
+- `AFX_0000670 :: minimum value`
 - `AFX_0000671 :: minimum value exclusive`
+- `AFX_0000672 :: minimum value inclusive`
+- `AFX_0000674 :: maximum value`
+- `AFX_0000675 :: maximum value exclusive`
+- `AFX_0000676 :: maximum value inclusive`
 - … and 11 more
 
 **applicability**
@@ -186,41 +186,41 @@ Keyword presence is only half the comparison. This table asks whether an ontolog
 - `STATO_0000190 :: threshold cycle`
 
 **interval result**
-- `STATO_0000175 :: confidence interval calculation`
+- `STATO_0000021 :: 90% confidence interval`
 - `STATO_0000127 :: 99% confidence interval`
+- `STATO_0000175 :: confidence interval calculation`
 - `STATO_0000196 :: confidence interval`
-- `STATO_0000456 :: 95% credible interval`
-- `STATO_0000458 :: 99% credible interval`
 - `STATO_0000214 :: 50% confidence interval`
+- `STATO_0000231 :: 95% confidence interval`
 - … and 3 more
 
 ### CENSO (this work)
 
 **detection limit**
-- `limitOfQuantification :: limitOfQuantification`
-- `limitOfQuantification :: limit of quantification (LOQ)`
 - `limitOfDetection :: limitOfDetection`
 - `limitOfDetection :: limit of detection (LOD)`
+- `limitOfQuantification :: limitOfQuantification`
+- `limitOfQuantification :: limit of quantification (LOQ)`
 
 **censoring**
-- `censoringRecovered :: censoringRecovered`
-- `censoringRecovered :: censoring recovered`
-- `belowThreshold :: below threshold`
 - `CensoredObservation :: CensoredObservation`
 - `CensoredObservation :: Censored observation`
+- `belowThreshold :: below threshold`
+- `censoringRecovered :: censoringRecovered`
+- `censoringRecovered :: censoring recovered`
 
 **undecidable**
+- `IndeterminateCompliance :: Indeterminate compliance`
 - `UnresolvedObservation :: UnresolvedObservation`
 - `UnresolvedObservation :: Unresolved observation`
-- `IndeterminateCompliance :: Indeterminate compliance`
 
 **threshold**
-- `NoThresholdDefined :: NoThresholdDefined`
-- `NoThresholdDefined :: No threshold defined`
-- `Exceedance :: Exceedance`
-- `belowThreshold :: belowThreshold`
 - `AnnualAverageThreshold :: AnnualAverageThreshold`
 - `AnnualAverageThreshold :: Annual average threshold`
+- `Exceedance :: Exceedance`
+- `MaximumAllowableThreshold :: MaximumAllowableThreshold`
+- `MaximumAllowableThreshold :: Maximum allowable threshold`
+- `NoThresholdDefined :: NoThresholdDefined`
 - … and 9 more
 
 **interval result**
@@ -230,21 +230,21 @@ Keyword presence is only half the comparison. This table asks whether an ontolog
 - `resultUpperBound :: result upper bound`
 
 **applicability**
-- `PreconditionUnmet :: PreconditionUnmet`
-- `PreconditionUnmet :: Precondition unmet`
 - `ApplicabilityCondition :: ApplicabilityCondition`
 - `ApplicabilityCondition :: Applicability condition`
 - `BioavailabilityCondition :: BioavailabilityCondition`
 - `BioavailabilityCondition :: Bioavailability condition`
+- `HardnessClassCondition :: Hardness class condition`
+- `MatrixCondition :: Matrix condition`
 - … and 2 more
 
 ### CENSO-REG (this work)
 
 **threshold**
-- `definesThreshold :: definesThreshold`
-- `definesThreshold :: defines threshold`
 - `GroupThreshold :: GroupThreshold`
 - `GroupThreshold :: Group threshold`
+- `definesThreshold :: definesThreshold`
+- `definesThreshold :: defines threshold`
 
 ### Project ontology 2018
 

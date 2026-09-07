@@ -13,15 +13,17 @@
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-prov:wasDerivedFrom a owl:ObjectProperty ;
-    rdfs:label "was derived from"@en ;
-    rdfs:comment "Reused from PROV-O; declared here only so that this standalone distribution is self-describing."@en ;
-    rdfs:domain prov:Entity ;
-    rdfs:range prov:Entity .
+skos:definition a owl:AnnotationProperty ;
+    rdfs:label "Definition"@en ;
+    rdfs:comment "Reused from SKOS; declared here only so that this standalone distribution is self-describing. Its domain and range are SKOS's to state, not ours."@en .
 
-sosa:Sample a owl:Class ;
-    rdfs:label "Sample"@en ;
-    rdfs:comment "Reused from SOSA; declared here only so that this standalone distribution is self-describing."@en .
+skos:example a owl:AnnotationProperty ;
+    rdfs:label "Example"@en ;
+    rdfs:comment "Reused from SKOS; declared here only so that this standalone distribution is self-describing. Its domain and range are SKOS's to state, not ours."@en .
+
+skos:scopeNote a owl:AnnotationProperty ;
+    rdfs:label "Scope note"@en ;
+    rdfs:comment "Reused from SKOS; declared here only so that this standalone distribution is self-describing. Its domain and range are SKOS's to state, not ours."@en .
 
 censo: a owl:Ontology ;
     dcterms:created "2026-08-03"^^xsd:date ;
@@ -42,8 +44,8 @@ an open-world upper bound rather than as zero."""@en ;
         prov:,
         sosa:,
         ssn: ;
-    owl:versionIRI <https://w3id.org/censo/2.0.0> ;
-    owl:versionInfo "2.0.0" .
+    owl:versionIRI <https://w3id.org/censo/2.1.0> ;
+    owl:versionInfo "2.1.0" .
 
 censo:AssessedObservation a owl:Class ;
     rdfs:label "Assessed observation"@en ;
@@ -60,7 +62,8 @@ censo:AssessedObservation a owl:Class ;
             owl:onProperty sosa:usedProcedure ],
         sosa:Observation ;
     owl:equivalentClass [ a owl:Class ;
-            owl:unionOf ( censo:CensoredObservation censo:EstimatedObservation censo:QuantifiedObservation censo:UnresolvedObservation ) ] .
+            owl:unionOf ( censo:CensoredObservation censo:EstimatedObservation censo:QuantifiedObservation censo:UnresolvedObservation ) ] ;
+    owl:hasKey ( censo:hasAnalyte censo:atStation censo:duringCampaign ) .
 
 censo:BioavailabilityCondition a owl:Class ;
     rdfs:label "Bioavailability condition"@en ;
@@ -229,8 +232,8 @@ derived thresholds such as a total-pesticide sum."""@en ;
         prov:,
         sosa:,
         ssn: ;
-    owl:versionIRI <https://w3id.org/censo/reg/2.0.0> ;
-    owl:versionInfo "2.0.0" .
+    owl:versionIRI <https://w3id.org/censo/reg/2.1.0> ;
+    owl:versionInfo "2.1.0" .
 
 cereg:ArithmeticMean a cereg:AggregationFunction ;
     rdfs:label "arithmetic mean"@en .
@@ -259,8 +262,7 @@ cereg:definesThreshold a owl:ObjectProperty ;
     rdfs:label "defines threshold"@en ;
     rdfs:comment "Links a package to the thresholds it establishes. The inverse direction (threshold to package) goes through censo:definedBy."@en ;
     rdfs:domain cereg:RegulationPackage ;
-    rdfs:range censo:Threshold ;
-    owl:inverseOf censo:definedBy .
+    rdfs:range censo:Threshold .
 
 cereg:inForceFrom a owl:DatatypeProperty ;
     rdfs:label "in force from"@en ;
@@ -359,10 +361,8 @@ prov:Activity a owl:Class ;
     rdfs:comment "Reused from PROV-O; declared here only so that this standalone distribution is self-describing."@en .
 
 prov:hadPrimarySource a owl:ObjectProperty ;
-    rdfs:label "had primary source"@en ;
-    rdfs:comment "Reused from PROV-O; declared here only so that this standalone distribution is self-describing."@en ;
-    rdfs:domain prov:Entity ;
-    rdfs:range prov:Entity .
+    rdfs:label "Had primary source"@en ;
+    rdfs:comment "Reused from PROV-O; declared here only so that this standalone distribution is self-describing. Its domain and range are PROV-O's to state, not ours."@en .
 
 sosa:FeatureOfInterest a owl:Class ;
     rdfs:label "Feature of interest"@en ;
@@ -371,6 +371,10 @@ sosa:FeatureOfInterest a owl:Class ;
 sosa:Procedure a owl:Class ;
     rdfs:label "Procedure"@en ;
     rdfs:comment "Reused from SOSA; declared here only so that this standalone distribution is self-describing."@en .
+
+sosa:usedProcedure a owl:ObjectProperty ;
+    rdfs:label "Used procedure"@en ;
+    rdfs:comment "Reused from SOSA; declared here only so that this standalone distribution is self-describing. Its domain and range are SOSA's to state, not ours."@en .
 
 foaf:Person a owl:Class ;
     rdfs:label "Person"@en ;
@@ -410,6 +414,13 @@ censo:MaximumAllowableThreshold a owl:Class ;
     rdfs:label "Maximum allowable threshold"@en ;
     rdfs:comment "Short-term limit (e.g. MAC-EQS); may be compared against a single observation."@en ;
     rdfs:subClassOf censo:Threshold .
+
+censo:definedBy a owl:FunctionalProperty,
+        owl:ObjectProperty ;
+    rdfs:label "defined by"@en ;
+    rdfs:comment "The legal instrument establishing the threshold. Mandatory: an uncited threshold cannot be defended."@en ;
+    rdfs:domain censo:Threshold ;
+    rdfs:range censo:Regulation .
 
 censo:duringCampaign a owl:FunctionalProperty,
         owl:ObjectProperty ;
@@ -502,19 +513,16 @@ censo:atStation a owl:FunctionalProperty,
     rdfs:domain sosa:Observation ;
     rdfs:range sosa:FeatureOfInterest .
 
-censo:definedBy a owl:FunctionalProperty,
-        owl:ObjectProperty ;
-    rdfs:label "defined by"@en ;
-    rdfs:comment "The legal instrument establishing the threshold. Mandatory: an uncited threshold cannot be defended."@en ;
-    rdfs:domain censo:Threshold ;
-    rdfs:range censo:Regulation .
-
 censo:hasAnalyte a owl:FunctionalProperty,
         owl:ObjectProperty ;
     rdfs:label "has analyte"@en ;
     rdfs:comment "The substance this observation is about; exactly one."@en ;
     rdfs:domain sosa:Observation ;
     rdfs:range censo:Analyte .
+
+prov:Entity a owl:Class ;
+    rdfs:label "Entity"@en ;
+    rdfs:comment "Reused from PROV-O; declared here only so that this standalone distribution is self-describing."@en .
 
 censo:CensoredObservation a owl:Class ;
     rdfs:label "Censored observation"@en ;
@@ -689,10 +697,6 @@ one. It is materialised under a locally closed world; see censo-shapes.ttl."""@e
     rdfs:subClassOf censo:ComplianceOutcome ;
     skos:example "Imidacloprid measured by a method quantifying at 2.065 µg/L against an EU annual-average standard of 0.0068 µg/L: no result the method could return would decide compliance."@en .
 
-prov:Entity a owl:Class ;
-    rdfs:label "Entity"@en ;
-    rdfs:comment "Reused from PROV-O; declared here only so that this standalone distribution is self-describing."@en .
-
 cereg:AggregationFunction a owl:Class ;
     rdfs:label "Aggregation function"@en ;
     rdfs:comment "How the members of a substance group are combined into the single quantity the threshold applies to."@en .
@@ -729,8 +733,7 @@ censo:Threshold a owl:Class ;
 
 sosa:Observation a owl:Class ;
     rdfs:label "Observation"@en ;
-    rdfs:comment "Reused from SOSA; declared here only so that this standalone distribution is self-describing."@en ;
-    owl:hasKey ( censo:hasAnalyte censo:atStation censo:duringCampaign ) .
+    rdfs:comment "Reused from SOSA; declared here only so that this standalone distribution is self-describing."@en .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( censo:AnnualAverageThreshold censo:MaximumAllowableThreshold ) .

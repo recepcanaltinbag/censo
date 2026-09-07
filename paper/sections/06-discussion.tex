@@ -114,12 +114,31 @@ supply the one failure mode that is representational rather than analytical; the
 micropollutants supply the scale.
 
 \subsection{Why the vocabularies lacked this}
-SOSA/SSN was built for in-situ sensing, where a detection limit genuinely is a
-property of the device and \texttt{ssn-system:DetectionLimit} is correctly a
-\texttt{SystemProperty}. Trace organic monitoring analyses a transported sample
-in a run with its own calibration and limits. The dominant water ontologies
-inherited the sensing model, scoring heavily on sensing terminology and near
-zero on sampling; CENSO puts the epistemics on the result.
+The obvious explanation is that the field inherited a model built for sensing,
+in which a detection limit genuinely is a property of the device and
+\texttt{ssn-system:DetectionLimit} is correctly a \texttt{SystemProperty}. That
+explanation is half right, and the half that is wrong matters, because it would
+make this a water-domain problem with a water-domain fix.
+
+It is wrong about the base. SOSA is an observation vocabulary, not a sensor
+one --- \emph{Sample} is in its name, and it carries more sampling terminology
+than sensing, \num{12}/\num{10} (Section~\ref{sec:results-gap}). The
+device-shaped vocabularies are the ones built for devices: SAREF at
+\num{0}/\num{22}, InWaterSense at \num{2}/\num{27}.
+
+It is wrong about the cause. CHMO is an analytical chemistry ontology with no
+sensor concept in it, profiling \num{60}/\num{20} towards sampling, and it
+defines the limit of quantification from the IUPAC Gold Book. It inherited
+nothing from sensing, and it cannot say that a particular result fell below its
+own limit either. \textbf{What the two have in common is not a model of
+measurement but a placement: the limit is held on the thing that produced the
+result --- a device, or an assay --- and never on the result.} Sensing versus
+sampling is how the water vocabularies arrived there; it is not why the gap
+exists, and a fix framed around it would not have reached CHMO.
+
+CENSO puts the epistemic status on the result, which is the placement the
+distinction requires whether the number came off an instrument in a river or
+out of a mass spectrometer three days later.
 
 That inheritance is why the shortfall is not repaired by adding a term.
 Section~\ref{sec:results-separation} shows the consequence on one real record:
@@ -216,6 +235,23 @@ deciding whether to adopt a vocabulary needs and what a term list cannot show.
     the precedence of Section~\ref{sec:methods-vocab} and those assessments
     appear under \texttt{MethodInsufficient}. Both are indeterminate either way,
     so the precedence chooses the reason recorded, not the verdict.
+  \item \textbf{The uncertainty band is applied to quantified results and not
+    to non-detections, and that asymmetry is a choice.} Read symmetrically, a
+    censored row would carry the interval $[0,\ \mathrm{LOQ}+0.5\,T]$ and every
+    row whose limit exceeds half the standard would become undecidable ---
+    \num{38948} station-years, taking the undecidable share from
+    \num{43.8}\,\% to \num{49.4}\,\%\src{scripts/28\_uncertainty\_sensitivity.py}.
+    We do not apply it, for two reasons and against our own interest.
+    Article~3(3b) gives a below-quantification result its own rule and that rule
+    is a \emph{point} comparison of the limit against the standard; Article~4(1)'s
+    figure is specified at the level of the standard, which characterises
+    measurements made near it. And a quantification limit is itself defined by
+    uncertainty --- it is where relative uncertainty falls to an acceptable
+    value --- so a quantified point value needs a band because a point carries
+    no interval of its own, while a censored result is already an interval and
+    adding a band to it counts the same uncertainty twice. The alternative is
+    reported rather than buried, because the change would have raised our own
+    headline and a change in that direction has to be right on the merits.
   \item \textbf{One matrix.} River water only; lakes, transitional and coastal
     waters have their own standards and are not analysed here.
   \item \textbf{The vocabulary comparison is of published files.} An ontology

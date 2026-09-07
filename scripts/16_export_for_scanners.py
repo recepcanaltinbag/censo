@@ -58,23 +58,95 @@ SEE_ALSO = [
 # as "untyped class/property" (OOPS! P34/P35) and "missing annotations" (P08).
 # The defect is in the standalone packaging, not in the ontology, so the
 # distribution re-declares them with a note saying where they come from.
-EXTERNAL_CLASSES = {
-    "http://www.w3.org/ns/sosa/FeatureOfInterest": ("Feature of interest", "SOSA"),
-    "http://www.w3.org/ns/sosa/ObservableProperty": ("Observable property", "SOSA"),
-    "http://www.w3.org/ns/sosa/Procedure": ("Procedure", "SOSA"),
-    "http://www.w3.org/ns/sosa/Sample": ("Sample", "SOSA"),
-    "http://www.w3.org/ns/sosa/Observation": ("Observation", "SOSA"),
-    "http://www.w3.org/ns/prov#Activity": ("Activity", "PROV-O"),
-    "http://www.w3.org/ns/prov#Entity": ("Entity", "PROV-O"),
-    "http://www.w3.org/2004/02/skos/core#Concept": ("Concept", "SKOS"),
-    "http://qudt.org/schema/qudt/Unit": ("Unit", "QUDT"),
-    "http://xmlns.com/foaf/0.1/Person": ("Person", "FOAF"),
-}
-EXTERNAL_PROPERTIES = {
-    "http://www.w3.org/ns/prov#wasDerivedFrom": ("was derived from", "PROV-O"),
-    "http://www.w3.org/ns/prov#hadPrimarySource": ("had primary source", "PROV-O"),
+# Which external terms this file must re-declare is DERIVED, not listed.
+#
+# It was a hand-written dict, and it went stale the way hand-written things do:
+# after censo:analysedSample was retired it still declared sosa:Sample, which
+# OOPS! then reported as an unconnected element (P04) -- a class the standalone
+# distribution declares and nothing uses. In the other direction it never
+# listed sosa:usedProcedure, which IS referenced, in the cardinality restriction
+# on censo:AssessedObservation, so OOPS! reported an untyped class (P34).
+# One list, drifting in both directions at once.
+#
+# Note this is a DECLARATION, not an axiom about somebody else's term: OWL 2
+# expects an entity used in an ontology to be declared in it or in an import,
+# and the imports are stripped here precisely so a scanner can read one file.
+# Re-stating "sosa:Procedure is a class" says nothing SOSA does not already say.
+# Asserting a KEY on sosa:Observation would have been the other thing, and it is
+# not done here -- see the note on owl:hasKey in censo-core.ttl.
+SOURCE_OF = {
+    "http://www.w3.org/ns/sosa/": "SOSA",
+    "http://www.w3.org/ns/ssn/": "SSN",
+    "http://www.w3.org/ns/prov#": "PROV-O",
+    "http://www.w3.org/2004/02/skos/core#": "SKOS",
+    "http://qudt.org/schema/qudt/": "QUDT",
+    "http://xmlns.com/foaf/0.1/": "FOAF",
 }
 
+
+def _external(u):
+    from rdflib import URIRef
+    return (isinstance(u, URIRef)
+            and not str(u).startswith("https://w3id.org/censo")
+            and any(str(u).startswith(k) for k in SOURCE_OF))
+
+
+def _label(iri):
+    """A human label from the local name: Observable property, was derived from."""
+    import re
+    local = str(iri).rsplit("#", 1)[-1].rsplit("/", 1)[-1]
+    words = re.sub(r"(?<!^)(?=[A-Z])", " ", local).split()
+    return " ".join([words[0].capitalize()] + [w.lower() for w in words[1:]]) \
+        if words else local
+
+
+def referenced_externals(g):
+    """{iri: (label, source)} for every external term the modules actually use."""
+    from rdflib import RDF, RDFS, OWL
+    cls, prop = set(), set()
+    for pred in (RDFS.subClassOf, RDFS.domain, RDFS.range, OWL.onClass):
+        for _, o in g.subject_objects(pred):
+            if _external(o):
+                cls.add(o)
+    for pred in (OWL.members, OWL.unionOf):
+        for _, o in g.subject_objects(pred):
+            for it in g.items(o):
+                if _external(it):
+                    cls.add(it)
+    for _, o in g.subject_objects(RDF.type):
+        if _external(o):
+            cls.add(o)
+    for pred in (OWL.onProperty, RDFS.subPropertyOf):
+        # subPropertyOf matters: cereg:sourceDocument is a subproperty of
+        # prov:hadPrimarySource, which appears nowhere else, so scanning only
+        # predicates left it undeclared and OOPS! reported P35.
+        for _, o in g.subject_objects(pred):
+            if _external(o):
+                prop.add(o)
+    for _, o in g.subject_objects(OWL.hasKey):
+        for it in g.items(o):
+            if _external(it):
+                prop.add(it)
+    for s_, p_, _ in g:
+        if str(s_).startswith("https://w3id.org/censo") and _external(p_):
+            prop.add(p_)
+    # ANNOTATION or OBJECT, inferred from how we use it rather than assumed.
+    # Typing everything owl:ObjectProperty declared skos:definition,
+    # skos:example and skos:scopeNote as object properties, which then drew
+    # OOPS! P11 (missing domain or range) -- a complaint that is correct for an
+    # object property and meaningless for an annotation property. A property we
+    # only ever give literals to is an annotation property.
+    from rdflib import Literal
+    kind = {}
+    for x in prop:
+        objs = [o for _, o in g.subject_objects(x)]
+        kind[x] = (OWL.AnnotationProperty
+                   if objs and all(isinstance(o, Literal) for o in objs)
+                   else OWL.ObjectProperty)
+
+    src = lambda u: next(v for k, v in SOURCE_OF.items() if str(u).startswith(k))
+    return ({str(c): (_label(c), src(c)) for c in cls},
+            {str(x): (_label(x), src(x), kind[x]) for x in prop})
 
 def main() -> int:
     DIST.mkdir(parents=True, exist_ok=True)
@@ -101,7 +173,8 @@ def main() -> int:
     # re-declare borrowed terms so the standalone file is self-describing
     from rdflib import Literal
     n_ext = 0
-    for iri, (label, src) in EXTERNAL_CLASSES.items():
+    ext_cls, ext_prop = referenced_externals(g)
+    for iri, (label, src) in sorted(ext_cls.items()):
         u = URIRef(iri)
         g.add((u, rdflib.RDF.type, OWL.Class))
         g.add((u, RDFS.label, Literal(label, lang="en")))
@@ -110,18 +183,14 @@ def main() -> int:
                        f"standalone distribution is self-describing.",
                        lang="en")))
         n_ext += 1
-    PROV_ENTITY = URIRef("http://www.w3.org/ns/prov#Entity")
-    for iri, (label, src) in EXTERNAL_PROPERTIES.items():
+    for iri, (label, src, ptype) in sorted(ext_prop.items()):
         u = URIRef(iri)
-        g.add((u, rdflib.RDF.type, OWL.ObjectProperty))
-        # PROV's own domain and range, so the standalone file does not leave
-        # them undefined (OOPS! P11).
-        g.add((u, RDFS.domain, PROV_ENTITY))
-        g.add((u, RDFS.range, PROV_ENTITY))
+        g.add((u, rdflib.RDF.type, ptype))
         g.add((u, RDFS.label, Literal(label, lang="en")))
         g.add((u, RDFS.comment,
                Literal(f"Reused from {src}; declared here only so that this "
-                       f"standalone distribution is self-describing.",
+                       f"standalone distribution is self-describing. Its "
+                       f"domain and range are {src}'s to state, not ours.",
                        lang="en")))
         n_ext += 1
 

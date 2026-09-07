@@ -269,13 +269,16 @@ since repaired from an analytical one they have not; reading the disaggregated
 release extends the audit to the standard Annex~I defines against a single
 sample rather than against an annual mean.
 
-The gap follows from a measurement model. SOSA/SSN and its descendants were
-designed for in-situ \emph{sensing}, in which a detection limit is a property of
-the device. Trace organic monitoring is \emph{sampling followed by laboratory
-analysis}, in which the limit belongs to the method that produced the result
-and its consequence belongs to the result itself. We present CENSO, an ontology
-that carries the limit onto the result, records why a result is
-an interval, treats a threshold as a conditional judgement with preconditions,
+The gap follows from where the limit is kept. Observation vocabularies hold a
+detection limit on the thing that produced the result: on the device, as
+\texttt{ssn-system:DetectionLimit}, which is correct for a sensor whose range is
+a permanent property of the instrument; or on the assay, as \textsc{chmo}'s
+\emph{limit of detection}, which is correct for a method. Neither placement can
+say that \emph{this} measurement fell below it, because ``censored'' is a
+property of a result and not of what produced it.
+
+We present CENSO, an ontology that carries the limit onto the result, records
+why a result is an interval, treats a threshold as a conditional judgement with preconditions,
 and makes compliance three-valued --- met, not met, or not determinable ---
 subtyped by the reason it is not. The three are the outcomes the Directive
 itself admits; the subtypes are what tell an unmeasurable standard apart from an
@@ -308,11 +311,13 @@ In SOSA/SSN \cite{janowicz2019sosa,haller2019ssn}, \texttt{sosa:Observation}
 carries \texttt{hasSimpleResult}, a point value;
 \texttt{ssn-system:DetectionLimit} is a property of a \emph{sensor}, never of an
 observation or its result, so nothing can state that a measurement fell below
-it. Trace organic monitoring is not the sensor case: the sample is analysed
-later, in a run whose calibration curve sets its own limits. SOSA's
-\texttt{Sampling}, \texttt{Sampler} and \texttt{Sample} do not link an analysis
-to a detection limit -- an absence Section~\ref{sec:results-gap} traces across
-the water-ontology literature to this inherited model.
+it. SOSA's \texttt{Sampling}, \texttt{Sampler} and \texttt{Sample} do not link
+an analysis to a detection limit either, so the absence is not repaired by
+choosing the sampling half of the vocabulary over the sensing half.
+Section~\ref{sec:results-gap} shows why: the same absence appears in an
+analytical chemistry ontology that has no sensor concept in it at all. What
+these vocabularies share is not a model of measurement but a placement --- the
+limit is held on whatever produced the result, and never on the result.
 
 \paragraph{Why extend SOSA rather than something else.}
 The choice of base is itself a claim, so we state the reasoning. SOSA/SSN is a
@@ -1068,6 +1073,8 @@ against a standard that is not defined on the quantity the record reports, and
 \num{12142} rest on a number whose censoring status the record never states.
 \num{14505} are exceedances the law can affirm --- quantified, above the
 standard, with an applicable standard and an interval that does not straddle it.
+Figure~\ref{fig:funnel} shows the attrition step by step, each removal labelled
+with the reason the record cannot support the verdict.
 A further \num{2458} are quantified above the standard and set aside all the
 same, because the widest interval Article~4(1) permits straddles it. Article~3(3b)
 sets aside no quantified result: it reaches a value reported as below the
@@ -1214,7 +1221,10 @@ coverage: one jurisdiction regulating a substance the other does not, a fact
 about the legal texts rather than about any measurement. Where \emph{both}
 regulate and only the numeric standard differs, \textbf{\num{17.7}\% (95\,\% CI \num{17.6}--\num{17.9}\,\%) still change outcome}, mostly the \num{47999} the
 European standard sets aside as method-insufficient and the looser Turkish
-limit can decide.
+limit can decide. Figure~\ref{fig:two-regimes} shows the widest single case:
+chlorpyrifos, whose two annual-average standards differ by a factor of
+\num{65}, so that a measurement between them is an exceedance under one package
+and compliant under the other.
 
 An assessment that is \emph{method-insufficient} under one instrument and
 decidable under another is not expressible if the threshold is a column:
@@ -1302,6 +1312,65 @@ per-country values are in supplementary table~S5. Restricting to recent years,
 in Section~\ref{sec:results-era}, is not a fourth test, because too few
 countries report after \num{2015}. A spread stable under three independent
 corrections is a property of reporting practice.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\textwidth]{fig13_two_regimes.pdf}
+\caption{Why a threshold has to be a citable object rather than a column.
+Chlorpyrifos carries an annual-average standard of
+\num{0.00046}\,\si{\micro\gram\per\litre} in Annex~I and \num{0.03} in Table~4
+of the Turkish regulation, a factor of \num{65}. A measurement between the two
+is an exceedance under one package and compliant under the other, and
+\num{23208} station-years in this record fall in that band. Both values are read
+from the released regulation packages, which can be loaded together because each
+threshold cites the instrument that defines it. Generated by
+\texttt{scripts/92b\_use\_case\_figures.py}.}
+\label{fig:two-regimes}
+\end{figure}
+
+\subsection{The enforcement gap does not close}
+\label{sec:results-exceed-year}
+Section~\ref{sec:results-era} reads the three failures year by year. The
+verdicts can be read the same way, and they answer a question the aggregate
+cannot: is the distance between what a substituting pipeline reports and what
+the record can support narrowing?
+
+\textbf{It is not.} Over the \num{26} years from \num{1999} to \num{2024} in
+which the record can carry a rate (Figure~\ref{fig:exceed-year}), exceedances
+the law can affirm never exceed
+\num{1331} in a year and stand at \num{727} in \num{2024}. Exceedances a
+pipeline entering non-detections at the full quantification limit would report
+reach \num{17062}, and \num{16561} in the same final year --- a factor of
+\num{22.8}. The affirmable series does not grow with the record: the monitoring
+effort scales, and the number of exceedances an enforcement action could defend
+does not scale with it\src{scripts/29\_exceedances\_by\_year.py}.
+
+The undecidable share does improve, and stops improving. It falls from
+\num{100}\,\% in the first plotted years to a band of
+\num{28.5}--\num{39.2}\,\% from \num{2013} onward, where it has stayed for
+twelve years. That is the same shape Section~\ref{sec:results-era} finds in the
+analytical failure, seen from the other side: the record-keeping repair moved
+the share once, and nothing since has moved it again.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\textwidth]{fig14_exceedances_by_year.pdf}
+\caption{\textbf{(top)} Exceedances by reference year. The shaded band spans
+what a two-valued pipeline would report with non-detections entered at zero and
+at the full quantification limit --- the same rows, the same standards, and a
+count that depends only on a convention the record does not state. The solid
+green line is what the law can affirm: quantified above the standard, from a
+method meeting the performance criterion, with an interval that does not
+straddle it. It is close to flat while the band above it grows by an order of
+magnitude. \textbf{(bottom)} The share of assessable station-years whose verdict
+the record cannot support, which falls once and then holds. \num{26} years are
+plotted; those with fewer than \num{2000} assessable station-years are in the
+shipped data and not drawn, because a rate over a handful of stations is noise
+drawn as a trend.
+The decision procedure is imported from
+\texttt{scripts/22\_waterbase\_external.py}, so this series and
+Section~\ref{sec:results-wbabox} cannot disagree. Generated by
+\texttt{scripts/29\_exceedances\_by\_year.py}.}
+\label{fig:exceed-year}
+\end{figure}
 
 \subsection{Comparison with published ontologies}
 \label{sec:results-gap}
@@ -1414,11 +1483,25 @@ This is the result we would most have expected to lose, and it is the reason the
 claim is worth making: the concept exists, is well defined, is cited to the
 IUPAC Gold Book, and still nothing can say that \emph{this} number is a bound.
 
-Profiling for sampling versus sensing terminology separates the vocabularies
-cleanly: SAREF core scores \num{0}/\num{22} sampling to sensing terms, CENSO
-\num{3}/\num{0}. \textbf{The field is dominated by vocabularies built for
-in-situ sensing}, in which a detection limit is properly a device property, and
-the few sampling-aware ones carry no limits at all.
+\paragraph{The gap is not explained by the sensing model, and the comparison
+set is what shows it.} Profiling for sampling versus sensing terminology
+separates the vocabularies, but not along the line one would expect. SAREF core
+scores \num{0}/\num{22} sampling to sensing terms and InWaterSense core
+\num{2}/\num{27}: those are built for devices, and a detection limit held as a
+device capability is correct for them. \textbf{SOSA core, however, scores
+\num{12}/\num{10}} --- more sampling terminology than sensing, which is what
+its own name says --- so the base vocabulary is not the source of the defect.
+
+And the decisive row is CHMO, at \textbf{\num{60}/\num{20}}: an analytical
+chemistry ontology with no sensor concept at all, whose \texttt{limit of
+detection} is defined from the IUPAC Gold Book. It never inherited a sensing
+model, and it has the same gap. \textbf{So the diagnosis is not that the field
+took the wrong model of measurement; it is that the limit is held on the wrong
+entity} --- on the device, or on the assay, but never on the result. Sensing
+versus sampling explains how the water vocabularies arrived there, and it does
+not explain CHMO, which arrived by a different road. CENSO scores
+\num{3}/\num{0}, and the number that matters about it is not that one: it is
+the \texttt{LOD bound to} column.
 
 Five further ontologies described only in papers (WaWO+, OPO, InWaterSense's
 expert system, Ahmedi et al., Acquirium) were assessed from their full
@@ -1505,7 +1588,7 @@ once it is added: on the result, not on the device.
 \label{sec:results-cq}
 Twenty competency questions, each tied to an axiom, were executed over the
 Waterbase graph with the two vocabulary modules and both regulation packages,
-\num{507708} triples as
+\num{507707} triples as
 loaded\src{scripts/17\_run\_competency\_questions.py}. \textbf{All twenty
 return answers.} Full OWL~2~RL closure over a graph this size is impractical in
 pure Python, so only two entailments are materialised: union membership for the
@@ -1519,6 +1602,20 @@ is in \texttt{supplementary/S13\_reasoning\_cost.csv}. A deployment over a
 whole basin would use a store with native rule support, so those figures bound
 this pipeline and not the approach. Every other answer comes from asserted triples. They run on public
 data, and their SPARQL, rows and times are in the supplementary material.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\textwidth]{fig12_enforcement_funnel.pdf}
+\caption{The same question an enforcement action has to answer, asked of the
+record. A pipeline entering non-detections at the full quantification limit
+reports \num{200708} exceedances; five strata are removed, each because the
+record cannot support the verdict rather than because the verdict is wrong, and
+\num{14505} remain. The largest deduction is Article~3(3b) doing what it says:
+a below-quantification result whose limit exceeds the standard shall not be
+considered. Every step ships in
+\texttt{supplementary/figure\_data/fig12\_enforcement\_funnel.csv}.
+Generated by \texttt{scripts/92b\_use\_case\_figures.py}.}
+\label{fig:funnel}
+\end{figure}
 
 \subsection{Four real rows, decided twice}
 \label{sec:results-walkthrough}
@@ -1554,7 +1651,7 @@ than the measurement. Every value is read from the shipped graph and ships in
 
 \subsection{The shipped graph is validated against the shipped shapes}
 \label{sec:results-shacl}
-The published shapes are run over the published graph --- \num{633960} triples
+The published shapes are run over the published graph --- \num{633959} triples
 with the vocabulary loaded --- rather than over a fixture\src{scripts/18\_shacl\_validate.py}.
 The shapes match \num{40000} assessed observations, \num{31167} censored ones,
 \num{1159} analytical methods and \num{537} thresholds, and the run reports
@@ -1714,12 +1811,31 @@ supply the one failure mode that is representational rather than analytical; the
 micropollutants supply the scale.
 
 \subsection{Why the vocabularies lacked this}
-SOSA/SSN was built for in-situ sensing, where a detection limit genuinely is a
-property of the device and \texttt{ssn-system:DetectionLimit} is correctly a
-\texttt{SystemProperty}. Trace organic monitoring analyses a transported sample
-in a run with its own calibration and limits. The dominant water ontologies
-inherited the sensing model, scoring heavily on sensing terminology and near
-zero on sampling; CENSO puts the epistemics on the result.
+The obvious explanation is that the field inherited a model built for sensing,
+in which a detection limit genuinely is a property of the device and
+\texttt{ssn-system:DetectionLimit} is correctly a \texttt{SystemProperty}. That
+explanation is half right, and the half that is wrong matters, because it would
+make this a water-domain problem with a water-domain fix.
+
+It is wrong about the base. SOSA is an observation vocabulary, not a sensor
+one --- \emph{Sample} is in its name, and it carries more sampling terminology
+than sensing, \num{12}/\num{10} (Section~\ref{sec:results-gap}). The
+device-shaped vocabularies are the ones built for devices: SAREF at
+\num{0}/\num{22}, InWaterSense at \num{2}/\num{27}.
+
+It is wrong about the cause. CHMO is an analytical chemistry ontology with no
+sensor concept in it, profiling \num{60}/\num{20} towards sampling, and it
+defines the limit of quantification from the IUPAC Gold Book. It inherited
+nothing from sensing, and it cannot say that a particular result fell below its
+own limit either. \textbf{What the two have in common is not a model of
+measurement but a placement: the limit is held on the thing that produced the
+result --- a device, or an assay --- and never on the result.} Sensing versus
+sampling is how the water vocabularies arrived there; it is not why the gap
+exists, and a fix framed around it would not have reached CHMO.
+
+CENSO puts the epistemic status on the result, which is the placement the
+distinction requires whether the number came off an instrument in a river or
+out of a mass spectrometer three days later.
 
 That inheritance is why the shortfall is not repaired by adding a term.
 Section~\ref{sec:results-separation} shows the consequence on one real record:
@@ -1816,6 +1932,23 @@ deciding whether to adopt a vocabulary needs and what a term list cannot show.
     the precedence of Section~\ref{sec:methods-vocab} and those assessments
     appear under \texttt{MethodInsufficient}. Both are indeterminate either way,
     so the precedence chooses the reason recorded, not the verdict.
+  \item \textbf{The uncertainty band is applied to quantified results and not
+    to non-detections, and that asymmetry is a choice.} Read symmetrically, a
+    censored row would carry the interval $[0,\ \mathrm{LOQ}+0.5\,T]$ and every
+    row whose limit exceeds half the standard would become undecidable ---
+    \num{38948} station-years, taking the undecidable share from
+    \num{43.8}\,\% to \num{49.4}\,\%\src{scripts/28\_uncertainty\_sensitivity.py}.
+    We do not apply it, for two reasons and against our own interest.
+    Article~3(3b) gives a below-quantification result its own rule and that rule
+    is a \emph{point} comparison of the limit against the standard; Article~4(1)'s
+    figure is specified at the level of the standard, which characterises
+    measurements made near it. And a quantification limit is itself defined by
+    uncertainty --- it is where relative uncertainty falls to an acceptable
+    value --- so a quantified point value needs a band because a point carries
+    no interval of its own, while a censored result is already an interval and
+    adding a band to it counts the same uncertainty twice. The alternative is
+    reported rather than buried, because the change would have raised our own
+    headline and a change in that direction has to be right on the merits.
   \item \textbf{One matrix.} River water only; lakes, transitional and coastal
     waters have their own standards and are not analysed here.
   \item \textbf{The vocabulary comparison is of published files.} An ontology

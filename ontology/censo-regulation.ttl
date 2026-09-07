@@ -46,8 +46,8 @@ derived thresholds such as a total-pesticide sum."""@en ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
     vann:preferredNamespacePrefix "cereg" ;
     vann:preferredNamespaceUri "https://w3id.org/censo/reg/" ;
-    owl:versionIRI <https://w3id.org/censo/reg/2.0.0> ;
-    owl:versionInfo "2.0.0" ;
+    owl:versionIRI <https://w3id.org/censo/reg/2.1.0> ;
+    owl:versionInfo "2.1.0" ;
     owl:imports <https://w3id.org/censo/> .
 
 ################################################################################
@@ -89,7 +89,16 @@ cereg:transposes a owl:ObjectProperty ;
     rdfs:label "transposes"@en ;
     rdfs:comment "National package implementing a supranational one, e.g. YSKY transposing the EU EQS Directive. Divergences between the two are meaningful and queryable."@en .
 
-cereg:definesThreshold owl:inverseOf censo:definedBy .
+# NOT declared owl:inverseOf censo:definedBy, and OOPS! was right to call that
+# critical.
+#
+# cereg:definesThreshold has domain cereg:RegulationPackage; censo:definedBy has
+# range censo:Regulation, which is the broader class. Declaring them inverse
+# makes a reasoner infer, from any Regulation that defines a threshold, that the
+# Regulation IS a RegulationPackage -- package-hood entailed from mere
+# regulation-hood, because the two properties sit at different levels of the
+# vocabulary. The navigation convenience is not worth an entailment nobody
+# asked for; both directions are still one triple pattern away in a query.
 
 cereg:definesThreshold a owl:ObjectProperty ;
     rdfs:domain cereg:RegulationPackage ;

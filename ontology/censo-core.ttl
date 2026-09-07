@@ -14,7 +14,8 @@
 
 ################################################################################
 #  CENSO — Censored ENvironmental Sensor Observations
-#  v2.0.0 — see CHANGELOG.md. MAJOR because terms were REMOVED: 21 of
+#  v2.1.0 — see CHANGELOG.md. MINOR: no term added or removed, two axioms
+#  corrected. 2.0.0 was MAJOR because terms were REMOVED: 21 of
 #  them, each either redundant with a vocabulary this file imports or a
 #  class no shipped data could reach. https://w3id.org/censo/1.0.0 still
 #  resolves to what 1.0.0 was.
@@ -110,8 +111,8 @@ an open-world upper bound rather than as zero."""@en ;
     dcterms:created "2026-08-03"^^xsd:date ;
     vann:preferredNamespacePrefix "censo" ;
     vann:preferredNamespaceUri "https://w3id.org/censo/" ;
-    owl:versionIRI <https://w3id.org/censo/2.0.0> ;
-    owl:versionInfo "2.0.0" ;
+    owl:versionIRI <https://w3id.org/censo/2.1.0> ;
+    owl:versionInfo "2.1.0" ;
     rdfs:seeAlso <http://www.w3.org/ns/sosa/> ;
     owl:imports <http://www.w3.org/ns/sosa/> ,
                 <http://www.w3.org/ns/ssn/> ,
@@ -180,10 +181,18 @@ common shortcut — makes cross-laboratory comparison unsound."""@en ;
 ################################################################################
 #  2a. Where the limit belongs, in three steps
 #
-#  SOSA/SSN was designed for SENSING: a device observes in situ, continuously,
-#  with a fixed measurement range. That is why ssn-system:DetectionLimit is a
-#  ssn-system:SystemProperty -- for a sensor the limit really is a permanent
-#  property of the instrument.
+#  SSN's Systems module was designed for SENSING: a device observes in situ,
+#  continuously, with a fixed measurement range. That is why
+#  ssn-system:DetectionLimit is a ssn-system:SystemProperty -- for a sensor the
+#  limit really is a permanent property of the instrument.
+#
+#  That is a fact about ssn-system, not about SOSA, and not the explanation for
+#  the gap. SOSA is an observation vocabulary -- Sample is in its name -- and
+#  carries more sampling terminology than sensing. And CHMO, an analytical
+#  chemistry ontology with no sensor concept in it at all, defines the limit of
+#  quantification from the IUPAC Gold Book and still cannot say a result fell
+#  below one. Two vocabularies that inherited nothing from each other, with the
+#  same gap: the cause is not a model of measurement, it is a PLACEMENT.
 #
 #  Trace organic monitoring is not sensing. It is sampling: a specimen is taken
 #  at one place and instant, transported, preserved, and analysed later by a
@@ -425,7 +434,18 @@ censo:Campaign a owl:Class ;
 # campaign. Two individuals agreeing on all three are the same observation, so
 # duplicated rows in a source spreadsheet become detectable rather than
 # double-counted.
-sosa:Observation owl:hasKey ( censo:hasAnalyte censo:atStation censo:duringCampaign ) .
+#
+# ON censo:AssessedObservation, NOT ON sosa:Observation. This was the one place
+# where this file asserted an axiom about somebody else's term -- the anti-
+# pattern usually called ontology hijacking. It was the mildest form of it, since
+# owl:hasKey binds only on individuals that carry every key property and no
+# SOSA observation outside this vocabulary carries censo:hasAnalyte; but an
+# importer would still have taken a key on sosa:Observation it never asked for,
+# and "we only redefine our own terms" is either true of a vocabulary or it is
+# not. The key belongs on the class it is actually about: every observation this
+# ontology reasons over is an AssessedObservation, and OWL 2 RL derives that
+# membership from the detection status by cls-uni, so nothing is lost.
+censo:AssessedObservation owl:hasKey ( censo:hasAnalyte censo:atStation censo:duringCampaign ) .
 
 # An observation with no analyte, no station or no procedure is not
 # interpretable; these restrictions reject it instead of carrying it forward.

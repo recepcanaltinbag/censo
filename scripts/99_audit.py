@@ -1015,6 +1015,15 @@ def check_gap_profile(tex_nums):
     prof = {n.strip(): (a, b) for n, a, b in rows}
     quoted = re.findall(r"\\num\{(\d+)\}/\\num\{(\d+)\}", tex_nums)
     bad = [f"{a}/{b}" for a, b in quoted if (a, b) not in prof.values()]
+    # Verifying the PAIR left each half unowned, so 60 -- CHMO's sampling
+    # count -- was free for the near-match detector to blame an Albanian era
+    # share on. Claim both halves of every pair that resolves.
+    for a, b in quoted:
+        for name, pr in prof.items():
+            if pr == (a, b):
+                check_claim(tex_nums, f"profile: {name} sampling terms", int(a))
+                check_claim(tex_nums, f"profile: {name} sensing terms", int(b))
+                break
     if bad:
         record(FAIL, "gap-table profile figures",
                "quoted but not in the report: " + ", ".join(bad))
@@ -2830,6 +2839,111 @@ def check_reported_intervals(tex_nums):
     check_claim(tex_nums, "co-regulated divergence, CI high %", 100 * (c + h))
 
 
+def check_uncertainty_sensitivity(tex_nums):
+    """Own the sensitivity numbers before the near-match detector adopts them.
+
+    The Limitations now state that applying the uncertainty band to censored
+    rows would move 38,948 station-years and take the undecidable share from
+    43.8 % to 49.4 %. Left unowned, 49.4 sits 0.3 from the pre-2015 "declaring
+    nothing" share of 49.7, which is exactly the pairing this detector makes and
+    exactly the failure mode this changelog has recorded four times. Recompute
+    them here instead, from the report the analysis writes.
+    """
+    p = EVAL / "uncertainty_sensitivity.md"
+    if not p.exists():
+        record(SKIP, "the uncertainty sensitivity is recomputed",
+               "eval/uncertainty_sensitivity.md missing; run stage 28")
+        return
+    src = p.read_text(encoding="utf-8")
+    m_n = re.search(r"symmetric reading\*\*\s*\|\s*\*\*([\d,]+)\*\*", src)
+    m_s = re.search(r"share would go from ([\d.]+)\s*%? to ([\d.]+)", src)
+    if not (m_n and m_s):
+        record(FAIL, "the uncertainty sensitivity is recomputed",
+               "the report shape has changed")
+        return
+    check_claim(tex_nums, "sensitivity: station-years that would flip",
+                int(m_n.group(1).replace(",", "")))
+    check_claim(tex_nums, "sensitivity: undecidable share before",
+                float(m_s.group(1)))
+    check_claim(tex_nums, "sensitivity: undecidable share after",
+                float(m_s.group(2)))
+
+
+def check_series_figures(tex_nums):
+    """Own what the year series and the two-regimes figure put into the prose.
+
+    Both write their figures from shipped tables, and Section 5 quotes peaks and
+    ratios out of them: the highest affirmable year, the highest a full-limit
+    pipeline reports, the final-year ratio, the post-2013 undecidable band, the
+    factor between two jurisdictions' standards and the station-years in that
+    band. Emitted in the reports, they are traceable; recomputed here, they are
+    OWNED -- and until they were, the near-match detector attributed 39.2 to a
+    Belgian era share, 22.8 to a German one, 17,062 to a group-touching count
+    and 65 to the half-LOQ share. Seven failures from six loose numbers, which
+    is the fifth time this cycle.
+    """
+    rep = EVAL / "exceedances_by_year.md"
+    if rep.exists():
+        src = rep.read_text(encoding="utf-8")
+        pats = {
+            "year series: most affirmable in a year":
+                r"affirm in any year \| \*\*([\d,]+)\*\*",
+            "year series: most reported at the full limit":
+                r"reports in any year \| \*\*([\d,]+)\*\*",
+        }
+        for label, pat in pats.items():
+            m = re.search(pat, src)
+            if m:
+                check_claim(tex_nums, label, int(m.group(1).replace(",", "")))
+        m = re.search(r"ratio in the final year \| \*\*([\d.]+)x\*\*", src)
+        if m:
+            check_claim(tex_nums, "year series: final-year ratio",
+                        float(m.group(1)))
+        m = re.search(r"onward \| \*\*([\d.]+)–([\d.]+) %\*\*", src)
+        if m:
+            check_claim(tex_nums, "year series: undecidable band low",
+                        float(m.group(1)))
+            check_claim(tex_nums, "year series: undecidable band high",
+                        float(m.group(2)))
+        # The first/last table too. Claiming the PEAK and not the last year
+        # left 16,561 loose, and it was promptly blamed on a group-touching
+        # count and on the quantified-above-standard total -- two checks made
+        # to lie by one number, again.
+        for label, pat, cast in (
+                ("year series: full limit",
+                 r"full limit \| ([\d,]+) \| ([\d,]+) \|",
+                 lambda x: int(x.replace(",", ""))),
+                ("year series: affirmable",
+                 r"can affirm \| ([\d,]+) \| ([\d,]+) \|",
+                 lambda x: int(x.replace(",", ""))),
+                ("year series: assessable",
+                 r"assessable station-years \| ([\d,]+) \| ([\d,]+) \|",
+                 lambda x: int(x.replace(",", ""))),
+                ("year series: undecidable %",
+                 r"\| undecidable \| ([\d.]+) % \| ([\d.]+) % \|", float),
+                ("year series: plotted year",
+                 r"\| year \| (\d+) \| (\d+) \|", int)):
+            m = re.search(pat, src)
+            if not m:
+                continue
+            check_claim(tex_nums, label + ", first", cast(m.group(1)))
+            check_claim(tex_nums, label + ", last", cast(m.group(2)))
+    else:
+        record(SKIP, "year-series figures are recomputed",
+               "eval/exceedances_by_year.md missing; run stage 29")
+
+    f = PAPER / "supplementary" / "figure_data" / "fig13_two_regimes.csv"
+    if f.exists():
+        with f.open(encoding="utf-8") as fh:
+            d = {r[0]: r[1] for r in csv.reader(fh)}
+        if "ratio" in d:
+            check_claim(tex_nums, "two regimes: factor between the standards",
+                        float(d["ratio"]))
+        if "station_years_differing" in d:
+            check_claim(tex_nums, "two regimes: station-years in the band",
+                        int(d["station_years_differing"]))
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--verbose", action="store_true")
@@ -2879,6 +2993,8 @@ def main() -> int:
     check_alignment()
     check_graph_matches_population(nums)
     check_reported_intervals(nums)
+    check_uncertainty_sensitivity(nums)
+    check_series_figures(nums)
     check_shacl_conformance(nums)
     check_abox_datatypes()
     check_report_indeterminate_total()

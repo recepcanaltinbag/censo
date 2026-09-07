@@ -56,13 +56,16 @@ since repaired from an analytical one they have not; reading the disaggregated
 release extends the audit to the standard Annex~I defines against a single
 sample rather than against an annual mean.
 
-The gap follows from a measurement model. SOSA/SSN and its descendants were
-designed for in-situ \emph{sensing}, in which a detection limit is a property of
-the device. Trace organic monitoring is \emph{sampling followed by laboratory
-analysis}, in which the limit belongs to the method that produced the result
-and its consequence belongs to the result itself. We present CENSO, an ontology
-that carries the limit onto the result, records why a result is
-an interval, treats a threshold as a conditional judgement with preconditions,
+The gap follows from where the limit is kept. Observation vocabularies hold a
+detection limit on the thing that produced the result: on the device, as
+\texttt{ssn-system:DetectionLimit}, which is correct for a sensor whose range is
+a permanent property of the instrument; or on the assay, as \textsc{chmo}'s
+\emph{limit of detection}, which is correct for a method. Neither placement can
+say that \emph{this} measurement fell below it, because ``censored'' is a
+property of a result and not of what produced it.
+
+We present CENSO, an ontology that carries the limit onto the result, records
+why a result is an interval, treats a threshold as a conditional judgement with preconditions,
 and makes compliance three-valued --- met, not met, or not determinable ---
 subtyped by the reason it is not. The three are the outcomes the Directive
 itself admits; the subtypes are what tell an unmeasurable standard apart from an

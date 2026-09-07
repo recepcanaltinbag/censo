@@ -517,7 +517,7 @@ def main() -> int:
         legal_reference="Yerüstü Su Kalitesi Yönetmeliği, Tablo 4 (2016)",
         source_url="https://www.mevzuat.gov.tr/",
         source_local="refs/legal/YSKY.pdf",
-        version="2.0.0", rows=rows,
+        version="2.1.0", rows=rows,
         analyte_prefix="cereg:analyte-tr-")
     report.append(("tr-ysky-2016", out, n_a, n_aa, n_mac))
     print(f"  {out.relative_to(ROOT)}: {n_a} analytes, "
@@ -582,7 +582,7 @@ def main() -> int:
             # from every group and adds a censo:MatrixCondition to every
             # threshold. A consumer who read the 1.0.0 files would break on
             # both. The old files stay reachable under releases/1.0.0/.
-            version="2.0.0", rows=rows,
+            version="2.1.0", rows=rows,
             analyte_prefix="cereg:analyte-eu-")
         report.append(("eu-2008-105-2026", out, n_a, n_aa, n_mac))
         print(f"  {out.relative_to(ROOT)}: {n_a} analytes, "

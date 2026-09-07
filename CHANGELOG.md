@@ -6,6 +6,151 @@ part worth keeping. Newest first. Numbers quoted here are recomputed by
 
 ---
 
+## Unreleased
+
+### Added — exceedances year by year, and the finding is that the gap does not close
+
+`scripts/29_exceedances_by_year.py` → `derived/processed/exceedances_by_year.csv`,
+`paper/figures/fig14_exceedances_by_year.*`, `eval/exceedances_by_year.md`;
+gated by `check_series_figures()` in `scripts/99_audit.py`.
+
+Figure 8 reads the record year by year for the three failures and answers "is
+this improving". It carried no exceedance count at all, so it could not answer
+the question an enforcement authority asks about a trend: is the distance
+between what a substituting pipeline reports and what the law can affirm getting
+smaller?
+
+**It is not.** Over the 26 years the record can carry a rate, 1999 to 2024:
+
+| | |
+|---|---|
+| most exceedances the law can affirm in any year | **1,331** |
+| most a full-limit pipeline reports in any year | **17,062** |
+| ratio in the final year | **22.8×** |
+| undecidable share from 2013 onward | **28.5–39.2 %**, twelve years |
+
+The affirmable series is close to flat while the band above it grows by an order
+of magnitude. Monitoring effort scales; the number of exceedances an enforcement
+action could defend does not scale with it. As a single number the gap is a
+cross-section; as a series it is evidence that the defect is structural, and it
+closes off the reading that better chemistry is already fixing it — analytical
+capability improved over these years and the affirmable count did not follow.
+
+The undecidable share does improve, once, and then stops: it falls from 100 % to
+a band it has held for twelve years. That is the same shape §5.2 finds in the
+analytical failure, seen from the other side.
+
+The decision procedure is imported from `22_waterbase_external` rather than
+restated, so the series and the §5.4 totals cannot disagree. Years below 2,000
+assessable station-years are in the shipped CSV and not plotted: a rate over a
+handful of stations is noise drawn as a trend.
+
+### Added — two use-case figures and three more scenarios
+
+`scripts/92b_use_case_figures.py`, `scripts/21_use_cases.py`.
+
+**fig12, the enforcement funnel.** 200,708 exceedances a full-limit pipeline
+reports, five strata removed with the reason for each, 14,505 left. The paper's
+most striking single number had no picture.
+
+**fig13, one substance under two packages.** Chlorpyrifos carries an
+annual-average standard of 0.00046 µg/L in Annex I and 0.03 in the Turkish
+table, a factor of 65, and 23,208 station-years fall between them. Figure 7
+compares two standards within one jurisdiction; this compares two jurisdictions,
+which is what swappable packages are for.
+
+Scenarios 8–10: which substances the network has never once been able to decide
+(monitored, reported, never decided, and indistinguishable in a two-valued
+record from substances found absent); whether a data steward can validate an
+incoming submission against a published constraint rather than a script of their
+own; and what swapping the regulation package changes, which is answerable
+because every threshold cites the instrument that defines it.
+
+### FIXED — six loose numbers, seven failing checks, one root cause
+
+Adding the year series and the two figures put six new quantities into the
+prose — the yearly peaks, the final-year ratio, the post-2013 band, the
+chlorpyrifos factor, the station-years in that band — and none was recomputed by
+a check. The near-match detector then attributed 39.2 to a Belgian era share,
+22.8 to a German one, 17,062 to a group-touching count, 65 to the half-LOQ share
+and 23,208 to a PAH count: **seven failures from six loose numbers.**
+
+That is the fifth time this correction cycle, and the rule is now written where
+it belongs, in the gate: *emitted in a report, a number is traceable; recomputed
+in the audit, it is owned, and those are different things.*
+
+Two subtler cases in the same pass:
+
+- `check_gap_profile` verified sampling/sensing figures as PAIRS, so `60/20`
+  passed while 60 and 20 stayed individually unowned — which is how CHMO's
+  sampling count came to be blamed on an Albanian era share. Both halves of
+  every resolved pair are claimed now.
+- Claiming the year series' PEAK and not its last year left 16,561 loose, and it
+  was immediately blamed on two different checks at once.
+
+Also: Figure 14's caption stated the plotting floor (2,000 station-years) and
+not its own plotted count, which `check_caption_counts` reads as a claimed
+count. It says 26 now, which is better writing as well as a passing check.
+
+**230 checks, 196 passed, 0 failed.**
+
+## 2.1.0 — 2026-09-05
+
+**MINOR: no term added or removed, two axioms corrected.** Nothing a correct
+consumer of 2.0.0 relied on breaks; what breaks is two things that were wrong.
+
+### FIXED — the one place this vocabulary legislated for somebody else
+
+`sosa:Observation owl:hasKey (hasAnalyte, atStation, duringCampaign)` asserted
+an axiom about a SOSA class. It is the mildest form of ontology hijacking --
+`owl:hasKey` binds only on individuals carrying every key property, and no SOSA
+observation outside this vocabulary carries `censo:hasAnalyte` -- but an
+importer still took a key on `sosa:Observation` it never asked for, and "we
+redefine no term but our own" is either true of a vocabulary or it is not.
+
+Moved to `censo:AssessedObservation`, the class the key is actually about. OWL 2
+RL derives that membership from the detection status by `cls-uni`, so nothing is
+lost; `test_axioms.py` T10 still fires on the duplicate row. **Axioms whose
+subject is an external entity: 0.**
+
+### FIXED — an inverse that entailed more than it should
+
+`cereg:definesThreshold owl:inverseOf censo:definedBy`, flagged Critical by
+OOPS! and rightly. The two sit at different levels: `definesThreshold` has
+domain `cereg:RegulationPackage`, `definedBy` has range `censo:Regulation`. As
+inverses they entail package-hood from mere regulation-hood. The navigation
+convenience is not worth an entailment nobody asked for; both directions are
+still one triple pattern away in a query.
+
+### Added — OOPS!, the scan an ontology paper is supposed to run
+
+`scripts/15b_oops.py` → `eval/oops_assessment.md`.
+
+This project ran FOOPS! and not OOPS!, which is the wrong way round: FOOPS
+scores FAIRness, OOPS reads the axioms, and FAIR publication of a badly modelled
+vocabulary is still a badly modelled vocabulary. Run once, it found three real
+things — the wrong inverse above, plus two faces of a single stale list:
+
+The standalone distribution re-declares the external terms it borrows, so a
+scanner reading one file does not report them untyped. That list was
+hand-written, and it had drifted **in both directions at once**: it never
+included `sosa:usedProcedure`, which the cardinality restriction on
+`censo:AssessedObservation` references (P34, Important), and it still declared
+`sosa:Sample` after `censo:analysedSample` was retired (P04). It is derived from
+what the modules actually reference now, and the property types are inferred
+from use rather than assumed — typing `skos:definition` an object property drew
+P11 for a missing domain, a complaint that is correct for an object property and
+meaningless for an annotation one.
+
+Reused external terms are reported as expected rather than filtered silently,
+and the filter itself imports the exporter's derivation, so the two cannot
+disagree about which terms are borrowed. **0 unexplained Critical or Important
+pitfalls.**
+
+Domain and range for a borrowed property are deliberately not restated: a type
+declaration is what OWL 2 asks of a file that uses an entity, and
+`prov:hadPrimarySource`'s domain is PROV's to state.
+
 ## 2.0.0 — 2026-09-04
 
 **MAJOR, because terms were removed.** Twenty-one of the ninety-three declared

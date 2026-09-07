@@ -1,0 +1,8 @@
+step,station_years,reason
+reported at the full limit,200708,
+method_insufficient,-121620,the quantification limit exceeds the standard — Art. 3(3b): shall not be considered
+precondition_unmet,-49977,the standard is defined on a quantity — the record does not report
+indeterminate_unresolved,-12142,no censoring flag and no limit — so there is no bound to compare
+possible_exceedance,-2458,the interval the legal uncertainty permits — straddles the standard
+indeterminate_other,-6,the reported value contradicts — the limit beside it
+affirmable in law,14505,

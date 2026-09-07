@@ -67,6 +67,13 @@ STAGES = [
     # -- the 165 MB aggregated download -- still runs the whole paper except
     # this section.
     ("27_mac_exceedance.py", "assess the maximum-allowable standard", False),
+    # Reads the release independently and writes only its own report, so it
+    # perturbs no counter the manuscript quotes.
+    ("28_uncertainty_sensitivity.py",
+     "measure what the symmetric uncertainty reading would cost", True),
+    # The same question as the headline, asked as a series: does the gap
+    # between what a pipeline reports and what the law can affirm narrow?
+    ("29_exceedances_by_year.py", "exceedances year by year", True),
     # After 19: it reads the released packages. Before 24, which is the
     # analysis the alignment has to agree with.
     ("20_align_external.py", "align to ChEBI and CHMO", False),
@@ -85,7 +92,7 @@ STAGES = [
     ("18_shacl_validate.py", "SHACL validation and materialisation", False),
     # Reads the same graph; runs after 18 so the materialised entailments
     # are present. Not a test -- it is the adoption document.
-    ("21_use_cases.py", "answer the seven use-case questions", False),
+    ("21_use_cases.py", "answer the use-case questions", False),
     ("90_figures.py", "draw every figure and ship its data", False),
     # Reads the vocabulary directly and verifies every edge against it, so
     # it must run after any change to the ontology -- which is exactly how
@@ -93,6 +100,7 @@ STAGES = [
     ("91_ontology_figure.py", "draw the vocabulary figure", False),
     # Reads real rows out of the graph, so it runs after 23.
     ("92_decision_walkthrough.py", "decide four real rows twice", False),
+    ("92b_use_case_figures.py", "draw the two use-case figures", False),
     # After BOTH 07, which writes the gap matrix it reads, and 90, which ships
     # the witness row it argues over. It turns the gap table from a term list
     # into an entailment claim, and exits 1 if a comparison vocabulary turns
@@ -116,6 +124,9 @@ STAGES = [
     # response in eval/ and falls back to it, so an offline run still writes
     # the report and 99_audit.py still finds the numbers it checks.
     ("15_foops.py", "assess FAIR publication with FOOPS!", False),
+    # FOOPS scores FAIRness; OOPS reads the axioms. Running the first
+    # and not the second is the wrong way round for an ontology paper.
+    ("15b_oops.py", "scan for modelling pitfalls with OOPS!", False),
     ("96_flatten_paper.py", "inline the manuscript into one file", False),
     ("95_numbers_manifest.py", "trace every number to its script", False),
     ("99_audit.py", "recompute every claim and fail on a mismatch", False),

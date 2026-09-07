@@ -17,11 +17,13 @@ In SOSA/SSN \cite{janowicz2019sosa,haller2019ssn}, \texttt{sosa:Observation}
 carries \texttt{hasSimpleResult}, a point value;
 \texttt{ssn-system:DetectionLimit} is a property of a \emph{sensor}, never of an
 observation or its result, so nothing can state that a measurement fell below
-it. Trace organic monitoring is not the sensor case: the sample is analysed
-later, in a run whose calibration curve sets its own limits. SOSA's
-\texttt{Sampling}, \texttt{Sampler} and \texttt{Sample} do not link an analysis
-to a detection limit -- an absence Section~\ref{sec:results-gap} traces across
-the water-ontology literature to this inherited model.
+it. SOSA's \texttt{Sampling}, \texttt{Sampler} and \texttt{Sample} do not link
+an analysis to a detection limit either, so the absence is not repaired by
+choosing the sampling half of the vocabulary over the sensing half.
+Section~\ref{sec:results-gap} shows why: the same absence appears in an
+analytical chemistry ontology that has no sensor concept in it at all. What
+these vocabularies share is not a model of measurement but a placement --- the
+limit is held on whatever produced the result, and never on the result.
 
 \paragraph{Why extend SOSA rather than something else.}
 The choice of base is itself a claim, so we state the reasoning. SOSA/SSN is a
