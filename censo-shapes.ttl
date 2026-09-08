@@ -39,7 +39,7 @@ express."""@en ;
     vann:preferredNamespacePrefix "censosh" ;
     vann:preferredNamespaceUri "https://w3id.org/censo/shapes#" ;
     owl:versionIRI <https://w3id.org/censo/shapes/2.1.0> ;
-    owl:versionInfo "2.1.0" ;
+    owl:versionInfo "2.2.0" ;
     rdfs:seeAlso <https://w3id.org/censo/> .
 
 censo:ObservationShape a sh:NodeShape ;
@@ -327,3 +327,11 @@ results rather than silent passes.""" ;
               ?obs censo:hasAnalyte ?a .
               FILTER NOT EXISTS { ?obs censo:conditionSatisfied ?c }
             }""" ] .
+
+censo:CampaignShape a sh:NodeShape ;
+    sh:targetClass censo:Campaign ;
+    sh:property [
+        sh:path censo:reportingYear ;
+        sh:datatype xsd:gYear ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:message "A campaign must state the year it reports for, exactly once and as an xsd:gYear. The year encoded in the campaign's IRI is not data a query can reach." ;
+        sh:severity sh:Violation ] .
