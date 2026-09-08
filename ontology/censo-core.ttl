@@ -111,8 +111,8 @@ an open-world upper bound rather than as zero."""@en ;
     dcterms:created "2026-08-03"^^xsd:date ;
     vann:preferredNamespacePrefix "censo" ;
     vann:preferredNamespaceUri "https://w3id.org/censo/" ;
-    owl:versionIRI <https://w3id.org/censo/2.1.0> ;
-    owl:versionInfo "2.1.0" ;
+    owl:versionIRI <https://w3id.org/censo/2.2.0> ;
+    owl:versionInfo "2.2.0" ;
     rdfs:seeAlso <http://www.w3.org/ns/sosa/> ;
     owl:imports <http://www.w3.org/ns/sosa/> ,
                 <http://www.w3.org/ns/ssn/> ,
@@ -429,6 +429,22 @@ censo:Campaign a owl:Class ;
     rdfs:subClassOf prov:Activity ;
     rdfs:label "Sampling campaign"@en ;
     rdfs:comment "A bounded sampling exercise. Making it explicit lets the same station be compared across time and prevents campaigns being conflated."@en .
+
+censo:reportingYear a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain censo:Campaign ;
+    rdfs:range xsd:gYear ;
+    rdfs:label "reporting year"@en ;
+    rdfs:comment """The year a campaign reports for, as data rather than as a
+substring of the campaign's identifier.
+
+Without it a temporal question can only be answered by parsing an IRI, which is
+the same defect this vocabulary objects to elsewhere: a fact that a reader can
+see but a query cannot reach. Whether a finding holds in the most recent years
+or only in the archive is not a footnote to a compliance record --- it is what
+separates a historical artefact from a live problem --- so the record has to be
+able to answer it.
+
+Functional: a campaign reports for exactly one year."""@en .
 
 # IDENTITY. An observation is uniquely determined by analyte, station and
 # campaign. Two individuals agreeing on all three are the same observation, so

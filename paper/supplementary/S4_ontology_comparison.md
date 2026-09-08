@@ -26,7 +26,7 @@ A blank cell means the ontology parsed and the concept was absent. `?` means the
 | STATO (statistics) | 1162 | — | — | — | — | **yes** | **yes** | — |
 | ENVO | 7208 | — | — | — | — | — | — | — |
 | ExO (exposure) | 195 | — | — | — | — | — | — | — |
-| CENSO (this work) | 50 | **the result** | **yes** | **yes** | **yes** | **yes** | **yes** | **yes** |
+| CENSO (this work) | 51 | **the result** | **yes** | **yes** | **yes** | **yes** | **yes** | **yes** |
 | CENSO-REG (this work) | 17 | — | — | — | — | **yes** | — | — |
 | Project ontology 2018 | 123 | unclear | **yes** | — | — | — | — | — |
 
@@ -78,7 +78,7 @@ Keyword presence is only half the comparison. This table asks whether an ontolog
 | STATO (statistics) | 1162 | 100% | yes | yes | 0 | — | 57 | 5 |
 | ENVO | 7208 | 100% | yes | yes | 0 | — | 2 | 7 |
 | ExO (exposure) | 195 | 98% | yes | yes | 0 | — | 1 | 0 |
-| CENSO (this work) | 50 | 100% | yes | yes | 4 | yes | 3 | 0 |
+| CENSO (this work) | 51 | 100% | yes | yes | 4 | yes | 3 | 0 |
 | CENSO-REG (this work) | 17 | 100% | yes | yes | 1 | — | 0 | 0 |
 | Project ontology 2018 | 123 | 0% | — | — | 0 | — | 0 | 1 |
 

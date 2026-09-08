@@ -225,6 +225,36 @@ CASES = [
      "load at once and a verdict carries its provenance. Section 5.7 counts "
      "what changes; the vocabulary is what makes the count possible without "
      "running the pipeline twice against two edited copies of the data."),
+
+    ("still_current",
+     "A referee asking whether this is a historical artefact",
+     "Is this still true in the most recent years, or is it an archive "
+     "problem that better chemistry has already outgrown?",
+     "Cannot pose the question at all: with no undecidable verdict to count, "
+     "every year looks equally decided and the trend is invisible.",
+     """SELECT ?year
+               (SUM(IF(?cls = censo:MethodInsufficient, 1, 0)) AS ?insufficient)
+               (SUM(IF(?cls = censo:PossibleExceedance,  1, 0)) AS ?possible)
+               (SUM(IF(?cls = censo:Exceedance,          1, 0)) AS ?exceeding)
+               (SUM(IF(?cls = censo:Compliant,           1, 0)) AS ?compliant)
+        WHERE {
+          VALUES ?cls {
+            censo:MethodInsufficient censo:PossibleExceedance
+            censo:Exceedance censo:Compliant
+          }
+          ?o a ?cls ; censo:duringCampaign ?c .
+          ?c censo:reportingYear ?gy .
+          BIND (xsd:integer(STR(?gy)) AS ?year)
+          FILTER (?year >= 2019)
+        }
+        GROUP BY ?year ORDER BY DESC(?year)""",
+     "In every year shown, including the most recent the release "
+     "carries, the rows the record cannot decide outnumber the "
+     "exceedances it can affirm by an order of magnitude, and the share "
+     "has not fallen. The finding is about the record as it is being "
+     "collected now, not only about its archive. Asking this at all needs two things a two-valued schema has "
+     "neither of: a verdict for 'the record does not decide', and the "
+     "campaign's year as data rather than as a substring of its identifier."),
 ]
 
 

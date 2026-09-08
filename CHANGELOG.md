@@ -6,6 +6,65 @@ part worth keeping. Newest first. Numbers quoted here are recomputed by
 
 ---
 
+## 2.2.0 — 2026-09-08
+
+### Added — censo:reportingYear, because the year was in the IRI and nowhere else
+
+A campaign's year lived only inside its identifier (`wb:campaign-2023`). A
+reader could see it; a query could not reach it. That is the same defect this
+vocabulary objects to everywhere else, sitting in its own ABox.
+
+`censo:reportingYear` (`xsd:gYear`, functional, domain `censo:Campaign`), a
+`censo:CampaignShape` requiring it exactly once, and the emitter in
+`23_waterbase_abox.py` that writes it as typed data.
+
+Whether a finding holds in the most recent years or only in the archive is not
+a footnote to a compliance record — it is what separates a historical artefact
+from a live problem — so the record has to be able to answer it.
+
+### Added — scenario 11, the question a referee asks first
+
+*Is this still true in the most recent years, or has better chemistry already
+outgrown it?* Four outcome classes counted per year over the shipped graph:
+
+| year | insufficient | possible | exceeding | compliant |
+|---|---|---|---|---|
+| 2024 | 861 | 20 | 51 | 1,922 |
+| 2023 | 530 | 25 | 70 | 2,474 |
+| 2022 | 531 | 29 | 62 | 2,375 |
+| 2021 | 424 | 24 | 67 | 1,729 |
+| 2020 | 452 | 22 | 53 | 1,521 |
+| 2019 | 622 | 29 | 67 | 1,811 |
+
+In every year, including the most recent, the rows the record cannot decide
+outnumber the exceedances it can affirm by an order of magnitude, and the share
+has not fallen. This reproduces on the graph, in one query, what
+`29_exceedances_by_year.py` finds over the population.
+
+Asking it at all needs two things a two-valued schema has neither of: a verdict
+for "the record does not decide", and the campaign's year as data.
+
+### FIXED — three scenarios that did not work as written
+
+- **8 could not finish.** Two nested `FILTER NOT EXISTS` over 6,885
+  method-insufficient rows is an anti-join rdflib re-scans per solution. As a
+  `HAVING` over per-class counts it is one pass and 10.3 s.
+- **9 silently dropped a row.** Thresholds are asserted as
+  `AnnualAverageThreshold` and this graph carries no inferred types, so a bare
+  `?o a censo:Threshold` counted none of them. `sh:targetClass` reaches
+  subclasses and the query does now: 537, which is scenario 10's 103 and 434
+  added up.
+- **11 returned nothing.** SPARQL gives `xsd:gYear` no ordering, so
+  `?year >= "2019"^^xsd:gYear` matched nothing rather than erroring. The type
+  stays — a year is a year, not a counter — and the comparison goes through an
+  explicit cast.
+
+Three untraced triple counts followed from the rebuilt ABox and were updated in
+§5: 501,110 asserted, 507,761 with the modules loaded, 634,013 under the
+shapes.
+
+**230 checks, 196 passed, 0 failed.**
+
 ## Unreleased
 
 ### Added — exceedances year by year, and the finding is that the gap does not close

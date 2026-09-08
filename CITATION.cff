@@ -9,7 +9,7 @@ abstract: >-
 type: software
 license: CC-BY-4.0
 url: "https://w3id.org/censo/"
-version: "2.1.0"
+version: "2.2.0"
 authors:
   - family-names: "Altınbağ"
     given-names: "Recep Can"

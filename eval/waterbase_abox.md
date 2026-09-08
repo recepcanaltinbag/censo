@@ -8,7 +8,7 @@ A graph of our own making would show that the vocabulary can carry a survey; it 
 
 - station-years in the population (river water, substance has a European standard): **696,168**
 - expressed in the graph (reservoir sample, seed 20260803): **40,000**
-- analytes: 56 · stations: 8,510 · triples: **501,062**
+- analytes: 56 · stations: 8,510 · triples: **501,110**
 
 ## Detection status assigned
 

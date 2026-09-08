@@ -661,7 +661,10 @@ def main() -> int:
                        f'    rdfs:label "{code}"@en .\n')
     out.extend(sorted(method_defs))
     for c_iri, year in sorted(campaigns):
+        # The year as data, not as a substring of the IRI: a temporal question
+        # a query cannot reach is the same defect this vocabulary objects to.
         out.append(f'{c_iri} a censo:Campaign ;\n'
+                   f'    censo:reportingYear "{year}"^^xsd:gYear ;\n'
                    f'    rdfs:label "Reporting year {year}"@en .\n')
 
     ttl = ABOX / "censo-waterbase.ttl"

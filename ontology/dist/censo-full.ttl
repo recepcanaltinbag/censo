@@ -44,8 +44,8 @@ an open-world upper bound rather than as zero."""@en ;
         prov:,
         sosa:,
         ssn: ;
-    owl:versionIRI <https://w3id.org/censo/2.1.0> ;
-    owl:versionInfo "2.1.0" .
+    owl:versionIRI <https://w3id.org/censo/2.2.0> ;
+    owl:versionInfo "2.2.0" .
 
 censo:AssessedObservation a owl:Class ;
     rdfs:label "Assessed observation"@en ;
@@ -333,6 +333,23 @@ a non-detection, not a measured zero."""@en ;
     rdfs:domain sosa:Observation ;
     rdfs:range xsd:decimal .
 
+censo:reportingYear a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "reporting year"@en ;
+    rdfs:comment """The year a campaign reports for, as data rather than as a
+substring of the campaign's identifier.
+
+Without it a temporal question can only be answered by parsing an IRI, which is
+the same defect this vocabulary objects to elsewhere: a fact that a reader can
+see but a query cannot reach. Whether a finding holds in the most recent years
+or only in the archive is not a footnote to a compliance record --- it is what
+separates a historical artefact from a live problem --- so the record has to be
+able to answer it.
+
+Functional: a campaign reports for exactly one year."""@en ;
+    rdfs:domain censo:Campaign ;
+    rdfs:range xsd:gYear .
+
 censo:requiresCondition a owl:ObjectProperty ;
     rdfs:label "requires condition"@en ;
     rdfs:comment "A precondition of the threshold. Unmet preconditions yield no verdict, not a default pass."@en ;
@@ -386,11 +403,6 @@ censo:AnnualAverageThreshold a owl:Class ;
 to a single sample; comparing one grab sample against it is a category error that
 this class exists to make visible."""@en ;
     rdfs:subClassOf censo:Threshold .
-
-censo:Campaign a owl:Class ;
-    rdfs:label "Sampling campaign"@en ;
-    rdfs:comment "A bounded sampling exercise. Making it explicit lets the same station be compared across time and prevents campaigns being conflated."@en ;
-    rdfs:subClassOf prov:Activity .
 
 censo:Compliant a owl:Class ;
     rdfs:label "Compliant"@en ;
@@ -488,6 +500,11 @@ qudt:Unit a owl:Class ;
 sosa:ObservableProperty a owl:Class ;
     rdfs:label "Observable property"@en ;
     rdfs:comment "Reused from SOSA; declared here only so that this standalone distribution is self-describing."@en .
+
+censo:Campaign a owl:Class ;
+    rdfs:label "Sampling campaign"@en ;
+    rdfs:comment "A bounded sampling exercise. Making it explicit lets the same station be compared across time and prevents campaigns being conflated."@en ;
+    rdfs:subClassOf prov:Activity .
 
 censo:Regulation a owl:Class ;
     rdfs:label "Regulation"@en ;
@@ -736,6 +753,9 @@ sosa:Observation a owl:Class ;
     rdfs:comment "Reused from SOSA; declared here only so that this standalone distribution is self-describing."@en .
 
 [] a owl:AllDisjointClasses ;
+    owl:members ( cereg:RegulationPackage cereg:SubstanceGroup cereg:AggregationFunction cereg:TranscriptionStatus ) .
+
+[] a owl:AllDisjointClasses ;
     owl:members ( censo:AnnualAverageThreshold censo:MaximumAllowableThreshold ) .
 
 [] a owl:AllDisjointProperties ;
@@ -743,7 +763,4 @@ sosa:Observation a owl:Class ;
 
 [] a owl:AllDisjointClasses ;
     owl:members ( censo:CensoredObservation censo:EstimatedObservation censo:QuantifiedObservation censo:UnresolvedObservation ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( cereg:RegulationPackage cereg:SubstanceGroup cereg:AggregationFunction cereg:TranscriptionStatus ) .
 

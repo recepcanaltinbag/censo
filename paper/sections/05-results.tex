@@ -301,7 +301,7 @@ selected by a rule the data does not determine
 
 \paragraph{The graph is a materialisation, not the analysis.}
 A reservoir sample of \num{40000} station-years is expressed as RDF
-(\num{501062} triples): a pure-Python triple store cannot hold four million
+(\num{501110} triples): a pure-Python triple store cannot hold four million
 rows, and inflating it would misreport what was reasoned over. \num{11.7}\% of
 its observations are \texttt{UnresolvedObservation}, a state no other surveyed
 vocabulary can express.
@@ -766,7 +766,7 @@ once it is added: on the result, not on the device.
 \label{sec:results-cq}
 Twenty competency questions, each tied to an axiom, were executed over the
 Waterbase graph with the two vocabulary modules and both regulation packages,
-\num{507707} triples as
+\num{507761} triples as
 loaded\src{scripts/17\_run\_competency\_questions.py}. \textbf{All twenty
 return answers.} Full OWL~2~RL closure over a graph this size is impractical in
 pure Python, so only two entailments are materialised: union membership for the
@@ -829,7 +829,7 @@ than the measurement. Every value is read from the shipped graph and ships in
 
 \subsection{The shipped graph is validated against the shipped shapes}
 \label{sec:results-shacl}
-The published shapes are run over the published graph --- \num{633959} triples
+The published shapes are run over the published graph --- \num{634013} triples
 with the vocabulary loaded --- rather than over a fixture\src{scripts/18\_shacl\_validate.py}.
 The shapes match \num{40000} assessed observations, \num{31167} censored ones,
 \num{1159} analytical methods and \num{537} thresholds, and the run reports
