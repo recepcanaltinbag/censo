@@ -975,7 +975,98 @@ def fig_verdicts():
          [[label.replace("\n", " "), name, val, f"{100*val/tot:.3f}"]
           for label, segs, _ in bars for val, _, name in segs])
 
-    fig, ax = plt.subplots(figsize=(W15, 2.9))
+    # THE SAME FOUR READINGS OVER THE LAST FIVE YEARS.
+    # A figure pooling 1975-2024 can be answered with "that was then", and on
+    # one of its strata it can be: the reporting defect is gone from the recent
+    # record. On the stratum this paper is about it cannot -- the method fails
+    # the standard MORE often now -- so the recent window is drawn beside the
+    # pooled one rather than left to a sentence. Everything below comes from
+    # the year series, which carries both the substitution counts and the
+    # five-way split per year.
+    RECENT_FROM = 2020
+    yr = [r for r in read_csv("exceedances_by_year.csv")
+          if r.get("plotted") == "yes" and int(r["year"]) >= RECENT_FROM]
+    bars_r, tot_r, last_r = [], 0, RECENT_FROM
+    if yr:
+        tot_r = sum(int(r["assessable"]) for r in yr)
+        last_r = max(int(r["year"]) for r in yr)
+        for rule, lbl in (("zero", "at zero"), ("half", "at \u00bd LOQ"),
+                          ("full", "at LOQ")):
+            e = sum(int(r[f"two_valued_{rule}"]) for r in yr)
+            bars_r.append((f"Substitution\n{lbl}",
+                           [(tot_r - e, V["compliant"], "Compliant"),
+                            (e, V["exceed"], "Exceeding")], False))
+        g = lambda k: sum(int(r["n_" + k]) for r in yr)
+        segs_r = [(g("compliant"), V["compliant"], "Compliant"),
+                  (g("exceedance"), V["exceed"], "Exceeding"),
+                  (g("possible_exceedance"), V["possible"],
+                   "Possible exceedance"),
+                  (g("precondition_unmet"), RAMP[2],
+                   "Standard not applicable to what is reported"),
+                  (g("method_insufficient"), V["indeterminate"],
+                   "Method fails the standard"),
+                  (g("indeterminate_unresolved") + g("indeterminate_other"),
+                   RAMP[0], "No bound established")]
+        assert sum(x[0] for x in segs_r) == tot_r, (
+            f"fig05b: CENSO bar spans {sum(x[0] for x in segs_r):,} "
+            f"of {tot_r:,}")
+        bars_r.append(("CENSO", segs_r, False))
+
+    def note(ax, segs_, tot_):
+        d = {nm: v for v, _, nm in segs_}
+        ax.text(0.0, -0.40,
+                f"affirmed exceedances {d['Exceeding']:,} "
+                f"({100*d['Exceeding']/tot_:.2f}\u2009%)   \u00b7   "
+                f"possible {d['Possible exceedance']:,} "
+                f"({100*d['Possible exceedance']/tot_:.2f}\u2009%)"
+                f"   \u2014 too thin to label inside the bar",
+                transform=ax.transAxes, fontsize=6.4, color=MUTED,
+                ha="left", va="top")
+
+    def draw(ax, bars_, tot_, legend_row):
+        for row, (label, segs_, _) in enumerate(bars_):
+            left = 0
+            for val, colr, name in segs_:
+                ax.barh(row, 100 * val / tot_, left=left, height=0.52,
+                        color=colr, edgecolor=SURFACE, linewidth=1.0,
+                        label=name if row == legend_row else None)
+                if 100 * val / tot_ > 6:
+                    ax.text(left + 50 * val / tot_, row,
+                            f"{100*val/tot_:.0f}%", ha="center", va="center",
+                            fontsize=7,
+                            color="white" if colr != RAMP[0] else INK,
+                            fontweight="bold")
+                left += 100 * val / tot_
+        ax.set_yticks(range(len(bars_)))
+        ax.set_yticklabels([b[0] for b in bars_])
+        ax.axhline(len(bars_) - 1.5, color=GRID, linewidth=0.8, zorder=0)
+        ax.invert_yaxis()
+        ax.set_ylim(len(bars_) - 0.4, -0.6)
+        ax.set_xlim(0, 100)
+        ax.tick_params(axis="y", length=0)
+        despine(ax, keep=("bottom",))
+
+    if bars_r:
+        fig, (ax, axr) = plt.subplots(2, 1, figsize=(W15, 5.9))
+        draw(axr, bars_r, tot_r, len(bars_r) - 1)
+        axr.set_xlabel("Share of assessments (%)")
+        note(axr, segs_r, tot_r)
+        mi_r = 100 * dict((x[2], x[0]) for x in segs_r)[
+            "Method fails the standard"] / tot_r
+        e0r = sum(int(r["two_valued_zero"]) for r in yr)
+        e2r = sum(int(r["two_valued_full"]) for r in yr)
+        title(axr, f"(b)  The last five years only, {tot_r:,} assessments\n"
+                   f"The method fails the standard in {mi_r:.0f}\u2009% "
+                   f"against {100*mi/tot:.0f}\u2009% above, and no bound is "
+                   f"missing")
+        axr.legend(loc="upper left", bbox_to_anchor=(0.0, -0.46), ncol=3,
+                   columnspacing=1.0)
+        emit("fig05b_verdicts_recent",
+             ["bar", "segment", "n", "pct_of_total"],
+             [[l.replace("\n", " "), nm, v, f"{100*v/tot_r:.3f}"]
+              for l, sg, _ in bars_r for v, _, nm in sg])
+    else:
+        fig, ax = plt.subplots(figsize=(W15, 2.9))
     for row, (label, segs, legend) in enumerate(bars):
         left = 0
         for val, colr, name in segs:
@@ -998,13 +1089,16 @@ def fig_verdicts():
     ax.set_xlabel("Share of assessments (%)")
     ax.tick_params(axis="y", length=0)
     despine(ax, keep=("bottom",))
-    ax.legend(loc="upper left", bbox_to_anchor=(0.0, -0.26), ncol=3,
-              columnspacing=1.0)
+    note(ax, segs, tot)
+    if not bars_r:
+        ax.legend(loc="upper left", bbox_to_anchor=(0.0, -0.26), ncol=3,
+                  columnspacing=1.0)
     e0 = sum(n[("zero", o, "exceeding")] for o in outcomes)
     e2 = sum(n[("full", o, "exceeding")] for o in outcomes)
     real = n[("zero", "exceedance", "exceeding")]
     # Two short lines: the long single line ran past the 140 mm canvas.
-    title(ax, f"The same {tot:,} assessments, read four ways\n"
+    title(ax, (f"(a)  " if bars_r else "")
+              + f"The same {tot:,} assessments, read four ways\n"
               f"Substitution reports {e0:,}\u2013{e2:,} exceedances; "
               f"{real:,} are affirmed")
     fig.tight_layout()
