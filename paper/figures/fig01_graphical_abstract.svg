@@ -2,12 +2,12 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Created with matplotlib (https://matplotlib.org/) -->
-<svg height="298.8pt" version="1.1" viewBox="0 0 538.56 298.8" width="538.56pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg height="360pt" version="1.1" viewBox="0 0 538.56 360" width="538.56pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
  <metadata>
   <rdf:RDF xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-09-09T21:00:00.240371</dc:date>
+    <dc:date>2026-09-10T00:29:52.496015</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -22,8 +22,8 @@
  </defs>
  <g id="figure_1">
   <g id="patch_1">
-   <path d="M 0 298.8 
-L 538.56 298.8 
+   <path d="M 0 360 
+L 538.56 360 
 L 538.56 0 
 L 0 0 
 z
@@ -31,142 +31,143 @@ z
   </g>
   <g id="axes_1">
    <g id="patch_2">
-    <path clip-path="url(#pce11269b1a)" d="M 22.953427 222.169752 
-L 249.019373 222.169752 
-Q 256.483814 222.169752 256.483814 218.028384 
-L 256.483814 51.190416 
-Q 256.483814 47.049048 249.019373 47.049048 
-L 22.953427 47.049048 
-Q 15.488986 47.049048 15.488986 51.190416 
-L 15.488986 218.028384 
-Q 15.488986 222.169752 22.953427 222.169752 
+    <path clip-path="url(#p4132f12c53)" d="M 22.953427 267.6744 
+L 249.019373 267.6744 
+Q 256.483814 267.6744 256.483814 262.6848 
+L 256.483814 61.6752 
+Q 256.483814 56.6856 249.019373 56.6856 
+L 22.953427 56.6856 
+Q 15.488986 56.6856 15.488986 61.6752 
+L 15.488986 262.6848 
+Q 15.488986 267.6744 22.953427 267.6744 
 z
 " style="fill:#a01e28;fill-opacity:0.054902;stroke:#a01e28;stroke-linejoin:miter;"/>
    </g>
    <g id="patch_3">
-    <path clip-path="url(#pce11269b1a)" d="M 289.540627 222.169752 
-L 515.606573 222.169752 
-Q 523.071014 222.169752 523.071014 218.028384 
-L 523.071014 51.190416 
-Q 523.071014 47.049048 515.606573 47.049048 
-L 289.540627 47.049048 
-Q 282.076186 47.049048 282.076186 51.190416 
-L 282.076186 218.028384 
-Q 282.076186 222.169752 289.540627 222.169752 
+    <path clip-path="url(#p4132f12c53)" d="M 289.540627 267.6744 
+L 515.606573 267.6744 
+Q 523.071014 267.6744 523.071014 262.6848 
+L 523.071014 61.6752 
+Q 523.071014 56.6856 515.606573 56.6856 
+L 289.540627 56.6856 
+Q 282.076186 56.6856 282.076186 61.6752 
+L 282.076186 262.6848 
+Q 282.076186 267.6744 289.540627 267.6744 
 z
 " style="fill:#128a6e;fill-opacity:0.054902;stroke:#128a6e;stroke-linejoin:miter;"/>
    </g>
    <g id="patch_4">
-    <path clip-path="url(#pce11269b1a)" d="M 22.420253 279.261468 
-L 516.139747 279.261468 
-Q 522.53784 279.261468 522.53784 275.711724 
-L 522.53784 238.439412 
-Q 522.53784 234.889668 516.139747 234.889668 
-L 22.420253 234.889668 
-Q 16.02216 234.889668 16.02216 238.439412 
-L 16.02216 275.711724 
-Q 16.02216 279.261468 22.420253 279.261468 
+    <path clip-path="url(#p4132f12c53)" d="M 22.420253 331.47 
+L 516.139747 331.47 
+Q 522.53784 331.47 522.53784 327.1932 
+L 522.53784 285.8508 
+Q 522.53784 281.574 516.139747 281.574 
+L 22.420253 281.574 
+Q 16.02216 281.574 16.02216 285.8508 
+L 16.02216 327.1932 
+Q 16.02216 331.47 22.420253 331.47 
 z
 " style="fill:#f2f4f6;"/>
    </g>
    <g id="line2d_1">
-    <path clip-path="url(#pce11269b1a)" d="M 77.337216 173.06496 
-L 77.337216 84.32136 
+    <path clip-path="url(#p4132f12c53)" d="M 77.337216 208.512 
+L 77.337216 101.592 
 " style="fill:none;stroke:#6b7280;stroke-linecap:round;stroke-width:0.8;"/>
    </g>
    <g id="line2d_2">
-    <path clip-path="url(#pce11269b1a)" d="M 70.939123 173.06496 
-L 83.735309 173.06496 
+    <path clip-path="url(#p4132f12c53)" d="M 70.939123 208.512 
+L 83.735309 208.512 
 " style="fill:none;stroke:#6b7280;stroke-linecap:round;stroke-width:0.8;"/>
    </g>
    <g id="line2d_3">
-    <path clip-path="url(#pce11269b1a)" d="M 343.924416 173.06496 
-L 343.924416 84.32136 
+    <path clip-path="url(#p4132f12c53)" d="M 343.924416 208.512 
+L 343.924416 101.592 
 " style="fill:none;stroke:#6b7280;stroke-linecap:round;stroke-width:0.8;"/>
    </g>
    <g id="line2d_4">
-    <path clip-path="url(#pce11269b1a)" d="M 337.526323 173.06496 
-L 350.322509 173.06496 
+    <path clip-path="url(#p4132f12c53)" d="M 337.526323 208.512 
+L 350.322509 208.512 
 " style="fill:none;stroke:#6b7280;stroke-linecap:round;stroke-width:0.8;"/>
    </g>
    <g id="line2d_5">
-    <path clip-path="url(#pce11269b1a)" d="M 181.306224 271.570356 
-L 181.306224 241.397532 
+    <path clip-path="url(#p4132f12c53)" d="M 181.306224 323.9856 
+L 181.306224 288.3456 
 " style="fill:none;stroke:#d5d9de;stroke-linecap:round;stroke-width:0.8;"/>
    </g>
    <g id="line2d_6">
-    <path clip-path="url(#pce11269b1a)" d="M 359.919648 271.570356 
-L 359.919648 241.397532 
+    <path clip-path="url(#p4132f12c53)" d="M 359.919648 323.9856 
+L 359.919648 288.3456 
 " style="fill:none;stroke:#d5d9de;stroke-linecap:round;stroke-width:0.8;"/>
    </g>
    <g id="patch_5">
-    <path clip-path="url(#pce11269b1a)" d="M 326.862835 173.06496 
-L 360.985997 173.06496 
-L 360.985997 113.90256 
-L 326.862835 113.90256 
+    <path clip-path="url(#p4132f12c53)" d="M 326.862835 208.512 
+L 360.985997 208.512 
+L 360.985997 137.232 
+L 326.862835 137.232 
 z
 " style="fill:#8ab0d6;opacity:0.75;stroke:#123f66;stroke-linejoin:miter;"/>
    </g>
    <g id="line2d_7">
-    <path clip-path="url(#pce11269b1a)" d="M 61.341984 137.56752 
-L 231.957792 137.56752 
+    <path clip-path="url(#p4132f12c53)" d="M 61.341984 165.744 
+L 231.957792 165.744 
 " style="fill:none;stroke:#128a6e;stroke-linecap:round;stroke-width:1.8;"/>
    </g>
    <g id="line2d_8">
-    <path clip-path="url(#pce11269b1a)" d="M 317.265696 113.90256 
-L 498.544992 113.90256 
+    <path clip-path="url(#p4132f12c53)" d="M 317.265696 137.232 
+L 498.544992 137.232 
 " style="fill:none;stroke:#6b7280;stroke-dasharray:2.1,1.4;stroke-dashoffset:0;stroke-width:0.7;"/>
    </g>
    <g id="text_1">
-    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:11px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:middle;" transform="rotate(-0, 269.28, 18.726641)" x="269.28" y="18.726641">A non-detection is an upper bound, not a zero</text>
+    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:11px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:middle;" transform="rotate(-0, 269.28, 20.850281)" x="269.28" y="20.850281">A non-detection is an upper bound, not a zero</text>
    </g>
    <g id="text_2">
-    <text style="fill:#6b7280;font-family:DejaVu Sans;font-size:7.6px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-0, 269.28, 32.412833)" x="269.28" y="32.412833">The same measurement, the same legal threshold, read two ways</text>
+    <text style="fill:#6b7280;font-family:DejaVu Sans;font-size:7.6px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-0, 269.28, 37.868812)" x="269.28" y="37.868812">The same measurement, the same legal threshold, read two ways</text>
    </g>
    <g id="text_3">
-    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:8.4px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:middle;" transform="rotate(-0, 135.9864, 65.560028)" x="135.9864" y="65.560028">What the record stores</text>
+    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:8.4px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:middle;" transform="rotate(-0, 135.9864, 77.680687)" x="135.9864" y="77.680687">What the record stores</text>
    </g>
    <g id="text_4">
-    <text style="fill:#6b7280;font-family:DejaVu Sans;font-size:6.6px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-0, 135.9864, 75.728977)" x="135.9864" y="75.728977">a number, indistinguishable from a measured zero</text>
+    <text style="fill:#6b7280;font-family:DejaVu Sans;font-size:6.6px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-0, 135.9864, 90.212569)" x="135.9864" y="90.212569">a number, indistinguishable from a measured zero</text>
    </g>
    <g id="text_5">
-    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:8.4px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:middle;" transform="rotate(-0, 402.5736, 65.560028)" x="402.5736" y="65.560028">What the measurement established</text>
+    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:8.4px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:middle;" transform="rotate(-0, 402.5736, 77.680687)" x="402.5736" y="77.680687">What the measurement established</text>
    </g>
    <g id="text_6">
-    <text style="fill:#6b7280;font-family:DejaVu Sans;font-size:6.6px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-0, 402.5736, 75.728977)" x="402.5736" y="75.728977">an interval: the analyte may be present below the limit</text>
+    <text style="fill:#6b7280;font-family:DejaVu Sans;font-size:6.6px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-0, 402.5736, 90.212569)" x="402.5736" y="90.212569">an interval: the analyte may be present below the limit</text>
    </g>
    <g id="text_7">
-    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:7.2px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-0, 269.28, 230.072742)" x="269.28" y="230.072742">CENSO binds the quantification limit to the analytical run rather than to the instrument, so the interval survives into the data.</text>
+    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:7.2px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-0, 269.28, 277.14555)" x="269.28" y="277.14555">CENSO binds the quantification limit to the analytical run rather than to the instrument, so the interval survives into the data.</text>
    </g>
    <g id="text_8">
-    <text style="fill:#123f66;font-family:DejaVu Sans;font-size:16px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:middle;" transform="rotate(-0, 93.332448, 253.503644)" x="93.332448" y="253.503644">45%</text>
+    <text style="fill:#123f66;font-family:DejaVu Sans;font-size:16px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:middle;" transform="rotate(-0, 93.332448, 300.9578)" x="93.332448" y="300.9578">45%</text>
    </g>
    <g id="text_9">
-    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:6px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(46.058073 266.452611)">of 33 million European samples</text>
-    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:6px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(44.932136 274.083111)">lie below the quantification limit</text>
+    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:6px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(46.058073 314.697975)">of 33 million European samples</text>
+    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:6px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(44.932136 322.328475)">lie below the quantification limit</text>
    </g>
    <g id="text_10">
-    <text style="fill:#7159a6;font-family:DejaVu Sans;font-size:16px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:middle;" transform="rotate(-0, 269.28, 253.503644)" x="269.28" y="253.503644">44%</text>
+    <text style="fill:#7159a6;font-family:DejaVu Sans;font-size:16px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:middle;" transform="rotate(-0, 269.28, 300.9578)" x="269.28" y="300.9578">32%</text>
    </g>
    <g id="text_11">
-    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:6px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(216.04875 262.637361)">of assessments against a European</text>
-    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:6px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(221.699531 270.267861)">standard cannot be determined</text>
-    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:6px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(227.668125 277.898361)">from the record as reported</text>
+    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:6px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(208.719844 310.882725)">of assessments in 2020–2024 cannot be</text>
+    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:6px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(209.354062 318.513225)">determined from the record as reported</text>
+    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:6px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(226.391719 326.143725)">(44% over the whole record)</text>
    </g>
    <g id="text_12">
-    <text style="fill:#a01e28;font-family:DejaVu Sans;font-size:16px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:middle;" transform="rotate(-0, 450.559296, 253.503644)" x="450.559296" y="253.503644">40%</text>
+    <text style="fill:#a01e28;font-family:DejaVu Sans;font-size:16px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:middle;" transform="rotate(-0, 450.559296, 300.9578)" x="450.559296" y="300.9578">40%</text>
    </g>
    <g id="text_13">
-    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:6px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(397.328046 262.637361)">of assessments against a European</text>
-    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:6px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(399.627265 270.267861)">standard use a method failing the</text>
-    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:6px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(401.810233 277.898361)">legal LOQ criterion (2009/90/EC)</text>
+    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:6px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(397.328046 310.882725)">of assessments against a European</text>
+    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:6px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(399.627265 318.513225)">standard use a method failing the</text>
+    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:6px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(401.810233 326.143725)">legal LOQ criterion (2009/90/EC)</text>
    </g>
    <g id="text_14">
-    <text style="fill:#6b7280;font-family:DejaVu Sans;font-size:6.1px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(151.347461 287.779141)">EEA Waterbase: 4.2 million river station-years, 637 substances, 37 countries.</text>
-    <text style="fill:#6b7280;font-family:DejaVu Sans;font-size:6.1px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(5.950148 296.000321)">The reporting defect was repaired — station-years declaring neither flag nor limit reach 0 % in 2013 and stay there. The analytical one was not: 46 % in 2006, 48 % in 2024.</text>
+    <text style="fill:#6b7280;font-family:DejaVu Sans;font-size:6.1px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(151.347461 338.831639)">EEA Waterbase: 4.2 million river station-years, 637 substances, 37 countries.</text>
+    <text style="fill:#6b7280;font-family:DejaVu Sans;font-size:6.1px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(50.919062 347.052819)">The reporting defect was repaired: no station-year has declared neither flag nor limit since 2013, and that repair is the whole of the fall above.</text>
+    <text style="fill:#6b7280;font-family:DejaVu Sans;font-size:6.1px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(74.591828 355.273998)">The analytical one was not — the method fails the standard in 19 % of recent assessments against 17 % over the whole record.</text>
    </g>
    <g id="line2d_9">
-    <path clip-path="url(#pce11269b1a)" d="M 77.337216 173.06496 
+    <path clip-path="url(#p4132f12c53)" d="M 77.337216 208.512 
 " style="fill:none;stroke:#123f66;stroke-linecap:round;"/>
     <defs>
      <path d="M 0 4 
@@ -179,18 +180,18 @@ C -3.578535 -2.078319 -4 -1.060812 -4 0
 C -4 1.060812 -3.578535 2.078319 -2.828427 2.828427 
 C -2.078319 3.578535 -1.060812 4 0 4 
 z
-" id="m51699eedb4" style="stroke:#ffffff;stroke-width:1.2;"/>
+" id="m7bd905cecc" style="stroke:#ffffff;stroke-width:1.2;"/>
     </defs>
-    <g clip-path="url(#pce11269b1a)">
-     <use style="fill:#123f66;stroke:#ffffff;stroke-width:1.2;" x="77.337216" xlink:href="#m51699eedb4" y="173.06496"/>
+    <g clip-path="url(#p4132f12c53)">
+     <use style="fill:#123f66;stroke:#ffffff;stroke-width:1.2;" x="77.337216" xlink:href="#m7bd905cecc" y="208.512"/>
     </g>
    </g>
    <g id="text_15">
-    <text style="fill:#123f66;font-family:DejaVu Sans;font-size:9px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:start;" transform="rotate(-0, 91.19975, 175.548398)" x="91.19975" y="175.548398">0.0</text>
+    <text style="fill:#123f66;font-family:DejaVu Sans;font-size:9px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:start;" transform="rotate(-0, 91.19975, 210.995438)" x="91.19975" y="210.995438">0.0</text>
    </g>
    <g id="text_16">
     <!-- threshold $T$ -->
-    <g style="fill:#128a6e;" transform="translate(194.535792 131.461934)">
+    <g style="fill:#128a6e;" transform="translate(194.535792 158.669006)">
      <text>
       <tspan style="font-family:DejaVu Sans;font-size:6.6px;font-style:book;font-weight:book;" x="0 2.597595 6.796448 9.520203 13.59613 17.047729 21.246582 25.299866 27.140503 31.345825" y="-0.6875">threshold </tspan>
       <tspan style="font-family:DejaVu Sans;font-size:6.6px;font-style:oblique;font-weight:oblique;" x="33.451721" y="-0.6875">T</tspan>
@@ -198,36 +199,36 @@ z
     </g>
    </g>
    <g id="text_17">
-    <text style="fill:#128a6e;font-family:DejaVu Sans;font-size:10px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:middle;" transform="rotate(-0, 135.9864, 198.20898)" x="135.9864" y="198.20898">Compliant</text>
+    <text style="fill:#128a6e;font-family:DejaVu Sans;font-size:10px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:middle;" transform="rotate(-0, 135.9864, 238.806)" x="135.9864" y="238.806">Compliant</text>
    </g>
    <g id="text_18">
-    <text style="fill:#6b7280;font-family:DejaVu Sans;font-size:6.4px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-0, 135.9864, 209.745648)" x="135.9864" y="209.745648">one of two possible verdicts</text>
+    <text style="fill:#6b7280;font-family:DejaVu Sans;font-size:6.4px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-0, 135.9864, 252.7056)" x="135.9864" y="252.7056">one of two possible verdicts</text>
    </g>
    <g id="text_19">
-    <text style="fill:#6b7280;font-family:DejaVu Sans;font-size:6.6px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:end;" transform="rotate(-0, 498.544992, 108.388598)" x="498.544992" y="108.388598">LOQ</text>
+    <text style="fill:#6b7280;font-family:DejaVu Sans;font-size:6.6px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:end;" transform="rotate(-0, 498.544992, 130.869806)" x="498.544992" y="130.869806">LOQ</text>
    </g>
    <g id="text_20">
     <!-- $[0,\mathrm{LOQ}]$ -->
-    <g style="fill:#123f66;" transform="translate(282.263696 157.689303)">
+    <g style="fill:#123f66;" transform="translate(282.263696 189.501062)">
      <text>
       <tspan style="font-family:DejaVu Sans;font-size:8.6px;font-style:book;font-weight:book;" x="0 3.364929 8.852417 13.274414 18.079651 24.868469 31.657288" y="-0.15625">[0,LOQ]</tspan>
      </text>
     </g>
    </g>
    <g id="text_21">
-    <text style="fill:#7159a6;font-family:DejaVu Sans;font-size:10px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:middle;" transform="rotate(-0, 402.5736, 198.20898)" x="402.5736" y="198.20898">Cannot be determined</text>
+    <text style="fill:#7159a6;font-family:DejaVu Sans;font-size:10px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:middle;" transform="rotate(-0, 402.5736, 238.806)" x="402.5736" y="238.806">Cannot be determined</text>
    </g>
    <g id="text_22">
-    <text style="fill:#6b7280;font-family:DejaVu Sans;font-size:6.4px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-0, 402.5736, 209.745648)" x="402.5736" y="209.745648">a verdict the two-valued model cannot express</text>
+    <text style="fill:#6b7280;font-family:DejaVu Sans;font-size:6.4px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-0, 402.5736, 252.7056)" x="402.5736" y="252.7056">a verdict the two-valued model cannot express</text>
    </g>
    <g id="line2d_10">
-    <path clip-path="url(#pce11269b1a)" d="M 301.270464 137.56752 
-L 498.544992 137.56752 
+    <path clip-path="url(#p4132f12c53)" d="M 301.270464 165.744 
+L 498.544992 165.744 
 " style="fill:none;stroke:#7159a6;stroke-linecap:round;stroke-width:1.8;"/>
    </g>
    <g id="text_23">
     <!-- the same $T$ — now inside the interval -->
-    <g style="fill:#7159a6;" transform="translate(375.256992 149.681977)">
+    <g style="fill:#7159a6;" transform="translate(375.256992 179.312569)">
      <text>
       <tspan style="font-family:DejaVu Sans;font-size:6.6px;font-style:book;font-weight:book;" x="0 2.597595 6.796448 10.872375 12.978271 16.429871 20.489624 26.943176 31.019104 37.171814 39.27771 45.90271 48.008606 52.207458 56.260742 61.679138 63.785034 65.625671 69.824524 73.276123 75.11676 79.322083 83.39801 85.503906 88.101501 92.300354 96.376282 98.482178 100.322815 104.521667 107.119263 111.19519 113.918945 117.8396 121.899353" y="-0.6875">the same  — now inside the interval</tspan>
       <tspan style="font-family:DejaVu Sans;font-size:6.6px;font-style:oblique;font-weight:oblique;" x="33.125" y="-0.6875">T</tspan>
@@ -235,21 +236,21 @@ L 498.544992 137.56752
     </g>
    </g>
    <g id="patch_6">
-    <path clip-path="url(#pce11269b1a)" d="M 258.486342 134.6094 
-Q 269.280596 134.6094 278.733209 134.6094 
+    <path clip-path="url(#p4132f12c53)" d="M 258.486342 162.18 
+Q 269.280596 162.18 278.733209 162.18 
 " style="fill:none;stroke:#1f1f1f;stroke-linecap:round;stroke-width:1.2;"/>
-    <path clip-path="url(#pce11269b1a)" d="M 274.333209 132.4094 
-L 278.733209 134.6094 
-L 274.333209 136.8094 
-L 274.333209 132.4094 
+    <path clip-path="url(#p4132f12c53)" d="M 274.333209 159.98 
+L 278.733209 162.18 
+L 274.333209 164.38 
+L 274.333209 159.98 
 z
 " style="fill:#1f1f1f;stroke:#1f1f1f;stroke-linecap:round;stroke-width:1.2;"/>
    </g>
   </g>
  </g>
  <defs>
-  <clipPath id="pce11269b1a">
-   <rect height="295.812" width="533.1744" x="2.6928" y="1.494"/>
+  <clipPath id="p4132f12c53">
+   <rect height="356.4" width="533.1744" x="2.6928" y="1.8"/>
   </clipPath>
  </defs>
 </svg>

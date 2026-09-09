@@ -89,6 +89,18 @@ TWO = {"compliant": ("#3c7a3c", "compliant"),
        "exceeding": ("#b03030", "exceeding")}
 
 
+# Sizing is not this script's to decide. scripts/90_figures.py::save() writes at
+# EXACTLY the declared size and refuses bbox_inches="tight", because trimming to
+# content makes the saved width depend on how much whitespace the labels left --
+# so a publisher rescales the figure to fit the column and the effective point
+# size changes. This one was saved tight at 295 mm against measures of 90, 140
+# and 190. Import the rule rather than restate it.
+import importlib.util as _ilu
+_spec = _ilu.spec_from_file_location("_figs", ROOT / "scripts" / "90_figures.py")
+_figs = _ilu.module_from_spec(_spec)
+_spec.loader.exec_module(_figs)
+save, W1, W15, W2 = _figs.save, _figs.W1, _figs.W15, _figs.W2
+
 def blocks(txt):
     out, cur = [], None
     for line in txt.splitlines():
@@ -147,7 +159,7 @@ def main() -> int:
         print("  ! no row in the graph for: " + ", ".join(missing))
 
     rows = [(c, h, why, found[c]) for c, h, why in CASES if c in found]
-    fig, axes = plt.subplots(len(rows), 1, figsize=(11.6, 2.95 * len(rows)))
+    fig, axes = plt.subplots(len(rows), 1, figsize=(W2, 2.95 * len(rows)))
     if len(rows) == 1:
         axes = [axes]
     plt.subplots_adjust(left=0.005, right=0.995, top=0.955, bottom=0.055,
@@ -226,10 +238,7 @@ def main() -> int:
             two_valued_full=tv[2],
             two_valued_depends_on_constant="yes" if flips else "no"))
 
-    FIGS.mkdir(parents=True, exist_ok=True)
-    for fmt in ("pdf", "svg", "png"):
-        fig.savefig(FIGS / f"{STEM}.{fmt}", dpi=200, bbox_inches="tight")
-    plt.close(fig)
+    save(fig, STEM)
 
     FDATA.mkdir(parents=True, exist_ok=True)
     with (FDATA / f"{STEM}.csv").open("w", newline="", encoding="utf-8") as fh:

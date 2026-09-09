@@ -1,4 +1,6 @@
 statistic,numerator,denominator,percent
 samples below the quantification limit,14808451,32993382,44.883
 assessments that cannot be determined,304836,696168,43.788
+"assessments that cannot be determined, 2020-2024",84673,264135,32.057
+"method fails the standard, 2020-2024",49837,264135,18.868
 assessments whose LOQ exceeds 30% of the standard,279073,696168,40.087

@@ -47,6 +47,20 @@ PROC = ROOT / "derived" / "processed"
 FIGS = ROOT / "paper" / "figures"
 FDATA = ROOT / "paper" / "supplementary" / "figure_data"
 
+# Sizing is not this script's to decide. scripts/90_figures.py::save() writes at
+# EXACTLY the declared size and refuses bbox_inches="tight", because trimming to
+# content makes the saved width depend on how much whitespace the labels left --
+# so a publisher rescales the figure to fit the column and the effective point
+# size changes. These figures were saved tight at 234-285 mm against measures of
+# 90, 140 and 190, so every one of them would have been rescaled by a different
+# factor and their labels would have printed at different sizes from each
+# other. Import the rule rather than restate it.
+import importlib.util as _ilu
+_spec = _ilu.spec_from_file_location("_figs", ROOT / "scripts" / "90_figures.py")
+_figs = _ilu.module_from_spec(_spec)
+_spec.loader.exec_module(_figs)
+save, W1, W15, W2 = _figs.save, _figs.W1, _figs.W15, _figs.W2
+
 INK, MUTED, RED, BLUE, GREEN = "#1f1f1f", "#8a8a8a", "#b03030", "#1f4e79", "#3c7a3c"
 FIRST_ADDED = 46          # Annex I numbers the 2026 additions from 46 upward
 
@@ -66,7 +80,7 @@ def main() -> int:
         print("  ! limit_variation.csv or eu_eqs.csv missing; skipping fig16")
         return 0
 
-    fig, (axa, axb) = plt.subplots(2, 1, figsize=(9.2, 6.4),
+    fig, (axa, axb) = plt.subplots(2, 1, figsize=(W2, 6.4),
                                    gridspec_kw={"height_ratios": [1.0, 0.85]})
 
     # ---- (a) how far the limit moves inside one station-substance pair ----
@@ -161,10 +175,7 @@ def main() -> int:
 
     fig.tight_layout(h_pad=2.4)
     FIGS.mkdir(parents=True, exist_ok=True)
-    for fmt in ("pdf", "svg", "png"):
-        fig.savefig(FIGS / f"fig16_commitment_evidence.{fmt}", dpi=200,
-                    bbox_inches="tight")
-    plt.close(fig)
+    save(fig, "fig16_commitment_evidence")
 
     FDATA.mkdir(parents=True, exist_ok=True)
     with (FDATA / "fig16_commitment_evidence.csv").open(

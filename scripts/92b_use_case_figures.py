@@ -51,6 +51,20 @@ REG = ROOT / "ontology" / "reg"
 FIGS = ROOT / "paper" / "figures"
 FDATA = ROOT / "paper" / "supplementary" / "figure_data"
 
+# Sizing is not this script's to decide. scripts/90_figures.py::save() writes at
+# EXACTLY the declared size and refuses bbox_inches="tight", because trimming to
+# content makes the saved width depend on how much whitespace the labels left --
+# so a publisher rescales the figure to fit the column and the effective point
+# size changes. These figures were saved tight at 234-285 mm against measures of
+# 90, 140 and 190, so every one of them would have been rescaled by a different
+# factor and their labels would have printed at different sizes from each
+# other. Import the rule rather than restate it.
+import importlib.util as _ilu
+_spec = _ilu.spec_from_file_location("_figs", ROOT / "scripts" / "90_figures.py")
+_figs = _ilu.module_from_spec(_spec)
+_spec.loader.exec_module(_figs)
+save, W1, W15, W2 = _figs.save, _figs.W1, _figs.W15, _figs.W2
+
 INK, MUTED, RED, GREEN, BLUE = "#1f1f1f", "#7a7a7a", "#b03030", "#3c7a3c", "#1f4e79"
 
 # Why each stratum is not an exceedance the law can affirm. Keyed on the
@@ -89,7 +103,7 @@ def funnel():
     # One row per step: the bar, then the deduction and its reason beside it.
     # No connector lines -- they crossed the labels and struck them through.
     WHY1 = {k: v.replace("\n", " — ") for k, v in WHY.items()}
-    fig, ax = plt.subplots(figsize=(11.2, 0.62 * (len(drops) + 2) + 1.4))
+    fig, ax = plt.subplots(figsize=(W2, 0.62 * (len(drops) + 2) + 1.4))
     y, running, bars = 0, total, []
     ax.barh(y, total, height=0.46, color=RED, alpha=.24, edgecolor=RED,
             linewidth=.9)
@@ -128,10 +142,7 @@ def funnel():
     for sp in ("top", "left", "right"):
         ax.spines[sp].set_visible(False)
     fig.tight_layout()
-    for fmt in ("pdf", "svg", "png"):
-        fig.savefig(FIGS / f"fig12_enforcement_funnel.{fmt}", dpi=200,
-                    bbox_inches="tight")
-    plt.close(fig)
+    save(fig, "fig12_enforcement_funnel")
 
     FDATA.mkdir(parents=True, exist_ok=True)
     with (FDATA / "fig12_enforcement_funnel.csv").open(
@@ -176,7 +187,7 @@ def two_regimes():
 
     eu, tr = thr["EU"][0], thr["TR"][0]
     lo, hi = min(eu, tr), max(eu, tr)
-    fig, ax = plt.subplots(figsize=(9.6, 2.85))
+    fig, ax = plt.subplots(figsize=(W2, 2.85))
     ax.set_xscale("log")
     ax.set_xlim(lo / 6, hi * 6)
     ax.set_ylim(0, 1)
@@ -204,10 +215,7 @@ def two_regimes():
         f"whose verdict changes with the package",
         fontsize=10.5, loc="left", fontweight="bold", pad=10)
     fig.tight_layout()
-    for fmt in ("pdf", "svg", "png"):
-        fig.savefig(FIGS / f"fig13_two_regimes.{fmt}", dpi=200,
-                    bbox_inches="tight")
-    plt.close(fig)
+    save(fig, "fig13_two_regimes")
 
     with (FDATA / "fig13_two_regimes.csv").open(
             "w", newline="", encoding="utf-8") as fh:

@@ -3098,6 +3098,69 @@ def check_limit_variation(tex_nums):
                f"{moved:,} of {n:,} pairs, both sides")
 
 
+
+def check_recent_window(tex_nums):
+    """The recent-record decomposition, and the reversal it reports.
+
+    Pooling 1975-2024 invites "that was then", so Section 5 reads the same
+    strata over the last five years. Every number there is recomputed here, and
+    two ORDERINGS are asserted as well, because the paragraph's claim is not a
+    quantity but a reversal: over the whole record the largest reason is the
+    precondition, and in the most recent year it is the method. If the record
+    ever stops saying that, the prose is wrong in a way no single recomputed
+    percentage would reveal.
+    """
+    rows = [r for r in load("exceedances_by_year.csv") if r.get("plotted") == "yes"]
+    if not rows or "n_method_insufficient" not in rows[0]:
+        record(SKIP, "the recent-record decomposition holds",
+               "exceedances_by_year.csv missing the per-year outcome split")
+        return
+    RECENT_FROM, K = 2020, ("precondition_unmet", "method_insufficient",
+                            "indeterminate_unresolved", "possible_exceedance",
+                            "indeterminate_other")
+
+    def agg(sel):
+        t = sum(int(r["assessable"]) for r in sel)
+        d = {k: sum(int(r["n_" + k]) for r in sel) for k in K}
+        return t, d
+
+    t_all, d_all = agg(rows)
+    rec = [r for r in rows if int(r["year"]) >= RECENT_FROM]
+    t_rec, d_rec = agg(rec)
+    last = max(int(r["year"]) for r in rows)
+    t_last, d_last = agg([r for r in rows if int(r["year"]) == last])
+    if not (t_all and t_rec and t_last):
+        record(SKIP, "the recent-record decomposition holds", "an empty window")
+        return
+
+    check_claim(tex_nums, "recent window: assessable", t_rec)
+    check_claim(tex_nums, "recent window: undecidable %",
+                100 * sum(d_rec.values()) / t_rec)
+    check_claim(tex_nums, "dated record: undecidable %",
+                100 * sum(d_all.values()) / t_all)
+    for k in ("precondition_unmet", "method_insufficient",
+              "indeterminate_unresolved"):
+        check_claim(tex_nums, f"dated record: {k} %", 100 * d_all[k] / t_all)
+        check_claim(tex_nums, f"recent window: {k} %", 100 * d_rec[k] / t_rec)
+    check_claim(tex_nums, f"{last} alone: method_insufficient %",
+                100 * d_last["method_insufficient"] / t_last)
+
+    # the reversal, which is the actual claim
+    bad = []
+    if d_all["precondition_unmet"] <= d_all["method_insufficient"]:
+        bad.append("over the dated record the precondition is no longer the "
+                   "largest reason")
+    if d_last["method_insufficient"] <= d_last["precondition_unmet"]:
+        bad.append(f"in {last} the method is no longer the largest reason")
+    if d_rec["indeterminate_unresolved"] > 0.005 * t_rec:
+        bad.append("the reporting defect has returned to the recent record")
+    record(FAIL if bad else OK, "the recent-record decomposition holds",
+           "; ".join(bad) if bad else
+           f"{100*sum(d_rec.values())/t_rec:.1f} % undecidable since "
+           f"{RECENT_FROM}, method insufficient "
+           f"{100*d_last['method_insufficient']/t_last:.1f} % in {last}")
+
+
 def check_series_figures(tex_nums):
     """Own what the year series and the two-regimes figure put into the prose.
 
@@ -3228,6 +3291,7 @@ def main() -> int:
     check_precondition_is_largest(nums)
     check_zero_substitution_paradox(nums)
     check_limit_variation(nums)
+    check_recent_window(nums)
     check_shacl_conformance(nums)
     check_abox_datatypes()
     check_report_indeterminate_total()

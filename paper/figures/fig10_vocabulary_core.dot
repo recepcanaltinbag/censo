@@ -2,8 +2,8 @@ digraph CENSOcore {
   rankdir=LR;
   bgcolor="white";
   splines=spline;
-  nodesep=0.30;
-  ranksep=0.95;
+  nodesep=0.18;
+  ranksep=0.42;
   node [shape=plaintext, fontname="Helvetica", fontsize=13];
   edge [fontname="Helvetica", fontsize=11, color="#1f4e79"];
 

@@ -159,11 +159,13 @@ def save(fig, name):
     for ext in ("pdf", "svg"):
         fig.savefig(FIGS / f"{name}.{ext}", transparent=False,
                     facecolor=SURFACE)
+    fig.savefig(FIGS / f"{name}.png", transparent=False, facecolor=SURFACE,
+                dpi=300)
     w_mm = fig.get_size_inches()[0] * 25.4
     target = min((90.0, 140.0, 190.0), key=lambda t: abs(t - w_mm))
     flag = "" if abs(target - w_mm) < 0.6 else f"  <-- {w_mm:.1f} mm, off-measure"
     plt.close(fig)
-    print(f"  wrote paper/figures/{name}.pdf + .svg  "
+    print(f"  wrote paper/figures/{name}.pdf + .svg + .png  "
           f"({w_mm:.0f} mm){flag}")
 
 
@@ -265,6 +267,22 @@ def fig_graphical_abstract():
           if r.get("substitution") == "zero"]
     und_n = sum(int(r["n"]) for r in vp if r["censo_outcome"] in IND)
     und_d = sum(int(r["n"]) for r in vp)
+    mi_n = sum(int(r["n"]) for r in vp
+               if r["censo_outcome"] == "method_insufficient")
+
+    # ...and the same statistic over the LAST FIVE YEARS, because a figure that
+    # pools 1975 to 2024 can always be answered with "that was then". It can
+    # be, on one of the three: the reporting defect is gone from the recent
+    # record. It cannot be on the other two, and the recent window is where the
+    # analytical failure is WORSE than the pooled figure, not better -- so
+    # showing it is both the honest move and the stronger one.
+    RECENT_FROM = 2020
+    yr = [r for r in read_csv("exceedances_by_year.csv")
+          if r.get("plotted") == "yes" and int(r["year"]) >= RECENT_FROM]
+    r_d = sum(int(r["assessable"]) for r in yr)
+    r_und = sum(int(r["undecidable"]) for r in yr)
+    r_mi = sum(int(r["n_method_insufficient"]) for r in yr)
+    r_last = max((int(r["year"]) for r in yr), default=RECENT_FROM)
     W = {}
     if wb:
         for r in wb:
@@ -274,7 +292,7 @@ def fig_graphical_abstract():
                 break
 
 
-    fig, ax = plt.subplots(figsize=(W2, 4.15))
+    fig, ax = plt.subplots(figsize=(W2, 5.0))
     # This panel is drawn in its own 0-100 coordinate frame, so the default
     # axes margins were pure waste: a quarter of the height and a fifth of the
     # width went to blank paper, which pushed the text into the shapes and cost
@@ -353,14 +371,14 @@ def fig_graphical_abstract():
                                  color=INK, zorder=6))
 
     # ---------------- the mechanism, in one line --------------------
-    ax.text(50, 23.4,
+    ax.text(50, 23.3,
             "CENSO binds the quantification limit to the analytical run rather "
             "than to the instrument, so the interval survives into the data.",
             ha="center", va="center", fontsize=7.2, color=INK, zorder=3)
 
     # ---------------- the consequence, at continental scale ---------
     ax.add_patch(FancyBboxPatch(
-        (3, 6.6), 94, 14, boxstyle="round,pad=0.5,rounding_size=1.2",
+        (3, 8.0), 94, 13.0, boxstyle="round,pad=0.5,rounding_size=1.2",
         linewidth=0, facecolor="#f2f4f6", zorder=1))
     if W and W.get("n"):
         nrows, samp = W["n"], max(W.get("samples", 0), 1)
@@ -368,11 +386,11 @@ def fig_graphical_abstract():
             (17, f"{100*W.get('samples_below',0)/samp:.0f}%", RAMP[2],
              f"of {samp/1e6:.0f} million European samples\n"
              f"lie below the quantification limit"),
-            (50, f"{100*und_n/und_d:.0f}%" if und_d else "—",
+            (50, f"{100*r_und/r_d:.0f}%" if r_d else "—",
              V["indeterminate"],
-             "of assessments against a European\n"
-             "standard cannot be determined\n"
-             "from the record as reported"),
+             f"of assessments in {RECENT_FROM}\u2013{r_last} cannot be\n"
+             f"determined from the record as reported\n"
+             f"({100*und_n/und_d:.0f}% over the whole record)"),
             # Article 4(1) of 2009/90/EC, not the weaker Article 3(3b) test:
             # the law requires the limit to sit at or below 30% of the
             # standard, and that is the criterion the monitoring had to meet.
@@ -394,29 +412,35 @@ def fig_graphical_abstract():
               ["assessments that cannot be determined",
                und_n, und_d,
                f"{100*und_n/und_d:.3f}" if und_d else "0"],
+              [f"assessments that cannot be determined, {RECENT_FROM}-{r_last}",
+               r_und, r_d, f"{100*r_und/r_d:.3f}" if r_d else "0"],
+              [f"method fails the standard, {RECENT_FROM}-{r_last}",
+               r_mi, r_d, f"{100*r_mi/r_d:.3f}" if r_d else "0"],
               ["assessments whose LOQ exceeds 30% of the standard",
                W.get("loq_gt_30pct_eqs", 0), W.get("has_eqs", 0),
                f"{100*W.get('loq_gt_30pct_eqs',0)/max(W.get('has_eqs',1),1):.3f}"]])
         for x, big, colr, sub in stats:
-            ax.text(x, 16.3, big, fontsize=16, fontweight="bold", color=colr,
+            ax.text(x, 17.3, big, fontsize=16, fontweight="bold", color=colr,
                     ha="center", va="center", zorder=3)
-            ax.text(x, 9.7, sub, fontsize=6.0, color=INK, ha="center",
+            ax.text(x, 11.6, sub, fontsize=6.0, color=INK, ha="center",
                     va="center", zorder=3, linespacing=1.4)
         for xsep in (33.5, 67):
-            ax.plot([xsep, xsep], [8.7, 18.9], color="#d5d9de",
+            ax.plot([xsep, xsep], [9.6, 19.6], color="#d5d9de",
                     linewidth=0.8, zorder=2)
         # The footer used to elaborate the statistic that has just been
         # replaced, and would have been orphaned. It carries the era point
         # instead, which is the objection this figure most needs to answer:
         # one of these failures was repaired and the other was not, so the
         # finding is about the record being collected now.
-        ax.text(50, 2.4,
+        ax.text(50, 3.6,
                 "EEA Waterbase: 4.2 million river station-years, 637 "
                 "substances, 37 countries.\nThe reporting defect was "
-                "repaired \u2014 station-years declaring neither flag nor "
-                "limit reach 0\u2009% in 2013 and stay there. The "
-                "analytical one was not: 46\u2009% in 2006, 48\u2009% in "
-                "2024.",
+                "repaired: no station-year has declared neither flag nor "
+                "limit since 2013, and that repair is the whole of the fall "
+                f"above.\nThe analytical one was not \u2014 the method fails "
+                f"the standard in {100*r_mi/r_d:.0f}\u2009% of recent "
+                f"assessments against {100*mi_n/und_d:.0f}\u2009% over the "
+                f"whole record." if r_d else "",
                 fontsize=6.1, color=MUTED, ha="center", va="center", zorder=3,
                 linespacing=1.5)
 

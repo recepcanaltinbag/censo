@@ -76,8 +76,22 @@ detection_status, censo_outcome = _m.detection_status, _m.censo_outcome
 two_valued, SUBSTITUTIONS = _m.two_valued, _m.SUBSTITUTIONS
 conditional_thresholds = _m.conditional_thresholds
 
+OUTCOMES = ("compliant", "exceedance", "possible_exceedance",
+            "precondition_unmet", "method_insufficient",
+            "indeterminate_unresolved", "indeterminate_other")
+
 IND = ("possible_exceedance", "precondition_unmet", "method_insufficient",
        "indeterminate_unresolved", "indeterminate_other")
+
+# Sizing follows scripts/90_figures.py::save(): exact declared size, never
+# bbox_inches="tight". Saved tight this was 247 mm against a 190 mm measure, so
+# its 8.5 pt labels would have printed at 6.5 pt after the publisher rescaled
+# it, while the figures beside it printed at 8.5.
+import importlib.util as _ilu
+_spec = _ilu.spec_from_file_location("_figs", ROOT / "scripts" / "90_figures.py")
+_figs = _ilu.module_from_spec(_spec)
+_spec.loader.exec_module(_figs)
+save, W1, W15, W2 = _figs.save, _figs.W1, _figs.W15, _figs.W2
 
 INK, MUTED, RED, GREEN = "#1f1f1f", "#7a7a7a", "#b03030", "#3c7a3c"
 
@@ -120,6 +134,7 @@ def main() -> int:
     yr_tot = defaultdict(int)
     yr_affirm = defaultdict(int)
     yr_undec = defaultdict(int)
+    yr_out = defaultdict(lambda: defaultdict(int))
     yr_two = defaultdict(lambda: defaultdict(int))
     for row in it:
         if "category" in col and get(row, "category") not in ("RW", ""):
@@ -149,6 +164,12 @@ def main() -> int:
             yr_affirm[y] += 1
         if outcome in IND:
             yr_undec[y] += 1
+        # WHICH stratum, not just how many. The pooled undecidable share is
+        # 43.8 % over the whole record and 32.1 % over 2020-2024, and a reader
+        # is entitled to ask what improved. Without the split the series can
+        # say the share moved and cannot say whether the analytical failure
+        # eased or the substance mix changed, which are different findings.
+        yr_out[y][outcome] += 1
         for rule, k in SUBSTITUTIONS:
             if two_valued(v_ug, l_ug, status == "censored", thr, k) == "exceeding":
                 yr_two[y][rule] += 1
@@ -167,6 +188,7 @@ def main() -> int:
             undecidable=yr_undec[y],
             undecidable_pct=round(100 * yr_undec[y] / n, 2) if n else 0,
             **{f"two_valued_{r}": yr_two[y][r] for r, _ in SUBSTITUTIONS},
+            **{f"n_{k}": yr_out[y].get(k, 0) for k in OUTCOMES},
             plotted="yes" if n >= MIN_YEAR else "no"))
 
     PROC.mkdir(parents=True, exist_ok=True)
@@ -185,7 +207,7 @@ def main() -> int:
     xs = [r["year"] for r in plot]
 
     fig, (ax, ax2) = plt.subplots(
-        2, 1, figsize=(9.8, 6.4), sharex=True,
+        2, 1, figsize=(W2, 6.4), sharex=True,
         gridspec_kw=dict(height_ratios=[2.5, 1], hspace=0.13))
 
     ax.fill_between(xs, [r["two_valued_full"] for r in plot],
@@ -218,9 +240,7 @@ def main() -> int:
     # warns that the result may be wrong. Explicit margins instead.
     fig.subplots_adjust(left=0.085, right=0.985, top=0.925, bottom=0.095)
     FIGS.mkdir(parents=True, exist_ok=True)
-    for fmt in ("pdf", "svg", "png"):
-        fig.savefig(FIGS / f"{STEM}.{fmt}", dpi=200, bbox_inches="tight")
-    plt.close(fig)
+    save(fig, "fig14_exceedances_by_year")
 
     # EVERY figure the manuscript quotes from this series is emitted here.
     # Section 5 states the peaks, the last-year ratio and the post-2013 band;

@@ -4,8 +4,8 @@ digraph CENSO {
   bgcolor="white";
   splines=spline;
   concentrate=false;
-  nodesep=0.22;
-  ranksep=0.85;
+  nodesep=0.14;
+  ranksep=0.40;
   fontname="Helvetica";
   node [shape=plaintext, fontname="Helvetica", fontsize=11];
   edge [fontname="Helvetica", fontsize=9, color="#1f4e79"];

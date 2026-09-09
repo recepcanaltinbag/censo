@@ -410,8 +410,8 @@ def dot() -> str:
          '  bgcolor="white";',
          '  splines=spline;',
          '  concentrate=false;',
-         '  nodesep=0.22;',
-         '  ranksep=0.85;',
+         '  nodesep=0.14;',
+         '  ranksep=0.40;',
          '  fontname="Helvetica";',
          '  node [shape=plaintext, fontname="Helvetica", fontsize=11];',
          '  edge [fontname="Helvetica", fontsize=9, color="%s"];' % EDGE_OBJ,
@@ -703,7 +703,7 @@ def core_dot() -> str:
                 f'COLOR="{col}">{"".join(rows)}</TABLE>>];')
 
     L = ['digraph CENSOcore {', '  rankdir=LR;', '  bgcolor="white";',
-         '  splines=spline;', '  nodesep=0.30;', '  ranksep=0.95;',
+         '  splines=spline;', '  nodesep=0.18;', '  ranksep=0.42;',
          '  node [shape=plaintext, fontname="Helvetica", fontsize=13];',
          '  edge [fontname="Helvetica", fontsize=11, color="%s"];' % EDGE_OBJ,
          '']
