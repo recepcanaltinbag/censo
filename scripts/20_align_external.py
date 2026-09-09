@@ -99,6 +99,35 @@ UA = "censo-ontology-research/1.0 (academic alignment; see repository)"
 # The CHMO terms the limit properties point at, with the reason each pointer is
 # rdfs:seeAlso and not a mapping property. Hand-read from the cached CHMO file;
 # scripts/07_verify_gap_table.py is what put them in the comparison.
+# The other end of the chain Figure 9 draws. ssn-system:DetectionLimit is where
+# a detection limit lives in the vocabulary CENSO extends, and until now it
+# appeared in the figure and in the prose but in no triple -- so the figure
+# asserted a relationship the shipped graph could not be asked about. Three
+# triples fix that, and they are the CONTRASTIVE case: the pointer says "this
+# is the same concept, bound to a different entity", which is the paper's
+# thesis stated in RDF rather than only in LaTeX.
+SSN_SYSTEM = {
+    "limitOfDetection": (
+        "DetectionLimit",
+        "detection limit",
+        "SSN-System's term is an ssn-system:SystemProperty: a standing "
+        "property of a SENSOR, describing the device. This is an "
+        "owl:DatatypeProperty on the analytical run that produced one result. "
+        "Same quantity, different bearer, and the difference is the "
+        "contribution -- a limit held on the sensor cannot say that a "
+        "particular measurement fell below it, which is what a censored "
+        "result is. The pointer is rdfs:seeAlso for that reason and must not "
+        "be read as a mapping."),
+    "limitOfQuantification": (
+        "DetectionLimit",
+        "detection limit",
+        "SSN-System declares no quantification limit at all; its nearest term "
+        "is the detection limit above. Article 3(3b) of Directive "
+        "2008/105/EC turns on the QUANTIFICATION limit specifically, so the "
+        "absence is not a naming difference -- the regulation's own criterion "
+        "cannot be expressed against a sensor-bound detection limit."),
+}
+
 CHMO = {
     "limitOfDetection": (
         "CHMO_0002801",
@@ -140,6 +169,7 @@ PREAMBLE = """\
 @prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix vann:    <http://purl.org/vocab/vann/> .
+@prefix ssn-system: <http://www.w3.org/ns/ssn/systems/> .
 @prefix obo:     <http://purl.obolibrary.org/obo/> .
 
 <https://w3id.org/censo/alignment> a owl:Ontology ;
@@ -309,6 +339,22 @@ def main() -> int:
         L.append("")
         L.append(f"obo:{chmo_id} rdfs:label \"{chmo_label}\"@en .")
         L.append("")
+
+    # ---- the same limit, bound to a sensor --------------------------------
+    L.append("#" * 78)
+    L.append("#  The detection limit, in SSN-System, where it is a property of")
+    L.append("#  the sensor rather than of the result")
+    L.append("#" * 78)
+    L.append("")
+    for prop, (term, label, why) in sorted(SSN_SYSTEM.items()):
+        L.append(f"censo:{prop} rdfs:seeAlso ssn-system:{term} ;")
+        L.append(f'    rdfs:comment """{why}"""@en .')
+        L.append("")
+    term = sorted({t for t, _, _ in SSN_SYSTEM.values()})
+    for t in term:
+        lab = next(l for _, (x, l, _) in sorted(SSN_SYSTEM.items()) if x == t)
+        L.append(f'ssn-system:{t} rdfs:label "{lab}"@en .')
+    L.append("")
 
     OUT.write_text("\n".join(L) + "\n", encoding="utf-8")
 

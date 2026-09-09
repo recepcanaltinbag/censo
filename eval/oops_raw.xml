@@ -7,83 +7,83 @@
   <rdf:Description rdf:about="http://oops.linkeddata.es/def#warning">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://oops.linkeddata.es/data/34ac0f82-a2fc-48b8-92a3-d0c1bb8f52fd">
-    <oops:hasSuggestion rdf:resource="http://oops.linkeddata.es/data/3342f989-aa30-414b-aa34-3dac8d894528"/>
-    <oops:hasPitfall rdf:resource="http://oops.linkeddata.es/data/999fa9c8-c1b0-403a-aa85-c9a0f7b7fa7f"/>
-    <oops:hasPitfall rdf:resource="http://oops.linkeddata.es/data/438ce750-2bff-4097-aa67-5de8db0446b0"/>
-    <oops:hasPitfall rdf:resource="http://oops.linkeddata.es/data/07106b51-9c80-4839-b3d5-530335a3e974"/>
-    <rdf:type rdf:resource="http://oops.linkeddata.es/def#response"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://oops.linkeddata.es/def#pitfall">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://oops.linkeddata.es/data/822397b2-c7c1-4e6d-91ca-b5ae4d5d29f9">
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/reg/appliesToGroup</oops:hasAffectedElement>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/requiresCondition</oops:hasAffectedElement>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/duringCampaign</oops:hasAffectedElement>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/reg/definesThreshold</oops:hasAffectedElement>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/assessableAgainst</oops:hasAffectedElement>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/conditionSatisfied</oops:hasAffectedElement>
-    <rdf:type rdf:resource="http://oops.linkeddata.es/def#noSuggestionProperty"/>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/reg/aggregationFunction</oops:hasAffectedElement>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/exceeds</oops:hasAffectedElement>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/atStation</oops:hasAffectedElement>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/determinesAnalyte</oops:hasAffectedElement>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/appliesToAnalyte</oops:hasAffectedElement>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://www.w3.org/ns/sosa/usedProcedure</oops:hasAffectedElement>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/definedBy</oops:hasAffectedElement>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/reg/memberOfGroup</oops:hasAffectedElement>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/hasAnalyte</oops:hasAffectedElement>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://www.w3.org/ns/prov#hadPrimarySource</oops:hasAffectedElement>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/possiblyExceeds</oops:hasAffectedElement>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/reg/transcriptionStatus</oops:hasAffectedElement>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/requiresCovariate</oops:hasAffectedElement>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/reg/jurisdiction</oops:hasAffectedElement>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/limitUnit</oops:hasAffectedElement>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/reg/transposes</oops:hasAffectedElement>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/belowThreshold</oops:hasAffectedElement>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/thresholdUnit</oops:hasAffectedElement>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/reg/sourceDocument</oops:hasAffectedElement>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://oops.linkeddata.es/def#suggestion">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://oops.linkeddata.es/data/438ce750-2bff-4097-aa67-5de8db0446b0">
+  <rdf:Description rdf:about="http://oops.linkeddata.es/data/1a5fe8f4-077e-4e8c-89dc-c784e34d66a5">
     <oops:hasImportanceLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Important</oops:hasImportanceLevel>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://www.w3.org/ns/sosa/usedProcedure</oops:hasAffectedElement>
     <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://www.w3.org/ns/prov#hadPrimarySource</oops:hasAffectedElement>
-    <oops:hasNumberAffectedElements rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</oops:hasNumberAffectedElements>
+    <oops:hasNumberAffectedElements rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</oops:hasNumberAffectedElements>
     <oops:hasDescription rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Object and/or datatype properties without domain or range (or none of them) are included in the ontology. 	</oops:hasDescription>
     <oops:hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Missing domain or range in properties</oops:hasName>
     <oops:hasCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">P11</oops:hasCode>
     <rdf:type rdf:resource="http://oops.linkeddata.es/def#pitfall"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://oops.linkeddata.es/data/999fa9c8-c1b0-403a-aa85-c9a0f7b7fa7f">
+  <rdf:Description rdf:about="http://oops.linkeddata.es/data/0dba3073-f0fd-4026-ab73-661f3dc39791">
     <oops:hasImportanceLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Minor</oops:hasImportanceLevel>
-    <oops:noSuggestion rdf:resource="http://oops.linkeddata.es/data/822397b2-c7c1-4e6d-91ca-b5ae4d5d29f9"/>
-    <oops:hasNumberAffectedElements rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">25</oops:hasNumberAffectedElements>
+    <oops:noSuggestion rdf:resource="http://oops.linkeddata.es/data/d0fdf07c-b979-4143-8be6-078d051adae5"/>
+    <oops:hasNumberAffectedElements rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">24</oops:hasNumberAffectedElements>
     <oops:hasDescription rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This pitfall appears when any relationship (except for those that are defined as symmetric properties using owl:SymmetricProperty) does not have an inverse relationship (owl:inverseOf) defined within the ontology.	</oops:hasDescription>
     <oops:hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Inverse relationships not explicitly declared</oops:hasName>
     <oops:hasCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">P13</oops:hasCode>
     <rdf:type rdf:resource="http://oops.linkeddata.es/def#pitfall"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://oops.linkeddata.es/data/3342f989-aa30-414b-aa34-3dac8d894528">
+  <rdf:Description rdf:about="http://oops.linkeddata.es/data/8ee4234d-1522-429a-8de2-b54905077100">
     <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/reg/transposes</oops:hasAffectedElement>
     <oops:hasNumberAffectedElements rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</oops:hasNumberAffectedElements>
     <oops:hasDescription rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The domain and range axioms are equal for each of the following object properties. Could they be symmetric or transitive?</oops:hasDescription>
     <oops:hasCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SUGGESTION: symmetric or transitive object properties.</oops:hasCode>
     <rdf:type rdf:resource="http://oops.linkeddata.es/def#suggestion"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://oops.linkeddata.es/data/07106b51-9c80-4839-b3d5-530335a3e974">
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://www.w3.org/ns/prov#Activity</oops:hasAffectedElement>
-    <oops:hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Creating unconnected ontology elements</oops:hasName>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://xmlns.com/foaf/0.1/Person</oops:hasAffectedElement>
-    <rdf:type rdf:resource="http://oops.linkeddata.es/def#pitfall"/>
-    <oops:hasImportanceLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Minor</oops:hasImportanceLevel>
-    <oops:hasCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">P04</oops:hasCode>
-    <oops:hasNumberAffectedElements rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</oops:hasNumberAffectedElements>
+  <rdf:Description rdf:about="http://oops.linkeddata.es/def#pitfall">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://oops.linkeddata.es/def#suggestion">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://oops.linkeddata.es/data/86ca7c02-5cbc-4805-965b-3ced27fb2057">
+    <oops:hasSuggestion rdf:resource="http://oops.linkeddata.es/data/8ee4234d-1522-429a-8de2-b54905077100"/>
+    <oops:hasPitfall rdf:resource="http://oops.linkeddata.es/data/0dba3073-f0fd-4026-ab73-661f3dc39791"/>
+    <oops:hasPitfall rdf:resource="http://oops.linkeddata.es/data/1a5fe8f4-077e-4e8c-89dc-c784e34d66a5"/>
+    <oops:hasPitfall rdf:resource="http://oops.linkeddata.es/data/6b8b1052-0cca-4938-ad33-22cc3fce8ee0"/>
+    <rdf:type rdf:resource="http://oops.linkeddata.es/def#response"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://oops.linkeddata.es/data/6b8b1052-0cca-4938-ad33-22cc3fce8ee0">
     <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://www.w3.org/ns/sosa/Procedure</oops:hasAffectedElement>
-    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://www.w3.org/2004/02/skos/core#Concept</oops:hasAffectedElement>
+    <oops:hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Creating unconnected ontology elements</oops:hasName>
+    <rdf:type rdf:resource="http://oops.linkeddata.es/def#pitfall"/>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://xmlns.com/foaf/0.1/Person</oops:hasAffectedElement>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://www.w3.org/ns/prov#Activity</oops:hasAffectedElement>
+    <oops:hasNumberAffectedElements rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</oops:hasNumberAffectedElements>
+    <oops:hasCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">P04</oops:hasCode>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/ComplianceOutcome</oops:hasAffectedElement>
+    <oops:hasImportanceLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Minor</oops:hasImportanceLevel>
     <oops:hasDescription rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ontology elements (classes, object properties and datatype properties) are created isolated, with no relation to the rest of the ontology.	</oops:hasDescription>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/DetectedObservation</oops:hasAffectedElement>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://www.w3.org/2004/02/skos/core#Concept</oops:hasAffectedElement>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://oops.linkeddata.es/data/d0fdf07c-b979-4143-8be6-078d051adae5">
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/thresholdUnit</oops:hasAffectedElement>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/belowThreshold</oops:hasAffectedElement>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/definedBy</oops:hasAffectedElement>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/requiresCondition</oops:hasAffectedElement>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/reg/transposes</oops:hasAffectedElement>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/reg/aggregationFunction</oops:hasAffectedElement>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/reg/sourceDocument</oops:hasAffectedElement>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/conditionSatisfied</oops:hasAffectedElement>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/requiresCovariate</oops:hasAffectedElement>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/appliesToAnalyte</oops:hasAffectedElement>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/possiblyExceeds</oops:hasAffectedElement>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/reg/memberOfGroup</oops:hasAffectedElement>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/atStation</oops:hasAffectedElement>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/reg/appliesToGroup</oops:hasAffectedElement>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/limitUnit</oops:hasAffectedElement>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://www.w3.org/ns/prov#hadPrimarySource</oops:hasAffectedElement>
+    <rdf:type rdf:resource="http://oops.linkeddata.es/def#noSuggestionProperty"/>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/duringCampaign</oops:hasAffectedElement>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/reg/definesThreshold</oops:hasAffectedElement>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/reg/jurisdiction</oops:hasAffectedElement>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/reg/transcriptionStatus</oops:hasAffectedElement>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/exceeds</oops:hasAffectedElement>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/assessableAgainst</oops:hasAffectedElement>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/determinesAnalyte</oops:hasAffectedElement>
+    <oops:hasAffectedElement rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/censo/hasAnalyte</oops:hasAffectedElement>
   </rdf:Description>
 </rdf:RDF>

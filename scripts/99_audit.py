@@ -58,6 +58,11 @@ OK, FAIL, WARN, SKIP, INFO = "PASS", "FAIL", "WARN", "SKIP", "INFO"
 results: list[tuple[str, str, str]] = []
 
 
+# owlrl signals a disjointness violation with an explanation triple on this
+# predicate, not with owl:Nothing. Any check that means "is this consistent"
+# has to look for both.
+_ERR_PRED_IRI = "http://www.daml.org/2002/03/agents/agent-ont#error"
+
 def record(state, name, detail=""):
     results.append((state, name, detail))
 
@@ -411,10 +416,22 @@ def check_packages_are_consistent():
         if n:
             bad.append(f"{pkg.name}: {len(n)} individual(s) entailed "
                        f"owl:Nothing, e.g. {n[0][0]}")
+        # owl:Nothing is NOT how owlrl reports most contradictions. For a
+        # disjointness violation it emits an explanation triple on
+        # agent-ont#error instead, and this check looked only for the former --
+        # which is the same blind spot that let a functional-property violation
+        # on censo:casNumber pass on every run for three releases. Looking for
+        # one signal and calling the result "consistent" is the failure mode
+        # this paper is about, committed by its own audit.
+        e = [str(o) for o in
+             g.objects(None, rdflib.URIRef(_ERR_PRED_IRI))]
+        if e:
+            bad.append(f"{pkg.name}: {len(e)} reasoner error triple(s), "
+                       f"e.g. {e[0][:120]}")
     record(FAIL if bad else OK, "released packages are consistent",
            "; ".join(bad[:2]) if bad
            else f"{len(pkgs)} package(s) loaded with the two vocabulary modules; "
-                f"OWL 2 RL closure entails no owl:Nothing")
+                f"OWL 2 RL closure entails no owl:Nothing and no error triple")
 
 
 def check_decision_invariants():
@@ -1122,7 +1139,7 @@ def check_graph_is_consistent():
     g.parse(data=head + "\n".join(sel), format="turtle")
     for t in list(g.triples((None, rdflib.OWL.imports, None))):
         g.remove(t)
-    err = rdflib.URIRef("http://www.daml.org/2002/03/agents/agent-ont#error")
+    err = rdflib.URIRef(_ERR_PRED_IRI)
     try:
         owlrl.DeductiveClosure(owlrl.OWLRL_Semantics, axiomatic_triples=False,
                                datatype_axioms=False).expand(g)
@@ -1853,9 +1870,22 @@ def check_benchmark_shape():
     """The reasoning-cost claims are about shape, because timings are hardware.
 
     The manuscript deliberately quotes no seconds -- the audit would fail on
-    every machine -- and instead claims super-linear closure and validation
-    about an order of magnitude cheaper. Both are properties of the measured
-    series, so both are checked here.
+    every machine -- and instead claims a SHAPE, which is a property of the
+    series and survives a different machine.
+
+    The shape claimed was "validation about an order of magnitude cheaper",
+    and it stopped being true: moving thirteen constraints out of the
+    vocabulary and into the shapes moved the work with them, so closure got
+    cheaper and validation got dearer, and the ratio fell from roughly tenfold
+    to roughly twofold. The band was hard-coded at 3-40x here, so this check
+    was defending a claim the repair had already falsified -- which is the
+    failure mode of a constant standing in for a measurement.
+
+    What is checked now is the shape that is true and that the manuscript
+    states: closure grows super-linearly, validation is cheaper than closure
+    at the size that matters, and the gap WIDENS with size. The last is the
+    load-bearing one for the argument, because it is what says the division of
+    labour scales.
     """
     rows = load("reasoning_benchmark.csv")
     if not rows:
@@ -1867,12 +1897,15 @@ def check_benchmark_shape():
     superlinear = (t1 / t0) > (n1 / n0)
     ratios = [f(r["rl_closure_seconds"]) / f(r["shacl_seconds"])
               for r in rows if f(r["shacl_seconds"])]
-    cheaper = min(ratios) >= 3 and max(ratios) <= 40
-    record(OK if superlinear and cheaper else FAIL,
+    cheaper = bool(ratios) and ratios[-1] > 1.0
+    widens = len(ratios) > 1 and ratios[-1] > ratios[0]
+    record(OK if superlinear and cheaper and widens else FAIL,
            "reasoning-cost claims hold on the measured series",
            f"observations x{n1/n0:.0f} -> closure x{t1/t0:.0f} "
            f"({'super-linear' if superlinear else 'NOT super-linear'}); "
-           f"closure/SHACL {min(ratios):.0f}-{max(ratios):.0f}x")
+           f"closure/SHACL {ratios[0]:.1f}x at the smallest size, "
+           f"{ratios[-1]:.1f}x at the largest "
+           f"({'widens' if widens else 'DOES NOT widen'})")
 
 
 def check_bibtex_syntax():
@@ -2869,6 +2902,148 @@ def check_uncertainty_sensitivity(tex_nums):
                 float(m_s.group(2)))
 
 
+
+def check_uncertainty_models(tex_nums):
+    """Every number in the Article 4(1) sensitivity, recomputed.
+
+    Section 5 states a table of three readings and draws two conclusions from
+    it: that the undecidable headline barely moves, and that the affirmable
+    exceedance count moves by a quarter. Both are claims about arithmetic over
+    derived/processed/uncertainty_models.csv, so both are recomputed here.
+
+    The trap this closes is the one the correction cycle keeps re-teaching: a
+    number emitted into eval/waterbase_external.md is traceable, and a number
+    recomputed here is owned. A sensitivity analysis whose own numbers are only
+    traceable is not a check on the paper, it is a second place for the paper
+    to be wrong.
+    """
+    rows = load("uncertainty_models.csv")
+    if not rows:
+        record(SKIP, "the uncertainty sensitivity is recomputed",
+               "derived/processed/uncertainty_models.csv missing")
+        return
+    IND = ("possible_exceedance", "precondition_unmet", "method_insufficient",
+           "indeterminate_unresolved", "indeterminate_other")
+    by = {}
+    for r in rows:
+        by.setdefault(r["u_model"], {})[r["censo_outcome"]] = int(r["n"])
+    missing = [m for m in ("none", "absolute", "relative") if m not in by]
+    if missing:
+        record(FAIL, "the uncertainty sensitivity is recomputed",
+               f"readings absent from the table: {', '.join(missing)}")
+        return
+
+    share = {}
+    for m, c in by.items():
+        tot = sum(c.values())
+        share[m] = 100 * sum(c.get(k, 0) for k in IND) / tot if tot else 0.0
+        check_claim(tex_nums, f"undecidable %, {m} band", share[m])
+        check_claim(tex_nums, f"exceedances, {m} band", c.get("exceedance", 0))
+        check_claim(tex_nums, f"PossibleExceedance, {m} band",
+                    c.get("possible_exceedance", 0))
+
+    # what the band is worth, and what it moves -- the two claims the section
+    # makes in words rather than in the table
+    check_claim(tex_nums, "undecidable points the band adds",
+                share["absolute"] - share["none"])
+    exc = [by[m].get("exceedance", 0) for m in ("none", "absolute", "relative")]
+    lo, hi = min(exc), max(exc)
+    check_claim(tex_nums, "exceedance range across readings %",
+                100 * (hi - lo) / lo if lo else 0.0)
+
+    # the section asserts the relative band is NOT the wider one on this
+    # record; if that ever flips, the prose is wrong and must say so
+    if by["relative"].get("possible_exceedance", 0) >= \
+            by["absolute"].get("possible_exceedance", 0):
+        record(FAIL, "the relative band sets aside fewer rows",
+               "the relative reading now sets aside at least as many rows as "
+               "the absolute one; Section 5 says the opposite")
+    else:
+        record(OK, "the relative band sets aside fewer rows")
+
+    # the point comparison is the floor: no band can only reduce indeterminacy
+    if share["none"] > min(share["absolute"], share["relative"]) + 1e-9:
+        record(FAIL, "no band is the floor of the undecidable share",
+               "removing the band increased indeterminacy, which is impossible")
+    else:
+        record(OK, "no band is the floor of the undecidable share")
+
+
+def check_precondition_is_largest(tex_nums):
+    """Section 5's central finding, and the arithmetic behind it.
+
+    The claim is that most of the indeterminacy arises BEFORE any limit is
+    compared to any threshold: precondition_unmet plus indeterminate_unresolved
+    against the 43.8 total. It is stated as a finding rather than a caveat, so
+    it has to be recomputed rather than quoted -- and if the ordering ever
+    reverses, the paragraph is false and the audit has to say so.
+    """
+    rows = [r for r in load("waterbase_verdicts_population.csv")
+            if r["substitution"] == "zero"]
+    if not rows:
+        record(SKIP, "precondition is the largest indeterminate reason",
+               "population table missing")
+        return
+    c = {}
+    for r in rows:
+        c[r["censo_outcome"]] = c.get(r["censo_outcome"], 0) + int(r["n"])
+    tot = sum(c.values())
+    pre = 100 * c.get("precondition_unmet", 0) / tot
+    mi = 100 * c.get("method_insufficient", 0) / tot
+    unb = 100 * c.get("indeterminate_unresolved", 0) / tot
+    # arising before any limit meets any threshold: the precondition failure
+    # and the rows that carry no bound to compare in the first place
+    check_claim(tex_nums, "indeterminate before the limit comparison, points",
+                pre + unb)
+    IND = ("possible_exceedance", "precondition_unmet", "method_insufficient",
+           "indeterminate_unresolved", "indeterminate_other")
+    ind = sum(c.get(k, 0) for k in IND)
+    check_claim(tex_nums, "share of the undecidable record arising first",
+                100 * (c.get("precondition_unmet", 0)
+                       + c.get("indeterminate_unresolved", 0)) / ind
+                if ind else 0.0)
+    if pre <= mi:
+        record(FAIL, "precondition is the largest indeterminate reason",
+               f"precondition_unmet {pre:.1f} % no longer exceeds "
+               f"method_insufficient {mi:.1f} %; Section 5 says it does")
+    else:
+        record(OK, "precondition is the largest indeterminate reason",
+               f"{pre:.1f} % against {mi:.1f} %")
+
+
+def check_zero_substitution_paradox(tex_nums):
+    """Zero cannot manufacture an exceedance, so the gap is not censoring.
+
+    Section 5 explains why the most conservative substitution still reports
+    four times what the law affirms. The explanation rests on one structural
+    fact -- method_insufficient is empty among the exceedances a zero-
+    substituting pipeline reports -- and that fact is checked here rather than
+    asserted, because if it were ever non-empty the paragraph would be wrong in
+    the way most likely to be believed.
+    """
+    rows = [r for r in load("waterbase_verdicts_population.csv")
+            if r["substitution"] == "zero"
+            and r["two_valued_outcome"] == "exceeding"]
+    if not rows:
+        record(SKIP, "zero substitution removes nothing for a censoring reason",
+               "population table missing")
+        return
+    c = {}
+    for r in rows:
+        c[r["censo_outcome"]] = c.get(r["censo_outcome"], 0) + int(r["n"])
+    reported = sum(c.values())
+    affirmed = c.get("exceedance", 0)
+    check_claim(tex_nums, "zero-substitution exceedances not affirmed",
+                reported - affirmed)
+    if c.get("method_insufficient", 0):
+        record(FAIL, "zero substitution removes nothing for a censoring reason",
+               f"{c['method_insufficient']:,} rows are set aside by "
+               f"Article 3(3b) under zero substitution; Section 5 says none is")
+    else:
+        record(OK, "zero substitution removes nothing for a censoring reason",
+               f"all {reported - affirmed:,} removals are non-censoring")
+
+
 def check_series_figures(tex_nums):
     """Own what the year series and the two-regimes figure put into the prose.
 
@@ -2995,6 +3170,9 @@ def main() -> int:
     check_reported_intervals(nums)
     check_uncertainty_sensitivity(nums)
     check_series_figures(nums)
+    check_uncertainty_models(nums)
+    check_precondition_is_largest(nums)
+    check_zero_substitution_paradox(nums)
     check_shacl_conformance(nums)
     check_abox_datatypes()
     check_report_indeterminate_total()

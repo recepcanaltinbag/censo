@@ -251,6 +251,20 @@ def fig_graphical_abstract():
     # it a finding, and the scale lives in the continental record. So the
     # consequence band reports Waterbase rather than this basin.
     wb = read_csv("waterbase_summary.csv")
+    # The middle statistic used to be the share of station-years declaring
+    # neither a censoring flag nor a limit. That failure was repaired on a
+    # date: it falls to 0.0 % in 2013 and stays there, so leading the paper's
+    # most-seen artefact with it invites the correct objection that it was
+    # fixed twelve years ago. The undecidable share replaces it -- it is the
+    # paper's actual finding, the panel above it is a picture of exactly this
+    # verdict and never quantified it, and unlike the reporting defect it has
+    # not moved (Section 5, the year series).
+    IND = ("possible_exceedance", "precondition_unmet", "method_insufficient",
+           "indeterminate_unresolved", "indeterminate_other")
+    vp = [r for r in read_csv("waterbase_verdicts_population.csv")
+          if r.get("substitution") == "zero"]
+    und_n = sum(int(r["n"]) for r in vp if r["censo_outcome"] in IND)
+    und_d = sum(int(r["n"]) for r in vp)
     W = {}
     if wb:
         for r in wb:
@@ -354,9 +368,11 @@ def fig_graphical_abstract():
             (17, f"{100*W.get('samples_below',0)/samp:.0f}%", RAMP[2],
              f"of {samp/1e6:.0f} million European samples\n"
              f"lie below the quantification limit"),
-            (50, f"{100*W.get('silent',0)/nrows:.0f}%", V["indeterminate"],
-             "of station-years record neither a\n"
-             "censoring flag nor a limit"),
+            (50, f"{100*und_n/und_d:.0f}%" if und_d else "—",
+             V["indeterminate"],
+             "of assessments against a European\n"
+             "standard cannot be determined\n"
+             "from the record as reported"),
             # Article 4(1) of 2009/90/EC, not the weaker Article 3(3b) test:
             # the law requires the limit to sit at or below 30% of the
             # standard, and that is the criterion the monitoring had to meet.
@@ -375,9 +391,9 @@ def fig_graphical_abstract():
              [["samples below the quantification limit",
                W.get("samples_below", 0), samp,
                f"{100*W.get('samples_below',0)/samp:.3f}"],
-              ["station-years with neither a flag nor a limit",
-               W.get("silent", 0), nrows,
-               f"{100*W.get('silent',0)/nrows:.3f}"],
+              ["assessments that cannot be determined",
+               und_n, und_d,
+               f"{100*und_n/und_d:.3f}" if und_d else "0"],
               ["assessments whose LOQ exceeds 30% of the standard",
                W.get("loq_gt_30pct_eqs", 0), W.get("has_eqs", 0),
                f"{100*W.get('loq_gt_30pct_eqs',0)/max(W.get('has_eqs',1),1):.3f}"]])
@@ -389,11 +405,18 @@ def fig_graphical_abstract():
         for xsep in (33.5, 67):
             ax.plot([xsep, xsep], [8.7, 18.9], color="#d5d9de",
                     linewidth=0.8, zorder=2)
+        # The footer used to elaborate the statistic that has just been
+        # replaced, and would have been orphaned. It carries the era point
+        # instead, which is the objection this figure most needs to answer:
+        # one of these failures was repaired and the other was not, so the
+        # finding is about the record being collected now.
         ax.text(50, 2.4,
                 "EEA Waterbase: 4.2 million river station-years, 637 "
-                "substances, 37 countries.\nThe share recording no limit "
-                "ranges from 3\u2009% to 97\u2009% between countries "
-                "\u2014 reporting practice, not chemistry.",
+                "substances, 37 countries.\nThe reporting defect was "
+                "repaired \u2014 station-years declaring neither flag nor "
+                "limit reach 0\u2009% in 2013 and stay there. The "
+                "analytical one was not: 46\u2009% in 2006, 48\u2009% in "
+                "2024.",
                 fontsize=6.1, color=MUTED, ha="center", va="center", zorder=3,
                 linespacing=1.5)
 

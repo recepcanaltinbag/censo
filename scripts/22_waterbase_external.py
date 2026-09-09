@@ -166,8 +166,46 @@ def detection_status(flag, val_ug, loq_ug):
     return "unresolved"
 
 
+
+# THE UNCERTAINTY BAND IS A READING OF ARTICLE 4(1), NOT A MEASUREMENT
+# -------------------------------------------------------------------
+# Article 4(1) permits an expanded measurement uncertainty of 50 % "at the level
+# of the environmental quality standard". That phrase fixes WHERE the figure is
+# specified and not WHAT it is applied to, and the paper's PossibleExceedance
+# count follows entirely from how it is read. So the readings are named, all
+# three are computed over the same rows in the same pass, and the manuscript
+# reports what the choice costs instead of asserting that it is the only one.
+#
+#   none      No band. The point comparison a two-valued pipeline makes. It is
+#             the floor: every quantified row is decided, and PossibleExceedance
+#             is empty by construction.
+#   absolute  u = 0.50 * T. What CENSO uses. "At the level of the standard" is
+#             read as fixing the band AT the standard, so a method meeting only
+#             the legal minimum cannot separate values in [T/1.5, 1.5T] from T.
+#             The band does not grow with the measurement, which matters because
+#             a large exceedance is not made less certain by being large.
+#   relative  u = 0.50 * x. The band tracks the measured value. Defensible as
+#             the ordinary meaning of a relative uncertainty. Neither band
+#             contains the other: the absolute one straddles T for x in
+#             (0.5T, 1.5T), the relative one for x in (2T/3, 2T). Which
+#             captures more rows is therefore an empirical question about how
+#             concentrations are distributed against their standards, not one
+#             that can be settled by inspecting the intervals -- so it is
+#             measured rather than argued, and the table below is the answer.
+UNCERTAINTY_MODELS = ("none", "absolute", "relative")
+
+
+def uncertainty_band(model, val_ug, thr):
+    """Half-width of the interval a legally-minimum method leaves around x."""
+    if model == "none":
+        return 0.0
+    if model == "relative":
+        return LEGAL_UNCERTAINTY_AT_EQS * val_ug
+    return LEGAL_UNCERTAINTY_AT_EQS * thr
+
+
 def censo_outcome(status, val_ug, loq_ug, thr, *, uncertainty=True,
-                  precondition=None):
+                  precondition=None, u_model="absolute"):
     """The compliance outcome for one observation-threshold pair.
 
     Three values -- Compliant, Exceedance, IndeterminateCompliance -- with the
@@ -217,8 +255,8 @@ def censo_outcome(status, val_ug, loq_ug, thr, *, uncertainty=True,
             # itself, and neither Article 3(3b) nor a comparison applies
             return "indeterminate_other"
         if uncertainty:
-            u = LEGAL_UNCERTAINTY_AT_EQS * thr
-            if val_ug - u < thr < val_ug + u:
+            u = uncertainty_band(u_model, val_ug, thr)
+            if u > 0 and val_ug - u < thr < val_ug + u:
                 return "possible_exceedance"
         return "exceedance" if val_ug > thr else "compliant"
     return "indeterminate_other"
@@ -696,6 +734,7 @@ def main() -> int:
     # counterfactual a two-valued pipeline would report for the same rows.
     pop_status = defaultdict(int)
     pop_outcome = defaultdict(int)
+    pop_unc = {m: defaultdict(int) for m in UNCERTAINTY_MODELS}
     pop_verdicts = defaultdict(int)
 
     # Does the quantification limit belong to the INSTRUMENT or to the RUN?
@@ -848,6 +887,12 @@ def main() -> int:
                                     precondition=cond.get(cas))
             pop_status[status] += 1
             pop_outcome[outcome] += 1
+            # the same rows under all three readings of Article 4(1), so the
+            # sensitivity cannot be over a different population than the headline
+            for _m in UNCERTAINTY_MODELS:
+                pop_unc[_m][censo_outcome(status, v_ug, l_ug, thr,
+                                          precondition=cond.get(cas),
+                                          u_model=_m)] += 1
             for rule, k in SUBSTITUTIONS:
                 tv = two_valued(v_ug, l_ug, status == "censored", thr, k)
                 pop_verdicts[(rule, outcome, tv)] += 1
@@ -976,6 +1021,16 @@ def main() -> int:
               + ", ".join(f"1e{d}:{len(dec_subs[d])}"
                           for d in sorted(dec_subs, reverse=True)))
 
+    # The uncertainty sensitivity as its own table, so the manuscript's claim
+    # about it is recomputable rather than only printed.
+    with (PROC / "uncertainty_models.csv").open(
+            "w", newline="", encoding="utf-8") as fh:
+        w = csv.writer(fh)
+        w.writerow(["u_model", "censo_outcome", "n"])
+        for m in UNCERTAINTY_MODELS:
+            for outcome, v in sorted(pop_unc[m].items()):
+                w.writerow([m, outcome, v])
+
     with (PROC / "waterbase_verdicts_population.csv").open(
             "w", newline="", encoding="utf-8") as fh:
         w = csv.writer(fh)
@@ -1088,6 +1143,52 @@ def main() -> int:
           f"nothing to substitute from. The EEA's own quality control reaches "
           f"the same conclusion on {tot['qc_loq_unknown']:,} rows, which it "
           f"marks `QC_LOQ_UNKNOWN`.\n")
+
+    # ---- how much of the verdict rests on reading Article 4(1) -------------
+    if sum(pop_unc["absolute"].values()):
+        IND = ("possible_exceedance", "precondition_unmet",
+               "method_insufficient", "indeterminate_unresolved",
+               "indeterminate_other")
+        A("## What the uncertainty band is worth\n")
+        A("Article 4(1) permits an expanded measurement uncertainty of "
+          f"{LEGAL_UNCERTAINTY_AT_EQS:.0%} *at the level of the standard*. "
+          "That phrase fixes where the figure is specified, not what it is "
+          "applied to, so the reading is a choice and it is reported as "
+          "one. All three are computed over the same rows in the same "
+          "pass.\n")
+        A("| reading | band | `PossibleExceedance` | `Exceedance` | "
+          "undecidable |")
+        A("|---|---|---|---|---|")
+        WHAT = {"none": ("no band, a point comparison", "0"),
+                "absolute": ("**u = 0.50 T**, what CENSO uses", "0.50 T"),
+                "relative": ("u = 0.50 x, tracking the measurement", "0.50 x")}
+        for m in UNCERTAINTY_MODELS:
+            t = sum(pop_unc[m].values())
+            u = sum(pop_unc[m].get(k, 0) for k in IND)
+            A(f"| {WHAT[m][0]} | {WHAT[m][1]} "
+              f"| {pop_unc[m].get('possible_exceedance', 0):,} "
+              f"| {pop_unc[m].get('exceedance', 0):,} "
+              f"| {pct(u, t)} |")
+        A("")
+        n_none = sum(pop_unc["none"].values())
+        u_none = sum(pop_unc["none"].get(k, 0) for k in IND)
+        u_abs = sum(pop_unc["absolute"].get(k, 0) for k in IND)
+        A("Neither band contains the other -- the absolute one straddles the "
+          "standard for x in (0.5T, 1.5T), the relative one for x in "
+          "(2T/3, 2T) -- so which captures more rows is an empirical "
+          "question about how concentrations sit against their standards, "
+          "and it is measured here rather than argued.\n")
+        A(f"**The choice barely matters.** The whole uncertainty band is "
+          f"worth {pct(u_abs - u_none, n_none)} of the undecidable share: "
+          f"remove it entirely, which is the point comparison a two-valued "
+          f"pipeline makes, and {pct(u_none, n_none)} of the record is "
+          f"still undecidable. The headline does not rest on this reading. "
+          f"What the reading does move is the count of affirmable "
+          f"exceedances, from {pop_unc['relative'].get('exceedance', 0):,} "
+          f"to {pop_unc['none'].get('exceedance', 0):,} -- so a pipeline "
+          f"that reports an exceedance count without stating its "
+          f"uncertainty convention has left a free parameter in an "
+          f"enforcement-relevant number.\n")
 
     # ---- the three-valued assessment, over the population ------------------
     n_assessed = sum(pop_outcome.values())

@@ -28,6 +28,7 @@ import argparse
 import hashlib
 import re
 import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -228,6 +229,24 @@ def render_index(version, prev_versions):
     return "\n".join(H) + "\n"
 
 
+
+def _tracked(path: Path) -> bool:
+    """Is this file committed to the site repository?
+
+    A published release is one someone could have dereferenced. That is exactly
+    the set git tracks: anything else exists only in this working tree. If git
+    cannot be consulted the answer is "assume published", because refusing a
+    rebuild is recoverable and overwriting a real release is not.
+    """
+    try:
+        r = subprocess.run(["git", "ls-files", "--error-unmatch",
+                            str(path.relative_to(SITE))],
+                           cwd=SITE, capture_output=True)
+        return r.returncode == 0
+    except Exception:                                        # noqa: BLE001
+        return True
+
+
 def digest(p: Path) -> str:
     return hashlib.sha256(p.read_bytes()).hexdigest()[:12]
 
@@ -276,8 +295,24 @@ def main() -> int:
         #
         # Refuse instead. If the vocabulary changed, the version has to change;
         # that is what the version is for.
+        # ...but only a PUBLISHED release is immutable. An unpublished one is a
+        # by-product of the current round: bump the version, build, keep
+        # editing, and the archive written by the first build now differs from
+        # the vocabulary -- a false alarm that fires on every development round
+        # and teaches the author to ignore the guard, which is worse than not
+        # having it. The distinction is exact and cheap: a release is published
+        # when git tracks it. Untracked, it has never left this machine.
         frozen = SITE / "releases" / version / "censo-full.ttl"
-        if frozen.exists() and digest(frozen) != digest(core):
+        if frozen.exists() and not _tracked(frozen) and not args.check:
+            # --check is a dry run and must not write. Removing the stale
+            # archive under it made the audit's read-only probe mutate the
+            # published copy it was probing, which is a worse defect than the
+            # false alarm this branch exists to prevent.
+            print(f"  releases/{version}/ is untracked, so it has never been "
+                  f"published; rebuilding it rather than refusing")
+            shutil.rmtree(frozen.parent)
+        if frozen.exists() and digest(frozen) != digest(core) \
+                and not (args.check and not _tracked(frozen)):
             sys.exit(
                 f"releases/{version}/censo-full.ttl already exists and differs "
                 f"from the current build.\n"

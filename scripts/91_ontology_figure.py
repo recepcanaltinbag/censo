@@ -44,7 +44,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from rdflib import Graph, RDF, RDFS, OWL, URIRef
+from rdflib import Graph, RDF, RDFS, OWL, URIRef, Namespace
 
 ROOT = Path(__file__).resolve().parent.parent
 ONTO = ROOT / "ontology"
@@ -208,20 +208,28 @@ INHERITED_NODES = ["sosa:Observation", "sosa:ObservableProperty",
                    "sosa:Procedure", "sosa:Sample", "sosa:FeatureOfInterest",
                    "prov:Activity", "prov:Entity", "qudt:Unit"]
 
-# The covering axioms: (named class, the classes it is the union of, marker).
-# owl:unionOf in an owl:equivalentClass is what makes a taxonomy EXHAUSTIVE,
-# and it is the half a plain subclass diagram cannot show. verify() checks each.
+# The covering constraints: (named class, the classes it must be one of, marker).
+# Exhaustiveness is the half a plain subclass diagram cannot show, and it is the
+# half OWL 2 RL cannot hold either: a union may not appear in superclass
+# position, so these were the axioms that put the vocabulary outside its own
+# stated profile. They are SHACL shapes now, and the figure says so rather than
+# quietly redrawing an OWL axiom that no longer exists -- which is what this
+# script caught when the ontology was repaired and the spec was not.
+#
+# Drawing them at all is the point: "the taxonomy is complete" is the strongest
+# claim this vocabulary makes, and where the claim is enforced is part of the
+# claim. verify() checks each against censo-shapes.ttl.
 COVERING = [
     ("censo:AssessedObservation",
      ["censo:CensoredObservation", "censo:EstimatedObservation",
       "censo:QuantifiedObservation", "censo:UnresolvedObservation"],
-     "&#8801; union of the four"),
+     "SHACL: one of the four"),
     ("censo:DetectedObservation",
      ["censo:EstimatedObservation", "censo:QuantifiedObservation"],
-     "&#8801; estimated &#8852; quantified"),
+     "SHACL: estimated or quantified"),
     ("censo:ComplianceOutcome",
      ["censo:Compliant", "censo:Exceedance", "censo:IndeterminateCompliance"],
-     "&#8801; union of THREE"),
+     "SHACL: one of THREE"),
 ]
 
 # (cluster id, title, member classes, annotation boxes drawn inside it).
@@ -325,24 +333,21 @@ def verify(g: Graph) -> list[str]:
                     found = True
         if not found:
             bad.append(f"{qname(ax)} over {sorted(want)} not found")
-    # The two covering axioms the figure draws as "= A or B or C".
-    for cls, want in (
-        ("censo:ComplianceOutcome",
-         {"censo:Compliant", "censo:Exceedance",
-          "censo:IndeterminateCompliance"}),
-        ("censo:AssessedObservation",
-         {"censo:CensoredObservation", "censo:EstimatedObservation",
-          "censo:QuantifiedObservation", "censo:UnresolvedObservation"}),
-        ("censo:DetectedObservation",
-         {"censo:EstimatedObservation", "censo:QuantifiedObservation"}),
-    ):
+    # The covering constraints, which live in SHACL because OWL 2 RL cannot
+    # hold a union in superclass position. Checked against the shape that
+    # targets the class, not against an OWL axiom that is deliberately absent.
+    SH = Namespace("http://www.w3.org/ns/shacl#")
+    for cls, want, _ in COVERING:
         found = False
-        for eq in g.objects(iri(cls), OWL.equivalentClass):
-            for u in g.objects(eq, OWL.unionOf):
-                if {qname(x) for x in g.items(u)} == want:
+        for shape in g.subjects(SH.targetClass, iri(cls)):
+            for alt in g.objects(shape, SH["or"]):
+                got = {qname(c) for m in g.items(alt)
+                       for c in g.objects(m, SH["class"])}
+                if got == set(want):
                     found = True
         if not found:
-            bad.append(f"{cls} is not the union of {sorted(want)}")
+            bad.append(f"no SHACL sh:or shape makes {cls} one of "
+                       f"{sorted(want)}")
     # Every node the figure draws must be a declared class.
     for n in NODES:
         if n.startswith(("censo:", "cereg:")) and \
@@ -528,7 +533,10 @@ def dot() -> str:
 
 def main() -> int:
     g = Graph()
-    for f in ("censo-core.ttl", "censo-regulation.ttl"):
+    # the shapes too: three drawn constraints are enforced there, and a figure
+    # that cannot see them would have to either omit the claim or assert it
+    # unverified
+    for f in ("censo-core.ttl", "censo-regulation.ttl", "censo-shapes.ttl"):
         p = ONTO / f
         if not p.exists():
             print(f"  missing {p}")

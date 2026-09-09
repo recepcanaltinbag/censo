@@ -121,8 +121,8 @@ conflating it manufactures findings.
 and \texttt{requiresCondition} links to \texttt{ApplicabilityCondition}
 subclasses: matrix, analytical fraction, bioavailability basis, hardness class.
 Where a precondition is unmet the outcome is \texttt{PreconditionUnmet}, one
-of the four subclasses of \texttt{IndeterminateCompliance} --- not a default
-pass. Annex~I
+of the five subclasses of \texttt{IndeterminateCompliance} --- not a default
+pass. Section~\ref{sec:results-wbabox} finds it the largest of them. Annex~I
 creates two such conditions in footnotes: the standards for lead and nickel
 ``refer to bioavailable concentrations of the substances'', and cadmium's
 ``vary depending on the hardness of the water as specified in five class
@@ -133,14 +133,78 @@ Section~\ref{sec:results-precondition} shows what they decide.
 \texttt{Exceedance}, \texttt{Compliant} and \texttt{IndeterminateCompliance} are
 jointly exhaustive \emph{for a given observation--threshold pair}, and they are
 what the Directive itself admits: the standard is met, it is not met, or
-compliance cannot be determined. Why it cannot is carried by four subclasses of
+compliance cannot be determined. Why it cannot is carried by five subclasses of
 the third --- \texttt{PreconditionUnmet}, \texttt{MethodInsufficient},
-\texttt{PossibleExceedance} and \texttt{BoundNotEstablished} --- and not by a
+\texttt{PossibleExceedance}, \texttt{BoundNotEstablished} and
+\texttt{NoThresholdDefined} --- and not by a
 fourth top-level value, which would be the vocabulary asserting a distinction
 the Directive does not make. \texttt{PossibleExceedance} belongs there rather
 than beside \texttt{Exceedance}: an interval straddling the limit decides
 nothing, which is indeterminacy with a particular cause, and the assessment
 reported in Section~\ref{sec:results-wbabox} has counted it that way throughout.
+
+\paragraph{The order the questions are asked in is part of the claim.}
+Figure~\ref{fig:decision-flow} draws the procedure. It is five tests, and their
+order is not a convenience: a precondition is asked first because it is prior to
+every other question --- where the standard is written over bioavailable lead
+and the record reports total lead, there is no comparison to make, strict or
+lenient. Article~3(3b) is asked next and only of a censored result, because it
+reaches a value \emph{reported as less than} the quantification limit and
+nothing else; an earlier version of this pipeline applied it wherever the limit
+exceeded the standard, which set aside quantified means as
+well --- deleting from the count results that were evidence of exceedance. The uncertainty band is
+asked last and only of a quantified value, because a censored result is already
+an interval. Reorder these and the same four reported fields yield a different
+verdict, which is why the procedure is drawn rather than described. Each path in
+the figure carries a witness --- inputs that must produce the outcome it leads
+to --- and all of them are executed against the function itself before the
+figure is written\src{scripts/93\_decision\_flowchart.py}, so the drawing
+cannot outlive the code.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.92\textwidth]{fig15_decision_flow.pdf}
+\caption{How one observation is decided against one threshold, from the four
+fields a record reports. The quantification limit enters three times --- it
+decides whether the row has a detection status at all, it is what
+Article~3(3b) compares against the standard, and a value below its own limit
+is a row contradicting itself --- which is why a schema that stores only the
+value cannot run this procedure. The half-width $T/2$ in the last test is not a
+threshold the Directive states. It is the \emph{widest} uncertainty
+Article~4(1) lets a usable method have at the level of the standard, so a value
+within $T/2$ of the standard is one a method meeting only the legal minimum
+could have produced from either side of it. Five tests, in the order the procedure asks
+them; \num{8} outcome paths, each verified by executing the decision function
+on inputs that must take it. Two paths reach
+\texttt{BoundNotEstablished} --- a result with no censoring status, and a
+result contradicting its own limit --- and two reach \texttt{Compliant}, from
+opposite sides of the record: a bound that clears the standard, and a value
+measured below it.}
+\label{fig:decision-flow}
+\end{figure}
+
+\paragraph{The uncertainty band is a reading, and it is declared as one.}
+\texttt{PossibleExceedance} needs an interval, and no European release reports
+a per-result measurement uncertainty. Article~4(1) of Directive 2009/90/EC
+requires methods whose expanded uncertainty is \num{50}\,\% \emph{or below}
+($k=2$) \emph{at the level of the environmental quality standard}. Two things
+follow that a reader should not have to reconstruct. It is a \textbf{ceiling on
+methods, not a compliance test}: the Directive prescribes no interval
+comparison, and the statutory test remains the annual average against the
+standard. And because it is a ceiling, applying it to every result assumes
+every laboratory sits exactly at the worst performance the law allows, which
+overstates indeterminacy for a good laboratory and is the conservative
+direction. What the phrase fixes is where the figure is specified; it does not
+fix what it is applied to. \textbf{We read it as an
+absolute band at the standard, $u = 0.5\,T$}, so that a reported value $x$ is
+undecidable when $0.5\,T < x < 1.5\,T$. The band does not widen with the
+measurement, which is the property we want: a result ten times the standard is
+not made less certain by being large. The competing reading takes the figure as
+relative to the measurement, $u = 0.5\,x$, undecidable for
+$2T/3 < x < 2T$. Neither interval contains the other, so which one sets aside
+more of this record is an empirical question rather than one settled by
+inspecting them, and Section~\ref{sec:results-uncertainty} answers it by
+computing all three readings --- including no band at all --- over the same
+rows in the same pass.
 
 Where two subclasses describe one result --- a censored result whose limit
 exceeds the standard has an interval straddling it too --- Article~3(3b) is

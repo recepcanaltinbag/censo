@@ -139,6 +139,30 @@ def main() -> int:
     except ImportError:
         pass
 
+    # A WARM-UP, because the first timed size was measuring the wrong thing.
+    # owlrl and pyshacl import lazily and build their rule sets on first use, so
+    # the smallest graph carried that cost and came out SLOWER than the graph
+    # twice its size -- which made the series read as sub-linear and would have
+    # put a false claim in the manuscript. Discard one full pass before timing.
+    if sizes:
+        _w = rdflib.Graph()
+        _w.parse(core, format="turtle")
+        _w.parse(data=PREFIX + abox(min(sizes)), format="turtle")
+        for tr in list(_w.triples((None, rdflib.OWL.imports, None))):
+            _w.remove(tr)
+        owlrl.DeductiveClosure(owlrl.OWLRL_Semantics, axiomatic_triples=False,
+                               datatype_axioms=False).expand(_w)
+        if have_shacl:
+            import pyshacl
+            _d = rdflib.Graph()
+            _d.parse(core, format="turtle")
+            _d.parse(data=PREFIX + abox(min(sizes)), format="turtle")
+            for tr in list(_d.triples((None, rdflib.OWL.imports, None))):
+                _d.remove(tr)
+            pyshacl.validate(_d, shacl_graph=shapes_graph, advanced=True,
+                             inference="none")
+        del _w
+
     rows = []
     for n in sizes:
         g = rdflib.Graph()

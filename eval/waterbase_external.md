@@ -26,6 +26,20 @@ Shares carry Wilson 95\% intervals. A p-value is deliberately not reported: at t
 
 > **The defect is systemic omission, not careless flagging.** Where a reporter declares censoring, the limit is recorded almost without exception: only 61,034 of 3,118,074 declared rows lack it. The failure lies in the **25.5% [25.4, 25.5]** of river station-years that declare nothing at all -- no flag, no limit. For those a zero and a measured trace are indistinguishable, and no substitution rule can be chosen because there is nothing to substitute from. The EEA's own quality control reaches the same conclusion on 330,973 rows, which it marks `QC_LOQ_UNKNOWN`.
 
+## What the uncertainty band is worth
+
+Article 4(1) permits an expanded measurement uncertainty of 50% *at the level of the standard*. That phrase fixes where the figure is specified, not what it is applied to, so the reading is a choice and it is reported as one. All three are computed over the same rows in the same pass.
+
+| reading | band | `PossibleExceedance` | `Exceedance` | undecidable |
+|---|---|---|---|---|
+| no band, a point comparison | 0 | 0 | 16,963 | 42.8% |
+| **u = 0.50 T**, what CENSO uses | 0.50 T | 6,639 | 14,505 | 43.8% |
+| u = 0.50 x, tracking the measurement | 0.50 x | 6,100 | 13,323 | 43.7% |
+
+Neither band contains the other -- the absolute one straddles the standard for x in (0.5T, 1.5T), the relative one for x in (2T/3, 2T) -- so which captures more rows is an empirical question about how concentrations sit against their standards, and it is measured here rather than argued.
+
+**The choice barely matters.** The whole uncertainty band is worth 1.0% of the undecidable share: remove it entirely, which is the point comparison a two-valued pipeline makes, and 42.8% of the record is still undecidable. The headline does not rest on this reading. What the reading does move is the count of affirmable exceedances, from 13,323 to 16,963 -- so a pipeline that reports an exceedance count without stating its uncertainty convention has left a free parameter in an enforcement-relevant number.
+
 ## The three-valued assessment, over every assessable row
 
 Every station-year whose substance carries a European annual-average standard is assessed here: **696,168** of them. This is not a sample. The knowledge graph (`scripts/23_waterbase_abox.py`) materialises a subset so that it can be queried and validated in memory, but the decision itself is arithmetic on four reported fields and is applied to every row.

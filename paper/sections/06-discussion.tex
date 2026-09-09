@@ -287,11 +287,47 @@ a vocabulary should be indexed where people look for one, and until it is, the
 reuse this paper argues for costs a reader more than it should.
 
 \paragraph{The taxonomy is declared but not yet interrogated.}
-The four subclasses of \texttt{IndeterminateCompliance} are materialised and
+The five subclasses of \texttt{IndeterminateCompliance} are materialised and
 counted (Section~\ref{sec:results-wbabox}), and no competency question asks the
 graph to group an indeterminate verdict by its reason. That query is the direct
 test of whether the subtyping earns its place, and it is the first addition the
 question set should take.
+
+\paragraph{The reasoning profile cost us something, and we paid it in our own
+data.} Choosing OWL~2~RL is choosing a reasoner that will not tell you
+everything, and the price is easiest to argue in the abstract and easiest to
+miss in practice. We missed it. \texttt{censo:casNumber} was declared an
+\texttt{owl:FunctionalProperty}, and the released European package violates
+that on three entries, because Annex~I names more than one registry number for
+one regulated substance --- diclofenac as the free acid and as the sodium salt,
+and likewise acetamiprid and imidacloprid. The data were right and the axiom was
+wrong: a regulatory entry is not a single chemical species. \textbf{The
+violation was invisible for three releases.} Two distinct literals on a
+functional datatype property make an ontology inconsistent under \textsc{dl}
+semantics, but OWL~2~RL derives \texttt{owl:sameAs} between the literals and
+stops, so no \texttt{owl:Nothing} was ever entailed and the audit's
+package-consistency check passed on every run.
+
+The shape of that failure is the shape this paper is about. A limited regime
+absorbed a contradiction and reported success, and what made it invisible was
+not the absence of a check but a check that looked for one signal and concluded
+from its absence. The repair was to look directly: the audit now tests
+functional properties itself rather than inferring their satisfaction from a
+reasoner that cannot report it, and the consistency check reads the explanation
+triples \texttt{owlrl} emits for a disjointness violation as well as
+\texttt{owl:Nothing}, which it had not been doing.
+
+A second, larger instance of the same thing is the profile claim itself.
+\num{16} axioms --- ten cardinality restrictions, three covering unions and
+three equivalences using \texttt{someValuesFrom} --- sat outside OWL~2~RL while
+the manuscript claimed conformance, and the pipeline ran correctly throughout,
+because \texttt{owlrl} applies rules beyond the profile. A reasoner cannot
+detect a profile violation; being more capable than the profile is precisely
+what hides one. The claim is now checked against the grammar of OWL~2 Profiles
+rather than against a reasoner\src{scripts/12\_owl\_profile.py}, and
+Section~\ref{sec:results-profile} reports the repair. We state both episodes
+because a paper arguing that unrepresentable failures go uncounted is not
+entitled to leave its own uncounted.
 
 \subsection{Implications}
 For monitoring programmes the recommendation costs nothing at the point of

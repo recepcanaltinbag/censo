@@ -123,10 +123,14 @@ record cannot express.
 
 Auditing the European Environment Agency's Waterbase (\num{4190833} river
 station-years, \num{637} substances, \num{37} countries) finds \num{44.9}\% of
-samples below the quantification limit, \num{25.5}\% with neither censoring flag
-nor limit, and \num{40.1}\% of assessments failing Directive 2009/90/EC. The
-missing limit stops in \num{2013} and never recurs; the analytical failure is no
-better in \num{2024} than in \num{2006} --- \num{47.7}\% against \num{46.3}\%. Substitution manufactures findings: the same records yield
+samples below the quantification limit and \num{40.1}\% of assessments from a
+method failing Directive 2009/90/EC. The two failures have different histories,
+and only one is live: station-years declaring neither a censoring flag nor a
+limit --- \num{25.5}\% overall --- fall to \num{0.0}\% in \num{2013} and stay
+there, a reporting defect the record repaired on a date, whereas the analytical
+failure is no better in \num{2024} than in \num{2006}, \num{47.7}\% against
+\num{46.3}\%. Read on \num{2024} alone the argument is unchanged, so it is not
+an artefact of an archive. Substitution manufactures findings: the same records yield
 \num{59251} to \num{200708} exceedances as non-detections enter at zero, half
 the limit or the limit, \num{112034} created by the substitution alone and only
 \num{14505} affirmable in law. The \num{2026} standards are applied to a record that
@@ -140,8 +144,11 @@ one, which a threshold column cannot hold. Compliance is three-valued --- met,
 not met, or not determinable, the outcomes the Directive admits --- the third
 subtyped by the reason, which keeps an unmeasurable standard apart from an
 unreported bound. Of \num{696168} station-years a European standard reaches,
-\num{43.8}\% are undecidable, \num{18.8}\% failing a precondition alone; swapping the regulation package re-decides \num{17.7}\% of co-regulated
-outcomes. Of \num{21} ontologies parsed --- reaching outside the water domain to
+\num{43.8}\% are undecidable --- and the largest reason is not the analytical
+one: \num{25.4} of those points arise before any limit is compared to any
+standard, \num{18.8}\% because the standard is written over a quantity the
+record does not report. Swapping the regulation package re-decides
+\num{17.7}\% of co-regulated outcomes. Of \num{21} ontologies parsed --- reaching outside the water domain to
 the analytical-chemistry vocabularies, one of which defines the quantification
 limit from the IUPAC Gold Book and still binds it to the method --- none carries
 a censoring status, and \num{20} cannot separate a non-detection from a
@@ -337,7 +344,9 @@ buy rigour at a cost that lands precisely on this subject matter: ``the record
 cannot decide'' is an epistemic state of a document, not an entity in the world,
 and representing absence and non-findings is a long-standing difficulty in that
 tradition. The commitment we make instead is narrower and checkable --- the
-vocabulary stays inside OWL~2~RL, and what the profile cannot express is stated
+vocabulary stays inside OWL~2~RL --- verified against the profile grammar
+rather than assumed, which Section~\ref{sec:results-profile} reports --- and
+what the profile cannot express is stated
 and moved to SHACL rather than asserted and left unenforced.
 
 \subsection{Laboratory and analytical vocabularies}
@@ -601,8 +610,8 @@ conflating it manufactures findings.
 and \texttt{requiresCondition} links to \texttt{ApplicabilityCondition}
 subclasses: matrix, analytical fraction, bioavailability basis, hardness class.
 Where a precondition is unmet the outcome is \texttt{PreconditionUnmet}, one
-of the four subclasses of \texttt{IndeterminateCompliance} --- not a default
-pass. Annex~I
+of the five subclasses of \texttt{IndeterminateCompliance} --- not a default
+pass. Section~\ref{sec:results-wbabox} finds it the largest of them. Annex~I
 creates two such conditions in footnotes: the standards for lead and nickel
 ``refer to bioavailable concentrations of the substances'', and cadmium's
 ``vary depending on the hardness of the water as specified in five class
@@ -613,14 +622,78 @@ Section~\ref{sec:results-precondition} shows what they decide.
 \texttt{Exceedance}, \texttt{Compliant} and \texttt{IndeterminateCompliance} are
 jointly exhaustive \emph{for a given observation--threshold pair}, and they are
 what the Directive itself admits: the standard is met, it is not met, or
-compliance cannot be determined. Why it cannot is carried by four subclasses of
+compliance cannot be determined. Why it cannot is carried by five subclasses of
 the third --- \texttt{PreconditionUnmet}, \texttt{MethodInsufficient},
-\texttt{PossibleExceedance} and \texttt{BoundNotEstablished} --- and not by a
+\texttt{PossibleExceedance}, \texttt{BoundNotEstablished} and
+\texttt{NoThresholdDefined} --- and not by a
 fourth top-level value, which would be the vocabulary asserting a distinction
 the Directive does not make. \texttt{PossibleExceedance} belongs there rather
 than beside \texttt{Exceedance}: an interval straddling the limit decides
 nothing, which is indeterminacy with a particular cause, and the assessment
 reported in Section~\ref{sec:results-wbabox} has counted it that way throughout.
+
+\paragraph{The order the questions are asked in is part of the claim.}
+Figure~\ref{fig:decision-flow} draws the procedure. It is five tests, and their
+order is not a convenience: a precondition is asked first because it is prior to
+every other question --- where the standard is written over bioavailable lead
+and the record reports total lead, there is no comparison to make, strict or
+lenient. Article~3(3b) is asked next and only of a censored result, because it
+reaches a value \emph{reported as less than} the quantification limit and
+nothing else; an earlier version of this pipeline applied it wherever the limit
+exceeded the standard, which set aside quantified means as
+well --- deleting from the count results that were evidence of exceedance. The uncertainty band is
+asked last and only of a quantified value, because a censored result is already
+an interval. Reorder these and the same four reported fields yield a different
+verdict, which is why the procedure is drawn rather than described. Each path in
+the figure carries a witness --- inputs that must produce the outcome it leads
+to --- and all of them are executed against the function itself before the
+figure is written\src{scripts/93\_decision\_flowchart.py}, so the drawing
+cannot outlive the code.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.92\textwidth]{fig15_decision_flow.pdf}
+\caption{How one observation is decided against one threshold, from the four
+fields a record reports. The quantification limit enters three times --- it
+decides whether the row has a detection status at all, it is what
+Article~3(3b) compares against the standard, and a value below its own limit
+is a row contradicting itself --- which is why a schema that stores only the
+value cannot run this procedure. The half-width $T/2$ in the last test is not a
+threshold the Directive states. It is the \emph{widest} uncertainty
+Article~4(1) lets a usable method have at the level of the standard, so a value
+within $T/2$ of the standard is one a method meeting only the legal minimum
+could have produced from either side of it. Five tests, in the order the procedure asks
+them; \num{8} outcome paths, each verified by executing the decision function
+on inputs that must take it. Two paths reach
+\texttt{BoundNotEstablished} --- a result with no censoring status, and a
+result contradicting its own limit --- and two reach \texttt{Compliant}, from
+opposite sides of the record: a bound that clears the standard, and a value
+measured below it.}
+\label{fig:decision-flow}
+\end{figure}
+
+\paragraph{The uncertainty band is a reading, and it is declared as one.}
+\texttt{PossibleExceedance} needs an interval, and no European release reports
+a per-result measurement uncertainty. Article~4(1) of Directive 2009/90/EC
+requires methods whose expanded uncertainty is \num{50}\,\% \emph{or below}
+($k=2$) \emph{at the level of the environmental quality standard}. Two things
+follow that a reader should not have to reconstruct. It is a \textbf{ceiling on
+methods, not a compliance test}: the Directive prescribes no interval
+comparison, and the statutory test remains the annual average against the
+standard. And because it is a ceiling, applying it to every result assumes
+every laboratory sits exactly at the worst performance the law allows, which
+overstates indeterminacy for a good laboratory and is the conservative
+direction. What the phrase fixes is where the figure is specified; it does not
+fix what it is applied to. \textbf{We read it as an
+absolute band at the standard, $u = 0.5\,T$}, so that a reported value $x$ is
+undecidable when $0.5\,T < x < 1.5\,T$. The band does not widen with the
+measurement, which is the property we want: a result ten times the standard is
+not made less certain by being large. The competing reading takes the figure as
+relative to the measurement, $u = 0.5\,x$, undecidable for
+$2T/3 < x < 2T$. Neither interval contains the other, so which one sets aside
+more of this record is an empirical question rather than one settled by
+inspecting them, and Section~\ref{sec:results-uncertainty} answers it by
+computing all three readings --- including no band at all --- over the same
+rows in the same pass.
 
 Where two subclasses describe one result --- a censored result whose limit
 exceeds the standard has an interval straddling it too --- Article~3(3b) is
@@ -1039,9 +1112,38 @@ record does not report (Section~\ref{sec:results-precondition});
 \num{17.5}\,\% \texttt{MethodInsufficient}, where a below-quantification result
 carries a limit above the standard, which Article~3(3b) requires to be set
 aside; \num{6.5}\,\% \texttt{BoundNotEstablished}, with no bound to compare at
-all; \num{1.0}\,\% \texttt{PossibleExceedance}, where the interval straddles the
+all --- the outcome that follows from a \texttt{UnresolvedObservation}, which
+names the measurement whose censoring status is unknown, where
+\texttt{BoundNotEstablished} names the verdict it forces; \num{1.0}\,\% \texttt{PossibleExceedance}, where the interval straddles the
 limit. A two-valued schema has nowhere to put any of them and collapses all four
-into compliance.
+into compliance. The vocabulary declares a \emph{fifth},
+\texttt{NoThresholdDefined}, which cannot arise in this denominator by
+construction: these are the station-years a European standard reaches, so a
+threshold exists for every one of them. It is reported in the assessment of an
+unregulated substance, and its absence here is a property of the population
+rather than of the taxonomy.
+
+\paragraph{The analytical failure is not the largest reason.} At
+\num{18.8}\,\%, \texttt{PreconditionUnmet} exceeds \texttt{MethodInsufficient}
+at \num{17.5}\,\%, and adding the \num{6.5}\,\% with no bound at all gives
+\textbf{\num{25.4} of the \num{43.8} points --- \num{57.9}\,\% of the
+undecidable record --- arising before any limit is set beside any threshold}.
+That is not what this paper set out to find. The argument from
+The argument this paper opens with runs through the quantification limit: a bound stored as
+a number, a limit above the standard, Article~3(3b). The record answers with
+something prior to it. For lead, nickel and cadmium the standard is written over
+bioavailable concentration or over a hardness class, the record reports neither,
+and no laboratory improvement reaches the failure: a better method measures the
+wrong quantity more precisely.
+
+The consequence for the vocabulary is that the least-exercised of the four
+commitments turns out to be the load-bearing one. \emph{A threshold is a
+conditional judgement} (Section~\ref{sec:methods-vocab}) was motivated by two
+footnotes in Annex~I, and on the evidence of this record it decides more of the
+assessment than the commitment the paper is named for. A vocabulary that models
+the limit correctly and treats a threshold as a bare number would still fail on
+\num{18.8}\,\% of the population --- silently, and in the direction of
+reporting compliance.
 
 The taxonomy is not free ornament, and the cheaper alternative shows why: a
 schema with a single indeterminacy flag reports the same \num{43.8}\,\% and
@@ -1049,6 +1151,77 @@ loses the four. They are not degrees of one defect but different objects, and
 they call for different repairs --- a schema field for the covariates, a better
 laboratory, a reported limit, a reported uncertainty --- of which only one is
 addressed by anything an analyst can do to the data afterwards.
+
+\subsection{The profile claim, checked rather than asserted}
+\label{sec:results-profile}
+A vocabulary that claims a reasoning profile is making a checkable claim, and
+this one was not checked. Testing it against the grammar of OWL~2 Profiles
+\S4.3 rather than against a reasoner\src{scripts/12\_owl\_profile.py} found
+\textbf{\num{16} axioms outside OWL~2~RL}: ten cardinality restrictions, which
+RL admits only as \texttt{max}~0 or~1; three covering unions, which RL forbids
+in superclass position; and three equivalences using
+\texttt{someValuesFrom}, which RL admits only in subclass position. The
+pipeline nonetheless produced correct classifications throughout, because
+\texttt{owlrl} applies rules beyond the profile --- which is exactly why a
+reasoner cannot be used to test profile conformance.
+
+The repair divides in two, and the division is the one the vocabulary already
+argued for. Three axioms were rewritten in place: an equivalence is two
+implications, and only the classifying one is used, so
+$\exists\,\texttt{belowThreshold}.\texttt{Threshold} \sqsubseteq
+\texttt{Compliant}$ replaces the equivalence and is inside the profile, with
+identical entailments\src{scripts/test\_axioms.py}. The other thirteen became
+SHACL shapes, and not as a workaround: every one asks whether something is
+\emph{absent} --- no station, no unit, no cited source, no fourth outcome ---
+and absence is not a conclusion an open-world reasoner may draw from a missing
+triple. They were inert where they stood in a stronger sense than the profile
+implies: even in OWL~2~DL, no reasoner would find a contradiction in a record
+that merely fails to mention a station. Read as a complete document, which is
+what a submission is, the same question is decidable. The vocabulary is now at
+\textbf{zero} axioms outside the profile, and the check runs on every release.
+
+\subsection{The headline does not rest on the uncertainty reading}
+\label{sec:results-uncertainty}
+The band applied to a quantified result is the most contestable choice in this
+paper (Section~\ref{sec:methods-vocab}), so all three readings of
+Article~4(1) are computed over the same
+\num{696168} rows in the same pass\src{scripts/22\_waterbase\_external.py}: no
+band, the absolute band CENSO uses, and the relative band that tracks the
+measurement.
+
+\begin{table}[htbp]\centering
+\caption{The three readings of Article~4(1), over every assessable
+station-year. The undecidable share moves by less than one point across all
+three; the affirmable exceedance count moves by a quarter.}
+\label{tab:uncertainty}
+\begin{tabular}{llrrr}
+\toprule
+reading & band & \texttt{PossibleExc.} & \texttt{Exceedance} & undecidable \\
+\midrule
+no band & $0$ & \num{0} & \num{16963} & \num{42.8}\,\% \\
+\textbf{absolute} & $0.5\,T$ & \num{6639} & \num{14505} & \num{43.8}\,\% \\
+relative & $0.5\,x$ & \num{6100} & \num{13323} & \num{43.7}\,\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{The choice barely matters for the finding.} The entire band is worth
+\num{1.0} point of the undecidable share. Remove it altogether --- the point
+comparison a two-valued pipeline already makes, granting the objection in full
+--- and \textbf{\num{42.8}\,\% of the record is still undecidable}. The
+headline is carried by the strata the band does not touch: a standard defined
+on an unreported quantity, a limit above the standard, a value with no bound at
+all. Nor is the relative reading the more conservative one, which inspecting
+the intervals would not have told us: it sets aside \num{6100} rows against
+the absolute band's \num{6639}, because concentrations cluster low against
+their standards and the absolute band reaches further down.
+
+\textbf{What the choice does move is the enforcement number.} Affirmable
+exceedances run from \num{13323} to \num{16963} across the three readings, a
+range of \num{27}\,\%. A pipeline that reports an exceedance count without
+stating its uncertainty convention has therefore left a free parameter inside a
+number an enforcement action would rest on --- the same defect as the
+substitution constant, one level further in.
 
 \paragraph{One reason comes from the standard rather than from the record.}
 \texttt{PossibleExceedance} requires an interval around a quantified result,
@@ -1084,6 +1257,25 @@ itself report \num{59251}, \num{171285} and \num{200708} exceedances over the
 same records --- a \num{3.4}-fold range in the enforcement-relevant number,
 selected by a rule the data does not determine
 (Figure~\ref{fig:verdicts}).
+
+\paragraph{Why even the most conservative substitution over-reports.}
+Zero is the substitution that cannot manufacture an exceedance: a censored
+result entered at zero is below every positive standard, so it is never
+reported as exceeding. Yet a zero-substituting pipeline still reports
+\num{59251} exceedances against the \num{14505} the law can affirm --- more
+than four times as many --- and the reason is worth stating plainly, because a
+reader who expects the gap to come from censoring will read the arithmetic as
+an error. \textbf{It does not come from censoring.} Of the \num{44746}
+reported exceedances CENSO does not affirm under this rule, \emph{not one} is
+set aside by Article~3(3b): \texttt{MethodInsufficient} is empty here by
+construction, exactly because zero never lifts a censored row past the
+standard. The removals are \num{30140} whose standard is not defined on the
+quantity reported, \num{12142} resting on a number whose censoring status the
+record never states, and \num{2458} whose lawful interval straddles the limit.
+The substitution constant governs how many exceedances are \emph{created}; it
+governs none of how many are \emph{supportable}. Those are separate failures,
+and a pipeline can be conservative about the first while still reporting four
+times more than the record establishes.
 
 \paragraph{The graph is a materialisation, not the analysis.}
 A reservoir sample of \num{40000} station-years is expressed as RDF
@@ -1588,16 +1780,24 @@ once it is added: on the result, not on the device.
 \label{sec:results-cq}
 Twenty competency questions, each tied to an axiom, were executed over the
 Waterbase graph with the two vocabulary modules and both regulation packages,
-\num{507761} triples as
+\num{507697} triples as
 loaded\src{scripts/17\_run\_competency\_questions.py}. \textbf{All twenty
 return answers.} Full OWL~2~RL closure over a graph this size is impractical in
-pure Python, so only two entailments are materialised: union membership for the
-two defined observation classes, and \texttt{rdfs:subClassOf} on type
-assertions. That is measured rather than asserted: over synthetic ABoxes on the
-same vocabulary, closure time grows super-linearly in the number of
-observations, because RL closure writes every entailment into the graph instead
-of answering against rules; SHACL validation over the same graphs costs about an
-order of magnitude less\src{scripts/14\_reasoning\_benchmark.py}. The series
+pure Python, so one entailment is materialised: \texttt{rdfs:subClassOf} on
+type assertions, iterated to a fixed point. Until the profile repair
+(Section~\ref{sec:results-profile}) a second was needed, because the two
+observation classes were defined by union and no subclass axiom connected a
+censored observation to the class a shape targets; as ordinary subclass
+assertions they are covered by the same closure. That closure is measured
+rather than asserted: over synthetic ABoxes on the same vocabulary, closure
+time grows super-linearly in the number of observations, because RL closure
+writes every entailment into the graph instead of answering against rules.
+SHACL validation over the same graphs costs less, and \emph{the gap widens with
+size} --- the two are within a factor of one at the smallest graph and closure
+costs about twice as much at the largest\src{scripts/14\_reasoning\_benchmark.py}.
+The margin narrowed when the profile repair moved thirteen constraints out of
+the vocabulary and into the shapes: the work moved with them, which is the
+trade this division of labour makes explicit rather than a cost it avoids. The series
 is in \texttt{supplementary/S13\_reasoning\_cost.csv}. A deployment over a
 whole basin would use a store with native rule support, so those figures bound
 this pipeline and not the approach. Every other answer comes from asserted triples. They run on public
@@ -1651,7 +1851,7 @@ than the measurement. Every value is read from the shipped graph and ships in
 
 \subsection{The shipped graph is validated against the shipped shapes}
 \label{sec:results-shacl}
-The published shapes are run over the published graph --- \num{634013} triples
+The published shapes are run over the published graph --- \num{651373} triples
 with the vocabulary loaded --- rather than over a fixture\src{scripts/18\_shacl\_validate.py}.
 The shapes match \num{40000} assessed observations, \num{31167} censored ones,
 \num{1159} analytical methods and \num{537} thresholds, and the run reports
@@ -1984,11 +2184,47 @@ a vocabulary should be indexed where people look for one, and until it is, the
 reuse this paper argues for costs a reader more than it should.
 
 \paragraph{The taxonomy is declared but not yet interrogated.}
-The four subclasses of \texttt{IndeterminateCompliance} are materialised and
+The five subclasses of \texttt{IndeterminateCompliance} are materialised and
 counted (Section~\ref{sec:results-wbabox}), and no competency question asks the
 graph to group an indeterminate verdict by its reason. That query is the direct
 test of whether the subtyping earns its place, and it is the first addition the
 question set should take.
+
+\paragraph{The reasoning profile cost us something, and we paid it in our own
+data.} Choosing OWL~2~RL is choosing a reasoner that will not tell you
+everything, and the price is easiest to argue in the abstract and easiest to
+miss in practice. We missed it. \texttt{censo:casNumber} was declared an
+\texttt{owl:FunctionalProperty}, and the released European package violates
+that on three entries, because Annex~I names more than one registry number for
+one regulated substance --- diclofenac as the free acid and as the sodium salt,
+and likewise acetamiprid and imidacloprid. The data were right and the axiom was
+wrong: a regulatory entry is not a single chemical species. \textbf{The
+violation was invisible for three releases.} Two distinct literals on a
+functional datatype property make an ontology inconsistent under \textsc{dl}
+semantics, but OWL~2~RL derives \texttt{owl:sameAs} between the literals and
+stops, so no \texttt{owl:Nothing} was ever entailed and the audit's
+package-consistency check passed on every run.
+
+The shape of that failure is the shape this paper is about. A limited regime
+absorbed a contradiction and reported success, and what made it invisible was
+not the absence of a check but a check that looked for one signal and concluded
+from its absence. The repair was to look directly: the audit now tests
+functional properties itself rather than inferring their satisfaction from a
+reasoner that cannot report it, and the consistency check reads the explanation
+triples \texttt{owlrl} emits for a disjointness violation as well as
+\texttt{owl:Nothing}, which it had not been doing.
+
+A second, larger instance of the same thing is the profile claim itself.
+\num{16} axioms --- ten cardinality restrictions, three covering unions and
+three equivalences using \texttt{someValuesFrom} --- sat outside OWL~2~RL while
+the manuscript claimed conformance, and the pipeline ran correctly throughout,
+because \texttt{owlrl} applies rules beyond the profile. A reasoner cannot
+detect a profile violation; being more capable than the profile is precisely
+what hides one. The claim is now checked against the grammar of OWL~2 Profiles
+rather than against a reasoner\src{scripts/12\_owl\_profile.py}, and
+Section~\ref{sec:results-profile} reports the repair. We state both episodes
+because a paper arguing that unrepresentable failures go uncounted is not
+entitled to leave its own uncounted.
 
 \subsection{Implications}
 For monitoring programmes the recommendation costs nothing at the point of

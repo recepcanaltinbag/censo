@@ -102,13 +102,13 @@ digraph CENSO {
   "censo:IndeterminateCompliance" -> "censo:BoundNotEstablished" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
   "censo:IndeterminateCompliance" -> "censo:NoThresholdDefined" [dir=back, arrowtail=onormal, arrowhead=none, color="#555555"];
 
-  "censo:AssessedObservation" -> "censo:CensoredObservation" [style=dashed, color="#3b7a3b", arrowhead=none, label=<<FONT POINT-SIZE="9" COLOR="#3b7a3b">&#8801; union of the four</FONT>>, constraint=false];
+  "censo:AssessedObservation" -> "censo:CensoredObservation" [style=dashed, color="#3b7a3b", arrowhead=none, label=<<FONT POINT-SIZE="9" COLOR="#3b7a3b">SHACL: one of the four</FONT>>, constraint=false];
   "censo:AssessedObservation" -> "censo:EstimatedObservation" [style=dashed, color="#3b7a3b", arrowhead=none, constraint=false];
   "censo:AssessedObservation" -> "censo:QuantifiedObservation" [style=dashed, color="#3b7a3b", arrowhead=none, constraint=false];
   "censo:AssessedObservation" -> "censo:UnresolvedObservation" [style=dashed, color="#3b7a3b", arrowhead=none, constraint=false];
-  "censo:DetectedObservation" -> "censo:EstimatedObservation" [style=dashed, color="#3b7a3b", arrowhead=none, label=<<FONT POINT-SIZE="9" COLOR="#3b7a3b">&#8801; estimated &#8852; quantified</FONT>>, constraint=false];
+  "censo:DetectedObservation" -> "censo:EstimatedObservation" [style=dashed, color="#3b7a3b", arrowhead=none, label=<<FONT POINT-SIZE="9" COLOR="#3b7a3b">SHACL: estimated or quantified</FONT>>, constraint=false];
   "censo:DetectedObservation" -> "censo:QuantifiedObservation" [style=dashed, color="#3b7a3b", arrowhead=none, constraint=false];
-  "censo:ComplianceOutcome" -> "censo:Compliant" [style=dashed, color="#3b7a3b", arrowhead=none, label=<<FONT POINT-SIZE="9" COLOR="#3b7a3b">&#8801; union of THREE</FONT>>, constraint=false];
+  "censo:ComplianceOutcome" -> "censo:Compliant" [style=dashed, color="#3b7a3b", arrowhead=none, label=<<FONT POINT-SIZE="9" COLOR="#3b7a3b">SHACL: one of THREE</FONT>>, constraint=false];
   "censo:ComplianceOutcome" -> "censo:Exceedance" [style=dashed, color="#3b7a3b", arrowhead=none, constraint=false];
   "censo:ComplianceOutcome" -> "censo:IndeterminateCompliance" [style=dashed, color="#3b7a3b", arrowhead=none, constraint=false];
 

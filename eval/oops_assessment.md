@@ -6,8 +6,8 @@ FOOPS! (`scripts/15_foops.py`) scores FAIRness; this reads the axioms. Running t
 
 | pitfall | level | affected | of those, reused external terms |
 |---|---|---|---|
-| **P04** Creating unconnected ontology elements | Minor | 4 | 4 |
-| **P11** Missing domain or range in properties | Important | 2 | 2 |
+| **P04** Creating unconnected ontology elements | Minor | 6 | 4 |
+| **P11** Missing domain or range in properties | Important | 1 | 1 |
 | **P13** Inverse relationships not explicitly declared | Minor | 0 | 0 |
 | **SUGGESTION: symmetric or transitive object properties.**  | — | 1 | 0 |
 

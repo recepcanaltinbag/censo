@@ -111,8 +111,8 @@ an open-world upper bound rather than as zero."""@en ;
     dcterms:created "2026-08-03"^^xsd:date ;
     vann:preferredNamespacePrefix "censo" ;
     vann:preferredNamespaceUri "https://w3id.org/censo/" ;
-    owl:versionIRI <https://w3id.org/censo/2.2.0> ;
-    owl:versionInfo "2.2.0" ;
+    owl:versionIRI <https://w3id.org/censo/2.3.0> ;
+    owl:versionInfo "2.3.0" ;
     rdfs:seeAlso <http://www.w3.org/ns/sosa/> ;
     owl:imports <http://www.w3.org/ns/sosa/> ,
                 <http://www.w3.org/ns/ssn/> ,
@@ -304,9 +304,10 @@ censo:calibrationR2 a owl:DatatypeProperty ;
 # censo:AnalyticalMethodLimitShape in censo-shapes.ttl. This is the same division of
 # labour the header states for censo:IndeterminateCompliance: what OWL cannot
 # decide is not asserted in OWL and pretended to hold.
-censo:AnalyticalMethod rdfs:subClassOf
-    [ a owl:Restriction ; owl:onProperty censo:limitUnit ;
-      owl:cardinality "1"^^xsd:nonNegativeInteger ] .
+# ...and so it does, rather than being asserted here as well: exact
+# cardinality is not in OWL 2 RL at any position, and the restriction that
+# stood here contradicted the paragraph above it. censo:AnalyticalMethodLimitShape
+# carries it.
 
 ################################################################################
 #  3. Detection status — the epistemic core
@@ -354,10 +355,19 @@ rather than silently treated as quantified."""@en .
 censo:AssessedObservation a owl:Class ;
     rdfs:subClassOf sosa:Observation ;
     rdfs:label "Assessed observation"@en ;
-    rdfs:comment "An observation whose detection status has been determined; the union of the four statuses."@en ;
-    owl:equivalentClass [ a owl:Class ;
-        owl:unionOf ( censo:CensoredObservation censo:EstimatedObservation
-                      censo:QuantifiedObservation censo:UnresolvedObservation ) ] .
+    rdfs:comment "An observation whose detection status has been determined; the union of the four statuses."@en .
+
+# The equivalence that stood here was two axioms. One classifies -- each status
+# IS an assessed observation -- and OWL 2 RL permits it. The other is the
+# COVERING claim, that an assessed observation must be one of the four, and RL
+# does not permit a union in superclass position. The covering is a
+# completeness statement about a finished record, which is a closed-world
+# question, so it moves to censo:AssessedObservationCoveringShape and the
+# classifying half stays here where the reasoner can use it.
+censo:CensoredObservation rdfs:subClassOf censo:AssessedObservation .
+censo:EstimatedObservation rdfs:subClassOf censo:AssessedObservation .
+censo:QuantifiedObservation rdfs:subClassOf censo:AssessedObservation .
+censo:UnresolvedObservation rdfs:subClassOf censo:AssessedObservation .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( censo:CensoredObservation censo:EstimatedObservation
@@ -373,9 +383,10 @@ censo:AssessedObservation a owl:Class ;
 # reported alongside this vocabulary; the class stands on its own.)
 censo:DetectedObservation a owl:Class ;
     rdfs:label "Detected observation"@en ;
-    rdfs:comment "The analyte was found, whether or not it could be quantified."@en ;
-    owl:equivalentClass [ a owl:Class ;
-        owl:unionOf ( censo:EstimatedObservation censo:QuantifiedObservation ) ] .
+    rdfs:comment "The analyte was found, whether or not it could be quantified."@en .
+
+censo:EstimatedObservation rdfs:subClassOf censo:DetectedObservation .
+censo:QuantifiedObservation rdfs:subClassOf censo:DetectedObservation .
 
 censo:DetectedObservation owl:disjointWith censo:CensoredObservation .
 
@@ -465,14 +476,12 @@ censo:AssessedObservation owl:hasKey ( censo:hasAnalyte censo:atStation censo:du
 
 # An observation with no analyte, no station or no procedure is not
 # interpretable; these restrictions reject it instead of carrying it forward.
-censo:AssessedObservation rdfs:subClassOf
-    [ a owl:Restriction ; owl:onProperty censo:hasAnalyte ;
-      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-      owl:onClass censo:Analyte ] ,
-    [ a owl:Restriction ; owl:onProperty censo:atStation ;
-      owl:minCardinality "1"^^xsd:nonNegativeInteger ] ,
-    [ a owl:Restriction ; owl:onProperty sosa:usedProcedure ;
-      owl:minCardinality "1"^^xsd:nonNegativeInteger ] .
+# ...and rejecting it is a closed-world act. "This observation has no station"
+# is not something an open-world reasoner can conclude from an absent triple,
+# so asserting minimum cardinality here bought nothing an OWL reasoner would
+# ever fire on, while putting three axioms outside OWL 2 RL.
+# censo:AssessedObservationShape rejects them, where a missing triple means
+# missing.
 
 # A censored observation asserts an upper bound and nothing more; its lower
 # bound is necessarily zero.
@@ -541,13 +550,9 @@ censo:Regulation a owl:Class ;
     rdfs:comment "A dated, versioned legal instrument. Thresholds must cite one, because they change."@en .
 
 # A threshold without a value, a unit or a citation is not usable.
-censo:Threshold rdfs:subClassOf
-    [ a owl:Restriction ; owl:onProperty censo:thresholdValue ;
-      owl:cardinality "1"^^xsd:nonNegativeInteger ] ,
-    [ a owl:Restriction ; owl:onProperty censo:thresholdUnit ;
-      owl:cardinality "1"^^xsd:nonNegativeInteger ] ,
-    [ a owl:Restriction ; owl:onProperty censo:definedBy ;
-      owl:cardinality "1"^^xsd:nonNegativeInteger ] .
+# ...and censo:ThresholdShape is where that is decided, for the same reason:
+# exact cardinality is outside OWL 2 RL, and "no value was given" is a fact
+# about a document rather than about the world.
 
 # ---- preconditions -----------------------------------------------------------
 
@@ -670,10 +675,6 @@ make."""@en .
 
 censo:Exceedance a owl:Class ;
     rdfs:subClassOf censo:ComplianceOutcome ;
-    owl:equivalentClass [ a owl:Class ;
-        owl:intersectionOf ( sosa:Observation
-                             [ a owl:Restriction ; owl:onProperty censo:exceeds ;
-                               owl:someValuesFrom censo:Threshold ] ) ] ;
     rdfs:label "Exceedance"@en ;
     rdfs:comment "Exceedance is established: it holds for every value consistent with the observation."@en .
 
@@ -696,10 +697,6 @@ censo:Exceedance a owl:Class ;
 # Directive does not make.
 censo:PossibleExceedance a owl:Class ;
     rdfs:subClassOf censo:IndeterminateCompliance ;
-    owl:equivalentClass [ a owl:Class ;
-        owl:intersectionOf ( sosa:Observation
-                             [ a owl:Restriction ; owl:onProperty censo:possiblyExceeds ;
-                               owl:someValuesFrom censo:Threshold ] ) ] ;
     rdfs:label "Possible exceedance"@en ;
     rdfs:comment """The interval straddles the threshold; the measurement
 cannot decide. A subclass of IndeterminateCompliance recording that the reason
@@ -709,10 +706,6 @@ still could not answer the question."""@en .
 
 censo:Compliant a owl:Class ;
     rdfs:subClassOf censo:ComplianceOutcome ;
-    owl:equivalentClass [ a owl:Class ;
-        owl:intersectionOf ( sosa:Observation
-                             [ a owl:Restriction ; owl:onProperty censo:belowThreshold ;
-                               owl:someValuesFrom censo:Threshold ] ) ] ;
     rdfs:label "Compliant"@en ;
     rdfs:comment "Compliance is established: it holds for every value consistent with the observation."@en .
 
@@ -833,9 +826,15 @@ here there is no bound at all, and the two call for different repairs."""@en .
 # different thresholds consistent. The outcome logic is therefore still a
 # partition -- per observation and threshold, which is the level at which the
 # regulation itself is written.
-censo:ComplianceOutcome owl:equivalentClass [ a owl:Class ;
-    owl:unionOf ( censo:Exceedance censo:Compliant
-                  censo:IndeterminateCompliance ) ] .
+# The three outcomes are already asserted as subclasses of
+# censo:ComplianceOutcome, which is the half of the equivalence that
+# classifies. The other half is the covering -- every outcome is one of the
+# three, and no fourth value exists -- which is the claim this vocabulary
+# actually wants to make, and which OWL 2 RL cannot hold because a union may
+# not appear in superclass position. censo:ComplianceOutcomeCoveringShape makes
+# it, and makes it enforceably: an outcome typed as something else is a SHACL
+# violation, where in OWL it would merely have been unsatisfiable in a profile
+# the reasoner does not implement.
 
 # A censored observation cannot establish exceedance: its lower bound is zero,
 # so no threshold above zero can be exceeded with certainty. Asserting otherwise
@@ -861,3 +860,35 @@ fact, typically because the source recorded a non-detection as 0 and the status
 was recovered by joining the analyte's LOD. Such observations carry an extra
 assumption and must remain distinguishable from those whose censoring was
 recorded at source."""@en .
+
+
+# THE CLASSIFYING DIRECTION, WHICH IS THE ONE OWL 2 RL PERMITS
+# ------------------------------------------------------------
+# These were written as equivalences. An equivalence is two axioms, and only
+# one of them does any work here: an observation linked to a threshold by
+# censo:exceeds IS an exceedance, which is what the reasoner fires on. The
+# converse -- every exceedance carries such a link -- is never used, and it is
+# the half RL forbids, because someValuesFrom may not appear in superclass or
+# equivalent position.
+#
+# Written the other way round the axiom is squarely inside the profile:
+# someValuesFrom is free in SUBCLASS position. The classification is unchanged
+# and the entailments the pipeline depends on are identical, which
+# scripts/test_axioms.py asserts rather than assumes.
+[ a owl:Class ;
+  owl:intersectionOf ( sosa:Observation
+                       [ a owl:Restriction ; owl:onProperty censo:exceeds ;
+                         owl:someValuesFrom censo:Threshold ] ) ]
+    rdfs:subClassOf censo:Exceedance .
+
+[ a owl:Class ;
+  owl:intersectionOf ( sosa:Observation
+                       [ a owl:Restriction ; owl:onProperty censo:possiblyExceeds ;
+                         owl:someValuesFrom censo:Threshold ] ) ]
+    rdfs:subClassOf censo:PossibleExceedance .
+
+[ a owl:Class ;
+  owl:intersectionOf ( sosa:Observation
+                       [ a owl:Restriction ; owl:onProperty censo:belowThreshold ;
+                         owl:someValuesFrom censo:Threshold ] ) ]
+    rdfs:subClassOf censo:Compliant .

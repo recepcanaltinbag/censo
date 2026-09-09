@@ -81,6 +81,7 @@ STAGES = [
     ("11_assess_competitor_papers.py", "assess paper-only ontologies", False),
     ("09_verify_bibliography.py", "check the bibliography against Crossref", False),
     ("validate_ontology.py", "validate the ontology modules", False),
+    ("12_owl_profile.py", "check the OWL 2 RL profile claim", False),
     ("test_axioms.py", "run the axiom test suite", False),
     ("14_reasoning_benchmark.py", "measure reasoning cost", False),
     # These two read derived/abox/censo-waterbase.ttl, which only stage 23
@@ -100,6 +101,7 @@ STAGES = [
     ("91_ontology_figure.py", "draw the vocabulary figure", False),
     # Reads real rows out of the graph, so it runs after 23.
     ("92_decision_walkthrough.py", "decide four real rows twice", False),
+    ("93_decision_flowchart.py", "draw the decision procedure", False),
     ("92b_use_case_figures.py", "draw the two use-case figures", False),
     # After BOTH 07, which writes the gap matrix it reads, and 90, which ships
     # the witness row it argues over. It turns the gap table from a term list

@@ -1,0 +1,13 @@
+from,answer,to,witness_verified
+pre,no,precondition_unmet,yes
+pre,yes,status,—
+status,unresolved,indeterminate_unresolved,yes
+status,censored,art3,—
+status,quantified,contra,—
+art3,yes,method_insufficient,yes
+art3,no,compliant,yes
+contra,yes,indeterminate_other,yes
+contra,no,band,—
+band,yes,possible_exceedance,yes
+band,"no, above",exceedance,yes
+band,"no, below",compliant,yes

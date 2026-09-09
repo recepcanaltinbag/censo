@@ -79,30 +79,30 @@ def main() -> int:
     #  count of nodes each shape can now see is reported, so a target count of
     #  zero can never again be read as a clean bill of health.
     # ---------------------------------------------------------------------
-    UNIONS = {
-        CENSO.DetectedObservation: [CENSO.EstimatedObservation,
-                                    CENSO.QuantifiedObservation],
-        CENSO.AssessedObservation: [CENSO.CensoredObservation,
-                                    CENSO.EstimatedObservation,
-                                    CENSO.QuantifiedObservation,
-                                    CENSO.UnresolvedObservation],
-    }
-    n_union = 0
-    for parent, members in UNIONS.items():
-        for m in members:
-            for s_ in set(d.subjects(rdflib.RDF.type, m)):
-                if (s_, rdflib.RDF.type, parent) not in d:
-                    d.add((s_, rdflib.RDF.type, parent))
-                    n_union += 1
-    n_sub = 0
-    for sub, _, sup in list(d.triples((None, rdflib.RDFS.subClassOf, None))):
-        if isinstance(sup, rdflib.term.BNode):
-            continue
-        for s_ in set(d.subjects(rdflib.RDF.type, sub)):
-            if (s_, rdflib.RDF.type, sup) not in d:
-                d.add((s_, rdflib.RDF.type, sup))
-                n_sub += 1
-    print(f"  materialised {n_union:,} union membership(s) and {n_sub:,} "
+    # This was a hand-written table of the two union-defined classes plus a
+    # single pass over rdfs:subClassOf. Both are gone. The union definitions
+    # were the axioms that put the vocabulary outside OWL 2 RL, and replacing
+    # them with plain subclass assertions made the table a second copy of what
+    # the ontology now states -- a copy that would go stale the next time a
+    # status class is added.
+    #
+    # The single pass is gone for a separate reason: it was not a closure.
+    # CensoredObservation is an AssessedObservation is a sosa:Observation, and
+    # one pass over a snapshot of the triples completes that chain only if the
+    # edges happen to be visited in the right order. Iterating to a fixed point
+    # costs one extra sweep and is correct regardless.
+    n_sub, sweep = 0, True
+    while sweep:
+        sweep = False
+        for sub, _, sup in list(d.triples((None, rdflib.RDFS.subClassOf, None))):
+            if isinstance(sup, rdflib.term.BNode):
+                continue
+            for s_ in set(d.subjects(rdflib.RDF.type, sub)):
+                if (s_, rdflib.RDF.type, sup) not in d:
+                    d.add((s_, rdflib.RDF.type, sup))
+                    n_sub += 1
+                    sweep = True
+    print(f"  materialised {n_sub:,} "
           f"subclass type assertion(s) so the shapes have targets")
 
     s = rdflib.Graph()
@@ -135,11 +135,14 @@ def main() -> int:
          f"- distinct violation types: **{len(msgs)}**\n",
          "**What the shapes could see.** A validation that reports no "
          "violations over a graph in which the shapes match nothing is not a "
-         "result, and this run reported exactly that until the two entailments "
-         "below were materialised: the ABox types observations by their "
-         "detection status, and `censo:AssessedObservation` is a defined class "
-         "over a union, so no subclass axiom connects them and SHACL -- which "
-         "does not reason -- saw no targets at all.\n",
+         "result, and this run reported exactly that until subclass type "
+         "assertions were materialised below: the ABox types observations by "
+         "their detection status, SHACL does not reason, and a shape targeting "
+         "`censo:AssessedObservation` sees a `censo:CensoredObservation` only "
+         "if something has drawn the connection. Until the OWL 2 RL repair "
+         "that connection was a union definition, which no subclass axiom "
+         "expressed and which this script had to special-case by hand; it is "
+         "an ordinary `rdfs:subClassOf` now, so one closure covers it.\n",
          "| shape target | nodes |", "|---|---|"]
     L += [f"| `{c.rsplit('/', 1)[-1]}` | {n:,} |"
           for c, n in sorted(targets.items(), key=lambda kv: -kv[1])]
