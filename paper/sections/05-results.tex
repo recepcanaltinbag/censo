@@ -84,7 +84,7 @@ Directive~(EU) 2026/805 moves the analyte list into exactly those decades:
 \num{8} of the \num{24} substances it adds with an annual-average standard
 put it below \num{e-3}~\si{\micro\gram\per\litre}
 (\num{33}\,\%), against \num{7} of \num{35} on the legacy list
-(\num{20}\,\%). The defect therefore grows unless analytical capability moves
+(\num{20}\,\%) --- Figure~\ref{fig:commitment}b. The defect therefore grows unless analytical capability moves
 down with the threshold, and nothing in the record suggests it has.
 
 \begin{figure}[htbp]\centering
@@ -217,6 +217,32 @@ crosses the standard}: the same station and substance is decidable in one year
 and not the next. A vocabulary that binds the limit to a sensor cannot express
 that; one that binds it to the run at least has somewhere to put the provenance
 this record is missing.
+
+\textbf{The share understates it, because the question is magnitude.} A limit
+that moves by ten per cent between years is consistent with one instrument
+having a bad day; a limit that moves by two decades is not a property of an
+instrument at all. Figure~\ref{fig:commitment}a bins the pairs by how far the
+limit travels\src{scripts/94\_commitment\_figures.py}: in
+\num{19.7}\,\% of all multi-year pairs it moves by more than a factor of
+\num{10}, and in \num{3.9}\,\% by more than a factor of
+\num{1000}. Those are not calibration drift.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\textwidth]{fig16_commitment_evidence.pdf}
+\caption{\textbf{(a)} How far the quantification limit travels within one
+station--substance pair across years. Were the limit a property of the
+instrument, every pair would sit in the first bar. The last bar is a pair whose
+limit changed but one of whose values is zero or unparseable, so no ratio can be
+formed; it is counted as a change and excluded from the magnitude claims.
+\textbf{(b)} The
+annual-average standards of Annex~I by decade, separated into the list before
+\num{2026} and the substances Directive~(EU) 2026/805 adds. The shaded band is
+where the record's undecidable share runs from \num{82} to \num{100}\,\%.
+Read together: the limit varies by more than the distance between a standard
+and the values near it, and the standards are moving into the decades the
+limits already cannot follow.}
+\label{fig:commitment}
+\end{figure}
 
 \paragraph{A sum standard is not a limit on any of its members.}
 Annex~I states four limits over a group rather than a substance --- a

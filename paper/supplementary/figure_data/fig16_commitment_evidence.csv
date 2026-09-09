@@ -1,0 +1,25 @@
+panel,series,bin,n
+a,station-substance pairs,one limit only,243034
+a,station-substance pairs,up to 10x,200890
+a,station-substance pairs,10-100x,73036
+a,station-substance pairs,100-1000x,15061
+a,station-substance pairs,over 1000x,21711
+a,station-substance pairs,"changed, ratio not computable",4224
+b,legacy,1e-7,1
+b,legacy,1e-6,0
+b,legacy,1e-5,1
+b,legacy,1e-4,5
+b,legacy,1e-3,4
+b,legacy,1e-2,8
+b,legacy,1e-1,6
+b,legacy,1e0,5
+b,legacy,1e1,5
+b,added,1e-7,0
+b,added,1e-6,1
+b,added,1e-5,3
+b,added,1e-4,4
+b,added,1e-3,2
+b,added,1e-2,8
+b,added,1e-1,5
+b,added,1e0,1
+b,added,1e1,0

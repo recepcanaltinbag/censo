@@ -3044,6 +3044,60 @@ def check_zero_substitution_paradox(tex_nums):
                f"all {reported - affirmed:,} removals are non-censoring")
 
 
+
+def check_limit_variation(tex_nums):
+    """How far the limit travels, and that the figure and the sentence agree.
+
+    Section 5 says 56.4 % of multi-year pairs report more than one limit, and
+    the figure bins those pairs by magnitude. The two are views of one
+    population, so the first bar of the figure must be exactly the complement
+    of that share -- and it was not: folding pairs whose limits yield no ratio
+    into "one limit only" moved 3,989 of them onto the tidy side and made the
+    figure read 55.7 % where the sentence read 56.4 %. Two numbers for one
+    quantity is the defect this audit exists for, so the agreement is checked
+    rather than trusted.
+    """
+    var = load("limit_variation.csv")
+    tot = load("waterbase_summary.csv")
+    if not var or not tot:
+        record(SKIP, "the limit-variation figure agrees with the text",
+               "limit_variation.csv or waterbase_summary.csv missing")
+        return
+    T = next((r for r in tot if r.get("scope") == "total"), None)
+    if not T:
+        record(SKIP, "the limit-variation figure agrees with the text",
+               "no total row")
+        return
+    by = {int(r["log10_spread_bin"]): int(r["pairs"]) for r in var}
+    n = sum(by.values())
+    check_claim(tex_nums, "multi-year station-substance pairs", n)
+    moved = n - by.get(0, 0)
+    check_claim(tex_nums, "pairs reporting more than one limit %",
+                100 * moved / n if n else 0.0)
+    # the magnitude claims the new paragraph makes
+    over10 = sum(v for k, v in by.items() if k >= 2 and k != 5)
+    over1000 = by.get(4, 0)
+    check_claim(tex_nums, "pairs whose limit moves over 10x %",
+                100 * over10 / n if n else 0.0)
+    check_claim(tex_nums, "pairs whose limit moves over 1000x %",
+                100 * over1000 / n if n else 0.0)
+
+    # the population and the share must be the SAME ones the summary reports,
+    # or the figure is drawn over a different record than the sentence
+    want_n, want_moved = f(T.get("pairs_multiyear")), f(T.get("pairs_multi_limit"))
+    if want_n and abs(n - want_n) > 0.5:
+        record(FAIL, "the limit-variation figure agrees with the text",
+               f"figure covers {n:,} pairs, the summary reports "
+               f"{int(want_n):,}")
+    elif want_moved and abs(moved - want_moved) > 0.5:
+        record(FAIL, "the limit-variation figure agrees with the text",
+               f"figure shows {moved:,} pairs moving their limit, the summary "
+               f"reports {int(want_moved):,}")
+    else:
+        record(OK, "the limit-variation figure agrees with the text",
+               f"{moved:,} of {n:,} pairs, both sides")
+
+
 def check_series_figures(tex_nums):
     """Own what the year series and the two-regimes figure put into the prose.
 
@@ -3173,6 +3227,7 @@ def main() -> int:
     check_uncertainty_models(nums)
     check_precondition_is_largest(nums)
     check_zero_substitution_paradox(nums)
+    check_limit_variation(nums)
     check_shacl_conformance(nums)
     check_abox_datatypes()
     check_report_indeterminate_total()

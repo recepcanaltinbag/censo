@@ -1,0 +1,7 @@
+log10_spread_bin,label,pairs
+0,one limit only,243034
+1,up to 10x,200890
+2,10-100x,73036
+3,100-1000x,15061
+4,over 1000x,21711
+5,"changed, ratio not computable",4224

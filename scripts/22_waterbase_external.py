@@ -966,6 +966,41 @@ def main() -> int:
     n_method = sum(1 for r in multi_pairs if len(r[1]) > 1)
     n_flipped = sum(1 for r in multi_pairs if len(r[3]) > 1)
 
+    # HOW FAR the limit moves within one station-substance pair, not just
+    # whether it moved. "The limit is a property of the instrument" predicts a
+    # single value per pair; the count of pairs with more than one refutes that
+    # but says nothing about magnitude, and a limit that wobbles by 10 % is a
+    # different claim from one that moves by two decades. Binned by
+    # log10(max/min) so the figure can show the shape rather than a share.
+    # Bin 0 is "one distinct limit" and is defined EXACTLY as n_varied defines
+    # it, or the figure and the sentence would report different shares of the
+    # same population. A pair can carry more than one limit and still yield no
+    # ratio -- one of them is zero or unparseable -- and folding those into bin
+    # 0 moved 3,989 pairs onto the tidy side and made the figure say 55.7 %
+    # where the manuscript says 56.4 %. They get their own bin, because "the
+    # limit changed and one of the values is unusable" is not "the limit did
+    # not change".
+    spread = defaultdict(int)
+    for r in multi_pairs:
+        if len(r[0]) <= 1:
+            spread[0] += 1                     # one limit: the tidy prediction
+            continue
+        vals = [v for v in r[0] if isinstance(v, (int, float)) and v > 0]
+        if len(vals) < 2:
+            spread[5] += 1                     # changed, but not measurable
+            continue
+        d = math.log10(max(vals) / min(vals))
+        spread[min(int(math.floor(d)) + 1, 4)] += 1
+    with (PROC / "limit_variation.csv").open("w", newline="",
+                                             encoding="utf-8") as fh:
+        w = csv.writer(fh)
+        w.writerow(["log10_spread_bin", "label", "pairs"])
+        LBL = {0: "one limit only", 1: "up to 10x", 2: "10-100x",
+               3: "100-1000x", 4: "over 1000x",
+               5: "changed, ratio not computable"}
+        for k in sorted(spread):
+            w.writerow([k, LBL.get(k, str(k)), spread[k]])
+
     with (PROC / "waterbase_summary.csv").open("w", newline="",
                                                encoding="utf-8") as fh:
         w = csv.writer(fh)
