@@ -17,6 +17,7 @@
 @prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix vann:    <http://purl.org/vocab/vann/> .
+@prefix ssn-system: <http://www.w3.org/ns/ssn/systems/> .
 @prefix obo:     <http://purl.obolibrary.org/obo/> .
 
 <https://w3id.org/censo/alignment> a owl:Ontology ;
@@ -393,4 +394,17 @@ censo:limitOfQuantification rdfs:seeAlso obo:CHMO_0002802 ;
     rdfs:comment """As above. CHMO records `LOQ` as a synonym and cites the IUPAC Gold Book. This is the limit the legal tests are written about -- Article 3(3b) of 2008/105/EC and Article 4(1) of 2009/90/EC -- so it is the one a monitoring release reports and the one this alignment matters most for."""@en .
 
 obo:CHMO_0002802 rdfs:label "limit of quantification"@en .
+
+##############################################################################
+#  The detection limit, in SSN-System, where it is a property of
+#  the sensor rather than of the result
+##############################################################################
+
+censo:limitOfDetection rdfs:seeAlso ssn-system:DetectionLimit ;
+    rdfs:comment """SSN-System's term is an ssn-system:SystemProperty: a standing property of a SENSOR, describing the device. This is an owl:DatatypeProperty on the analytical run that produced one result. Same quantity, different bearer, and the difference is the contribution -- a limit held on the sensor cannot say that a particular measurement fell below it, which is what a censored result is. The pointer is rdfs:seeAlso for that reason and must not be read as a mapping."""@en .
+
+censo:limitOfQuantification rdfs:seeAlso ssn-system:DetectionLimit ;
+    rdfs:comment """SSN-System declares no quantification limit at all; its nearest term is the detection limit above. Article 3(3b) of Directive 2008/105/EC turns on the QUANTIFICATION limit specifically, so the absence is not a naming difference -- the regulation's own criterion cannot be expressed against a sensor-bound detection limit."""@en .
+
+ssn-system:DetectionLimit rdfs:label "detection limit"@en .
 

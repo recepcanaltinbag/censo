@@ -1,4 +1,5 @@
 @prefix censo: <https://w3id.org/censo/> .
+@prefix cereg: <https://w3id.org/censo/reg/> .
 @prefix sh:    <http://www.w3.org/ns/shacl#> .
 @prefix sosa:  <http://www.w3.org/ns/sosa/> .
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
@@ -39,7 +40,7 @@ express."""@en ;
     vann:preferredNamespacePrefix "censosh" ;
     vann:preferredNamespaceUri "https://w3id.org/censo/shapes#" ;
     owl:versionIRI <https://w3id.org/censo/shapes/2.1.0> ;
-    owl:versionInfo "2.2.0" ;
+    owl:versionInfo "2.3.0" ;
     rdfs:seeAlso <https://w3id.org/censo/> .
 
 censo:ObservationShape a sh:NodeShape ;
@@ -203,13 +204,13 @@ censo:ThresholdShape a sh:NodeShape ;
 
     sh:property [
         sh:path censo:thresholdUnit ;
-        sh:minCount 1 ;
+        sh:minCount 1 ; sh:maxCount 1 ;
         sh:message "A threshold without a unit cannot be compared to a measurement." ;
         sh:severity sh:Violation ] ;
 
     sh:property [
         sh:path censo:definedBy ;
-        sh:minCount 1 ;
+        sh:minCount 1 ; sh:maxCount 1 ;
         sh:message "A threshold must cite the regulation that establishes it. An uncited limit is not defensible." ;
         sh:severity sh:Violation ] .
 
@@ -334,4 +335,105 @@ censo:CampaignShape a sh:NodeShape ;
         sh:path censo:reportingYear ;
         sh:datatype xsd:gYear ; sh:minCount 1 ; sh:maxCount 1 ;
         sh:message "A campaign must state the year it reports for, exactly once and as an xsd:gYear. The year encoded in the campaign's IRI is not data a query can reach." ;
+        sh:severity sh:Violation ] .
+
+
+################################################################################
+#  WHAT MOVED HERE FROM THE VOCABULARY, AND WHY IT BELONGS HERE
+#
+#  Sixteen axioms in censo-core.ttl and censo-regulation.ttl sat outside OWL 2
+#  RL: ten cardinality restrictions, three covering unions and three
+#  equivalences using someValuesFrom. The pipeline ran correctly regardless,
+#  because owlrl applies rules beyond the profile -- which is exactly how a
+#  profile violation stays invisible, and why the claim is now checked by
+#  scripts/12_owl_profile.py instead of asserted.
+#
+#  Three were repaired in place by writing the direction that classifies
+#  (someValuesFrom is free in SUBCLASS position). The rest are here, and the
+#  move is not a workaround. Every one of them asks whether something is
+#  ABSENT -- no station, no unit, no cited source, no fourth outcome -- and
+#  absence is not a conclusion an open-world reasoner is entitled to draw from
+#  a missing triple. They were unenforceable where they stood in a stronger
+#  sense than "the profile forbids them": even in OWL 2 DL, a reasoner would
+#  have found no contradiction in a record that simply did not mention a
+#  station. Here, where the file is read as complete, the question is decidable.
+################################################################################
+
+censo:AnalyticalMethodUnitShape a sh:NodeShape ;
+    sh:targetClass censo:AnalyticalMethod ;
+    rdfs:label "A stated limit needs its unit" ;
+    sh:property [
+        sh:path censo:limitUnit ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:message "A method must state exactly one unit for its limits. A limit without a unit cannot be compared to a standard." ;
+        sh:severity sh:Violation ] .
+
+# The three cardinality restrictions retired from censo:AssessedObservation are
+# NOT restated here. censo:ObservationShape above already targets that class and
+# already requires exactly one analyte, exactly one station and at least one
+# procedure -- so the OWL axioms were not merely outside the profile and inert,
+# they were a second copy of a constraint that was being enforced all along, in
+# the only place it could be. Removing them removed a duplicate, not a check.
+# The 4,646 observations citing no method are found by censo:ObservationShape,
+# as they always were.
+
+# The covering axioms. These are the claims OWL 2 RL cannot hold -- a union may
+# not appear in superclass position -- and they are the claims the vocabulary
+# most wants to make, because they say the taxonomy is COMPLETE. Stated in OWL
+# they would have been unsatisfiability in a profile no reasoner here
+# implements; stated here they are a violation with a message.
+censo:ComplianceOutcomeCoveringShape a sh:NodeShape ;
+    sh:targetClass censo:ComplianceOutcome ;
+    rdfs:label "There is no fourth compliance value" ;
+    sh:or (
+        [ sh:class censo:Exceedance ]
+        [ sh:class censo:Compliant ]
+        [ sh:class censo:IndeterminateCompliance ]
+    ) ;
+    sh:message "A compliance outcome must be an exceedance, compliant, or indeterminate. The Directive admits three values and this vocabulary adds no fourth; a reason for indeterminacy belongs in a subclass of censo:IndeterminateCompliance." ;
+    sh:severity sh:Violation .
+
+censo:AssessedObservationCoveringShape a sh:NodeShape ;
+    sh:targetClass censo:AssessedObservation ;
+    rdfs:label "Detection status is exhaustive" ;
+    sh:or (
+        [ sh:class censo:CensoredObservation ]
+        [ sh:class censo:EstimatedObservation ]
+        [ sh:class censo:QuantifiedObservation ]
+        [ sh:class censo:UnresolvedObservation ]
+    ) ;
+    sh:message "An assessed observation must carry one of the four detection statuses. A result with no status is the two-valued record this vocabulary was written against." ;
+    sh:severity sh:Violation .
+
+censo:DetectedObservationCoveringShape a sh:NodeShape ;
+    sh:targetClass censo:DetectedObservation ;
+    rdfs:label "Detected means estimated or quantified" ;
+    sh:or (
+        [ sh:class censo:EstimatedObservation ]
+        [ sh:class censo:QuantifiedObservation ]
+    ) ;
+    sh:message "A detected observation is either estimated or quantified. Anything else is a detection claim the record cannot support." ;
+    sh:severity sh:Violation .
+
+cereg:GroupThresholdShape a sh:NodeShape ;
+    sh:targetClass cereg:GroupThreshold ;
+    rdfs:label "A group threshold is assessable" ;
+    sh:property [
+        sh:path cereg:appliesToGroup ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class cereg:SubstanceGroup ;
+        sh:message "A group threshold must name exactly one substance group." ;
+        sh:severity sh:Violation ] ;
+    sh:property [
+        sh:path cereg:aggregationFunction ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class cereg:AggregationFunction ;
+        sh:message "A group threshold must state exactly one aggregation function. Without it the standard is a number over a basket with no rule for combining it." ;
+        sh:severity sh:Violation ] .
+
+cereg:RegulationPackageShape a sh:NodeShape ;
+    sh:targetClass cereg:RegulationPackage ;
+    rdfs:label "A package cites its primary source" ;
+    sh:property [
+        sh:path cereg:sourceDocument ;
+        sh:minCount 1 ;
+        sh:message "A regulation package must cite the primary instrument it transcribes. An uncited package is a table of numbers with no authority behind it." ;
         sh:severity sh:Violation ] .

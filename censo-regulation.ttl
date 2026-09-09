@@ -47,7 +47,7 @@ derived thresholds such as a total-pesticide sum."""@en ;
     vann:preferredNamespacePrefix "cereg" ;
     vann:preferredNamespaceUri "https://w3id.org/censo/reg/" ;
     owl:versionIRI <https://w3id.org/censo/reg/2.1.0> ;
-    owl:versionInfo "2.1.0" ;
+    owl:versionInfo "2.3.0" ;
     owl:imports <https://w3id.org/censo/> .
 
 ################################################################################
@@ -208,24 +208,18 @@ sum is the obvious case: a survey that measured none of them cannot report
 compliance."""@en .
 
 # A group threshold is meaningless without exactly one group and one
-# aggregation function; asserting this lets a reasoner catch malformed packages
-# instead of silently producing an unassessable threshold.
-cereg:GroupThreshold rdfs:subClassOf
-    [ a owl:Restriction ;
-      owl:onProperty cereg:appliesToGroup ;
-      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-      owl:onClass cereg:SubstanceGroup ] ,
-    [ a owl:Restriction ;
-      owl:onProperty cereg:aggregationFunction ;
-      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-      owl:onClass cereg:AggregationFunction ] .
-
-# Every package must cite a primary source, otherwise its values are not usable
-# in a regulatory context.
-cereg:RegulationPackage rdfs:subClassOf
-    [ a owl:Restriction ;
-      owl:onProperty cereg:sourceDocument ;
-      owl:minCardinality "1"^^xsd:nonNegativeInteger ] .
+# aggregation function, and a package whose primary source is not cited is not
+# usable in a regulatory context. Both were asserted here as cardinality
+# restrictions, and the claim made for them -- that a reasoner would "catch
+# malformed packages" -- was not true: exact and minimum cardinality are
+# outside OWL 2 RL entirely, so no reasoner run by this pipeline ever tested
+# them. Worse, the test is closed-world by nature. A missing
+# cereg:sourceDocument triple does not mean the package cites no source; it
+# means this file does not say so, and only a validator reading the file as
+# complete can call that an error.
+#
+# cereg:GroupThresholdShape and cereg:RegulationPackageShape in
+# censo-shapes.ttl make exactly these checks, and they run on every release.
 cereg:memberOfGroup a owl:ObjectProperty ;
     rdfs:domain censo:Analyte ;
     rdfs:range cereg:SubstanceGroup ;
