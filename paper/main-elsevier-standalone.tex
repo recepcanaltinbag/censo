@@ -1210,6 +1210,59 @@ that merely fails to mention a station. Read as a complete document, which is
 what a submission is, the same question is decidable. The vocabulary is now at
 \textbf{zero} axioms outside the profile, and the check runs on every release.
 
+\paragraph{The shortfall is a distance, not a rate.}
+A share says how often a method misses the criterion and never how far. Reading
+the two quantities on one axis in the units the law is written
+in\src{scripts/94c\_limit\_vs\_standard.py} answers the second question:
+of the \num{55} substances carrying both a standard and reported limits,
+\textbf{\num{29} are measured with limits whose median sits above the ceiling
+Article~4(1) sets}, and for deltamethrin the median limit is
+\num{4.6}~decades above it (Figure~\ref{fig:limit-vs-standard}). No
+substitution rule and no estimator reaches a shortfall of that size; it is a
+statement about what the laboratory could see. The width of each bar is the
+first commitment in the same picture: were the limit a property of the
+instrument, it would be a point.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\textwidth]{fig18_limit_vs_standard.pdf}
+\caption{For each substance, the quantification limits actually reported
+against the standard it must be assessed against, on one logarithmic
+concentration axis. The bar is the middle half of the reported limits and the
+pale extension the middle \num{80}\,\%; the dot is their median. The green
+mark is the annual-average standard and the red mark \num{30}\,\% of it, the
+ceiling Article~4(1) sets on a usable method. A bar to the right of the red
+mark is a substance the monitoring cannot decide, and the number above the row
+is that shortfall in decades. The \num{18} with the largest shortfall are
+drawn; all \num{55} ship in
+\texttt{supplementary/figure\_data/fig18\_limit\_vs\_standard.csv}. One row
+is labelled by its CAS number because the consolidated Annex~I text gives that
+entry no name.}
+\label{fig:limit-vs-standard}
+\end{figure}
+
+\paragraph{Whose record is it, and when?}
+A finding pooled over a continent invites the reply that a few reporters
+produced it. Splitting the same verdict by reporting country and by reference
+year\src{scripts/94d\_verdicts\_by\_country.py} answers both at once
+(Figure~\ref{fig:country-year}). The undecidable share runs from
+\num{35} to \num{100}\,\% across the \num{18} reporters with at least
+\num{2000} assessable station-years, so it is not one country's practice ---
+but neither is it uniform, and the countries at the top of the panel are there
+for a reason the vocabulary can state: their records are dominated by standards
+written over a quantity they do not report, not by limits that miss.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\textwidth]{fig19_verdicts_by_country_year.pdf}
+\caption{\textbf{(a)} The three-valued verdict by reporting country, worst
+first, over every reporter with at least \num{2000} assessable station-years.
+\textbf{(b)} The same verdict by reference year. The colours are those of
+Figure~\ref{fig:verdicts}. Read together they say the finding is neither one
+country's nor one era's: the pale band --- a record with no bound to compare
+--- ends in \num{2013} and does not return, while the band this paper is
+about is larger at the end of the record than at the beginning.}
+\label{fig:country-year}
+\end{figure}
+
 \paragraph{On the recent record the share falls and the composition
 reverses.} Pooling half a century invites the reply that the finding is
 historical, so the same decomposition is read over the last five years the
@@ -1681,10 +1734,11 @@ survival analysis.
 \includegraphics[width=\textwidth]{fig17_field_gap.pdf}
 \caption{The same comparison as Table~\ref{tab:gap}, read as a matrix. The
 strip at the left carries what the argument turns on and a table hides in a
-column of strings: \emph{where} a vocabulary binds its detection limit. Three
-of the parsed ontologies declare one, and each binds it somewhere different ---
-SSN-System to the sensor, CHMO to the method, CENSO to the result --- so only
-the last can say that a particular measurement fell below one. The bars at the
+column of strings: \emph{where} a vocabulary binds its detection limit.
+\num{4} of the parsed ontologies declare one, and no two put it in the same
+place --- SSN-System on the sensor, CHMO on the method, CENSO on the result,
+and one that declares a limit without saying what carries it --- so only CENSO
+can say that a particular measurement fell below one. The bars at the
 right are the number of entities each vocabulary declares, drawn so the reader
 can check that the comparison is not rewarding a vocabulary for being narrow:
 ENVO declares \num{7208} and AFO \num{3864} against CENSO's \num{51}, and

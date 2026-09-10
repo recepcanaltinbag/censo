@@ -167,12 +167,42 @@ def main() -> int:
               fontsize=7.2, frameon=False, ncol=3,
               loc="upper left", bbox_to_anchor=(0.0, -0.02 - 0.9 / n))
 
-    n_cens = sum(1 for r in order if int(r.get("censoring") or 0))
     n_ext = len(others)
+    # THE HEADING SAID TWO THINGS ITS OWN DATA CONTRADICTED.
+    # "Of 21 parsed, one carries a censored result" put a denominator of 21 --
+    # the EXTERNAL vocabularies -- under a numerator taken from outside it, and
+    # the column is empty for all 21. "Every vocabulary that defines a limit
+    # binds it to what produced the result" was refuted by the row directly
+    # beneath it, since this one binds it to the result. Section 5 states both
+    # correctly and scopes the second to the surveyed vocabularies; the figure
+    # states them the same way now, and refuses to draw if the data stops
+    # supporting them.
+    ext_cens = [r["ontology"] for r in others if int(r.get("censoring") or 0)]
+    if ext_cens:
+        print(f"  ! the censoring column is no longer empty for the surveyed "
+              f"set: {', '.join(ext_cens)}")
+        return 1
+    ours_bound = {r["ontology"]: (r.get("lod_bound_to") or "").strip()
+                  for r in ours
+                  if (r.get("lod_bound_to") or "").strip() not in ("", "0")}
+    ext_bound = {r["ontology"]: (r.get("lod_bound_to") or "").strip()
+                 for r in others
+                 if (r.get("lod_bound_to") or "").strip() not in ("", "0")}
+    if any(v == "result" for v in ext_bound.values()):
+        print("  ! a surveyed vocabulary now binds its limit to the result")
+        return 1
+    # ...and one of them declares a limit without saying what carries it, which
+    # the first correction of this heading also dropped. Counted, not asserted:
+    # "each binds it to the sensor or the method" is false of that one.
+    n_declare = len(ext_bound) + len(ours_bound)
+    stated = {k: v for k, v in ext_bound.items() if v in ("sensor", "method")}
+    unstated = len(ext_bound) - len(stated)
     fig.text(0.01, 1.0,
-             f"Of {n_ext} ontologies parsed, one carries a censored result\n"
-             f"and every vocabulary that defines a limit binds it to what "
-             f"produced the result",
+             f"The censored-result column is empty for all {n_ext} "
+             f"vocabularies surveyed\n"
+             f"{n_declare} define a limit at all; of the {len(ext_bound)} "
+             f"surveyed, {len(stated)} bind it to what produced the result "
+             f"and {unstated} does not say",
              fontsize=9.4, fontweight="bold", color=INK, ha="left", va="top")
 
     # the two-line heading and the rotated column headers both want the top
@@ -189,8 +219,9 @@ def main() -> int:
             w.writerow([r["ontology"], r.get("entities") or 0,
                         r.get("lod_bound_to") or ""]
                        + [int(r.get(c) or 0) for c, _ in COLS])
-    print(f"  fig17: {len(order)} ontologies, {n_cens} carrying a censored "
-          f"result, {n_ext} external")
+    print(f"  fig17: {n_ext} surveyed, censoring column empty for all "
+          f"of them; {n_declare} define a limit, {len(stated)} state a "
+          f"bearer, {unstated} does not")
     return 0
 
 

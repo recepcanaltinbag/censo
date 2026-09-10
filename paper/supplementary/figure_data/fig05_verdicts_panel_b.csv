@@ -1,13 +1,13 @@
-bar,segment,n,pct_of_total
-Substitution at zero,Compliant,254539,96.367
-Substitution at zero,Exceeding,9596,3.633
-Substitution at ½ LOQ,Compliant,214949,81.378
-Substitution at ½ LOQ,Exceeding,49186,18.622
-Substitution at LOQ,Compliant,203175,76.921
-Substitution at LOQ,Exceeding,60960,23.079
-CENSO,Compliant,174269,65.977
-CENSO,Exceeding,5193,1.966
-CENSO,Possible exceedance,2618,0.991
-CENSO,Standard not applicable to what is reported,32157,12.174
-CENSO,Method fails the standard,49837,18.868
-CENSO,No bound established,61,0.023
+bar,segment,n,pct_of_total,assessments_in_panel
+Substitution at zero,Compliant,254539,96.367,264135
+Substitution at zero,Exceeding,9596,3.633,264135
+Substitution at ½ LOQ,Compliant,214949,81.378,264135
+Substitution at ½ LOQ,Exceeding,49186,18.622,264135
+Substitution at LOQ,Compliant,203175,76.921,264135
+Substitution at LOQ,Exceeding,60960,23.079,264135
+CENSO,Compliant,174269,65.977,264135
+CENSO,Exceeding,5193,1.966,264135
+CENSO,Possible exceedance,2618,0.991,264135
+CENSO,Standard not applicable to what is reported,32157,12.174,264135
+CENSO,Method fails the standard,49837,18.868,264135
+CENSO,No bound established,61,0.023,264135

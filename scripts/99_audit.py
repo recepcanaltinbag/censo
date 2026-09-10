@@ -3250,6 +3250,218 @@ def check_figure_data_names():
                 f"or one of its panels")
 
 
+
+# Numbers a caption may state that its own data file cannot contain, with the
+# reason each is allowed. Anything not here has to be IN the figure's data.
+CAPTION_DERIVED = {
+    # selection thresholds: a rule for what to draw, never a drawn value
+    ("fig03_country_practice", "5000"): "minimum rows for a country to appear",
+    ("fig04_loq_vs_eqs", "1000"): "minimum assessments for a substance",
+    # instrument and era names, which are dates rather than measurements
+    ("fig05_verdicts", "2013"): "the year the reporting defect ends",
+    ("fig05_verdicts", "2020"): "first year of the window drawn in panel (b)",
+    ("fig05_verdicts", "2024"): "last year of that window",
+    ("fig16_commitment_evidence", "2026"): "Directive (EU) 2026/805, a name",
+    # quantities read from ANOTHER analysis and cited here for context, which
+    # is legitimate and is exactly what has to be declared rather than assumed
+    ("fig16_commitment_evidence", "82"):
+        "the undecidable share in the shaded decades, from Section 5.2",
+    ("fig08_by_year", "29"): "years passing the plotting floor, from the series",
+    ("fig08_by_year", "20000"): "that floor",
+    ("fig05_verdicts", "3.4"): "a ratio of two values the figure does plot",
+    ("fig18_limit_vs_standard", "30"):
+        "Article 4(1)'s criterion, a constant the figure applies",
+    ("fig18_limit_vs_standard", "80"): "the percentile pair the pale bar spans",
+    ("fig19_verdicts_by_country_year", "2013"):
+        "the year the reporting defect ends",
+    # (figure stem, value): why the figure's own CSV does not hold it
+    ("fig04_loq_vs_eqs", "1000"): "a selection threshold, not a plotted value",
+    ("fig04_loq_vs_eqs", "200"): "a selection threshold",
+    ("fig04_loq_vs_eqs", "30"): "the Article 4(1) criterion, a constant",
+    ("fig04_loq_vs_eqs", "95"): "the confidence level of the plotted interval",
+    ("fig04_loq_vs_eqs", "10"): "read off the drawn axis, not a cell",
+    ("fig04_loq_vs_eqs", "60"): "read off the drawn axis, not a cell",
+    ("fig05_verdicts", "2020"): "the window's first year, stated in the panel",
+    ("fig05_verdicts", "2024"): "the window's last year",
+    ("fig05_verdicts", "2013"): "the year the reporting defect ends",
+    ("fig05_verdicts", "3.4"): "a ratio of two plotted values",
+    ("fig17_field_gap", "21"): "the surveyed set, one row per member",
+    ("fig17_field_gap", "4"): "a count of rows carrying a limit binding",
+}
+
+
+def check_caption_numbers_are_in_the_figure():
+    """A caption may not assert a number the figure's own data does not hold.
+
+    Figure 17's heading said "of 21 ontologies parsed, one carries a censored
+    result" -- a denominator taken from the surveyed set under a numerator
+    taken from outside it, where the column is in fact empty for all 21 -- and
+    its caption said three vocabularies declare a limit where the data says
+    four, the fourth being one that declares a limit and does not say what
+    carries it. Neither error is about a stale value. Both are a sentence
+    describing a different set than the one plotted, and no check that
+    recomputes quantities can see that, because both numbers were true of
+    SOMETHING.
+
+    What catches it is provenance rather than arithmetic: every number a
+    caption states must be findable in the data that figure ships, or be listed
+    above with a reason it cannot be. A caption number that is neither is a
+    caption talking about a set the figure did not draw.
+    """
+    fd = PAPER / "supplementary" / "figure_data"
+    if not fd.exists():
+        record(SKIP, "caption numbers occur in the figure's own data",
+               "figure_data missing")
+        return
+    tex = paper_text()
+    bad, checked = [], 0
+    for m in re.finditer(r"\\includegraphics\[[^\]]*\]\{([^}]+)\}(.*?)\\label",
+                         tex, re.S):
+        stem = Path(m.group(1)).stem
+        caption = m.group(2)
+        files = [fd / f"{stem}.csv"] + sorted(fd.glob(f"{stem}_panel_*.csv"))
+        pool = set()
+        rows_total = 0
+        for f in files:
+            if not f.exists():
+                continue
+            raw = f.read_text(encoding="utf-8")
+            rows_total += max(raw.count("\n") - 1, 0)
+            # a comma is a FIELD separator here, not a thousands separator, so
+            # it must not be inside the number pattern: with it, the scan read
+            # "92.000,25960,92.0" as one token and every value after the first
+            # in a row went unseen -- which made this check report six figures
+            # as contradicting data that in fact contained the numbers.
+            flat = raw.replace(",", " ")
+            for tok in re.findall(r"[0-9][0-9.]*", flat):
+                t = tok.rstrip(".")
+                pool.add(norm(t))
+                if "." in t:
+                    pool.add(norm(t.rstrip("0").rstrip(".")))   # 92.000 -> 92
+                    try:                                        # 65.2 -> 65
+                        pool.add(norm(round(float(t))))
+                        pool.add(norm(round(float(t), 1)))
+                    except ValueError:
+                        pass
+            # A caption legitimately states things the cells do not hold one by
+            # one: how many rows a column marks, and what a column adds up to.
+            # Both are the figure's own data, read the way a caption reads it,
+            # so they belong in the pool rather than in an allowance list.
+            try:
+                recs = list(csv.DictReader(f.open(encoding="utf-8")))
+            except Exception:                                    # noqa: BLE001
+                recs = []
+            if recs:
+                for col in recs[0]:
+                    vals = [r.get(col) for r in recs]
+                    for tag in set(v for v in vals if v):
+                        pool.add(norm(sum(1 for v in vals if v == tag)))
+                    nums = []
+                    for v in vals:
+                        try:
+                            nums.append(float(str(v).replace(",", "")))
+                        except (TypeError, ValueError):
+                            pass
+                    if len(nums) == len(recs) and nums:
+                        pool.add(norm(sum(nums)))
+        if not pool:
+            continue
+        pool.add(norm(rows_total))
+        for val in re.findall(r"\\num\{([^}]+)\}", caption):
+            v = norm(val)
+            # \num{e-2} and friends are axis labels, not quantities the data
+            # holds; siunitx renders them, this check has nothing to compare.
+            if not re.fullmatch(r"[0-9.]+", v):
+                continue
+            checked += 1
+            if v in pool:
+                continue
+            if (stem, v) in CAPTION_DERIVED:
+                continue
+            # a percentage of a plotted count is derived, and the figure data
+            # holds the counts rather than the share
+            bad.append(f"{stem}: {val}")
+    record(FAIL if bad else OK,
+           "caption numbers occur in the figure's own data",
+           "; ".join(bad[:6]) + (f" (+{len(bad)-6} more)" if len(bad) > 6 else "")
+           if bad else f"{checked} caption number(s) across the figures")
+
+
+
+def check_limit_and_country_figures(tex_nums):
+    """The two figures that read the record in units rather than in shares.
+
+    Figure 18 states a shortfall in decades and Figure 19 a spread across
+    reporters, and both are claims about arithmetic on tables this audit can
+    reach. Two structural assertions go with the numbers, because each is what
+    the prose actually argues and neither is a quantity: that the worst
+    shortfall is a whole substance's median sitting decades above the ceiling,
+    and that no single reporter accounts for the undecidable share.
+    """
+    lv = load("loq_vs_standard.csv")
+    vc = load("verdicts_by_country.csv")
+    if not lv or not vc:
+        record(SKIP, "the limit and country figures hold",
+               "loq_vs_standard.csv or verdicts_by_country.csv missing")
+        return
+    import math
+    CEIL = 0.30
+    over, worst, worst_name = 0, 0.0, ""
+    for r in lv:
+        try:
+            t, p50 = float(r["standard_ug_l"]), float(r["loq_p50"])
+        except (TypeError, ValueError):
+            continue
+        if t <= 0 or p50 <= 0:
+            continue
+        d = math.log10(p50 / (CEIL * t))
+        if d > 0:
+            over += 1
+        if d > worst:
+            worst, worst_name = d, r.get("substance") or r.get("cas")
+    check_claim(tex_nums, "substances with a standard and reported limits",
+                len(lv))
+    check_claim(tex_nums, "substances whose median limit clears the ceiling",
+                over)
+    check_claim(tex_nums, "largest shortfall, decades", worst)
+
+    IND = ("possible_exceedance", "precondition_unmet", "method_insufficient",
+           "indeterminate_unresolved", "indeterminate_other")
+    by = {}
+    for r in vc:
+        by.setdefault(r["country"], {})[r["censo_outcome"]] = int(r["n"])
+    MIN = 2000
+    shares = []
+    for c, d in by.items():
+        t = sum(d.values())
+        if t >= MIN:
+            shares.append(100 * sum(d.get(k, 0) for k in IND) / t)
+    if not shares:
+        record(SKIP, "the limit and country figures hold", "no reporter above the floor")
+        return
+    check_claim(tex_nums, "reporters above the floor", len(shares))
+    check_claim(tex_nums, "undecidable share, lowest reporter", min(shares))
+    check_claim(tex_nums, "undecidable share, highest reporter", max(shares))
+
+    bad = []
+    if worst < 1.0:
+        bad.append(f"the largest shortfall is now {worst:.1f} decades; "
+                   f"Section 5 calls it a distance rather than a rate")
+    # no single reporter may account for the undecidable rows, or the finding
+    # is about that reporter
+    tot_ind = sum(sum(d.get(k, 0) for k in IND) for d in by.values())
+    top = max((sum(d.get(k, 0) for k in IND) for d in by.values()), default=0)
+    if tot_ind and top > 0.5 * tot_ind:
+        bad.append(f"one reporter now holds {100*top/tot_ind:.0f} % of the "
+                   f"undecidable rows")
+    record(FAIL if bad else OK, "the limit and country figures hold",
+           "; ".join(bad) if bad else
+           f"{over}/{len(lv)} substances over the ceiling, worst "
+           f"{worst:.1f} decades ({worst_name}); undecidable share "
+           f"{min(shares):.0f}\u2013{max(shares):.0f} % across "
+           f"{len(shares)} reporters")
+
+
 def check_series_figures(tex_nums):
     """Own what the year series and the two-regimes figure put into the prose.
 
@@ -3383,6 +3595,8 @@ def main() -> int:
     check_recent_window(nums)
     check_gap_matrix_figure(nums)
     check_figure_data_names()
+    check_caption_numbers_are_in_the_figure()
+    check_limit_and_country_figures(nums)
     check_shacl_conformance(nums)
     check_abox_datatypes()
     check_report_indeterminate_total()

@@ -659,7 +659,7 @@ def main() -> int:
 
     # Verified EU thresholds, keyed by CAS. Waterbase identifies substances as
     # `CAS_7440-09-7`, so the join is exact rather than by name.
-    eqs, eqs_cat = {}, {}
+    eqs, eqs_cat, eqs_name = {}, {}, {}
     p_eqs = PROC / "eu_eqs.csv"
     if p_eqs.exists():
         with p_eqs.open(encoding="utf-8") as fh:
@@ -676,6 +676,7 @@ def main() -> int:
                         # Annex I's own category, so the metals/organics split
                         # below is the regulation's classification and not ours.
                         eqs_cat.setdefault(c, cat)
+                        eqs_name.setdefault(c, (r.get("name") or "").strip())
     # Which of those thresholds Annex I makes conditional. Read from the
     # footnote markers the parse captured, not from a list kept here.
     cond = {}
@@ -735,6 +736,18 @@ def main() -> int:
     pop_status = defaultdict(int)
     pop_outcome = defaultdict(int)
     pop_unc = {m: defaultdict(int) for m in UNCERTAINTY_MODELS}
+    # WHAT THE LAW ASKS FOR AGAINST WHAT THE LABORATORIES REACHED.
+    # The paper compares a quantification limit with a standard on every page
+    # and no figure ever put the two on one axis; both were shown only through
+    # a derived rate. Keeping the limits per substance lets the comparison be
+    # drawn in the units the law is written in, where the gap is a distance in
+    # decades rather than a percentage.
+    loq_by_sub = defaultdict(list)
+    # The verdict by country. The population table splits by substitution and
+    # outcome but not by who reported the row, so "is this one country's
+    # practice?" could only be answered for the reporting defect, never for
+    # the verdict itself.
+    out_by_country = defaultdict(lambda: defaultdict(int))
     pop_verdicts = defaultdict(int)
 
     # Does the quantification limit belong to the INSTRUMENT or to the RUN?
@@ -887,6 +900,9 @@ def main() -> int:
                                     precondition=cond.get(cas))
             pop_status[status] += 1
             pop_outcome[outcome] += 1
+            out_by_country[get(row, "country") or "??"][outcome] += 1
+            if l_ug is not None and l_ug > 0 and len(loq_by_sub[cas]) < 60000:
+                loq_by_sub[cas].append(l_ug)
             # the same rows under all three readings of Article 4(1), so the
             # sensitivity cannot be over a different population than the headline
             for _m in UNCERTAINTY_MODELS:
@@ -1065,6 +1081,32 @@ def main() -> int:
         for m in UNCERTAINTY_MODELS:
             for outcome, v in sorted(pop_unc[m].items()):
                 w.writerow([m, outcome, v])
+
+    def _q(v, f):
+        if not v:
+            return ""
+        v = sorted(v)
+        i = min(int(f * (len(v) - 1) + 0.5), len(v) - 1)
+        return f"{v[i]:.6g}"
+
+    with (PROC / "loq_vs_standard.csv").open("w", newline="",
+                                             encoding="utf-8") as fh:
+        w = csv.writer(fh)
+        w.writerow(["cas", "substance", "standard_ug_l", "n_limits",
+                    "loq_p10", "loq_p25", "loq_p50", "loq_p75", "loq_p90"])
+        for c, vals in sorted(loq_by_sub.items()):
+            t = eqs.get(c)
+            if t and len(vals) >= 200:
+                w.writerow([c, eqs_name.get(c) or c, f"{t:.6g}", len(vals)]
+                           + [_q(vals, f) for f in (.10, .25, .50, .75, .90)])
+
+    with (PROC / "verdicts_by_country.csv").open("w", newline="",
+                                                 encoding="utf-8") as fh:
+        w = csv.writer(fh)
+        w.writerow(["country", "censo_outcome", "n"])
+        for c in sorted(out_by_country):
+            for o, v in sorted(out_by_country[c].items()):
+                w.writerow([c, o, v])
 
     with (PROC / "waterbase_verdicts_population.csv").open(
             "w", newline="", encoding="utf-8") as fh:

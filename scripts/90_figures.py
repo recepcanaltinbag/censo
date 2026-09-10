@@ -998,8 +998,8 @@ def fig_verdicts():
     bars.append(("CENSO", segs, True))
 
     emit("fig05_verdicts",
-         ["bar", "segment", "n", "pct_of_total"],
-         [[label.replace("\n", " "), name, val, f"{100*val/tot:.3f}"]
+         ["bar", "segment", "n", "pct_of_total", "assessments_in_panel"],
+         [[label.replace("\n", " "), name, val, f"{100*val/tot:.3f}", tot]
           for label, segs, _ in bars for val, _, name in segs])
 
     # THE SAME FOUR READINGS OVER THE LAST FIVE YEARS.
@@ -1089,8 +1089,8 @@ def fig_verdicts():
         axr.legend(loc="upper left", bbox_to_anchor=(0.0, -0.46), ncol=3,
                    columnspacing=1.0)
         emit("fig05_verdicts_panel_b",
-             ["bar", "segment", "n", "pct_of_total"],
-             [[l.replace("\n", " "), nm, v, f"{100*v/tot_r:.3f}"]
+             ["bar", "segment", "n", "pct_of_total", "assessments_in_panel"],
+             [[l.replace("\n", " "), nm, v, f"{100*v/tot_r:.3f}", tot_r]
               for l, sg, _ in bars_r for v, _, nm in sg])
     else:
         fig, ax = plt.subplots(figsize=(W15, 2.9))
