@@ -57,7 +57,11 @@ UA = "censo-ontology-research/1.0 (academic comparison; see repository)"
 TARGETS = [
     ("SOSA/SSN", "http://www.w3.org/ns/ssn/", "ssn.ttl", None),
     ("SOSA core", "http://www.w3.org/ns/sosa/", "sosa.ttl", None),
-    ("GeoSPARQL", "http://www.opengis.net/ont/geosparql", "geosparql.ttl", None),
+    # NOT http://www.opengis.net/ont/geosparql: that IRI negotiates to OGC's
+    # catalogue landing page, which is Turtle and is not the vocabulary.
+    ("GeoSPARQL",
+     "http://schemas.opengis.net/geosparql/1.0/geosparql_vocab_all.rdf",
+     "geosparql.rdf", None),
     ("QUDT schema", "http://qudt.org/schema/qudt/", "qudt.ttl", None),
     ("SAREF core", "https://saref.etsi.org/core/v3.1.1/saref.ttl", "saref.ttl", None),
     # v2.1.1 is the current release; comparing against a superseded version
@@ -554,6 +558,20 @@ def main() -> int:
             results[name] = ("UNPARSED", {}, 0, "")
             continue
         found, n_ent, prose = scan(g)
+        # A FILE THAT PARSES AND DECLARES NOTHING IS NOT A COMPARISON.
+        # GeoSPARQL's registered IRI content-negotiates to OGC's catalogue
+        # record: valid Turtle, one owl:Ontology, two prez:description
+        # annotations, and no class or property at all. It parsed, so it was
+        # reported OK, so its six empty cells counted as "this vocabulary
+        # carries none of these concepts" -- a conclusion drawn from a file
+        # that was never the vocabulary. Zero entities is a fetch that
+        # degraded, not a finding, and the only way to tell them apart is that
+        # no real ontology declares nothing.
+        if n_ent == 0:
+            print(f"  ! {name}: parsed but declares no class or property "
+                  f"-- the source is not the vocabulary")
+            results[name] = ("EMPTY", {}, 0, "")
+            continue
         binding = detection_limit_binding(g)
         results[name] = ("OK", found, n_ent, binding)
         profiles[name] = profile(g)

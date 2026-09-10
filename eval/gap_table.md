@@ -8,7 +8,7 @@ A blank cell means the ontology parsed and the concept was absent. `?` means the
 |---|---|---|---|---|---|---|---|---|
 | SOSA/SSN | 37 | — | — | — | — | — | — | — |
 | SOSA core | 53 | — | — | — | — | — | — | — |
-| GeoSPARQL | 0 | — | — | — | — | — | — | — |
+| GeoSPARQL | 37 | — | — | — | — | — | — | — |
 | QUDT schema | 239 | — | — | — | — | **yes** | — | **yes** |
 | SAREF core | 131 | — | — | — | — | **yes** | — | — |
 | SAREF4WATR v2.1.1 | 95 | — | — | — | — | **yes** | — | — |
@@ -60,7 +60,7 @@ Keyword presence is only half the comparison. This table asks whether an ontolog
 |---|---|---|---|---|---|---|---|---|
 | SOSA/SSN | 37 | 81% | yes | — | 1 | yes | 1 | 2 |
 | SOSA core | 53 | 92% | yes | — | 0 | yes | 12 | 10 |
-| GeoSPARQL | 0 | 0% | — | yes | 0 | — | 0 | 0 |
+| GeoSPARQL | 37 | 100% | — | — | 4 | — | 0 | 0 |
 | QUDT schema | 239 | 97% | — | yes | 5 | — | 0 | 0 |
 | SAREF core | 131 | 100% | yes | yes | 0 | — | 0 | 22 |
 | SAREF4WATR v2.1.1 | 95 | 89% | yes | yes | 3 | — | 0 | 2 |

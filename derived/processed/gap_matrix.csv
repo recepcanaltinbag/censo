@@ -1,7 +1,7 @@
 ontology,status,entities,lod_bound_to,detection_limit,censoring,undecidable,threshold,interval_result,applicability
 SOSA/SSN,OK,37,,0,0,0,0,0,0
 SOSA core,OK,53,,0,0,0,0,0,0
-GeoSPARQL,OK,0,,0,0,0,0,0,0
+GeoSPARQL,OK,37,,0,0,0,0,0,0
 QUDT schema,OK,239,,0,0,0,1,0,1
 SAREF core,OK,131,,0,0,0,1,0,0
 SAREF4WATR v2.1.1,OK,95,,0,0,0,1,0,0

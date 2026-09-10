@@ -1,7 +1,7 @@
 ontology,entities,limit_bound_to,detection_limit,censoring,interval_result,undecidable,threshold,applicability
-GeoSPARQL,0,,0,0,0,0,0,0
 InWaterSense pollutants,9,,0,0,0,0,0,0
 SOSA/SSN,37,,0,0,0,0,0,0
+GeoSPARQL,37,,0,0,0,0,0,0
 SOSA core,53,,0,0,0,0,0,0
 OWL-Time,78,,0,0,0,0,0,0
 InWaterSense regulations,144,,0,0,0,0,0,0
