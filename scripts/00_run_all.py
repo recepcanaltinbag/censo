@@ -103,6 +103,7 @@ STAGES = [
     ("92_decision_walkthrough.py", "decide four real rows twice", False),
     ("93_decision_flowchart.py", "draw the decision procedure", False),
     ("94_commitment_figures.py", "draw the two commitments' evidence", False),
+    ("94b_gap_matrix.py", "draw the field-wide gap matrix", False),
     ("92b_use_case_figures.py", "draw the two use-case figures", False),
     # After BOTH 07, which writes the gap matrix it reads, and 90, which ships
     # the witness row it argues over. It turns the gap table from a term list

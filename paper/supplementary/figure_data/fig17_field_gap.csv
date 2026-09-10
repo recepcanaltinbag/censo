@@ -1,0 +1,24 @@
+ontology,entities,limit_bound_to,detection_limit,censoring,interval_result,undecidable,threshold,applicability
+GeoSPARQL,0,,0,0,0,0,0,0
+InWaterSense pollutants,9,,0,0,0,0,0,0
+SOSA/SSN,37,,0,0,0,0,0,0
+SOSA core,53,,0,0,0,0,0,0
+OWL-Time,78,,0,0,0,0,0,0
+InWaterSense regulations,144,,0,0,0,0,0,0
+SewerNet,145,,0,0,0,0,0,0
+ExO (exposure),195,,0,0,0,0,0,0
+WAM-ONTO,921,,0,0,0,0,0,0
+ENVO,7208,,0,0,0,0,0,0
+SSN-system,44,sensor,1,0,0,0,0,0
+WHOW water-monitoring,57,,0,0,1,0,0,0
+SAREF4WATR v2.1.1,95,,0,0,0,0,1,0
+Project ontology 2018,123,unclear,1,0,0,0,0,0
+SAREF core,131,,0,0,0,0,1,0
+DoCE (Rio Doce WQ),168,,0,0,0,0,0,1
+InWaterSense core,189,,0,0,1,0,1,0
+QUDT schema,239,,0,0,0,0,1,1
+STATO (statistics),1162,,0,0,1,0,1,0
+CHMO (chemical methods),3438,method,1,0,1,1,0,0
+AFO (Allotrope),3864,,0,0,1,0,1,1
+CENSO (this work),51,result,1,1,1,1,1,1
+CENSO-REG (this work),17,,0,0,0,0,1,0

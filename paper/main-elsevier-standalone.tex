@@ -1673,8 +1673,27 @@ built by a pharmaceutical consortium for analytical instrument data; and STATO,
 the \textsc{obo} statistics ontology, where censoring is a routine concept in
 survival analysis.
 
+\begin{figure}[htbp]\centering
+\includegraphics[width=\textwidth]{fig17_field_gap.pdf}
+\caption{The same comparison as Table~\ref{tab:gap}, read as a matrix. The
+strip at the left carries what the argument turns on and a table hides in a
+column of strings: \emph{where} a vocabulary binds its detection limit. Three
+of the parsed ontologies declare one, and each binds it somewhere different ---
+SSN-System to the sensor, CHMO to the method, CENSO to the result --- so only
+the last can say that a particular measurement fell below one. The bars at the
+right are the number of entities each vocabulary declares, drawn so the reader
+can check that the comparison is not rewarding a vocabulary for being narrow:
+ENVO declares \num{7208} and AFO \num{3864} against CENSO's \num{51}, and
+neither fills the columns CENSO fills. The \emph{undecidable} column is
+deliberately generous and eight vocabularies earn it; the claim is not that
+nobody has a word for \emph{unknown} but that nobody has one for a measurement
+that is a bound, which is the second column\src{scripts/94b\_gap\_matrix.py}.}
+\label{fig:field-gap}
+\end{figure}
+
 \textbf{No ontology except CENSO carries a censoring status.} That column is
-empty for all \num{21}, and it is the one the argument rests on. It is also the
+empty for all \num{21} (Figure~\ref{fig:field-gap}), and it is the one the
+argument rests on. It is also the
 column the matcher was made hardest to fail: the patterns admit
 \emph{censored}, \emph{left-censored}, \emph{right-censored},
 \emph{left-truncated}, \emph{non-detect}, \emph{not detected},

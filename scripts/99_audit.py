@@ -3161,6 +3161,61 @@ def check_recent_window(tex_nums):
            f"{100*d_last['method_insufficient']/t_last:.1f} % in {last}")
 
 
+
+def check_gap_matrix_figure(tex_nums):
+    """The comparison matrix, and the claim that size is not what separates it.
+
+    Figure 17's caption argues something the table never had to: that CENSO is
+    not scoring on the comparison by being narrow. That argument is made with
+    entity counts -- ENVO 7,208, AFO 3,864, CENSO 51 -- and an entity count is
+    a number like any other, so it is recomputed here rather than read off the
+    figure. Two structural claims go with it, and both would silently become
+    false if a re-parse changed what a vocabulary declares: that exactly one
+    parsed ontology carries a censored result, and that every ontology
+    declaring a detection limit binds it to something other than the result
+    except this one.
+    """
+    rows = [r for r in load("gap_matrix.csv") if r.get("status") == "OK"]
+    if not rows:
+        record(SKIP, "the comparison matrix holds", "gap_matrix.csv missing")
+        return
+    ours = [r for r in rows if "this work" in r["ontology"]]
+    ext = [r for r in rows if "this work" not in r["ontology"]]
+    check_claim(tex_nums, "ontologies compared", len(ext))
+    # Only the counts the caption actually cites. Claiming all twenty-three
+    # was wrong in a way worth recording: a claim is a chance for the
+    # near-match detector to bind a computed value to an unrelated number in
+    # the text, and it did -- STATO's 1,162 entities were matched to the 1,159
+    # analytical methods in the SHACL section, and the project ontology's 123
+    # to the 114 thresholds of the EU package. A gate should recompute what the
+    # manuscript asserts, not every quantity the pipeline happens to hold.
+    CITED = ("ENVO", "AFO", "CENSO (this work)")
+    for r in rows:
+        n = int(r.get("entities") or 0)
+        if n and any(r["ontology"].startswith(c) for c in CITED):
+            check_claim(tex_nums, f"entities declared, {r['ontology']}", n)
+
+    cens = [r["ontology"] for r in rows if int(r.get("censoring") or 0)]
+    bound = {r["ontology"]: (r.get("lod_bound_to") or "").strip()
+             for r in rows if (r.get("lod_bound_to") or "").strip() not in ("", "0")}
+    bad = []
+    if len(cens) != 1 or "this work" not in cens[0]:
+        bad.append(f"a censored result is now carried by {len(cens)}: "
+                   f"{', '.join(cens) or 'none'}")
+    on_result = [k for k, v in bound.items() if v == "result"]
+    if len(on_result) != 1 or "this work" not in on_result[0]:
+        bad.append("the limit is bound to the result by "
+                   f"{len(on_result)} vocabularies, not by this one alone")
+    if not any(v == "sensor" for v in bound.values()) or \
+            not any(v == "method" for v in bound.values()):
+        bad.append("the sensor/method/result contrast no longer has all three "
+                   "cases in the parsed set")
+    record(FAIL if bad else OK, "the comparison matrix holds",
+           "; ".join(bad) if bad else
+           f"{len(ext)} external, one censored result, limit bound on the "
+           f"sensor / method / result in {len(bound)} vocabularies")
+
+
 def check_series_figures(tex_nums):
     """Own what the year series and the two-regimes figure put into the prose.
 
@@ -3292,6 +3347,7 @@ def main() -> int:
     check_zero_substitution_paradox(nums)
     check_limit_variation(nums)
     check_recent_window(nums)
+    check_gap_matrix_figure(nums)
     check_shacl_conformance(nums)
     check_abox_datatypes()
     check_report_indeterminate_total()
