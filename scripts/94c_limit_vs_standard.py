@@ -65,18 +65,27 @@ def main() -> int:
     if not p.exists():
         print("  ! loq_vs_standard.csv missing; run scripts/22_waterbase_external.py")
         return 0
+    # THE LAST FIVE YEARS, not the pooled record.
+    # Analytical capability moved over 1975-2024, so a shortfall measured on
+    # the whole span can always be answered with "those are old limits". It
+    # cannot be answered that way here: these are the limits laboratories are
+    # reporting now, against the standards in force now. The pooled quantiles
+    # stay in the shipped table for anyone who wants the comparison.
     with p.open(encoding="utf-8") as fh:
-        rows = []
+        rows, since = [], None
         for r in csv.DictReader(fh):
             try:
                 t = float(r["standard_ug_l"])
-                q = [float(r[k]) for k in ("loq_p10", "loq_p25", "loq_p50",
-                                           "loq_p75", "loq_p90")]
+                n = int(r["n_limits_recent"])
+                q25, q50, q75 = (float(r["loq_p25_recent"]),
+                                 float(r["loq_p50_recent"]),
+                                 float(r["loq_p75_recent"]))
+                since = int(r["recent_from"])
             except (TypeError, ValueError, KeyError):
                 continue
-            if t > 0 and q[2] > 0:
-                rows.append((r["substance"] or r["cas"], t, q,
-                             int(r["n_limits"])))
+            if t > 0 and q50 > 0 and n >= 100:
+                rows.append((r["substance"] or r["cas"], t,
+                             [q25, q25, q50, q75, q75], n))
     if not rows:
         print("  ! no substance has both a standard and reported limits")
         return 0
@@ -90,8 +99,6 @@ def main() -> int:
     ax.set_xscale("log")
     for i, (name, t, q, n) in enumerate(shown):
         p10, p25, p50, p75, p90 = q
-        ax.plot([p10, p90], [i, i], color=LIMIT, alpha=0.30, linewidth=2.4,
-                solid_capstyle="butt", zorder=2)
         ax.plot([p25, p75], [i, i], color=LIMIT, alpha=0.75, linewidth=5.0,
                 solid_capstyle="butt", zorder=3)
         ax.plot([p50], [i], marker="o", markersize=4.6, color=LIMIT,
@@ -123,21 +130,22 @@ def main() -> int:
         ax.spines[sp].set_visible(False)
 
     hs = [Line2D([], [], color=LIMIT, linewidth=5.0, alpha=.75),
-          Line2D([], [], color=LIMIT, linewidth=2.4, alpha=.30),
+          Line2D([], [], color="white"),
           Line2D([], [], marker="o", color=LIMIT, linestyle="none",
                  markersize=4.6),
           Line2D([], [], color=STD, linewidth=2.0),
           Line2D([], [], color=CRIT, linewidth=1.6)]
-    ax.legend(hs, ["reported limits, middle half", "middle 80 %",
+    ax.legend(hs, ["reported limits, middle half", "",
                    "median limit", "the standard",
-                   "30 % of it \u2014 the ceiling; the number on the row "
-                   "is the shortfall in decades"],
-              fontsize=6.3, frameon=False, ncol=3,
+                   "30 % of it \u2014 the ceiling",
+                   "the number on each row is that shortfall, in decades"],
+              fontsize=6.3, frameon=False, ncol=2,
               loc="upper left",
               bbox_to_anchor=(0.0, -0.05 - 1.3 / len(shown)))
 
     ax.set_title(
-        f"The limit a laboratory reached, against the standard it had to meet\n"
+        f"What the laboratories reached since {since}, against what the "
+        f"law asked for\n"
         f"{n_fail} of {len(rows)} carry a median limit above "
         f"Article 4(1)'s ceiling",
         fontsize=9.4, fontweight="bold", color=INK, loc="left", pad=10)
@@ -149,17 +157,17 @@ def main() -> int:
     with (FDATA / "fig18_limit_vs_standard.csv").open(
             "w", newline="", encoding="utf-8") as fh:
         w = csv.writer(fh)
-        w.writerow(["substance", "standard_ug_l", "ceiling_ug_l", "loq_p10",
-                    "loq_p25", "loq_p50", "loq_p75", "loq_p90", "n_limits",
-                    "decades_above_ceiling", "plotted"])
+        w.writerow(["substance", "standard_ug_l", "ceiling_ug_l",
+                    "loq_p25", "loq_p50", "loq_p75", "n_limits_since_" +
+                    str(since), "decades_above_ceiling", "plotted"])
         import math
         for nm, t, q, n in rows:
-            w.writerow([nm, f"{t:.6g}", f"{CRITERION*t:.6g}"]
-                       + [f"{x:.6g}" for x in q] + [n,
+            w.writerow([nm, f"{t:.6g}", f"{CRITERION*t:.6g}",
+                        f"{q[0]:.6g}", f"{q[2]:.6g}", f"{q[3]:.6g}", n,
                        f"{math.log10(q[2]/(CRITERION*t)):.3f}",
                        "yes" if (nm, t, q, n) in shown else "no"])
-    print(f"  fig18: {len(rows)} substances, {n_fail} above the ceiling, "
-          f"{len(shown)} plotted")
+    print(f"  fig18: since {since}, {len(rows)} substances, {n_fail} above "
+          f"the ceiling, {len(shown)} plotted")
     return 0
 
 

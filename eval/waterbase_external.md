@@ -114,14 +114,14 @@ Annex~I states four limits on a **sum** rather than on any single substance. A s
 
 > Where the basket is incomplete the sum standard is not applicable and the correct outcome is that it could not be assessed, not that it was met. A threshold column has no way to say so: it holds a number, and the number compares.
 
-## Before and after 2015
+## Before and after 2020
 
 Each row is a station-year and carries its own reference year, so the audit can be split rather than described in the aggregate. A year that cannot be read is kept as its own stratum instead of being folded into either era.
 
 | | station-years | no flag, no limit | LOQ > EQS | fails the 30\% criterion | censored rows carrying a positive value |
 |---|---|---|---|---|---|
-| before 2015 | 2,147,102 | 49.7% | 22.7% | 38.5% | 99.6% |
-| 2015 onwards | 2,043,731 | 0.0% | 21.8% | 41.4% | 99.3% |
+| before 2020 | 2,147,102 | 49.7% | 22.7% | 38.5% | 99.6% |
+| 2020 onwards | 2,043,731 | 0.0% | 21.8% | 41.4% | 99.3% |
 
 Five-year blocks, so the choice of boundary can be checked against the shape of the record rather than taken on trust:
 
@@ -140,7 +140,7 @@ Five-year blocks, so the choice of boundary can be checked against the shape of 
 | 2015-2019 | 627,640 | 0.0% | 44.2% |
 | 2020-2024 | 1,416,091 | 0.0% | 40.1% |
 
-**48.8% of the river record is dated 2015 or later** — 2,043,731 station-years — so this is not an archive of one period. The three failures do not move together across the boundary, and that is the finding: the two that are questions of *record-keeping* largely disappear, while the one that is a question of *analytical capability* does not.
+**48.8% of the river record is dated 2020 or later** — 2,043,731 station-years — so this is not an archive of one period. The three failures do not move together across the boundary, and that is the finding: the two that are questions of *record-keeping* largely disappear, while the one that is a question of *analytical capability* does not.
 
 ### Is the fall composition or practice?
 
@@ -159,7 +159,7 @@ The set of reporters is not the same in the two eras, so a rate that falls betwe
 
 8 of 8 improved; 0 did not. The fall is therefore not survivorship: it is the same authorities recording what they previously omitted.
 
-> **What this does not license.** Only 8 authorities report after 2015 at all. Any statement about *current European practice* rests on that handful and must say so; it is not a statement about the 37 reporters in the release.
+> **What this does not license.** Only 8 authorities report after 2020 at all. Any statement about *current European practice* rests on that handful and must say so; it is not a statement about the 37 reporters in the release.
 
 ## Annex I metals against organic micropollutants
 

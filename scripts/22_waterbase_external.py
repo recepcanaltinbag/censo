@@ -743,6 +743,13 @@ def main() -> int:
     # drawn in the units the law is written in, where the gap is a distance in
     # decades rather than a percentage.
     loq_by_sub = defaultdict(list)
+    # ...and the same limits over the last five years alone. Pooling 1975-2024
+    # invites the reply that these are old limits, and it is a fair reply:
+    # analytical capability moved over that span, so a shortfall measured on
+    # the whole record may be a shortfall that has since closed. Whether it has
+    # is a question about the data, and answering it costs one more list.
+    RECENT_FROM = 2020
+    loq_by_sub_recent = defaultdict(list)
     # The verdict by country. The population table splits by substitution and
     # outcome but not by who reported the row, so "is this one country's
     # practice?" could only be answered for the reporting defect, never for
@@ -903,6 +910,10 @@ def main() -> int:
             out_by_country[get(row, "country") or "??"][outcome] += 1
             if l_ug is not None and l_ug > 0 and len(loq_by_sub[cas]) < 60000:
                 loq_by_sub[cas].append(l_ug)
+                _ry = get(row, "year")
+                _ry = num(_ry[:4]) if len(_ry) >= 4 else num(_ry)
+                if _ry is not None and int(_ry) >= RECENT_FROM:
+                    loq_by_sub_recent[cas].append(l_ug)
             # the same rows under all three readings of Article 4(1), so the
             # sensitivity cannot be over a different population than the headline
             for _m in UNCERTAINTY_MODELS:
@@ -1093,12 +1104,18 @@ def main() -> int:
                                              encoding="utf-8") as fh:
         w = csv.writer(fh)
         w.writerow(["cas", "substance", "standard_ug_l", "n_limits",
-                    "loq_p10", "loq_p25", "loq_p50", "loq_p75", "loq_p90"])
+                    "loq_p10", "loq_p25", "loq_p50", "loq_p75", "loq_p90",
+                    "n_limits_recent", "loq_p25_recent", "loq_p50_recent",
+                    "loq_p75_recent", "recent_from"])
         for c, vals in sorted(loq_by_sub.items()):
             t = eqs.get(c)
             if t and len(vals) >= 200:
+                rec = loq_by_sub_recent.get(c, [])
                 w.writerow([c, eqs_name.get(c) or c, f"{t:.6g}", len(vals)]
-                           + [_q(vals, f) for f in (.10, .25, .50, .75, .90)])
+                           + [_q(vals, f) for f in (.10, .25, .50, .75, .90)]
+                           + [len(rec)]
+                           + [_q(rec, f) for f in (.25, .50, .75)]
+                           + [RECENT_FROM])
 
     with (PROC / "verdicts_by_country.csv").open("w", newline="",
                                                  encoding="utf-8") as fh:

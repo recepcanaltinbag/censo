@@ -1765,6 +1765,32 @@ def check_readme_numbers():
            else f"{len(vals)} value(s) in the headline table, all recomputed")
 
 
+
+def _caption_after(tex: str, marker: str) -> str:
+    """The full text of the first \\caption{...} following a marker.
+
+    A regex cannot do this. The one that stood here allowed a single level of
+    nesting, so a caption containing \\emph{since \\num{2020}} -- two levels --
+    was captured only as far as the inner brace, and every value after that
+    point went unseen. The check then reported a caption as stating numbers it
+    does not state. Counting braces is the only correct way to read TeX.
+    """
+    i = tex.find(marker)
+    if i < 0:
+        return ""
+    j = tex.find("\\caption{", i)
+    if j < 0:
+        return ""
+    k, depth = j + len("\\caption{"), 1
+    while k < len(tex) and depth:
+        if tex[k] == "{":
+            depth += 1
+        elif tex[k] == "}":
+            depth -= 1
+        k += 1
+    return tex[j + len("\\caption{"):k - 1]
+
+
 def check_caption_counts():
     """A count spelled out in a caption is still a value, and still drifts.
 
@@ -1786,18 +1812,16 @@ def check_caption_counts():
         n = sum(1 for r in rows
                 if str(r["plotted"]).strip().lower() in ("true", "yes", "1"))
         stem = csvf.stem
-        m = re.search(r"\\caption\{((?:[^{}]|\{[^{}]*\})*)\}",
-                      tex[tex.find(stem + ".pdf"):][:2600]) \
-            if stem + ".pdf" in tex else None
-        if not m:
+        cap = _caption_after(tex, stem + ".pdf")
+        if not cap:
             continue
         # Words AND the caption's own \num{} values are both candidates. Words
         # alone was too strict: figure 8's caption says "the three failures" and
         # states its plotted count as \num{29}, so the word matched a different
         # quantity entirely. The failure message lists every candidate, which is
         # what makes a coincidental pass visible to a reader of the report.
-        said = {WORDS[w] for w in WORDS if re.search(rf"\b{w}\b", m.group(1))}
-        said |= {int(x) for x in re.findall(r"\\num\{(\d+)\}", m.group(1))}
+        said = {WORDS[w] for w in WORDS if re.search(rf"\b{w}\b", cap)}
+        said |= {int(x) for x in re.findall(r"\\num\{(\d+)\}", cap)}
         if not said:
             continue
         checked += 1
@@ -3405,22 +3429,28 @@ def check_limit_and_country_figures(tex_nums):
                "loq_vs_standard.csv or verdicts_by_country.csv missing")
         return
     import math
-    CEIL = 0.30
-    over, worst, worst_name = 0, 0.0, ""
+    CEIL, MIN_RECENT = 0.30, 100
+    # the figure reads the RECENT window, so the audit has to read the same
+    # one: claiming the pooled counts here put 55 and 29 into the manuscript's
+    # neighbourhood while the figure drew 54 and 26.
+    over, worst, worst_name, n_sub = 0, 0.0, "", 0
     for r in lv:
         try:
-            t, p50 = float(r["standard_ug_l"]), float(r["loq_p50"])
-        except (TypeError, ValueError):
+            t = float(r["standard_ug_l"])
+            p50 = float(r["loq_p50_recent"])
+            n = int(r["n_limits_recent"] or 0)
+        except (TypeError, ValueError, KeyError):
             continue
-        if t <= 0 or p50 <= 0:
+        if t <= 0 or p50 <= 0 or n < MIN_RECENT:
             continue
+        n_sub += 1
         d = math.log10(p50 / (CEIL * t))
         if d > 0:
             over += 1
         if d > worst:
             worst, worst_name = d, r.get("substance") or r.get("cas")
-    check_claim(tex_nums, "substances with a standard and reported limits",
-                len(lv))
+    check_claim(tex_nums, "substances with a standard and recent limits",
+                n_sub)
     check_claim(tex_nums, "substances whose median limit clears the ceiling",
                 over)
     check_claim(tex_nums, "largest shortfall, decades", worst)

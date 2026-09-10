@@ -1210,14 +1210,17 @@ that merely fails to mention a station. Read as a complete document, which is
 what a submission is, the same question is decidable. The vocabulary is now at
 \textbf{zero} axioms outside the profile, and the check runs on every release.
 
-\paragraph{The shortfall is a distance, not a rate.}
+\paragraph{The shortfall is a distance, not a rate, and it is current.}
 A share says how often a method misses the criterion and never how far. Reading
 the two quantities on one axis in the units the law is written
-in\src{scripts/94c\_limit\_vs\_standard.py} answers the second question:
-of the \num{55} substances carrying both a standard and reported limits,
-\textbf{\num{29} are measured with limits whose median sits above the ceiling
-Article~4(1) sets}, and for deltamethrin the median limit is
-\num{4.6}~decades above it (Figure~\ref{fig:limit-vs-standard}). No
+in\src{scripts/94c\_limit\_vs\_standard.py} answers the second question ---
+and reading it over the last five years alone answers the objection that
+follows, which is that analytical capability has moved since \num{1975}. It
+has not moved far enough. Of the \num{54} substances that carry a standard and
+at least \num{100} limits reported since \num{2020},
+\textbf{\num{26} are measured with limits whose median sits above the ceiling
+Article~4(1) sets}, and for deltamethrin the median limit reported in those
+years is \num{4.6}~decades above it (Figure~\ref{fig:limit-vs-standard}). No
 substitution rule and no estimator reaches a shortfall of that size; it is a
 statement about what the laboratory could see. The width of each bar is the
 first commitment in the same picture: were the limit a property of the
@@ -1225,18 +1228,18 @@ instrument, it would be a point.
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=\textwidth]{fig18_limit_vs_standard.pdf}
-\caption{For each substance, the quantification limits actually reported
-against the standard it must be assessed against, on one logarithmic
-concentration axis. The bar is the middle half of the reported limits and the
-pale extension the middle \num{80}\,\%; the dot is their median. The green
-mark is the annual-average standard and the red mark \num{30}\,\% of it, the
-ceiling Article~4(1) sets on a usable method. A bar to the right of the red
-mark is a substance the monitoring cannot decide, and the number above the row
-is that shortfall in decades. The \num{18} with the largest shortfall are
-drawn; all \num{55} ship in
-\texttt{supplementary/figure\_data/fig18\_limit\_vs\_standard.csv}. One row
-is labelled by its CAS number because the consolidated Annex~I text gives that
-entry no name.}
+\caption{For each substance, the quantification limits reported
+\emph{since \num{2020}} against the standard it must be assessed against, on
+one logarithmic concentration axis. The bar is the middle half of those limits
+and the dot their median. The green mark is the annual-average standard and the
+red mark \num{30}\,\% of it, the ceiling Article~4(1) sets on a usable
+method. A bar to the right of the red mark is a substance the monitoring cannot
+decide, and the number above the row is that shortfall in decades. Pooling the
+whole record would invite the reply that these are old limits; these are the
+limits laboratories report now, against the standards in force now, and the
+pooled quantiles ship beside them for the comparison. The \num{18} with the
+largest shortfall are drawn. One row is labelled by its CAS number because the
+consolidated Annex~I text gives that entry no name.}
 \label{fig:limit-vs-standard}
 \end{figure}
 
