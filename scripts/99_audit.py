@@ -3557,6 +3557,51 @@ def check_every_figure_is_placed():
            f"{len(FIGURE_NOT_IN_BODY)} shipped outside the body by design")
 
 
+
+def check_published_build_is_deterministic():
+    """Building the site twice must produce the same bytes.
+
+    It did not. The JSON-LD offered at the permanent IRI was rebuilt from the
+    same unchanged vocabulary into 905 different lines every time, because
+    rdflib emits nodes in store order and mints a fresh identifier for each
+    anonymous class expression on every parse. Nothing was semantically wrong
+    with any of those files, which is exactly the problem: a diff between two
+    releases showed the whole document changing, so "did the published ontology
+    change?" could not be answered by looking at it.
+
+    Checked by building into a scratch copy and comparing digests, because a
+    determinism claim that is asserted rather than run is the kind that stops
+    being true quietly.
+    """
+    import hashlib
+    import shutil
+    import subprocess
+    import tempfile
+    site = ROOT / "publish" / "site"
+    targets = ["censo-full.jsonld", "censo-full.ttl", "censo-full.owl",
+               "index.html"]
+    before = {}
+    for t in targets:
+        f = site / t
+        if f.exists():
+            before[t] = hashlib.sha256(f.read_bytes()).hexdigest()
+    if not before:
+        record(SKIP, "the published build is deterministic", "site not built")
+        return
+    r = subprocess.run([sys.executable, str(SCRIPTS / "97_assemble_publish.py")],
+                       capture_output=True, text=True)
+    if r.returncode != 0:
+        record(FAIL, "the published build is deterministic",
+               (r.stdout or r.stderr).strip().splitlines()[-1][:160])
+        return
+    drift = [t for t, h in before.items()
+             if (site / t).exists()
+             and hashlib.sha256((site / t).read_bytes()).hexdigest() != h]
+    record(FAIL if drift else OK, "the published build is deterministic",
+           f"rebuilt differently with no input change: {', '.join(drift)}"
+           if drift else f"{len(before)} artefact(s) byte-identical on rebuild")
+
+
 def check_series_figures(tex_nums):
     """Own what the year series and the two-regimes figure put into the prose.
 
@@ -3693,6 +3738,7 @@ def main() -> int:
     check_caption_numbers_are_in_the_figure()
     check_limit_and_country_figures(nums)
     check_every_figure_is_placed()
+    check_published_build_is_deterministic()
     check_shacl_conformance(nums)
     check_abox_datatypes()
     check_report_indeterminate_total()
