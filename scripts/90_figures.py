@@ -770,13 +770,43 @@ def fig_loq_vs_eqs():
             dec.append((int(r["key"]), 100 * int(r["loq_gt_eqs"]) / n_eqs,
                         100 * int(r["loq_gt_30pct_eqs"]) / n_eqs, n_eqs))
     dec.sort()
+
+    # AND THE SAME RELATION WITHOUT THE BINNING.
+    # Drawn as a line over decades, the panel implied continuity between bins
+    # that are not a continuum, hid how many assessments stood behind each
+    # point -- 1,125 and 93,549 were the same mark -- and hid the spread INSIDE
+    # a decade, which is where the interesting variation is. Every substance
+    # that carries a standard and enough assessments is its own point instead:
+    # x is its own standard, y its own failure rate, and the area is what it
+    # rests on. The decade means stay, as a line behind the cloud, because they
+    # are what the sentence in the text quotes.
+    eqs_of = {}
+    for r in (read_csv("eu_eqs.csv") or []):
+        if r.get("is_group") == "True":
+            continue
+        try:
+            v = float(r.get("aa_inland") or "")
+        except (TypeError, ValueError):
+            continue
+        if v > 0:
+            eqs_of[r["name"].strip().lower()] = v
+    pts = []
+    for r in wb:
+        if r["scope"] != "substance":
+            continue
+        v = eqs_of.get(r["key"].strip().lower())
+        n_eqs = int(r.get("has_eqs") or 0)
+        if v and n_eqs >= 200:
+            pts.append((v, 100 * int(r.get("loq_gt_30pct_eqs") or 0) / n_eqs,
+                        n_eqs, r["key"]))
+    pts.sort(key=lambda t: -t[2])
     # How many SUBSTANCES stand behind each decade. A rate over one substance is
     # that substance's rate: the lowest decade is deltamethrin and nothing else,
     # so the reader has to be able to see that from the shipped data.
     comp = {int(r["decade_log10_ug_l"]): r
             for r in (read_csv("eqs_decade_substances.csv") or [])}
     if dec:
-        emit("fig04b_undecidable_vs_standard",
+        emit("fig04_loq_vs_eqs_panel_b",
              ["standard_decade_log10_ug_l", "pct_loq_above_standard",
               "pct_failing_30pct_criterion", "assessments_made",
               "n_substances", "largest_substance", "largest_share_pct"],
@@ -841,31 +871,25 @@ def fig_loq_vs_eqs():
     if dec and axes[1] is not None:
         bx = axes[1]
         xs = [d[0] for d in dec]
-        bx.plot(xs, [d[1] for d in dec], marker="o", markersize=4.0,
-                color=C["exceed"], markeredgecolor=SURFACE,
+        if pts:
+            mx = max(t[2] for t in pts)
+            bx.scatter([t[0] for t in pts], [t[1] for t in pts],
+                       s=[14 + 150 * (t[2] / mx) ** 0.5 for t in pts],
+                       c=V["possible"], alpha=0.42, linewidths=0.6,
+                       edgecolors=SURFACE, zorder=2,
+                       label="one substance (area: assessments)")
+        bx.plot([10.0 ** d for d in xs], [d[2] for d in dec], marker="o",
+                markersize=3.6, color=C["exceed"], markeredgecolor=SURFACE,
                 markeredgewidth=0.9, linewidth=1.4, zorder=3,
-                label="limit exceeds the standard")
-        bx.plot(xs, [d[2] for d in dec], marker="s", markersize=3.4,
-                color=V["possible"], markeredgecolor=SURFACE,
-                markeredgewidth=0.9, linewidth=1.2, linestyle=(0, (3, 2)),
-                zorder=2, label="fails the 30\u2009% criterion")
+                label="decade mean, fails the 30\u2009% criterion")
+        bx.set_xscale("log")
         # A decade behind which stands ONE substance is that substance's rate,
         # not a property of the decade. Marked on the axis rather than left for
         # a reader to discover from the shipped data: the lowest decade holds
         # deltamethrin alone, and it is the most striking point in the panel.
-        alone = [d for d in xs
-                 if str(comp.get(d, {}).get("n_substances", "")) == "1"]
-        if alone:
-            bx.scatter(alone, [d[1] for d in dec if d[0] in alone], s=110,
-                       facecolors="none", edgecolors=INK, linewidths=0.9,
-                       zorder=4)
-            bx.annotate("one substance only",
-                        xy=(min(alone), 100), xytext=(min(alone) + 0.35, 78),
-                        fontsize=6.0, color=INK,
-                        arrowprops=dict(arrowstyle="-", linewidth=0.6,
-                                        color=INK))
-        bx.set_xticks(xs)
+        bx.set_xticks([10.0 ** d for d in xs])
         bx.set_xticklabels([("$10^{%d}$" % d) for d in xs], fontsize=6.4)
+        bx.minorticks_off()
         bx.set_ylim(-4, 104)
         bx.set_yticks([0, 25, 50, 75, 100])
         bx.set_xlabel("Annual-average standard (µg/L)")
@@ -873,8 +897,11 @@ def fig_loq_vs_eqs():
         despine(bx)
         bx.grid(True, axis="y", color=GRID, linewidth=0.5, zorder=0)
         bx.set_axisbelow(True)
-        bx.legend(loc="lower left", fontsize=6.2)
-        title(bx, " ...and with how low it is")
+        # upper right is where a high standard meets a low failure rate,
+        # which is the one corner of this panel the data leaves empty
+        bx.legend(loc="upper right", fontsize=5.9, frameon=True,
+                  framealpha=0.9, edgecolor="none", borderpad=0.4)
+        title(bx, " ...and it tracks the standard")
         panel(axes[0], "a", dx=-0.34, dy=1.04)
         panel(bx, "b", dx=-0.22, dy=1.04)
 
@@ -1008,7 +1035,7 @@ def fig_verdicts():
                   (g("indeterminate_unresolved") + g("indeterminate_other"),
                    RAMP[0], "No bound established")]
         assert sum(x[0] for x in segs_r) == tot_r, (
-            f"fig05b: CENSO bar spans {sum(x[0] for x in segs_r):,} "
+            f"fig05 panel b: CENSO bar spans {sum(x[0] for x in segs_r):,} "
             f"of {tot_r:,}")
         bars_r.append(("CENSO", segs_r, False))
 
@@ -1061,7 +1088,7 @@ def fig_verdicts():
                    f"missing")
         axr.legend(loc="upper left", bbox_to_anchor=(0.0, -0.46), ncol=3,
                    columnspacing=1.0)
-        emit("fig05b_verdicts_recent",
+        emit("fig05_verdicts_panel_b",
              ["bar", "segment", "n", "pct_of_total"],
              [[l.replace("\n", " "), nm, v, f"{100*v/tot_r:.3f}"]
               for l, sg, _ in bars_r for v, _, nm in sg])

@@ -3216,6 +3216,40 @@ def check_gap_matrix_figure(tex_nums):
            f"sensor / method / result in {len(bound)} vocabularies")
 
 
+
+def check_figure_data_names():
+    """Shipped figure data must be traceable to a figure by its name alone.
+
+    Two panels wrote their data as `fig04b_...` and `fig05b_...`. Nothing was
+    wrong with the numbers; what was wrong is that a directory listing then
+    showed two names that look like figures and have no PDF beside them, which
+    reads as two figures whose generation failed. Supplementary data is read by
+    people scanning a listing, so the name has to say what it belongs to.
+
+    A file is traceable when it is <figure>.csv or <figure>_panel_<x>.csv for a
+    figure that exists.
+    """
+    import re as _re
+    d = ROOT / "paper" / "supplementary" / "figure_data"
+    figs = {f.stem for f in (ROOT / "paper" / "figures").glob("*.pdf")}
+    if not d.exists() or not figs:
+        record(SKIP, "shipped figure data names a figure", "no figures")
+        return
+    orphan = []
+    for f in sorted(d.glob("*.csv")):
+        stem = f.stem
+        if stem in figs:
+            continue
+        m = _re.match(r"(.+)_panel_[a-z0-9]+$", stem)
+        if m and m.group(1) in figs:
+            continue
+        orphan.append(stem)
+    record(FAIL if orphan else OK, "shipped figure data names a figure",
+           f"cannot be traced to a figure: {', '.join(orphan)}" if orphan
+           else f"{len(list(d.glob('*.csv')))} file(s), each naming a figure "
+                f"or one of its panels")
+
+
 def check_series_figures(tex_nums):
     """Own what the year series and the two-regimes figure put into the prose.
 
@@ -3348,6 +3382,7 @@ def main() -> int:
     check_limit_variation(nums)
     check_recent_window(nums)
     check_gap_matrix_figure(nums)
+    check_figure_data_names()
     check_shacl_conformance(nums)
     check_abox_datatypes()
     check_report_indeterminate_total()
