@@ -3462,6 +3462,71 @@ def check_limit_and_country_figures(tex_nums):
            f"{len(shares)} reporters")
 
 
+
+# A figure that ships without being placed in the manuscript, with a reason.
+FIGURE_NOT_IN_BODY = {
+    "fig01_graphical_abstract":
+        "the graphical abstract, which Elsevier takes as a separate upload "
+        "and which must NOT appear in a figure environment",
+}
+
+
+def check_every_figure_is_placed():
+    """Caption, label, citation: a figure is not delivered until it has all three.
+
+    Each is a different failure and none is visible from the drawing. A figure
+    with no caption ships a picture with no claim. One with no label cannot be
+    referred to, so LaTeX renders "Figure ??" and only a reader of the built
+    PDF finds out. One never cited is a figure the argument does not use, which
+    is a reason to cut it or a sentence that went missing. And a \ref to a
+    label that does not exist fails silently in exactly the same way.
+
+    Checked here because all four are cheap to test and none of them is caught
+    by anything else: the numeric audit reads captions for values and never
+    asks whether the caption exists.
+    """
+    figs = {f.stem for f in (PAPER / "figures").glob("*.pdf")}
+    if not figs:
+        record(SKIP, "every figure is captioned, labelled and cited",
+               "no figures on disk")
+        return
+    tex = "".join(f.read_text(encoding="utf-8")
+                  for f in sorted((PAPER / "sections").glob("*.tex")))
+    placed, bad = {}, []
+    for m in re.finditer(r"\\begin\{figure\*?\}(.*?)\\end\{figure\*?\}",
+                         tex, re.S):
+        body = m.group(1)
+        g = re.search(r"\\includegraphics\[[^\]]*\]\{([^}]+)\}", body)
+        if not g:
+            continue
+        stem = Path(g.group(1)).stem
+        lab = re.search(r"\\label\{([^}]+)\}", body)
+        if "\\caption{" not in body:
+            bad.append(f"{stem}: no caption")
+        if not lab:
+            bad.append(f"{stem}: no label, so every reference renders as ??")
+            continue
+        placed[stem] = lab.group(1)
+
+    for stem in sorted(figs):
+        if stem in placed or stem in FIGURE_NOT_IN_BODY:
+            continue
+        bad.append(f"{stem}: drawn and shipped but never placed")
+    for stem, lab in sorted(placed.items()):
+        if not re.search(r"\\ref\{" + re.escape(lab) + r"\}", tex):
+            bad.append(f"{stem}: placed but never cited")
+    labels = set(placed.values())
+    for r in set(re.findall(r"\\ref\{(fig:[^}]+)\}", tex)):
+        if r not in labels:
+            bad.append(f"\\ref{{{r}}} points at no figure")
+    record(FAIL if bad else OK,
+           "every figure is captioned, labelled and cited",
+           "; ".join(bad[:5]) + (f" (+{len(bad)-5})" if len(bad) > 5 else "")
+           if bad else
+           f"{len(placed)} placed, all captioned, labelled and cited; "
+           f"{len(FIGURE_NOT_IN_BODY)} shipped outside the body by design")
+
+
 def check_series_figures(tex_nums):
     """Own what the year series and the two-regimes figure put into the prose.
 
@@ -3597,6 +3662,7 @@ def main() -> int:
     check_figure_data_names()
     check_caption_numbers_are_in_the_figure()
     check_limit_and_country_figures(nums)
+    check_every_figure_is_placed()
     check_shacl_conformance(nums)
     check_abox_datatypes()
     check_report_indeterminate_total()
