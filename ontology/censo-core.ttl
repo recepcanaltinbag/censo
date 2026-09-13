@@ -111,8 +111,8 @@ an open-world upper bound rather than as zero."""@en ;
     dcterms:created "2026-08-03"^^xsd:date ;
     vann:preferredNamespacePrefix "censo" ;
     vann:preferredNamespaceUri "https://w3id.org/censo/" ;
-    owl:versionIRI <https://w3id.org/censo/2.3.0> ;
-    owl:versionInfo "2.3.0" ;
+    owl:versionIRI <https://w3id.org/censo/2.3.1> ;
+    owl:versionInfo "2.3.1" ;
     rdfs:seeAlso <http://www.w3.org/ns/sosa/> ;
     owl:imports <http://www.w3.org/ns/sosa/> ,
                 <http://www.w3.org/ns/ssn/> ,
@@ -325,19 +325,54 @@ censo:calibrationR2 a owl:DatatypeProperty ;
 censo:CensoredObservation a owl:Class ;
     rdfs:subClassOf sosa:Observation ;
     rdfs:label "Censored observation"@en ;
-    rdfs:comment """The analyte was sought and not detected. Asserts only that the
-true concentration lies in [0, LOD]. It does NOT assert absence. Storing such an
-observation as 0 destroys the distinction and biases every derived aggregate
-downwards."""@en ;
-    skos:definition "Observation whose result is below the method's limit of detection."@en ;
-    skos:example "Atrazine sought and not detected by a method whose limit of detection is 0.02 µg/L: the concentration lies in [0, 0.02], which is not the same claim as zero."@en .
+    rdfs:comment """The analyte was sought and the result was reported as below a
+reporting limit L. Asserts only that the true concentration lies in [0, L]. It
+does NOT assert absence, and storing such an observation as 0 destroys the
+distinction and biases every derived aggregate downwards.
+
+WHICH LIMIT L IS, and why this comment used to say the wrong one. It said
+[0, LOD]. Everything that acts on this class uses the limit of QUANTIFICATION:
+the rule in censo:MethodInsufficientRuleShape compares LOQ with the threshold,
+because Article 3(3b) of Directive 2008/105/EC is written on a result "reported
+as less than the limit of quantification"; and the WISE-6 flag this class is
+populated from is a below-LOQ flag. Stated as LOD, the class would let a
+non-detection with LOD <= T < LOQ be Compliant on its own interval and
+MethodInsufficient by the rule at the same time. L is the limit the result was
+reported against, and under the Directive that is the quantification limit.
+
+WHAT THIS CLASS THEREFORE CONTAINS that its name does not say. A concentration
+between LOD and LOQ was DETECTED and could not be quantified: an estimated
+value, censo:EstimatedObservation. WISE-6 gives it the same flag as a true
+non-detection and no field separates them, so both arrive here. The vocabulary
+can express the difference and this record cannot supply it -- which is the
+paper's own thesis turned on its own ABox, and the reason
+censo:EstimatedObservation is declared and never populated."""@en ;
+    skos:definition "Observation whose result is reported as below the reporting limit of the method used, without asserting absence."@en ;
+    skos:example "Atrazine sought and reported below a quantification limit of 0.02 µg/L: the concentration lies in [0, 0.02], which is not the same claim as zero."@en .
 
 censo:EstimatedObservation a owl:Class ;
     rdfs:subClassOf sosa:Observation ;
     rdfs:label "Estimated observation"@en ;
     rdfs:comment """Detected, but between LOD and LOQ, so the reported magnitude
 is indicative only. Reporting it as a point estimate overstates what the method
-supports. Datasets frequently contain such values presented as if quantified."""@en .
+supports. Datasets frequently contain such values presented as if quantified.
+
+DECLARED AND NEVER POPULATED FROM WISE-6, which is a finding rather than an
+oversight. The release has one below-limit flag and no field distinguishing
+"sought and not found" from "found and not quantifiable", so both arrive as
+censo:CensoredObservation and this class stays empty. The vocabulary can carry
+the distinction; this record cannot supply it.
+
+AND NOT THE HOME FOR A ROW THAT CONTRADICTS ITSELF. The record contains
+quantified results reporting a value BELOW their own quantification limit --
+42 of 696,168 station-years. That pattern is what an estimated value looks
+like, and typing them here would be tempting for exactly that reason. It would
+also be an assertion the record does not support: the source says "this is a
+quantified mean" and says "the limit is higher than that mean", and nothing in
+it says which statement to believe. An unflagged estimated value, a transposed
+decimal and a limit copied from another method all produce the same two fields.
+They are censo:BoundNotEstablished, because what is true of them is that no
+bound can be trusted -- not that a particular one can."""@en .
 
 censo:QuantifiedObservation a owl:Class ;
     rdfs:subClassOf sosa:Observation ;
@@ -809,6 +844,33 @@ here there is no bound at all, and the two call for different repairs."""@en .
 # one of them and "nothing recorded" is not a quiet fourth option. Three, not
 # four: PossibleExceedance moved under IndeterminateCompliance, where the
 # paper's own arithmetic had been counting it all along.
+#
+# WHAT THE OUTCOME CLASSES ARE CLASSES OF, stated because a reader will
+# reasonably assume the wrong thing.
+#
+# A verdict is a property of an OBSERVATION-THRESHOLD PAIR. The RELATIONS say so
+# exactly -- censo:exceeds and censo:belowThreshold each name the threshold, and
+# the AllDisjointProperties axiom below makes two verdicts about one pair a
+# contradiction while leaving different verdicts about different thresholds
+# consistent. The CLASSES cannot say so: censo:Exceedance types the observation,
+# so an observation exceeding a maximum-allowable standard and below an
+# annual-average one is typed with both, and in a graph holding two regulation
+# packages the outcome classes do not partition.
+#
+# That is a real limit and it is not a bug to be fixed by reifying the pair. An
+# cereg:Assessment node -- observation, threshold, package, verdict -- was in
+# this vocabulary and was retired: everything it held is already derivable, the
+# observation names the threshold and the threshold names the package, so the
+# fourth node added a join to every query and no fact to the graph. Reifying to
+# make a class hierarchy partition would be paying that cost for a taxonomy.
+#
+# So: read the verdict from the properties, which are per pair and exclusive.
+# Read the CLASSES as the reason recorded for a pair the surrounding graph
+# already fixes -- which is what they are in every use this work makes of them,
+# since each observation in the shipped ABox is assessed against one threshold.
+# Every count this paper reports is a count of pairs, computed by the ordered
+# procedure of scripts/22_waterbase_external.py and not by asking the graph for
+# the extension of a class.
 #
 # DELIBERATELY NOT DISJOINT AT THE CLASS LEVEL. An earlier version asserted
 # owl:AllDisjointClasses over these, which made it an inconsistency for a

@@ -40,7 +40,7 @@ express."""@en ;
     vann:preferredNamespacePrefix "censosh" ;
     vann:preferredNamespaceUri "https://w3id.org/censo/shapes#" ;
     owl:versionIRI <https://w3id.org/censo/shapes/2.1.0> ;
-    owl:versionInfo "2.3.0" ;
+    owl:versionInfo "2.3.1" ;
     rdfs:seeAlso <https://w3id.org/censo/> .
 
 censo:ObservationShape a sh:NodeShape ;
@@ -250,8 +250,29 @@ produced by a pipeline that ran to completion.""" ;
             PREFIX censo: <https://w3id.org/censo/>
             CONSTRUCT { $this a censo:IndeterminateCompliance , censo:NoThresholdDefined . }
             WHERE {
+              $this censo:hasAnalyte ?a .
               FILTER NOT EXISTS { $this censo:assessableAgainst ?t }
+              FILTER NOT EXISTS {
+                ?th a censo:Threshold ; censo:appliesToAnalyte ?a .
+              }
             }""" ] .
+# THE SECOND FILTER IS NOT REDUNDANT, and its absence was a defect.
+#
+# The rule asked only whether the observation carries censo:assessableAgainst.
+# It does not, for every censo:UnresolvedObservation in the shipped graph --
+# 4,682 of them -- because UnresolvedObservation is a subclass of the complement
+# of that property and the ABox builder must omit the link to stay consistent.
+# So a rule testing the link alone fired on all of them and typed as "no
+# threshold is defined" observations whose analyte carries a European standard.
+# They ALSO matched censo:BoundNotEstablishedRuleShape, correctly, which reaches
+# the threshold through the analyte; the materialised graph therefore gave them
+# two reasons where the pipeline records one, and the wrong one of the two was
+# the reason a reader would most likely believe.
+#
+# NoThresholdDefined means no standard exists for this analyte. That is a fact
+# about the regulation, not about the observation's links, and it has to be
+# asked of the regulation -- which is exactly the reasoning the sibling rule
+# already sets out and this one did not follow.
 
 censo:BoundNotEstablishedRuleShape a sh:NodeShape ;
     sh:targetClass censo:AssessedObservation ;

@@ -43,6 +43,7 @@ from __future__ import annotations
 import argparse
 import csv
 import math
+import hashlib
 import re
 import unicodedata
 import sys
@@ -3602,6 +3603,632 @@ def check_published_build_is_deterministic():
            if drift else f"{len(before)} artefact(s) byte-identical on rebuild")
 
 
+
+def check_decade_undecidable(tex_nums):
+    """The undecidable share by decade, which the text had been naming wrongly.
+
+    Section 6 said the lowest decades are where "the measured undecidable share
+    is already between 82 and 100 %". That range was real and it was a different
+    quantity: the share whose quantification limit exceeds the standard. The two
+    are not the same and neither contains the other, because a QUANTIFIED result
+    whose limit exceeds the standard has a value above it too and is a decidable
+    exceedance.
+
+    A number that is right about something else is the hardest kind to catch, so
+    the quantity the sentence names is computed here from the outcome split and
+    the sentence is checked against that.
+    """
+    rows = load("verdicts_by_decade.csv")
+    if not rows:
+        record(SKIP, "the decade undecidable shares are recomputed",
+               "verdicts_by_decade.csv missing")
+        return
+    IND = ("possible_exceedance", "precondition_unmet", "method_insufficient",
+           "indeterminate_unresolved", "indeterminate_other")
+    # The RECENT window is what the sentence is about, with the pooled figure
+    # quoted beside it: the claim is where the law is moving standards now, and
+    # pooling half a century invites "those are old assessments".
+    by, by_rec = {}, {}
+    for r in rows:
+        d = int(r["decade_log10_ug_l"])
+        by.setdefault(d, {})[r["censo_outcome"]] = int(r["n"])
+        by_rec.setdefault(d, {})[r["censo_outcome"]] = int(r.get("n_recent") or 0)
+    LOW, FLOOR = -4, 500
+    low = {d: c for d, c in by.items()
+           if d <= LOW and sum(c.values()) >= FLOOR}
+    if not low:
+        record(SKIP, "the decade undecidable shares are recomputed",
+               "no low decade above the floor")
+        return
+    tot = sum(sum(c.values()) for c in low.values())
+    und = sum(sum(c.get(k, 0) for k in IND) for c in low.values())
+    check_claim(tex_nums, "undecidable % below 1e-3, whole record",
+                100 * und / tot)
+    lowr = {d: by_rec[d] for d in low if sum(by_rec.get(d, {}).values()) >= FLOOR}
+    if lowr:
+        tr = sum(sum(c.values()) for c in lowr.values())
+        ur = sum(sum(c.get(k, 0) for k in IND) for c in lowr.values())
+        check_claim(tex_nums, "undecidable % below 1e-3, recent", 100 * ur / tr)
+        sr = [100 * sum(c.get(k, 0) for k in IND) / sum(c.values())
+              for c in lowr.values()]
+        check_claim(tex_nums, "undecidable % in the lowest decades, recent min",
+                    min(sr))
+        mr = [100 * c.get("method_insufficient", 0) / sum(c.values())
+              for c in lowr.values()]
+        check_claim(tex_nums, "method-insufficient % below 1e-3, recent min",
+                    min(mr))
+        # the sentence says the recent share is not lower than the pooled one,
+        # which is what makes it an answer to "those are old assessments"
+        if 100 * ur / tr < 100 * und / tot - 0.05:
+            record(FAIL, "the decade undecidable shares are recomputed",
+                   f"the recent share {100*ur/tr:.1f} % has fallen below the "
+                   f"pooled {100*und/tot:.1f} %; Section 6 says it has not")
+            return
+    shares = [100 * sum(c.get(k, 0) for k in IND) / sum(c.values())
+              for c in low.values()]
+
+    # the claim is that indeterminacy down here is ANALYTICAL, which is what
+    # separates these decades from 1e0, where it is metals failing a
+    # precondition; if that ever stops holding the sentence is wrong
+    bad = []
+    for d, c in sorted(low.items()):
+        t = sum(c.values())
+        if c.get("method_insufficient", 0) < 0.5 * sum(c.get(k, 0) for k in IND):
+            bad.append(f"1e{d}: the quantification limit no longer accounts "
+                       f"for most of the indeterminacy")
+    record(FAIL if bad else OK,
+           "the decade undecidable shares are recomputed",
+           "; ".join(bad) if bad else
+           f"{und:,}/{tot:,} = {100*und/tot:.1f} % undecidable below 1e-3, "
+           f"{min(shares):.0f}-{max(shares):.0f} % by decade, analytical "
+           f"throughout")
+
+
+
+def check_dataset_citation():
+    """The cited dataset must be the one on disk.
+
+    The empirical half of this work is one file, and the entry for it used to
+    say "Waterbase --- Water Quality ICM", 2024, and a URL. None of that
+    identifies what was read: the EEA replaces a release in place at the same
+    address, the archive downloaded here carries the v2025_1 table, and a
+    reader following the URL today gets different bytes with no way to know.
+
+    So the entry states the table name, both sizes, both row counts and the
+    archive's SHA-256 -- and this check recomputes the digest and the size from
+    the file and requires the entry to state them. A digest written into a
+    bibliography is exactly the kind of fact that goes stale without anyone
+    noticing, because nothing else ever reads it.
+    """
+    import hashlib
+    bib = PAPER / "refs.bib"
+    src = sorted((ROOT / "Data" / "waterbase").glob("*Aggregated*.zip"))
+    if not bib.exists() or not src:
+        record(SKIP, "the cited dataset is the one on disk",
+               "refs.bib or the aggregated archive is absent")
+        return
+    f = src[0]
+    size = f.stat().st_size
+    h = hashlib.sha256()
+    with f.open("rb") as fh:
+        for chunk in iter(lambda: fh.read(1 << 20), b""):
+            h.update(chunk)
+    digest = h.hexdigest()
+    entry = bib.read_text(encoding="utf-8")
+    i = entry.find("@misc{eea_waterbase")
+    entry = entry[i:entry.find("\n}", i)] if i >= 0 else ""
+    plain = entry.replace("\\_", "_").replace("\\", "")
+    bad = []
+    if digest not in entry:
+        bad.append(f"the entry does not state the archive's SHA-256 "
+                   f"({digest[:16]}...)")
+    if norm(size) not in plain.replace(",", ""):
+        bad.append(f"the entry does not state the archive size ({size:,})")
+    # THE NAME IS IN THE ENTRY; IT IS SPELLED IN LaTeX. BibTeX needs \_ inside
+    # \texttt{}, so a literal "WISE6_AggregatedData" never appears, and this
+    # check reported a missing name that was there all along -- a false
+    # failure, which costs exactly as much trust as a missed one. `plain` is
+    # the entry with its escapes removed.
+    if f.name not in plain:
+        bad.append(f"the entry does not name the archive ({f.name})")
+    # the row counts the pipeline measured, which the entry quotes
+    tot = load("waterbase_summary.csv")
+    T = next((r for r in tot if r.get("scope") == "total"), None)
+    if T and T.get("n") and norm(T["n"]) not in plain.replace(",", ""):
+        bad.append(f"the entry does not state the retained row count "
+                   f"({int(T['n']):,})")
+    record(FAIL if bad else OK, "the cited dataset is the one on disk",
+           "; ".join(bad) if bad else
+           f"{f.name}, {size:,} bytes, digest and row counts all stated")
+
+
+
+def check_assessment_unit(tex_nums):
+    """The unit of the counts, and the bound on the choice.
+
+    Every count in this work is per published row. A station-substance-year
+    split into two sampling periods is therefore assessed twice, and a reader
+    who subtracts 4,170,005 from 4,190,833 will find that out whether or not
+    the paper says so. Section 3 says so, states the magnitude in the stratum
+    that matters -- the rows a standard reaches, where the duplication is twice
+    what it is in the whole river record -- and bounds what a deduplicating
+    rule could do to the headline WITHOUT choosing one, because choosing one
+    would be inventing a combination rule the release does not give.
+
+    The bound is what has to be checked: it is arithmetic on two tables, it is
+    the only reason the reader may accept the unit, and it would go stale the
+    first time either table moved.
+    """
+    u = {r["quantity"]: r["value"] for r in load("assessment_unit.csv")}
+    rows = [r for r in load("waterbase_verdicts_population.csv")
+            if r["substitution"] == "zero"]
+    if not u or not rows:
+        record(SKIP, "the assessment unit and its bound",
+               "assessment_unit.csv or the population table missing")
+        return
+    IND = ("possible_exceedance", "precondition_unmet", "method_insufficient",
+           "indeterminate_unresolved", "indeterminate_other")
+    c = {}
+    for r in rows:
+        c[r["censo_outcome"]] = c.get(r["censo_outcome"], 0) + int(r["n"])
+    R = sum(c.values())
+    U = sum(c.get(k, 0) for k in IND)
+    K = int(u["assessed_distinct_station_substance_year"])
+    D = int(u["rows_beyond_one_per_key"])
+    if not (R and K):
+        record(SKIP, "the assessment unit and its bound", "empty population")
+        return
+    check_claim(tex_nums, "assessed rows", R)
+    check_claim(tex_nums, "assessed distinct station-substance-years", K)
+    check_claim(tex_nums, "rows beyond one per key", D)
+    check_claim(tex_nums, "duplicate row share %", 100 * D / R)
+    lo, hi = 100 * (U - D) / K, 100 * U / K
+    check_claim(tex_nums, "undecidable % under any dedup rule, low", lo)
+    check_claim(tex_nums, "undecidable % under any dedup rule, high", hi)
+    check_claim(tex_nums, "largest move a dedup rule could make",
+                max(abs(100 * U / R - lo), abs(100 * U / R - hi)))
+    bad = []
+    if R - K != D:
+        bad.append(f"the duplicate count {D:,} is not {R:,} minus {K:,}")
+    if not lo <= 100 * U / R <= hi:
+        bad.append("the per-row share lies outside the bound it is bounded by")
+    record(FAIL if bad else OK, "the assessment unit and its bound",
+           "; ".join(bad) if bad else
+           f"{D:,} of {R:,} rows ({100*D/R:.2f} %) share a key; any dedup rule "
+           f"lands in {lo:.1f}-{hi:.1f} % against {100*U/R:.1f} %")
+
+
+def check_substitution_decomposition(tex_nums):
+    """The substitution table, locked at both ends.
+
+    Splitting the two-valued exceedances by what CENSO does with them gives
+    four terms, and two of them do not move when the substitution constant
+    does: the bandless exceedances (16,963) and the unresolved rows (12,148).
+    Everything the convention manufactures is in the other two columns. That
+    is the table's whole argument, and two identities make it provable rather
+    than merely displayed:
+
+      * under zero substitution the method-insufficient column is EMPTY. A
+        non-detection entered as zero can never exceed a positive standard,
+        so the stratum this paper is about cannot arise from the convention.
+      * under full substitution the method-insufficient column EQUALS the
+        population's MethodInsufficient count. Every censored row whose limit
+        exceeds the standard becomes an exceedance the moment the limit is
+        substituted, so the two sets are the same set -- an identity, not a
+        coincidence, and one that silently breaks if either definition drifts.
+    """
+    pop = load("waterbase_verdicts_population.csv")
+    mods = load("uncertainty_models.csv")
+    if not pop or not mods:
+        record(SKIP, "the substitution decomposition closes",
+               "population or uncertainty-model table missing")
+        return
+    cell = {}
+    for r in pop:
+        if r["two_valued_outcome"] == "exceeding":
+            cell[(r["substitution"], r["censo_outcome"])] = int(r["n"])
+    def c(sub, out):
+        return cell.get((sub, out), 0)
+    population_mi = sum(int(r["n"]) for r in mods
+                        if r["u_model"] == "absolute"
+                        and r["censo_outcome"] == "method_insufficient")
+    population_pu = sum(int(r["n"]) for r in mods
+                        if r["u_model"] == "absolute"
+                        and r["censo_outcome"] == "precondition_unmet")
+    population_un = sum(int(r["n"]) for r in mods
+                        if r["u_model"] == "absolute"
+                        and r["censo_outcome"] in ("indeterminate_unresolved",
+                                                   "indeterminate_other"))
+    bad = []
+    for sub in ("zero", "half", "full"):
+        band = c(sub, "exceedance") + c(sub, "possible_exceedance")
+        unres = (c(sub, "indeterminate_unresolved")
+                 + c(sub, "indeterminate_other"))
+        terms = band + unres + c(sub, "precondition_unmet") + \
+            c(sub, "method_insufficient")
+        total = sum(v for (s_, _), v in cell.items() if s_ == sub)
+        if terms != total:
+            bad.append(f"the {sub} column does not close: {terms:,} != "
+                       f"{total:,}")
+        if sub != "zero" and band != c("zero", "exceedance") + \
+                c("zero", "possible_exceedance"):
+            bad.append(f"the bandless term moves with the substitution "
+                       f"({sub})")
+        if sub != "zero" and unres != (c("zero", "indeterminate_unresolved")
+                                       + c("zero", "indeterminate_other")):
+            bad.append(f"the unresolved term moves with the substitution "
+                       f"({sub})")
+    if c("zero", "method_insufficient") != 0:
+        bad.append("zero substitution produces method-insufficient rows, "
+                   "which the decision procedure cannot do")
+    if c("full", "method_insufficient") != population_mi:
+        bad.append(f"full substitution gives "
+                   f"{c('full', 'method_insufficient'):,} method-insufficient "
+                   f"rows against a population count of {population_mi:,}; "
+                   f"the identity has broken")
+    # The two secondary readings, owned here so the text may quote them.
+    if population_pu:
+        for sub in ("zero", "half", "full"):
+            check_claim(tex_nums,
+                        f"precondition rows reported as exceeding, {sub} %",
+                        100 * c(sub, "precondition_unmet") / population_pu)
+    if population_un:
+        check_claim(tex_nums, "unresolved rows reported as exceeding %",
+                    100 * (c("zero", "indeterminate_unresolved")
+                           + c("zero", "indeterminate_other")) / population_un)
+    record(FAIL if bad else OK, "the substitution decomposition closes",
+           "; ".join(bad)[:220] if bad else
+           f"three columns close on four terms; the bandless "
+           f"({c('zero', 'exceedance') + c('zero', 'possible_exceedance'):,}) "
+           f"and unresolved "
+           f"({c('zero', 'indeterminate_unresolved') + c('zero', 'indeterminate_other'):,}) "
+           f"terms are invariant, zero gives 0 method-insufficient and full "
+           f"gives exactly the population's {population_mi:,}")
+
+
+def check_era_cohort(tex_nums):
+    """A two-point comparison over two different sets of countries is not one.
+
+    The manuscript states that the analytical failure is no better in the last
+    year of the record than in the first, 47.7 % against 46.3 %. The same
+    manuscript states that 29 of the 37 reporters have no record after 2015.
+    Both cannot stand: if the two years are reported by different countries,
+    their similarity is a fact about who reported, not about what anyone can
+    measure.
+
+    This gate holds the cohort fixed. It does not decide what the manuscript
+    should say -- it reports how much of each year the shared reporters cover,
+    which is the quantity that decides whether the comparison exists at all. A
+    cohort covering a few per cent of either year does not license "it held
+    under a fixed cohort"; it licenses "this record cannot answer the
+    question", which is a finding of the same kind as the rest of the paper.
+    """
+    rows = [r for r in (load("waterbase_summary.csv") or [])
+            if r.get("scope") == "country_year"]
+    if not rows:
+        record(SKIP, "the era comparison survives a fixed cohort",
+               "no country_year scope; re-run scripts/22_waterbase_external.py")
+        return
+    d = {}
+    for r in rows:
+        c, y = r["key"].split("|")
+        d[(c, int(y))] = (int(r["has_eqs"]), int(r["loq_gt_30pct_eqs"]))
+    years = sorted({y for _, y in d if
+                    sum(h for (c2, y2), (h, _) in d.items() if y2 == y)})
+    if len(years) < 2:
+        record(SKIP, "the era comparison survives a fixed cohort",
+               "fewer than two assessable years")
+        return
+    first, last = years[0], years[-1]
+    # The manuscript's first assessable year is the first with enough rows to
+    # quote, not the first that exists; take the pair it actually uses.
+    FIRST_QUOTED = 2006
+    if (any(y == FIRST_QUOTED for _, y in d)):
+        first = FIRST_QUOTED
+
+    def agg(yr, cohort=None):
+        n = k = 0
+        for (c, y), (h, g) in d.items():
+            if y == yr and (cohort is None or c in cohort):
+                n += h
+                k += g
+        return k, n
+
+    def reporters(yr):
+        return {c for (c, y), (h, _) in d.items() if y == yr and h}
+
+    r1, r2 = reporters(first), reporters(last)
+    cohort = r1 & r2
+    k1, n1 = agg(first)
+    k2, n2 = agg(last)
+    ck1, cn1 = agg(first, cohort)
+    ck2, cn2 = agg(last, cohort)
+    cov1 = 100 * cn1 / n1 if n1 else 0.0
+    cov2 = 100 * cn2 / n2 if n2 else 0.0
+    check_claim(tex_nums, f"reporters in {first}", len(r1))
+    check_claim(tex_nums, f"reporters in {last}", len(r2))
+    check_claim(tex_nums, "reporters in both years", len(cohort))
+    detail = (f"{first}: {len(r1)} reporters, {100*k1/n1:.1f} % · "
+              f"{last}: {len(r2)} reporters, {100*k2/n2:.1f} % · "
+              f"shared: {len(cohort)} reporter(s) covering {cov1:.1f} % of "
+              f"{first} and {cov2:.1f} % of {last}")
+    # Does the text still quote the two-point comparison?
+    tex = paper_text()
+    quotes = (f"{100*k1/n1:.1f}" in tex.replace("\\num{", "").replace("}", "")
+              and f"{100*k2/n2:.1f}" in tex.replace("\\num{", "").replace("}", ""))
+    if quotes and min(cov1, cov2) < 20.0:
+        record(FAIL, "the era comparison survives a fixed cohort",
+               detail + " -- the text quotes both years, but the shared "
+                        "reporters cover too little of either for the "
+                        "comparison to be about practice")
+    else:
+        record(OK, "the era comparison survives a fixed cohort", detail)
+
+
+def check_group_membership():
+    """A sum standard is only as good as the list of things it sums.
+
+    Annex I states four limits on a sum rather than on a substance, and the
+    membership of each comes out of a PDF. Entry (70), "Sum of active
+    substances in the pesticides listed in this table", once carried 75 CAS
+    numbers because the last table row absorbed the footnote block: the
+    brominated diphenylethers, the PAHs, the dioxins, PFOS, nonylphenol and
+    octylphenol were all declared pesticides summed against 0.2 ug/L. Nothing
+    downstream noticed, because group standards are excluded from the
+    per-substance assessment -- the published package and the
+    group-completeness table were simply wrong, and a table reporting "0 %
+    complete" looked like a finding rather than a parse error.
+
+    WHAT IS AND IS NOT A RULE HERE. Two tempting properties are false in Annex
+    I and were tried first:
+
+      * "a substance belongs to at most one sum" -- entry (70) sums the
+        pesticides listed in the table, which includes the cyclodienes and the
+        heptachlors that already have sums of their own. It is a sum of sums
+        by construction.
+      * "a sum contains only its own category" -- footnote 16 puts
+        fluoranthene, categorised as an industrial substance, into the PAH
+        sum.
+
+    So disjointness is required only among the sums that are not table-wide,
+    and the category test applies only to the sum that is DEFINED by a
+    category, which is the one that broke.
+    """
+    rows = load("eu_eqs.csv")
+    if not rows:
+        record(SKIP, "sum standards sum the right substances",
+               "eu_eqs.csv missing")
+        return
+    groups = [r for r in rows if r.get("is_group") == "True"]
+    if not groups:
+        record(SKIP, "sum standards sum the right substances",
+               "no group entries parsed")
+        return
+    TABLE_WIDE = re.compile(r"(?i)listed in this table")
+    # Every CAS the table carries anywhere, group rows included: aldrin is a
+    # member of the cyclodiene sum and has no row of its own, and it is still
+    # a pesticide listed in this table.
+    cat, listed = {}, set()
+    for r in rows:
+        if TABLE_WIDE.search(r.get("name") or ""):
+            continue
+        for c in (r.get("all_cas") or "").split(";"):
+            if c.strip():
+                cat[c.strip()] = (r.get("category") or "").lower()
+                listed.add(c.strip())
+    bad, seen = [], {}
+    for g in groups:
+        members = [c.strip() for c in (g.get("all_cas") or "").split(";")
+                   if c.strip()]
+        wide = bool(TABLE_WIDE.search(g.get("name") or ""))
+        if wide:
+            # Defined by the legislator's own category column, so every member
+            # must carry that category -- this is the test the old parse failed.
+            off = [c for c in members
+                   if "pesticide" not in cat.get(c, "pesticide")]
+            if off:
+                bad.append(f"entry {g['entry_no']} sums the pesticides listed "
+                           f"in the table but includes {', '.join(off[:3])}, "
+                           f"categorised {cat.get(off[0], '?')!r}")
+            unlisted = [c for c in members if c not in listed]
+            if unlisted:
+                bad.append(f"entry {g['entry_no']} sums {len(unlisted)} CAS "
+                           f"number(s) that are not rows of the table, "
+                           f"e.g. {unlisted[0]}")
+            continue
+        for c in members:
+            if c in seen and seen[c] != g["entry_no"]:
+                bad.append(f"CAS {c} is summed by both entry {seen[c]} and "
+                           f"entry {g['entry_no']}")
+            seen[c] = g["entry_no"]
+    record(FAIL if bad else OK, "sum standards sum the right substances",
+           "; ".join(dict.fromkeys(bad))[:220] if bad else
+           f"{len(groups)} sum standards, "
+           f"{sum(len((g.get('all_cas') or '').split(';')) for g in groups)} "
+           f"memberships; the table-wide pesticide sum contains only "
+           f"pesticides listed in the table")
+
+
+def check_archive_digest():
+    """A digest cited in the paper and never checked by the code is a decoration.
+
+    The manuscript says the pipeline verifies the checksum of the archive
+    before reading it. That sentence is only true if three things agree: the
+    digest printed in the bibliography, the digest the reader enforces, and --
+    when the archive is on this machine -- the bytes themselves. They are
+    three separate places and nothing else makes them move together.
+    """
+    src = ROOT / "scripts" / "22_waterbase_external.py"
+    bib = PAPER / "refs.bib"
+    if not src.exists() or not bib.exists():
+        record(SKIP, "the cited archive digest is the one the code enforces",
+               "reader or bibliography missing")
+        return
+    code = dict(re.findall(r'"([^"]+\.(?:zip|gz|csv))":\s*\n?\s*"([0-9a-f]{64})"',
+                           src.read_text(encoding="utf-8")))
+    cited = set(re.findall(r"[0-9a-f]{64}", bib.read_text(encoding="utf-8")))
+    bad = []
+    if not code:
+        bad.append("the reader enforces no digest at all")
+    if not cited:
+        bad.append("the bibliography cites no digest")
+    for name, want in code.items():
+        if cited and want not in cited:
+            bad.append(f"{name}: the enforced digest is not the cited one")
+        f = ROOT / "Data" / "waterbase" / name
+        if f.exists():
+            h = hashlib.sha256()
+            with f.open("rb") as fh:
+                for block in iter(lambda: fh.read(1 << 20), b""):
+                    h.update(block)
+            if h.hexdigest() != want:
+                bad.append(f"{name} on disk does not match the enforced digest")
+    for c in cited - set(code.values()):
+        bad.append(f"the bibliography cites {c[:12]}... which no stage checks")
+    record(FAIL if bad else OK,
+           "the cited archive digest is the one the code enforces",
+           "; ".join(bad) if bad else
+           f"{len(code)} archive(s) verified before reading, digests match "
+           f"the bibliography")
+
+
+def check_comparison_set_counts(tex_nums):
+    """"21 files from 15 independent projects" -- one of those two was invented.
+
+    The novelty claim rests on a survey, and a survey is only as good as its
+    denominator. The file count and the project count were both written by
+    hand, and they cannot both be right: 23 files are compared, of which 20 are
+    third-party, and those 20 come from 15 development efforts because SSN
+    ships three files, InWaterSense three and SAREF two. 21 is the third-party
+    files PLUS this group's own earlier ontology, which is not third-party
+    evidence for a novelty claim about other people's vocabularies.
+
+    So both numbers are computed from the project attribution in
+    gap_matrix.csv, and a file with no attribution fails rather than being
+    silently dropped from a count the manuscript quotes.
+    """
+    rows = load("gap_matrix.csv")
+    if not rows or "project" not in rows[0]:
+        record(SKIP, "the comparison set is counted, not asserted",
+               "gap_matrix.csv has no project column; re-run "
+               "scripts/07_verify_gap_table.py")
+        return
+    blank = [r["ontology"] for r in rows if not r.get("project")]
+    third = [r for r in rows if r.get("independent") == "1"]
+    projects = {r["project"] for r in third}
+    ours = [r for r in rows if r["project"].startswith("CENSO")]
+    mine = [r for r in rows
+            if r.get("independent") == "0" and not r["project"].startswith("CENSO")]
+    check_claim(tex_nums, "files compared", len(rows))
+    check_claim(tex_nums, "third-party files compared", len(third))
+    check_claim(tex_nums, "independent projects compared", len(projects))
+    bad = []
+    if blank:
+        bad.append("no project attribution for " + ", ".join(blank[:3]))
+    if len(third) + len(ours) + len(mine) != len(rows):
+        bad.append("the three strata do not partition the comparison set")
+    if len(projects) > len(third):
+        bad.append("more projects than files")
+    # The arithmetic the manuscript has to respect: the file count it quotes
+    # beside the project count must be the THIRD-PARTY count, not the total.
+    # TWO PAIRINGS ARE DEFENSIBLE AND THEY ARE NOT INTERCHANGEABLE.
+    #
+    #   (third-party files, their projects)      -- everything independent of
+    #                                               this work
+    #   (those plus our own earlier ontology, plus its project)
+    #
+    # Both count something real. What is not defensible is the second pairing
+    # with the word "independent" attached, because the extra file and the
+    # extra project are ours: a novelty claim about other people's
+    # vocabularies cannot count our own vocabulary among them.
+    own_proj = {r["project"] for r in rows
+                if r.get("independent") == "0"
+                and not r["project"].startswith("CENSO")}
+    pairs = {(len(third), len(projects)): "independent",
+             (len(third) + len(mine), len(projects) + len(own_proj)): "total"}
+    for m in re.finditer(r"\\num\{(\d+)\}[^.]{0,90}?files"
+                         r"[^.]{0,60}?from\s+(?:\\num\{)?(\d+)\}?"
+                         r"[^.]{0,30}?projects", paper_text()):
+        got = (int(m.group(1)), int(m.group(2)))
+        kind = pairs.get(got)
+        if kind is None:
+            bad.append(f"the text says {got[0]} files from {got[1]} projects; "
+                       f"the defensible pairings are "
+                       f"{len(third)}/{len(projects)} (independent of this "
+                       f"work) and {len(third) + len(mine)}/"
+                       f"{len(projects) + len(own_proj)} (including our own "
+                       f"earlier ontology)")
+        elif kind == "total" and "independent" in m.group(0):
+            bad.append(f"{got[0]} files from {got[1]} projects counts our own "
+                       f"earlier ontology, so those projects are not all "
+                       f"independent of this work; either drop the word or "
+                       f"use {len(third)}/{len(projects)}")
+    record(FAIL if bad else OK, "the comparison set is counted, not asserted",
+           "; ".join(dict.fromkeys(bad)) if bad else
+           f"{len(rows)} files = {len(third)} third-party from "
+           f"{len(projects)} independent projects + {len(mine)} earlier own + "
+           f"{len(ours)} of this work")
+
+
+def check_measured_performance(tex_nums):
+    """Runtime and memory are claims too, and they were not measured by code.
+
+    The implementation subsection tells a reader how long the pipeline takes
+    and how much memory it needs. Those were terminal recollections: not in
+    eval/, not traceable by scripts/95_numbers_manifest.py, and not
+    reproducible by anyone else. scripts/14b_pipeline_performance.py measures
+    them; this gate refuses the claim when the measurement is absent, and
+    checks the one internal relation that could go wrong silently -- the
+    end-to-end figure must be the sum of the stages, not a fourth number.
+    """
+    rows = load("pipeline_performance.csv")
+    if not rows:
+        record(SKIP, "the performance figures were measured",
+               "pipeline_performance.csv missing; run "
+               "scripts/14b_pipeline_performance.py")
+        return
+    v = {r["stage"]: r for r in rows}
+
+    def num(stage):
+        try:
+            return float(v[stage]["value"].replace(",", ""))
+        except (KeyError, ValueError):
+            return None
+
+    bad = []
+    for stage in ("parse", "rdfs:subClassOf type closure",
+                  "SHACL validation (advanced mode)"):
+        if num(stage) is None:
+            bad.append(f"no measurement for {stage}")
+    obs = num("observations in the published graph")
+    if obs:
+        check_claim(tex_nums, "observations in the published graph", obs)
+    tri = num("triples after closure")
+    if tri:
+        check_claim(tex_nums, "triples after closure", tri)
+    shacl = num("SHACL validation (advanced mode)")
+    if shacl:
+        # Bound because the manuscript quotes it to the second. It is not
+        # stable to the second: three runs of the same graph on the same
+        # machine gave 7,223, 8,682 (with other jobs competing) and 7,612
+        # seconds, so whichever run the CSV holds is the one the text must
+        # quote, and a stale figure fails here rather than in review.
+        check_claim(tex_nums, "SHACL seconds on the published graph", shacl)
+    e2e = num("end-to-end on the published graph")
+    parts = [num("parse"), num("rdfs:subClassOf type closure"),
+             num("SHACL validation (advanced mode)")]
+    if e2e and all(parts):
+        if abs(e2e - sum(parts) / 60) > 0.2:
+            bad.append(f"the end-to-end figure {e2e:.1f} min is not the sum of "
+                       f"its stages ({sum(parts)/60:.1f} min)")
+        check_claim(tex_nums, "end-to-end minutes on the published graph", e2e)
+    record(FAIL if bad else OK, "the performance figures were measured",
+           "; ".join(bad) if bad else
+           f"{len(rows)} measurements, end-to-end "
+           f"{e2e:.1f} min on {obs:,.0f} observations"
+           if e2e and obs else f"{len(rows)} measurements")
+
+
 def check_series_figures(tex_nums):
     """Own what the year series and the two-regimes figure put into the prose.
 
@@ -3728,6 +4355,12 @@ def main() -> int:
     check_reported_intervals(nums)
     check_uncertainty_sensitivity(nums)
     check_series_figures(nums)
+    check_comparison_set_counts(nums)
+    check_archive_digest()
+    check_group_membership()
+    check_substitution_decomposition(nums)
+    check_era_cohort(nums)
+    check_measured_performance(nums)
     check_uncertainty_models(nums)
     check_precondition_is_largest(nums)
     check_zero_substitution_paradox(nums)
@@ -3737,6 +4370,9 @@ def main() -> int:
     check_figure_data_names()
     check_caption_numbers_are_in_the_figure()
     check_limit_and_country_figures(nums)
+    check_decade_undecidable(nums)
+    check_dataset_citation()
+    check_assessment_unit(nums)
     check_every_figure_is_placed()
     check_published_build_is_deterministic()
     check_shacl_conformance(nums)

@@ -1,0 +1,9 @@
+quantity,value
+aggregated_river_station_years,4170005
+disaggregated_rows_total,96597294
+disaggregated_river_samples,55358021
+station_years_covered,1234302
+coverage_pct,29.60
+samples_per_covered_p25,4
+samples_per_covered_median,6
+samples_per_covered_p75,12

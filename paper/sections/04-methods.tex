@@ -168,7 +168,14 @@ fields a record reports. The quantification limit enters three times --- it
 decides whether the row has a detection status at all, it is what
 Article~3(3b) compares against the standard, and a value below its own limit
 is a row contradicting itself --- which is why a schema that stores only the
-value cannot run this procedure. The half-width $T/2$ in the last test is not a
+value cannot run this procedure. Units are reconciled before any of it: a reported limit and a standard reach
+the comparison in \si{\micro\gram\per\litre}, converted from the unit the
+record states, and a row whose unit is unrecognised is excluded rather than
+assumed\src{scripts/22\_waterbase\_external.py}. The rules in the shipped
+shapes compare the two numbers directly, which is correct only because that
+conversion has already happened.
+
+The half-width $T/2$ in the last test is not a
 threshold the Directive states. It is the \emph{widest} uncertainty
 Article~4(1) lets a usable method have at the level of the standard, so a value
 within $T/2$ of the standard is one a method meeting only the legal minimum
@@ -273,8 +280,14 @@ analytical practice. Two statements are then conflated:
 \end{itemize}
 
 The laboratory asserts the first, the database records the second. What is lost
-is not a value but the \emph{bound}: a non-detection establishes $c \in
-[0,\mathrm{LOD}]$, and \num{0.0} is a different claim, not a weaker one. The
+is not a value but the \emph{bound}. The laboratory's act establishes $c \in
+[0,\mathrm{LOD}]$; the record supplies at best $c \in [0,\mathrm{LOQ}]$, a
+weaker and different claim, and it is that one the vocabulary carries because it
+is the one reported. Either way \num{0.0} is a different claim, not a weaker
+one. Every provision applied in this paper is written about the quantification
+limit, so \texttt{censo:CensoredObservation} bounds the result by the limit the
+result was reported against; the distinction from the detection limit is real
+and is the subject of Section~\ref{sec:results-shacl}. The
 method is chosen on analytical grounds, the threshold arrives later from a legal
 instrument, and their relative position is accidental. Article~3(3b) of the
 consolidated Directive 2008/105/EC provides that a result reported as less than

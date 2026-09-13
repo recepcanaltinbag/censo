@@ -67,6 +67,8 @@ STAGES = [
     # -- the 165 MB aggregated download -- still runs the whole paper except
     # this section.
     ("27_mac_exceedance.py", "assess the maximum-allowable standard", False),
+    ("27b_disaggregated_coverage.py",
+     "measure how far the disaggregated release reaches", True),
     # Reads the release independently and writes only its own report, so it
     # perturbs no counter the manuscript quotes.
     ("28_uncertainty_sensitivity.py",

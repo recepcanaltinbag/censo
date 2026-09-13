@@ -102,10 +102,19 @@ def render_index(version, prev_versions):
     voc = rdflib.Graph()
     for f in ("censo-core.ttl", "censo-regulation.ttl"):
         voc.parse(ONTO / f, format="turtle")
+    # OUR NAMESPACE ONLY, and the label says so. These counts come from the two
+    # source modules, which declare nothing but their own terms, so the filter
+    # changes no number today. It is here because the DISTRIBUTION also declares
+    # the nine classes and one property it borrows from SOSA, PROV, QUDT, SKOS
+    # and FOAF, so that scanners see a self-contained file -- and a reader who
+    # counts censo-full.ttl finds 41 classes and 37 properties and concludes
+    # this page is wrong. An unlabelled count invites exactly that.
+    OURS = "https://w3id.org/censo/"
     n_cls = len({s for s in voc.subjects(RDF.type, OWL.Class)
-                 if isinstance(s, URIRef)})
+                 if isinstance(s, URIRef) and str(s).startswith(OURS)})
     n_prop = len({s for t in (OWL.ObjectProperty, OWL.DatatypeProperty)
-                  for s in voc.subjects(RDF.type, t) if isinstance(s, URIRef)})
+                  for s in voc.subjects(RDF.type, t)
+                  if isinstance(s, URIRef) and str(s).startswith(OURS)})
 
     pkgs = []
     for f in sorted((ONTO / "reg").glob("*.ttl")):
@@ -169,7 +178,8 @@ def render_index(version, prev_versions):
     A('<p class="iri">https://w3id.org/censo/</p>')
     A("")
     A('<div class="k">')
-    for val, lab in ((n_cls, "classes"), (n_prop, "properties"),
+    for val, lab in ((n_cls, "classes defined here"),
+                     (n_prop, "properties defined here"),
                      (n_thr, "thresholds"), (len(pkgs), "jurisdictions")):
         A("<div><b>" + str(val) + "</b><span>" + lab + "</span></div>")
     A("</div>")

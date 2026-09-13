@@ -10,13 +10,59 @@ below-quantification flag and \texttt{procedureLOQValue}, the limit in force.
 Where the last two are missing, the absence is itself the observation.
 Coordinates come from the companion \texttt{SpatialObjects} release.
 
+The release read is \texttt{v2025\_1}, table
+\texttt{Waterbase\_v2025\_1\_T\_WISE6\_AggregatedData.csv}, downloaded on
+\num{8}~July~\num{2026}: \num{6450192} rows. The version matters because the
+EEA replaces a release in place at the same address, so the citation records the
+archive's SHA-256 as well --- an address identifies where the file was, a digest
+identifies which file it was.
+
 River water only is retained: an inland-surface-water standard does not apply to
-lakes, transitional or coastal waters. That leaves \num{4190833} station-years.
-The aggregated release is used because an annual-average standard is defined
-against an annual mean, which is what one row holds. Only Annex~I's maximum
-allowable concentration, defined against a single measurement, needs the
-disaggregated release; the aggregated file has averaged that quantity away and
-cannot evaluate it (Section~\ref{sec:results-mac}). The SQLite distributions
+lakes, transitional or coastal waters. That leaves \num{4190833} station-years
+over \num{4170005} distinct station--substance--year keys, a few being reported
+as two rows where the year is split into sampling periods.
+
+\textbf{Both rows are assessed, and the unit of every count in this paper is
+therefore the published row rather than the station-year.} Of the
+\num{696168} rows a European annual-average standard reaches,
+\num{689266} carry a distinct station--substance--year and \num{6902}
+--- \num{0.99}\,\% --- are a second or later row for a key already
+seen\src{scripts/22\_waterbase\_external.py}. They are neither merged nor
+dropped, for the reason that governs the rest of this work: each row is a
+\emph{published} annual mean with its own \texttt{procedureLOQValue} and its
+own below-quantification flag, the two may have been produced by different
+methods with different limits, and the release states no rule for combining
+them. Choosing one would be inventing the datum the record withholds. What the
+choice can cost is bounded without making it: removing every duplicate row
+moves the undecidable share of Section~\ref{sec:results-wbabox} from
+\num{43.8}\,\% to between \num{43.2} and \num{44.2}\,\% --- at most
+\num{0.56} percentage points --- whichever of the two rows a deduplicating
+rule were to keep. The aggregated
+release is used because an annual-average standard is defined against an annual
+mean, which is what one row holds.
+
+Only Annex~I's maximum allowable concentration, defined against a single
+measurement, needs the disaggregated release of the same version
+(\texttt{Waterbase\_v2025\_1\_T\_WISE6\_DisaggregatedData.csv}); the
+aggregated file has averaged that quantity away and cannot evaluate it at any
+level of effort (Section~\ref{sec:results-mac}). That release holds
+\num{96597294} rows, of which \num{55358021} are river samples and
+\num{8148785} carry a substance for which Annex~I states a maximum allowable
+concentration.
+
+\textbf{It is the less complete of the two, and the shortfall is reported
+rather than assumed away.} Sample-level reporting is not uniform between Member
+States: the disaggregated release reaches \num{1234302} of the
+\num{4170005} river station-years, \num{29.6}\,\%, with a median of
+\num{6} samples behind a covered station-year and quartiles of \num{4}
+and \num{12}\src{scripts/27b\_disaggregated\_coverage.py}. The median is
+quoted rather than the mean because the distribution is skewed: a few
+station-years carry hundreds of samples and most carry a handful. Every
+maximum-allowable result in Section~\ref{sec:results-mac} therefore describes
+that covered stratum and is reported apart from the annual-mean results --- not
+only as a coverage caveat, but because the two standards disagree on
+\num{25.6}\,\% of the station-years readable both ways, and disagree in both
+directions, so neither is a stricter version of the other. The SQLite distributions
 duplicate the CSV releases and are unused; the by-water-body aggregation is a
 different spatial unit, not comparable to a station-year.
 

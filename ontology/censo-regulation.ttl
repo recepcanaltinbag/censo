@@ -47,7 +47,7 @@ derived thresholds such as a total-pesticide sum."""@en ;
     vann:preferredNamespacePrefix "cereg" ;
     vann:preferredNamespaceUri "https://w3id.org/censo/reg/" ;
     owl:versionIRI <https://w3id.org/censo/reg/2.1.0> ;
-    owl:versionInfo "2.3.0" ;
+    owl:versionInfo "2.3.1" ;
     owl:imports <https://w3id.org/censo/> .
 
 ################################################################################
