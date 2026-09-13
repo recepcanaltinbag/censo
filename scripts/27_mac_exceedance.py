@@ -113,11 +113,21 @@ EXTRACTORS = (["7z", "e", "-so"], ["bsdtar", "-xOf"])
 
 
 def find(pattern: str):
+    """The release matching `pattern`, with its provenance checked.
+
+    Both this stage and scripts/27b_disaggregated_coverage.py reach their
+    input through here, so verifying the digest at this one point covers
+    both. The check is the one scripts/22_waterbase_external.py applies to
+    the aggregated release, and it uses the same table: the EEA replaces a
+    release in place at the same URL, so the digest and not the file name is
+    what says which bytes produced these numbers.
+    """
     if not DATA.exists():
         return None
     for p in sorted(DATA.iterdir()):
         if pattern.lower() in p.name.lower() and p.suffix.lower() in (
                 ".zip", ".gz", ".csv"):
+            _m.verify_digest(p)
             return p
     return None
 

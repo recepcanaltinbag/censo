@@ -76,6 +76,7 @@ import io
 import math
 import re
 import sys
+import hashlib
 import zipfile
 from collections import defaultdict
 from pathlib import Path
@@ -366,6 +367,65 @@ def pick(headers):
     return out
 
 
+# THE BYTES THIS WORK WAS COMPUTED FROM, NAMED BY THEIR DIGEST.
+#
+# The EEA replaces a release in place at the same URL, and the archive
+# distributed as "v2025_1" carries an entry dated 2026-06-11: the label does
+# not identify the bytes. Every number in the manuscript is a function of this
+# file, so the manuscript cites the digest -- and a digest cited in a paper but
+# never checked by the code is a decoration. It is checked here, before a
+# single row is read, and a mismatch stops the run rather than warning: a
+# quietly different release would reproduce none of the published figures while
+# looking exactly like a successful run.
+#
+# A file this table does not know is read, with a notice. The pipeline must
+# stay usable on another release; what it must not do is claim provenance it
+# did not verify.
+EXPECTED_SHA256 = {
+    "WISE6_AggregatedData-csv.zip":
+        "315396800d76e46db415164851fb4f99765b7ec2654828fc42782d902e679a7a",
+    # The disaggregated release, read by scripts/27_mac_exceedance.py and
+    # scripts/27b_disaggregated_coverage.py, which import this table rather
+    # than keeping a second copy of it.
+    "WISE6_DisaggregatedData-csv.zip":
+        "ff779521749b40b952cce35a4671240c3b6c47d87f32a8fef9240a4ac503a082",
+}
+
+
+_DIGESTED: dict = {}
+
+
+def verify_digest(path: Path) -> str:
+    """SHA-256 the archive and compare it with the published value.
+
+    Memoised on the resolved path: three stages read these archives and the
+    disaggregated one is 1.6 GB, so hashing it once per run is the difference
+    between a check and a tax.
+    """
+    key = str(Path(path).resolve())
+    if key in _DIGESTED:
+        return _DIGESTED[key]
+    want = EXPECTED_SHA256.get(path.name)
+    h = hashlib.sha256()
+    with path.open("rb") as fh:
+        for block in iter(lambda: fh.read(1 << 20), b""):
+            h.update(block)
+    got = h.hexdigest()
+    if want is None:
+        print(f"  sha256 {got[:16]}... (no published digest for "
+              f"{path.name}; provenance is not verified)")
+    elif got != want:
+        sys.exit(f"{path.name} is not the archive this work was computed "
+                 f"from.\n  expected {want}\n  found    {got}\n"
+                 f"The EEA replaces releases in place at the same URL. Every "
+                 f"published number is a function of the expected bytes, so "
+                 f"this run is refused rather than reported.")
+    else:
+        print(f"  sha256 verified: {got}")
+    _DIGESTED[key] = got
+    return got
+
+
 def open_rows(path: Path):
     """Yield rows from csv / csv.gz / zip without unpacking to disk."""
     if path.suffix.lower() == ".zip":
@@ -615,6 +675,10 @@ def self_test() -> int:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--file", help="explicit path to the Waterbase file")
+    ap.add_argument("--write-partial", action="store_true",
+                    help="let a --limit run overwrite the published tables; "
+                         "off by default, because a truncated count that "
+                         "looks like a full one is the worst kind of output")
     ap.add_argument("--limit", type=int, default=0,
                     help="stop after N data rows (for a quick smoke test)")
     ap.add_argument("--self-test", action="store_true",
@@ -656,6 +720,7 @@ def main() -> int:
         path = max(cands, key=lambda p: p.stat().st_size)
 
     print(f"reading {path.name} ({path.stat().st_size/1e9:.2f} GB on disk)")
+    verify_digest(path)
 
     # Verified EU thresholds, keyed by CAS. Waterbase identifies substances as
     # `CAS_7440-09-7`, so the join is exact rather than by name.
@@ -725,6 +790,19 @@ def main() -> int:
     # monitoring paper actually asks -- is this getting better, or is it still
     # happening. A two-era split cannot distinguish a step change from a trend.
     by_year = defaultdict(lambda: defaultdict(int))
+    # COUNTRY x YEAR, for one reason: the era comparison is otherwise a
+    # comparison of different countries.
+    #
+    # The manuscript states that the analytical failure is no better in the
+    # last year of the record than in the first (47.7 % against 46.3 %), and
+    # the same manuscript states, honestly, that 29 of the 37 reporters have
+    # no record after 2015. Both cannot be quoted without the second
+    # destroying the first: if 2006 is twenty reporters and 2024 is four, the
+    # two numbers describe different monitoring programmes and their
+    # similarity is a coincidence of composition. Holding the cohort fixed is
+    # the only thing that turns it back into a statement about practice, and
+    # it needs the cross-tabulation this counter supplies.
+    by_country_year = defaultdict(lambda: defaultdict(int))
     # Which SUBSTANCES contribute to each decade of the standard, and how much.
     # Figure 4b reads a rate per decade, and a rate over one substance is that
     # substance's rate, not a property of the decade: the lowest decade holds
@@ -755,6 +833,29 @@ def main() -> int:
     # practice?" could only be answered for the reporting defect, never for
     # the verdict itself.
     out_by_country = defaultdict(lambda: defaultdict(int))
+    # THE VERDICT BY DECADE OF THE STANDARD.
+    # The manuscript says the lowest decades are where "the measured undecidable
+    # share is already between 82 and 100 %". That range is real but it is the
+    # share whose quantification limit exceeds the standard, which is a
+    # different quantity and not even a subset: a QUANTIFIED row with LOQ above
+    # the standard has a value above it too, and is a decidable exceedance. The
+    # sentence names the undecidable share, so the undecidable share is what it
+    # has to be measured against.
+    out_by_decade = defaultdict(lambda: defaultdict(int))
+    # ...and the same split over the last five years, because the sentence this
+    # table exists for is about where the law is moving standards NOW. Pooled
+    # over 1975-2024 it can be answered with "those are old assessments"; it
+    # cannot be answered that way against the window the rest of the paper uses.
+    out_by_decade_recent = defaultdict(lambda: defaultdict(int))
+    # HOW MANY OF THE ASSESSED ROWS SHARE A STATION-SUBSTANCE-YEAR.
+    # Every count in this file is per ROW, because each aggregated row is a
+    # published annual mean carrying its own limit and its own censoring flag.
+    # Where a reporter splits one year into sampling periods it publishes two
+    # such means, and the release says nothing about how to combine them. But
+    # the unit the standard is written on is the station-year, so a reader is
+    # entitled to know how far the two differ -- and to be told rather than to
+    # discover it from a subtraction.
+    assessed_keys = set()
     pop_verdicts = defaultdict(int)
 
     # Does the quantification limit belong to the INSTRUMENT or to the RUN?
@@ -907,7 +1008,18 @@ def main() -> int:
                                     precondition=cond.get(cas))
             pop_status[status] += 1
             pop_outcome[outcome] += 1
+            _sy = get(row, "site")
+            _yy = get(row, "year")[:4]
+            if _sy and _yy:
+                assessed_keys.add((_sy, cas, _yy))
             out_by_country[get(row, "country") or "??"][outcome] += 1
+            if thr > 0:
+                _d = math.floor(math.log10(thr))
+                out_by_decade[_d][outcome] += 1
+                _yr = get(row, "year")
+                _yr = num(_yr[:4]) if len(_yr) >= 4 else num(_yr)
+                if _yr is not None and int(_yr) >= RECENT_FROM:
+                    out_by_decade_recent[_d][outcome] += 1
             if l_ug is not None and l_ug > 0 and len(loq_by_sub[cas]) < 60000:
                 loq_by_sub[cas].append(l_ug)
                 _ry = get(row, "year")
@@ -938,6 +1050,7 @@ def main() -> int:
                    by_block[block]]
         if yr is not None:
             targets.append(by_year[str(int(yr))])
+            targets.append(by_country_year[f"{cty}|{int(yr)}"])
         if cas in eqs and eqs[cas] > 0:
             _d = math.floor(math.log10(eqs[cas]))
             targets.append(by_eqs_decade[_d])
@@ -1018,6 +1131,21 @@ def main() -> int:
             continue
         d = math.log10(max(vals) / min(vals))
         spread[min(int(math.floor(d)) + 1, 4)] += 1
+    # A TRUNCATED RUN MUST NOT PUBLISH ITS COUNTS.
+    #
+    # --limit exists to exercise the parser quickly. It used to write the same
+    # report and the same eleven tables as a full run, so a smoke test over
+    # 200,000 rows silently replaced every published figure with a partial one:
+    # assessment_unit.csv said 11,574 assessed rows where the record has
+    # 696,168, and nothing in the output said the file was now a sample. The
+    # numbers were not wrong for what they counted -- they were unlabelled,
+    # which is worse, because every downstream stage reads them as the record.
+    if args.limit and not args.write_partial:
+        print(f"\n  --limit {args.limit:,} was given: this is a partial pass "
+              f"and nothing was written.\n  Re-run without --limit to publish, "
+              f"or pass --write-partial if a truncated table is what you want.")
+        return 0
+
     with (PROC / "limit_variation.csv").open("w", newline="",
                                              encoding="utf-8") as fh:
         w = csv.writer(fh)
@@ -1046,6 +1174,7 @@ def main() -> int:
                          ("country", by_country), ("class", by_class),
                          ("era", by_era), ("era_country", by_era_country),
                          ("period", by_block), ("year", by_year),
+                         ("country_year", by_country_year),
                          # The run-vs-instrument counters, so the manuscript's
                          # claims about them are recomputed by the audit rather
                          # than only printed in a report.
@@ -1074,11 +1203,16 @@ def main() -> int:
             w = csv.writer(fh)
             w.writerow(["decade_log10_ug_l", "assessments", "n_substances",
                         "top_substance", "top_share_pct"])
+            # NOT `n`: that name holds the total rows read, and rebinding it
+            # here left the report stating the 1e-6 decade's assessment count
+            # as the size of the source -- "1,125 rows read; 4,190,833
+            # river-water rows retained", which cannot be true of any file and
+            # was printed correctly by the stage immediately before it.
             for d in sorted(dec_subs, reverse=True):
                 m = dec_subs[d]
-                n = sum(m.values())
+                n_dec = sum(m.values())
                 top, tn = max(m.items(), key=lambda kv: kv[1])
-                w.writerow([d, n, len(m), top, f"{100 * tn / n:.1f}"])
+                w.writerow([d, n_dec, len(m), top, f"{100 * tn / n_dec:.1f}"])
         print(f"  decade composition: "
               + ", ".join(f"1e{d}:{len(dec_subs[d])}"
                           for d in sorted(dec_subs, reverse=True)))
@@ -1116,6 +1250,30 @@ def main() -> int:
                            + [len(rec)]
                            + [_q(rec, f) for f in (.25, .50, .75)]
                            + [RECENT_FROM])
+
+    n_assessed_rows = sum(pop_outcome.values())
+    with (PROC / "assessment_unit.csv").open("w", newline="",
+                                             encoding="utf-8") as fh:
+        w = csv.writer(fh)
+        w.writerow(["quantity", "value"])
+        w.writerow(["assessed_rows", n_assessed_rows])
+        w.writerow(["assessed_distinct_station_substance_year",
+                    len(assessed_keys)])
+        w.writerow(["rows_beyond_one_per_key",
+                    n_assessed_rows - len(assessed_keys)])
+        w.writerow(["share_pct", f"{100 * (n_assessed_rows - len(assessed_keys)) / n_assessed_rows:.3f}"
+                    if n_assessed_rows else "0"])
+
+    with (PROC / "verdicts_by_decade.csv").open("w", newline="",
+                                                encoding="utf-8") as fh:
+        w = csv.writer(fh)
+        w.writerow(["decade_log10_ug_l", "censo_outcome", "n", "n_recent",
+                    "recent_from"])
+        for d_ in sorted(out_by_decade):
+            for o, v in sorted(out_by_decade[d_].items()):
+                w.writerow([d_, o, v,
+                            out_by_decade_recent.get(d_, {}).get(o, 0),
+                            RECENT_FROM])
 
     with (PROC / "verdicts_by_country.csv").open("w", newline="",
                                                  encoding="utf-8") as fh:

@@ -281,12 +281,36 @@
   doi     = {10.3390/pollutants6020026}
 }
 
+% The dataset IS the empirical half of this work, so the entry has to let a
+% reader establish they hold the same bytes. "The 2026 version" does not: the
+% archive downloaded in 2026 carries the v2025_1 table, releases are replaced
+% in place at the same URL, and the file is 2.1 GB uncompressed. Version,
+% table, archive, digest, sizes and both row counts are therefore all stated.
 @misc{eea_waterbase,
   author       = {{European Environment Agency}},
   title        = {Waterbase --- Water Quality {ICM}},
-  howpublished = {\url{https://www.eea.europa.eu/data-and-maps/data/waterbase-water-quality-icm-2}},
-  note         = {CC BY 4.0},
-  year         = {2024}
+  version      = {v2025\_1},
+  howpublished = {\url{https://www.eea.europa.eu/en/datahub/datahubitem-view/fbf3717c-cd7b-4785-933a-d0cf510542e1}},
+  year         = {2026},
+  urldate      = {2026-07-08},
+  note         = {Aggregated data, table
+                  \texttt{Waterbase\_v2025\_1\_T\_WISE6\_AggregatedData.csv}
+                  (\num{2143371278}~bytes, \num{6450192} rows, of which
+                  \num{4190833} are river-water rows in the categories this
+                  work assesses), distributed as
+                  \texttt{WISE6\_AggregatedData-csv.zip}
+                  (\num{170422309}~bytes, SHA-256
+                  \texttt{315396800d76e46db415164851fb4f99765b7ec2654828fc42782d902e679a7a},
+                  archive entry dated 2026-06-11). The maximum-allowable
+                  results additionally use the disaggregated release of the
+                  same version,
+                  \texttt{WISE6\_DisaggregatedData-csv.zip}
+                  (\num{1639231716}~bytes, SHA-256
+                  \texttt{ff779521749b40b952cce35a4671240c3b6c47d87f32a8fef9240a4ac503a082}),
+                  holding \num{96597294} rows. Downloaded 8 July 2026.
+                  CC BY 4.0. The EEA replaces a release in place at the same
+                  URL, so the digest rather than the address identifies what
+                  was read}
 }
 
 @book{helsel2012nondetects,
