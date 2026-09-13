@@ -152,7 +152,11 @@ def _join_digits(s: str) -> str:
 
 
 CAS = re.compile(r"\b\d{2,7}-\d{2}-\d\b")
-ENTRY = re.compile(r"^\((\d+[a-z]?)\)\s*(.*)$")
+# The marker is matched with optional spaces inside the parentheses:
+# pypdf renders the footnote markers as "( 1 )", and a pattern that
+# misses them leaves the last table row absorbing the whole footnote
+# block (see page_entries).
+ENTRY = re.compile(r"^\(\s*(\d+[a-z]?)\s*\)\s*(.*)$")
 NUMBER = re.compile(r"\d+(?:[.,]\d+)?(?:[eE]-\d+)?"
                     r"|\d+(?:[.,]\d+)?\s*[x×]\s*10\s*-?\s*\d+")
 
@@ -228,13 +232,50 @@ def page_entries(text: str):
             continue
         body.append(l)
 
-    entries, cur = [], None
+    # WHERE THE TABLE ENDS.
+    #
+    # Annex I's last row is (70), and immediately after it comes the footnote
+    # block: "(1) CAS: Chemical Abstracts Service.", "(8) Tetra, Penta, ...
+    # bromodiphenylether (CAS numbers 40088-47-9, ...)", "(15) Benzo(a)pyrene
+    # (CAS 50-32-8) ...". pypdf renders those markers with spaces inside the
+    # parentheses -- "( 1 )" -- which ENTRY does not match, so nothing ended
+    # entry (70) and it absorbed 209 further lines. The published package
+    # consequently declared "Sum of active substances in the pesticides" to be
+    # a group of 75 CAS numbers that included the brominated diphenylethers,
+    # the PAHs, the dioxins, PFOS, nonylphenol and octylphenol -- every CAS
+    # number any footnote happens to mention. No verdict moved, because group
+    # standards are excluded from the assessment, but the shipped regulation
+    # package and the group-completeness table were both wrong, and the second
+    # reported "0 % complete over 26,846 station-years" for a membership no
+    # station could ever complete.
+    #
+    # The marker is therefore matched WITH the spaces, and the table is closed
+    # where its numbering restarts. Entry numbers ascend through the table
+    # (1, 2, ... 9, 9a, 9b, 10, ... 70); the footnotes begin again at (1), so a
+    # DECREASE is the end of the table rather than a new row.
+    #
+    # Merely closing row (70) at the first footnote is not enough, and the
+    # difference is worth stating: footnote (8) lists the brominated
+    # diphenylether CAS numbers, and the column reader keys on the entry
+    # number, so a footnote block that survived as an entry would collect the
+    # CAS numbers of footnote (8) and the STANDARDS of table row 8. That is a
+    # fabricated substance with real-looking values -- worse than the
+    # over-collection it replaced. The footnote block is therefore not parsed
+    # at all.
+    #
+    # This function is called on the annex region only, which is what makes the
+    # rule safe: the numbering restarts exactly once inside it.
+    entries, cur, last = [], None, 0
     for l in body:
         m = ENTRY.match(l)
-        if m and not re.match(r"^\(\d+\s*\)$", l):
+        if m and not re.match(r"^\(\s*\d+\s*\)$", l):
+            n = int(re.match(r"\d+", m.group(1)).group(0))
+            if cur is not None and n < last:
+                break                      # the footnote block starts here
             if cur:
                 entries.append(cur)
             cur = {"no": m.group(1), "lines": [m.group(2)]}
+            last = n
         elif cur is not None:
             cur["lines"].append(l)
     if cur:
@@ -533,14 +574,62 @@ def main() -> int:
     annex = "\n".join(pages[first:last + 1])
     n_pages = last - first + 1
 
-    rows, unparsed, unparsed_no = [], 0, []
+    rows, unparsed, unparsed_no, dropped = [], 0, [], []
     for e in page_entries(annex):
         p = parse_entry(e)
         if p is None:
             unparsed += 1
             unparsed_no.append(e["no"])
+            dropped.append(e)
             continue
         rows.append(p)
+
+    # ENTRY (70) HAS NO CAS NUMBER, AND ITS MEMBERSHIP IS A SENTENCE.
+    #
+    # "Sum of active substances in the pesticides (28) listed in this table",
+    # AA-EQS inland 0,2 ug/L. The CAS and EU-number cells read "not
+    # applicable", so parse_entry drops the row -- correctly, since a row with
+    # no CAS is not a substance. But the standard is real, and footnote (28)
+    # says exactly which substances it sums: the pesticides listed in this
+    # table. That is column (3), the legislator's own category, which this
+    # parser already extracts for every other row.
+    #
+    # The membership is therefore derived from the category column rather than
+    # from whatever CAS numbers happen to be nearby -- which is what the
+    # earlier version did, giving this group 75 members that included the
+    # brominated diphenylethers, the PAHs, the dioxins, PFOS, nonylphenol and
+    # octylphenol. No verdict depended on it, because group standards are
+    # excluded from the per-substance assessment, but the published regulation
+    # package asserted that membership and the group-completeness table
+    # reported "0 % complete" for it over 26,846 station-years: a figure no
+    # station could have produced under any monitoring programme.
+    SUM_OF_PESTICIDES = re.compile(r"(?i)sum\s+of\s+active\s+substances")
+    for e in dropped:
+        blob = join_lines(e["lines"])
+        if not SUM_OF_PESTICIDES.search(blob):
+            continue
+        members = [c for r in rows
+                   if "pesticide" in (r.get("category") or "").lower()
+                   for c in (r["all_cas"] or "").split(";") if c]
+        if not members:
+            break
+        rows.append({
+            "entry_no": e["no"],
+            "name": "Sum of active substances in the pesticides listed in "
+                    "this table",
+            "is_group": True,
+            "category": "Pesticides",
+            "cas": members[0],
+            "all_cas": ";".join(dict.fromkeys(members)),
+            "n_cas": len(dict.fromkeys(members)),
+            "aa_inland": None, "aa_other": None,
+            "mac_inland": None, "mac_other": None,
+            "n_values_found": 0,
+            "multi_valued": True,
+        })
+        unparsed -= 1
+        unparsed_no.remove(e["no"])
+        break
 
     # THE FOUR EQS COLUMNS COME FROM THE COLUMN-POSITION READER, always. The
     # flattened parse still supplies the name, category and CAS numbers, which

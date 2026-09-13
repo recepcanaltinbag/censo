@@ -14,7 +14,7 @@ The paper claims regulations are pluggable, versioned packages. These are the pa
 | file | triples | classes/properties declared |
 |---|---|---|
 | `tr-ysky-2016.ttl` | 4,611 | **0 — individuals only, as required** |
-| `eu-2008-105-2026.ttl` | 1,684 | **0 — individuals only, as required** |
+| `eu-2008-105-2026.ttl` | 1,389 | **0 — individuals only, as required** |
 
 Every threshold carries `cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource`, because both sources are parsed from the legal PDFs. The project's working spreadsheet is deliberately not emitted: seven of its ten metal values, and a further eleven organics, disagree with the law.
 

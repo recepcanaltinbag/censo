@@ -433,13 +433,59 @@ below-quantification flag and \texttt{procedureLOQValue}, the limit in force.
 Where the last two are missing, the absence is itself the observation.
 Coordinates come from the companion \texttt{SpatialObjects} release.
 
+The release read is \texttt{v2025\_1}, table
+\texttt{Waterbase\_v2025\_1\_T\_WISE6\_AggregatedData.csv}, downloaded on
+\num{8}~July~\num{2026}: \num{6450192} rows. The version matters because the
+EEA replaces a release in place at the same address, so the citation records the
+archive's SHA-256 as well --- an address identifies where the file was, a digest
+identifies which file it was.
+
 River water only is retained: an inland-surface-water standard does not apply to
-lakes, transitional or coastal waters. That leaves \num{4190833} station-years.
-The aggregated release is used because an annual-average standard is defined
-against an annual mean, which is what one row holds. Only Annex~I's maximum
-allowable concentration, defined against a single measurement, needs the
-disaggregated release; the aggregated file has averaged that quantity away and
-cannot evaluate it (Section~\ref{sec:results-mac}). The SQLite distributions
+lakes, transitional or coastal waters. That leaves \num{4190833} station-years
+over \num{4170005} distinct station--substance--year keys, a few being reported
+as two rows where the year is split into sampling periods.
+
+\textbf{Both rows are assessed, and the unit of every count in this paper is
+therefore the published row rather than the station-year.} Of the
+\num{696168} rows a European annual-average standard reaches,
+\num{689266} carry a distinct station--substance--year and \num{6902}
+--- \num{0.99}\,\% --- are a second or later row for a key already
+seen\src{scripts/22\_waterbase\_external.py}. They are neither merged nor
+dropped, for the reason that governs the rest of this work: each row is a
+\emph{published} annual mean with its own \texttt{procedureLOQValue} and its
+own below-quantification flag, the two may have been produced by different
+methods with different limits, and the release states no rule for combining
+them. Choosing one would be inventing the datum the record withholds. What the
+choice can cost is bounded without making it: removing every duplicate row
+moves the undecidable share of Section~\ref{sec:results-wbabox} from
+\num{43.8}\,\% to between \num{43.2} and \num{44.2}\,\% --- at most
+\num{0.56} percentage points --- whichever of the two rows a deduplicating
+rule were to keep. The aggregated
+release is used because an annual-average standard is defined against an annual
+mean, which is what one row holds.
+
+Only Annex~I's maximum allowable concentration, defined against a single
+measurement, needs the disaggregated release of the same version
+(\texttt{Waterbase\_v2025\_1\_T\_WISE6\_DisaggregatedData.csv}); the
+aggregated file has averaged that quantity away and cannot evaluate it at any
+level of effort (Section~\ref{sec:results-mac}). That release holds
+\num{96597294} rows, of which \num{55358021} are river samples and
+\num{8148785} carry a substance for which Annex~I states a maximum allowable
+concentration.
+
+\textbf{It is the less complete of the two, and the shortfall is reported
+rather than assumed away.} Sample-level reporting is not uniform between Member
+States: the disaggregated release reaches \num{1234302} of the
+\num{4170005} river station-years, \num{29.6}\,\%, with a median of
+\num{6} samples behind a covered station-year and quartiles of \num{4}
+and \num{12}\src{scripts/27b\_disaggregated\_coverage.py}. The median is
+quoted rather than the mean because the distribution is skewed: a few
+station-years carry hundreds of samples and most carry a handful. Every
+maximum-allowable result in Section~\ref{sec:results-mac} therefore describes
+that covered stratum and is reported apart from the annual-mean results --- not
+only as a coverage caveat, but because the two standards disagree on
+\num{25.6}\,\% of the station-years readable both ways, and disagree in both
+directions, so neither is a stricter version of the other. The SQLite distributions
 duplicate the CSV releases and are unused; the by-water-body aggregation is a
 different spatial unit, not comparable to a station-year.
 
@@ -657,7 +703,14 @@ fields a record reports. The quantification limit enters three times --- it
 decides whether the row has a detection status at all, it is what
 Article~3(3b) compares against the standard, and a value below its own limit
 is a row contradicting itself --- which is why a schema that stores only the
-value cannot run this procedure. The half-width $T/2$ in the last test is not a
+value cannot run this procedure. Units are reconciled before any of it: a reported limit and a standard reach
+the comparison in \si{\micro\gram\per\litre}, converted from the unit the
+record states, and a row whose unit is unrecognised is excluded rather than
+assumed\src{scripts/22\_waterbase\_external.py}. The rules in the shipped
+shapes compare the two numbers directly, which is correct only because that
+conversion has already happened.
+
+The half-width $T/2$ in the last test is not a
 threshold the Directive states. It is the \emph{widest} uncertainty
 Article~4(1) lets a usable method have at the level of the standard, so a value
 within $T/2$ of the standard is one a method meeting only the legal minimum
@@ -762,8 +815,14 @@ analytical practice. Two statements are then conflated:
 \end{itemize}
 
 The laboratory asserts the first, the database records the second. What is lost
-is not a value but the \emph{bound}: a non-detection establishes $c \in
-[0,\mathrm{LOD}]$, and \num{0.0} is a different claim, not a weaker one. The
+is not a value but the \emph{bound}. The laboratory's act establishes $c \in
+[0,\mathrm{LOD}]$; the record supplies at best $c \in [0,\mathrm{LOQ}]$, a
+weaker and different claim, and it is that one the vocabulary carries because it
+is the one reported. Either way \num{0.0} is a different claim, not a weaker
+one. Every provision applied in this paper is written about the quantification
+limit, so \texttt{censo:CensoredObservation} bounds the result by the limit the
+result was reported against; the distinction from the detection limit is real
+and is the subject of Section~\ref{sec:results-shacl}. The
 method is chosen on analytical grounds, the threshold arrives later from a legal
 instrument, and their relative position is accidental. Article~3(3b) of the
 consolidated Directive 2008/105/EC provides that a result reported as less than
@@ -1100,7 +1159,11 @@ formed; it is counted as a change and excluded from the magnitude claims.
 \textbf{(b)} The
 annual-average standards of Annex~I by decade, separated into the list before
 \num{2026} and the substances Directive~(EU) 2026/805 adds. The shaded band is
-where the record's undecidable share runs from \num{82} to \num{100}\,\%.
+where the undecidable share of assessments made since \num{2020} runs from
+\num{84} to \num{100}\,\% --- measured as the share the decision procedure
+cannot decide, not as the share whose limit exceeds the standard, which is a
+different quantity and not a subset of it, since a quantified result above its
+own limit is a decidable exceedance.
 Read together: the limit varies by more than the distance between a standard
 and the values near it, and the standards are moving into the decades the
 limits already cannot follow.}
@@ -1117,9 +1180,9 @@ Annex, and the completeness rate falls with the size of the basket: heptachlor
 and its epoxide (\num{2} members) are both measured in \num{69.6}\,\% of the
 station-years that touch them, the cyclodiene pesticides (\num{4}) in
 \num{88.0}\,\%, the polyaromatic hydrocarbons (\num{9}) in \num{36.0}\,\%
---- and the sum over the pesticides list, which resolves to \num{75} members,
-in \textbf{\num{0.0}\,\%}: not one of the \num{26846} station-years that
-touch that group measures all of it. A standard defined over seventy-five
+--- and the sum over the pesticides list, which resolves to \num{38} members,
+in \textbf{\num{0.0}\,\%}: not one of the \num{32929} station-years that
+touch that group measures all of it. A standard defined over thirty-eight
 substances that no station-year ever measures completely cannot be assessed by
 anyone, and a threshold column would compare the partial sum against it and
 return compliance.
@@ -2124,9 +2187,15 @@ which is why the flag is what makes the substitution reversible, and why
 \emph{The standards are moving faster than the chemistry.} Of the substances
 Directive~(EU) 2026/805 adds with an annual-average standard, \num{33}\,\% place
 it below \num{e-3}~\si{\micro\gram\per\litre} against \num{20}\,\% on the
-legacy list --- decades in which the measured undecidable share is already
-between \num{82} and \num{100}\,\%. Better reporting cannot close a gap that the
-threshold is widening.
+legacy list --- a region where \num{85.9}\,\% of the assessments made
+\emph{since \num{2020}} cannot be decided, and where the reason is analytical
+rather than a missing covariate: below \num{e-3} the quantification limit alone
+accounts for \num{83}\,\% to \num{100}\,\% of every recent
+assessment\src{scripts/22\_waterbase\_external.py}. Pooled over the whole
+record the same region gives \num{85.0}\,\%, so this is not an artefact of the
+archive; the analytical share is \emph{higher} in the recent window than across
+the record, which is the opposite of what improving capability would produce. Better reporting cannot
+close a gap that the threshold is widening.
 
 And one insufficiency is of a different kind altogether, because no analytical
 improvement touches it. For cadmium, lead and nickel the standard is defined on a

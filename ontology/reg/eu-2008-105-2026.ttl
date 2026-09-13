@@ -136,7 +136,7 @@ cereg:eu-2008-105-2026 a cereg:RegulationPackage ;
         cereg:eu-2008-105-2026-Thiamethoxam-mac ,
         cereg:eu-2008-105-2026-Triclosan-aa ,
         cereg:eu-2008-105-2026-Triclosan-mac ,
-        cereg:eu-2008-105-2026-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30-aa ,
+        cereg:eu-2008-105-2026-Sum-of-active-substances-in-the-pesticides-listed-in-this-table-aa ,
         cereg:eu-2008-105-2026-Cyclodiene-pesticides-Aldrin-Dieldrin-Endrin-Isodrin-aa ,
         cereg:eu-2008-105-2026-DDT-total-11-aa ,
         cereg:eu-2008-105-2026-Tetrachloroethylene-aa ,
@@ -454,9 +454,9 @@ cereg:eu-2008-105-2026-group-Polyaromatic-hydrocarbons-PAHs-15-Combustion-produc
     rdfs:label "Polyaromatic hydrocarbons (PAHs) ( 15 ) Combustion products not applicable not applicable not applicable not applicable not applicable not applicable Sum of Benzo(a) pyrene equivalents 0,6 (16 ) X X X Benzo(a)pyrene"@en ;
     rdfs:comment "Members, by CAS: 50-32-8; 205-99-2; 207-08-9; 191-24-2; 193-39-5; 218-01-9; 56-55-3; 53-70-3; 206-44-0"@en .
 
-cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 a cereg:SubstanceGroup ;
-    rdfs:label "Sum of active substances in the pesticides (28 ) listed in this table ( 29 ) (30 )"@en ;
-    rdfs:comment "Members, by CAS: 40088-47-9; 32534-81-9; 36483-60-0; 68928-80-3; 1163-19-5; 25154-52-3; 104-40-5; 84852-15-3; 1806-26-4; 140-66-9; 50-32-8; 205-99-2; 207-08-9; 191-24-2; 193-39-5; 218-01-9; 56-55-3; 53-70-3; 206-44-0; 1746-01-6; 40321-76-4; 39227-28-6; 19408-74-3; 35822-46-9; 3268-87-9; 207-31-9; 57117-41-6; 57117-31-4; 70648-26-9; 57117-44-9; 72918-21-9; 60851-34-5; 67562-39-4; 55673-89-7; 39001-02-0; 32598-13-3; 32598-14-4; 74472-37-0; 31508-00-6; 65510-44-3; 57465-28-8; 38380-08-4; 69782-90-7; 663-72-6; 32774-16-6; 39635-31-9; 52315-07-8; 67375-30-8; 65731-84-2; 691-59-1; 1315501-18-8; 3194-55-6; 134237-51-7; 134237-52-8; 335-67-1; 1763-23-1; 375-95-1; 307-24-4; 375-22-4; 2706-90-3; 2706-91-4; 335-76-2; 307-55-1; 2058-94-8; 375-85-9; 72629-94-8; 375-92-8; 376-06-7; 16517-11-6; 13252-13-6; 919005-14-4; 647-42-7; 678-39-7; 1190931-41-9; 76-05-1"@en .
+cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table a cereg:SubstanceGroup ;
+    rdfs:label "Sum of active substances in the pesticides listed in this table"@en ;
+    rdfs:comment "Members, by CAS: 2921-88-2; 309-00-2; 60-57-1; 72-20-8; 465-73-6; 50-29-3; 330-54-1; 115-29-7; 118-74-1; 608-73-1; 34123-59-6; 87-86-5; 36643-28-4; 1582-09-8; 115-32-2; 124495-18-7; 74070-46-5; 42576-02-3; 28159-98-0; 52315-07-8; 62-73-7; 76-44-8; 1024-57-3; 886-50-0; 135410-20-7; 160430-64-8; 82657-04-3; 210880-92-5; 52918-63-5; 66230-04-4; 1071-83-6; 138261-41-3; 105827-78-9; 111991-09-4; 52645-53-1; 111988-49-9; 153719-23-4; 3380-34-5"@en .
 
 cereg:analyte-eu-cas-309-00-2 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Cyclodiene-pesticides-Aldrin-Dieldrin-Endrin-Isodrin .
 cereg:analyte-eu-cas-60-57-1 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Cyclodiene-pesticides-Aldrin-Dieldrin-Endrin-Isodrin .
@@ -473,81 +473,44 @@ cereg:analyte-eu-cas-218-01-9 cereg:memberOfGroup cereg:eu-2008-105-2026-group-P
 cereg:analyte-eu-cas-56-55-3 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Polyaromatic-hydrocarbons-PAHs-15-Combustion-products-not-applicable-not-applicable-not-applicable-not-applicable-not-applicable-not-applicable-Sum-of-Benzo-a-pyrene-equivalents-0-6-16-X-X-X-Benzo-a-pyrene .
 cereg:analyte-eu-cas-53-70-3 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Polyaromatic-hydrocarbons-PAHs-15-Combustion-products-not-applicable-not-applicable-not-applicable-not-applicable-not-applicable-not-applicable-Sum-of-Benzo-a-pyrene-equivalents-0-6-16-X-X-X-Benzo-a-pyrene .
 cereg:analyte-eu-Fluoranthene cereg:memberOfGroup cereg:eu-2008-105-2026-group-Polyaromatic-hydrocarbons-PAHs-15-Combustion-products-not-applicable-not-applicable-not-applicable-not-applicable-not-applicable-not-applicable-Sum-of-Benzo-a-pyrene-equivalents-0-6-16-X-X-X-Benzo-a-pyrene .
-cereg:analyte-eu-cas-40088-47-9 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-32534-81-9 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-36483-60-0 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-68928-80-3 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-1163-19-5 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-25154-52-3 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-104-40-5 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-84852-15-3 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-1806-26-4 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-140-66-9 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-50-32-8 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-205-99-2 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-207-08-9 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-191-24-2 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-193-39-5 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-218-01-9 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-56-55-3 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-53-70-3 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-Fluoranthene cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-1746-01-6 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-40321-76-4 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-39227-28-6 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-19408-74-3 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-35822-46-9 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-3268-87-9 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-207-31-9 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-57117-41-6 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-57117-31-4 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-70648-26-9 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-57117-44-9 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-72918-21-9 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-60851-34-5 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-67562-39-4 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-55673-89-7 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-39001-02-0 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-32598-13-3 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-32598-14-4 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-74472-37-0 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-31508-00-6 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-65510-44-3 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-57465-28-8 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-38380-08-4 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-69782-90-7 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-663-72-6 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-32774-16-6 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-39635-31-9 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-Cypermethrin-22 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-67375-30-8 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-65731-84-2 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-691-59-1 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-1315501-18-8 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-3194-55-6 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-134237-51-7 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-134237-52-8 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-335-67-1 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-Perfluorooctane-sulfonic-acid-PFOS-and-its-derivatives cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-375-95-1 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-307-24-4 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-375-22-4 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-2706-90-3 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-2706-91-4 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-335-76-2 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-307-55-1 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-2058-94-8 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-375-85-9 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-72629-94-8 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-375-92-8 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-376-06-7 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-16517-11-6 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-13252-13-6 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-919005-14-4 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-647-42-7 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-678-39-7 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-1190931-41-9 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
-cereg:analyte-eu-cas-76-05-1 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 .
+cereg:analyte-eu-Chlorpyrifos-Chlorpyrifos-ethyl cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-cas-309-00-2 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-cas-60-57-1 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-cas-72-20-8 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-cas-465-73-6 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-DDT-total-11 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Diuron cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Endosulfan cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Hexachlorobenzene cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Hexachlorocyclohexane cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Isoproturon cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Pentachlorophenol cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Tributyltin-compounds-17-Tributyltin-cation cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Trifluralin cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Dicofol cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Quinoxyfen cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Aclonifen cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Bifenox cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Cybutryne cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Cypermethrin-22 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Dichlorvos cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-cas-76-44-8 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-cas-1024-57-3 cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Terbutryn cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Acetamiprid cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Acetamiprid cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Bifenthrin cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Clothianidin cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Deltamethrin cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Esfenvalerate cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Glyphosate cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Imidacloprid cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Imidacloprid cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Nicosulfuron cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Permethrin cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Thiacloprid cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Thiamethoxam cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
+cereg:analyte-eu-Triclosan cereg:memberOfGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table .
 
 cereg:analyte-eu-cas-309-00-2 a censo:Analyte ;
     rdfs:label "CAS 309-00-2"@en ;
@@ -617,326 +580,6 @@ cereg:analyte-eu-cas-56-55-3 a censo:Analyte ;
 cereg:analyte-eu-cas-53-70-3 a censo:Analyte ;
     rdfs:label "CAS 53-70-3"@en ;
     censo:casNumber "53-70-3" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-40088-47-9 a censo:Analyte ;
-    rdfs:label "CAS 40088-47-9"@en ;
-    censo:casNumber "40088-47-9" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-32534-81-9 a censo:Analyte ;
-    rdfs:label "CAS 32534-81-9"@en ;
-    censo:casNumber "32534-81-9" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-36483-60-0 a censo:Analyte ;
-    rdfs:label "CAS 36483-60-0"@en ;
-    censo:casNumber "36483-60-0" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-68928-80-3 a censo:Analyte ;
-    rdfs:label "CAS 68928-80-3"@en ;
-    censo:casNumber "68928-80-3" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-1163-19-5 a censo:Analyte ;
-    rdfs:label "CAS 1163-19-5"@en ;
-    censo:casNumber "1163-19-5" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-25154-52-3 a censo:Analyte ;
-    rdfs:label "CAS 25154-52-3"@en ;
-    censo:casNumber "25154-52-3" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-104-40-5 a censo:Analyte ;
-    rdfs:label "CAS 104-40-5"@en ;
-    censo:casNumber "104-40-5" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-84852-15-3 a censo:Analyte ;
-    rdfs:label "CAS 84852-15-3"@en ;
-    censo:casNumber "84852-15-3" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-1806-26-4 a censo:Analyte ;
-    rdfs:label "CAS 1806-26-4"@en ;
-    censo:casNumber "1806-26-4" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-140-66-9 a censo:Analyte ;
-    rdfs:label "CAS 140-66-9"@en ;
-    censo:casNumber "140-66-9" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-1746-01-6 a censo:Analyte ;
-    rdfs:label "CAS 1746-01-6"@en ;
-    censo:casNumber "1746-01-6" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-40321-76-4 a censo:Analyte ;
-    rdfs:label "CAS 40321-76-4"@en ;
-    censo:casNumber "40321-76-4" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-39227-28-6 a censo:Analyte ;
-    rdfs:label "CAS 39227-28-6"@en ;
-    censo:casNumber "39227-28-6" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-19408-74-3 a censo:Analyte ;
-    rdfs:label "CAS 19408-74-3"@en ;
-    censo:casNumber "19408-74-3" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-35822-46-9 a censo:Analyte ;
-    rdfs:label "CAS 35822-46-9"@en ;
-    censo:casNumber "35822-46-9" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-3268-87-9 a censo:Analyte ;
-    rdfs:label "CAS 3268-87-9"@en ;
-    censo:casNumber "3268-87-9" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-207-31-9 a censo:Analyte ;
-    rdfs:label "CAS 207-31-9"@en ;
-    censo:casNumber "207-31-9" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-57117-41-6 a censo:Analyte ;
-    rdfs:label "CAS 57117-41-6"@en ;
-    censo:casNumber "57117-41-6" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-57117-31-4 a censo:Analyte ;
-    rdfs:label "CAS 57117-31-4"@en ;
-    censo:casNumber "57117-31-4" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-70648-26-9 a censo:Analyte ;
-    rdfs:label "CAS 70648-26-9"@en ;
-    censo:casNumber "70648-26-9" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-57117-44-9 a censo:Analyte ;
-    rdfs:label "CAS 57117-44-9"@en ;
-    censo:casNumber "57117-44-9" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-72918-21-9 a censo:Analyte ;
-    rdfs:label "CAS 72918-21-9"@en ;
-    censo:casNumber "72918-21-9" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-60851-34-5 a censo:Analyte ;
-    rdfs:label "CAS 60851-34-5"@en ;
-    censo:casNumber "60851-34-5" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-67562-39-4 a censo:Analyte ;
-    rdfs:label "CAS 67562-39-4"@en ;
-    censo:casNumber "67562-39-4" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-55673-89-7 a censo:Analyte ;
-    rdfs:label "CAS 55673-89-7"@en ;
-    censo:casNumber "55673-89-7" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-39001-02-0 a censo:Analyte ;
-    rdfs:label "CAS 39001-02-0"@en ;
-    censo:casNumber "39001-02-0" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-32598-13-3 a censo:Analyte ;
-    rdfs:label "CAS 32598-13-3"@en ;
-    censo:casNumber "32598-13-3" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-32598-14-4 a censo:Analyte ;
-    rdfs:label "CAS 32598-14-4"@en ;
-    censo:casNumber "32598-14-4" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-74472-37-0 a censo:Analyte ;
-    rdfs:label "CAS 74472-37-0"@en ;
-    censo:casNumber "74472-37-0" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-31508-00-6 a censo:Analyte ;
-    rdfs:label "CAS 31508-00-6"@en ;
-    censo:casNumber "31508-00-6" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-65510-44-3 a censo:Analyte ;
-    rdfs:label "CAS 65510-44-3"@en ;
-    censo:casNumber "65510-44-3" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-57465-28-8 a censo:Analyte ;
-    rdfs:label "CAS 57465-28-8"@en ;
-    censo:casNumber "57465-28-8" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-38380-08-4 a censo:Analyte ;
-    rdfs:label "CAS 38380-08-4"@en ;
-    censo:casNumber "38380-08-4" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-69782-90-7 a censo:Analyte ;
-    rdfs:label "CAS 69782-90-7"@en ;
-    censo:casNumber "69782-90-7" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-663-72-6 a censo:Analyte ;
-    rdfs:label "CAS 663-72-6"@en ;
-    censo:casNumber "663-72-6" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-32774-16-6 a censo:Analyte ;
-    rdfs:label "CAS 32774-16-6"@en ;
-    censo:casNumber "32774-16-6" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-39635-31-9 a censo:Analyte ;
-    rdfs:label "CAS 39635-31-9"@en ;
-    censo:casNumber "39635-31-9" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-67375-30-8 a censo:Analyte ;
-    rdfs:label "CAS 67375-30-8"@en ;
-    censo:casNumber "67375-30-8" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-65731-84-2 a censo:Analyte ;
-    rdfs:label "CAS 65731-84-2"@en ;
-    censo:casNumber "65731-84-2" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-691-59-1 a censo:Analyte ;
-    rdfs:label "CAS 691-59-1"@en ;
-    censo:casNumber "691-59-1" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-1315501-18-8 a censo:Analyte ;
-    rdfs:label "CAS 1315501-18-8"@en ;
-    censo:casNumber "1315501-18-8" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-3194-55-6 a censo:Analyte ;
-    rdfs:label "CAS 3194-55-6"@en ;
-    censo:casNumber "3194-55-6" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-134237-51-7 a censo:Analyte ;
-    rdfs:label "CAS 134237-51-7"@en ;
-    censo:casNumber "134237-51-7" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-134237-52-8 a censo:Analyte ;
-    rdfs:label "CAS 134237-52-8"@en ;
-    censo:casNumber "134237-52-8" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-335-67-1 a censo:Analyte ;
-    rdfs:label "CAS 335-67-1"@en ;
-    censo:casNumber "335-67-1" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-375-95-1 a censo:Analyte ;
-    rdfs:label "CAS 375-95-1"@en ;
-    censo:casNumber "375-95-1" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-307-24-4 a censo:Analyte ;
-    rdfs:label "CAS 307-24-4"@en ;
-    censo:casNumber "307-24-4" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-375-22-4 a censo:Analyte ;
-    rdfs:label "CAS 375-22-4"@en ;
-    censo:casNumber "375-22-4" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-2706-90-3 a censo:Analyte ;
-    rdfs:label "CAS 2706-90-3"@en ;
-    censo:casNumber "2706-90-3" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-2706-91-4 a censo:Analyte ;
-    rdfs:label "CAS 2706-91-4"@en ;
-    censo:casNumber "2706-91-4" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-335-76-2 a censo:Analyte ;
-    rdfs:label "CAS 335-76-2"@en ;
-    censo:casNumber "335-76-2" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-307-55-1 a censo:Analyte ;
-    rdfs:label "CAS 307-55-1"@en ;
-    censo:casNumber "307-55-1" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-2058-94-8 a censo:Analyte ;
-    rdfs:label "CAS 2058-94-8"@en ;
-    censo:casNumber "2058-94-8" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-375-85-9 a censo:Analyte ;
-    rdfs:label "CAS 375-85-9"@en ;
-    censo:casNumber "375-85-9" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-72629-94-8 a censo:Analyte ;
-    rdfs:label "CAS 72629-94-8"@en ;
-    censo:casNumber "72629-94-8" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-375-92-8 a censo:Analyte ;
-    rdfs:label "CAS 375-92-8"@en ;
-    censo:casNumber "375-92-8" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-376-06-7 a censo:Analyte ;
-    rdfs:label "CAS 376-06-7"@en ;
-    censo:casNumber "376-06-7" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-16517-11-6 a censo:Analyte ;
-    rdfs:label "CAS 16517-11-6"@en ;
-    censo:casNumber "16517-11-6" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-13252-13-6 a censo:Analyte ;
-    rdfs:label "CAS 13252-13-6"@en ;
-    censo:casNumber "13252-13-6" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-919005-14-4 a censo:Analyte ;
-    rdfs:label "CAS 919005-14-4"@en ;
-    censo:casNumber "919005-14-4" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-647-42-7 a censo:Analyte ;
-    rdfs:label "CAS 647-42-7"@en ;
-    censo:casNumber "647-42-7" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-678-39-7 a censo:Analyte ;
-    rdfs:label "CAS 678-39-7"@en ;
-    censo:casNumber "678-39-7" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-1190931-41-9 a censo:Analyte ;
-    rdfs:label "CAS 1190931-41-9"@en ;
-    censo:casNumber "1190931-41-9" ;
-    rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
-
-cereg:analyte-eu-cas-76-05-1 a censo:Analyte ;
-    rdfs:label "CAS 76-05-1"@en ;
-    censo:casNumber "76-05-1" ;
     rdfs:comment "Named by the regulation only as a member of a group standard; no individual limit is set for it, so it carries a CAS and nothing more."@en .
 
 ##############################################################################
@@ -1933,17 +1576,17 @@ cereg:eu-2008-105-2026-Triclosan-mac a censo:MaximumAllowableThreshold ;
     cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
     rdfs:comment "Annex I entry 69, category: Pesticides – biocides."@en .
 
-cereg:eu-2008-105-2026-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30-aa a cereg:GroupThreshold ;
-    rdfs:label "Sum of active substances in the pesticides (28 ) listed in this table ( 29 ) (30 ) — annual average (0.2 µg/L)"@en ;
+cereg:eu-2008-105-2026-Sum-of-active-substances-in-the-pesticides-listed-in-this-table-aa a cereg:GroupThreshold ;
+    rdfs:label "Sum of active substances in the pesticides listed in this table — annual average (0.2 µg/L)"@en ;
     censo:thresholdValue "0.2"^^xsd:decimal ;
     censo:thresholdUnit unit:MicroGM-PER-L ;
-    cereg:appliesToGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-28-listed-in-this-table-29-30 ;
+    cereg:appliesToGroup cereg:eu-2008-105-2026-group-Sum-of-active-substances-in-the-pesticides-listed-in-this-table ;
     cereg:aggregationFunction cereg:Sum ;
     cereg:requiresCompleteGroup true ;
     censo:requiresCondition cereg:eu-2008-105-2026-cond-matrix ;
     censo:definedBy cereg:eu-2008-105-2026 ;
     cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
-    rdfs:comment "Annex I entry 70, category: Pesticides not applicable not applicable."@en .
+    rdfs:comment "Annex I entry 70, category: Pesticides."@en .
 
 cereg:eu-2008-105-2026-Cyclodiene-pesticides-Aldrin-Dieldrin-Endrin-Isodrin-aa a cereg:GroupThreshold ;
     rdfs:label "Cyclodiene pesticides: Aldrin Dieldrin Endrin Isodrin — annual average (0.01 µg/L)"@en ;

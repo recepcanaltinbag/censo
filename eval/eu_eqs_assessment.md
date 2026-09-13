@@ -31,7 +31,7 @@ Column (3) of Annex I classifies each substance by use. This is a **legislative*
 | Bisphenol-A (BPA) Industrial substances | 1 |
 | Pharmaceuticals – anticonvulsant | 1 |
 | Pesticides -neonicotinoid | 1 |
-| Pesticides not applicable not applicable | 1 |
+| Pesticides | 1 |
 
 ## Caveats
 
