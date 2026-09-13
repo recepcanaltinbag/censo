@@ -327,7 +327,17 @@ def main() -> int:
                         next(pkg.objects(c_iri, rdflib.RDF.type), c_iri)
                     ).rsplit("/", 1)[-1]
                 else:
-                    _satisfied.setdefault(cas, []).append(qname)
+                    # ONE CONDITION, ONE TRIPLE. A substance usually carries
+                    # two thresholds -- an annual average and a maximum
+                    # allowable -- and both name the same matrix condition, so
+                    # this loop reached the same (cas, condition) pair twice
+                    # and the serialiser wrote the line twice. RDF is a set, so
+                    # the graph was never wrong; the FILE was, in 24,261 of
+                    # 40,000 observation blocks, and the first reader to see a
+                    # record printed in the paper would have seen it.
+                    seen = _satisfied.setdefault(cas, [])
+                    if qname not in seen:
+                        seen.append(qname)
     print(f"  thresholds: {len(eqs)} CAS numbers, read from the package"
           + (f"; {len(_cond)} carry a condition the record cannot satisfy"
              if _cond else "")
