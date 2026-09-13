@@ -140,6 +140,48 @@ TARGETS = [
     ("Project ontology 2018", None, None, ROOT / "TheOntologyGISDSS.owl"),
 ]
 
+# WHICH FILES BELONG TO THE SAME DEVELOPMENT EFFORT.
+#
+# The manuscript says "21 files from N independent projects". N was written by
+# hand and could not be reproduced from anything this repository emits, so it
+# is derived here instead: one file is one row of the gap table, but three SSN
+# files, two SAREF files and three InWaterSense files are three projects, not
+# eight. A count asserted in prose and a count computed from the comparison set
+# are two different claims, and only the second can be checked.
+#
+# "Independent" means independent OF THIS WORK, so TheOntologyGISDSS.owl -- the
+# authors' own earlier ontology -- is attributed to its own project and marked
+# not independent. It is still one of the files compared; it is simply not
+# third-party evidence for a novelty claim.
+PROJECT = {
+    "SOSA/SSN":                   ("W3C/OGC SSN", True),
+    "SOSA core":                  ("W3C/OGC SSN", True),
+    "SSN-system":                 ("W3C/OGC SSN", True),
+    "GeoSPARQL":                  ("OGC GeoSPARQL", True),
+    "QUDT schema":                ("QUDT", True),
+    "SAREF core":                 ("ETSI SAREF", True),
+    "SAREF4WATR v2.1.1":          ("ETSI SAREF", True),
+    "OWL-Time":                   ("W3C OWL-Time", True),
+    "WHOW water-monitoring":      ("WHOW", True),
+    "DoCE (Rio Doce WQ)":         ("DoCE", True),
+    "InWaterSense core":          ("InWaterSense", True),
+    "InWaterSense regulations":   ("InWaterSense", True),
+    "InWaterSense pollutants":    ("InWaterSense", True),
+    "WAM-ONTO":                   ("WAM-ONTO", True),
+    "SewerNet":                   ("SewerNet", True),
+    "CHMO (chemical methods)":    ("CHMO", True),
+    "AFO (Allotrope)":            ("Allotrope AFO", True),
+    "STATO (statistics)":         ("STATO", True),
+    "ENVO":                       ("ENVO", True),
+    "ExO (exposure)":             ("ExO", True),
+    "Project ontology 2018":      ("this group, 2018", False),
+    "CENSO (this work)":          ("CENSO (this work)", False),
+    "CENSO-REG (this work)":      ("CENSO (this work)", False),
+}
+assert {n for n, *_ in TARGETS} == set(PROJECT), (
+    "every compared file needs a project attribution: "
+    + str({n for n, *_ in TARGETS} ^ set(PROJECT)))
+
 # Cells the stated method scores **yes** where reading the term's own superclass
 # shows it is a different concept. The cell is NOT adjusted: a pattern tweaked
 # until a competitor scores the way we want would make the whole table an
@@ -592,6 +634,27 @@ def main() -> int:
       "`?` means the file could not be retrieved or parsed, and **no claim is "
       "made** about it.\n")
 
+    # THE COUNT THE MANUSCRIPT QUOTES, COMPUTED RATHER THAN ASSERTED.
+    ours = {n for n in results if not PROJECT[n][1]
+            and PROJECT[n][0].startswith("CENSO")}
+    third = {n for n in results if PROJECT[n][1]}
+    mine = {n for n in results if not PROJECT[n][1]} - ours
+    n_third_proj = len({PROJECT[n][0] for n in third})
+    A(f"**The comparison set.** {len(results)} files were compared: "
+      f"{len(third)} third-party files from {n_third_proj} independent "
+      f"projects, {len(mine)} earlier ontology of this group, and "
+      f"{len(ours)} module(s) of this work. Several projects publish more "
+      f"than one file -- "
+      + ", ".join(
+          f"{proj} ({k})" for proj, k in sorted(
+              ((pr, sum(1 for n in third if PROJECT[n][0] == pr))
+               for pr in {PROJECT[n][0] for n in third}), key=lambda t: -t[1])
+          if k > 1)
+      + f" -- so the file count and the project count differ and both are "
+        f"stated. Any sentence of the form \"{len(third)} files from "
+        f"{n_third_proj} independent projects\" must use these two numbers "
+        f"together.\n")
+
     A("| Ontology | entities | LOD bound to | "
       + " | ".join(c.replace("_", " ") for c in order) + " |")
     A("|---" * (len(order) + 3) + "|")
@@ -759,9 +822,12 @@ def main() -> int:
     with (PROCD / "gap_matrix.csv").open("w", newline="",
                                          encoding="utf-8") as fh:
         w = _csv.writer(fh)
-        w.writerow(["ontology", "status", "entities", "lod_bound_to"] + order)
+        w.writerow(["ontology", "project", "independent", "status",
+                    "entities", "lod_bound_to"] + order)
         for name, (status, found, n_ent, binding) in results.items():
-            w.writerow([name, status, n_ent, binding]
+            proj, indep = PROJECT[name]
+            w.writerow([name, proj, "1" if indep else "0", status,
+                        n_ent, binding]
                        + [("1" if found.get(c) else "0") if status == "OK"
                           else "?" for c in order])
 

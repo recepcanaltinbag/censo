@@ -1,7 +1,16 @@
 # What did the reasoner add that the data did not assert?
-# Exercises: the defined classes censo:DetectedObservation and
-# censo:AssessedObservation, whose members are entailed from the disjoint
-# detection states rather than stated by the pipeline.
+# Exercises: censo:DetectedObservation and censo:AssessedObservation, whose
+# members are entailed by subsumption from the four detection statuses rather
+# than stated by the pipeline.
+#
+# NOT "defined classes". Both were owl:equivalentClass over a union until the
+# OWL 2 RL repair: a union in superclass position is outside the profile, and
+# only half of that equivalence ever did any work here -- each status IS an
+# assessed observation, which is a plain subclass axiom. The other half, that
+# an assessed observation must be one of the four, is a completeness claim
+# about a finished record, so it moved to the covering shapes in
+# censo-shapes.ttl. Calling them defined classes in a paper that also claims
+# conformance to the profile grammar would contradict the ontology it ships.
 #
 # Reported so the contribution of entailment is visible and bounded, rather
 # than implied. Every other answer in this suite comes from asserted triples.

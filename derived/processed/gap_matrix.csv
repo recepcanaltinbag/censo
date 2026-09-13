@@ -1,24 +1,24 @@
-ontology,status,entities,lod_bound_to,detection_limit,censoring,undecidable,threshold,interval_result,applicability
-SOSA/SSN,OK,37,,0,0,0,0,0,0
-SOSA core,OK,53,,0,0,0,0,0,0
-GeoSPARQL,OK,37,,0,0,0,0,0,0
-QUDT schema,OK,239,,0,0,0,1,0,1
-SAREF core,OK,131,,0,0,0,1,0,0
-SAREF4WATR v2.1.1,OK,95,,0,0,0,1,0,0
-SSN-system,OK,44,sensor,1,0,0,0,0,0
-OWL-Time,OK,78,,0,0,0,0,0,0
-WHOW water-monitoring,OK,57,,0,0,0,0,1,0
-DoCE (Rio Doce WQ),OK,168,,0,0,0,0,0,1
-InWaterSense core,OK,189,,0,0,0,1,1,0
-InWaterSense regulations,OK,144,,0,0,0,0,0,0
-InWaterSense pollutants,OK,9,,0,0,0,0,0,0
-WAM-ONTO,OK,921,,0,0,0,0,0,0
-SewerNet,OK,145,,0,0,0,0,0,0
-CHMO (chemical methods),OK,3438,method,1,0,1,0,1,0
-AFO (Allotrope),OK,3864,,0,0,0,1,1,1
-STATO (statistics),OK,1162,,0,0,0,1,1,0
-ENVO,OK,7208,,0,0,0,0,0,0
-ExO (exposure),OK,195,,0,0,0,0,0,0
-CENSO (this work),OK,51,result,1,1,1,1,1,1
-CENSO-REG (this work),OK,17,,0,0,0,1,0,0
-Project ontology 2018,OK,123,unclear,1,0,0,0,0,0
+ontology,project,independent,status,entities,lod_bound_to,detection_limit,censoring,undecidable,threshold,interval_result,applicability
+SOSA/SSN,W3C/OGC SSN,1,OK,37,,0,0,0,0,0,0
+SOSA core,W3C/OGC SSN,1,OK,53,,0,0,0,0,0,0
+GeoSPARQL,OGC GeoSPARQL,1,OK,37,,0,0,0,0,0,0
+QUDT schema,QUDT,1,OK,239,,0,0,0,1,0,1
+SAREF core,ETSI SAREF,1,OK,131,,0,0,0,1,0,0
+SAREF4WATR v2.1.1,ETSI SAREF,1,OK,95,,0,0,0,1,0,0
+SSN-system,W3C/OGC SSN,1,OK,44,sensor,1,0,0,0,0,0
+OWL-Time,W3C OWL-Time,1,OK,78,,0,0,0,0,0,0
+WHOW water-monitoring,WHOW,1,OK,57,,0,0,0,0,1,0
+DoCE (Rio Doce WQ),DoCE,1,OK,168,,0,0,0,0,0,1
+InWaterSense core,InWaterSense,1,OK,189,,0,0,0,1,1,0
+InWaterSense regulations,InWaterSense,1,OK,144,,0,0,0,0,0,0
+InWaterSense pollutants,InWaterSense,1,OK,9,,0,0,0,0,0,0
+WAM-ONTO,WAM-ONTO,1,OK,921,,0,0,0,0,0,0
+SewerNet,SewerNet,1,OK,145,,0,0,0,0,0,0
+CHMO (chemical methods),CHMO,1,OK,3438,method,1,0,1,0,1,0
+AFO (Allotrope),Allotrope AFO,1,OK,3864,,0,0,0,1,1,1
+STATO (statistics),STATO,1,OK,1162,,0,0,0,1,1,0
+ENVO,ENVO,1,OK,7208,,0,0,0,0,0,0
+ExO (exposure),ExO,1,OK,195,,0,0,0,0,0,0
+CENSO (this work),CENSO (this work),0,OK,51,result,1,1,1,1,1,1
+CENSO-REG (this work),CENSO (this work),0,OK,17,,0,0,0,1,0,0
+Project ontology 2018,"this group, 2018",0,OK,123,unclear,1,0,0,0,0,0
