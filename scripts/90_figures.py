@@ -1398,12 +1398,17 @@ def fig_two_thresholds():
                 if x not in seen:
                     seen.append(x)
         if cell:
-            order = [o for o in ("Compliant", "MethodInsufficient",
+            # 2.4.0: stage 24 uses the shared procedure, so the band and the
+            # applicability conditions reach this panel too
+            order = [o for o in ("Compliant", "PossibleExceedance",
+                                 "MethodInsufficient", "PreconditionUnmet",
                                  "Exceeding", "BoundNotEstablished")
                      if o in seen]
             order += [o for o in seen if o not in order]
             short = {"Compliant": "compliant",
+                     "PossibleExceedance": "possible\nexceedance",
                      "MethodInsufficient": "method\ninsufficient",
+                     "PreconditionUnmet": "standard not\napplicable",
                      "Exceeding": "exceeding",
                      "BoundNotEstablished": "no bound\nestablished"}
             tot = sum(cell.values())

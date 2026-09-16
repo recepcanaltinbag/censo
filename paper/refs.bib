@@ -415,6 +415,81 @@
   note         = {Consolidated text 02008L0105 in force from 10 May 2026}
 }
 
+% Exchange standards that DO carry censoring. Added because the earlier claim
+% that no vocabulary can express a censored result was false as worded: each
+% of these flags one, and WQX attaches typed limits to the individual result.
+% Field names were checked against the XSD / SQL / SKOS sources on 2026-09-15.
+@misc{ogc2014waterml2,
+  author       = {{Open Geospatial Consortium}},
+  title        = {{OGC} {WaterML} 2.0: Part 1 --- Timeseries},
+  howpublished = {OGC Implementation Standard 10-126r4,
+                  \url{https://docs.ogc.org/is/10-126r4/10-126r4.pdf}},
+  year         = {2014},
+  urldate      = {2026-09-15}
+}
+
+@article{horsburgh2016odm2,
+  author  = {Horsburgh, Jeffery S. and Aufdenkampe, Anthony K. and Mayorga,
+             Emilio and Lehnert, Kerstin A. and Hsu, Leslie and Song, Lulin
+             and Spackman Jones, Amber and Damiano, Sara G. and Tarboton,
+             David G. and Valentine, David and Zaslavsky, Ilya and Whitenack,
+             Tom},
+  title   = {Observations Data Model 2: A community information model for
+             spatially discrete {Earth} observations},
+  journal = {Environmental Modelling \& Software},
+  volume  = {79},
+  pages   = {55--74},
+  year    = {2016},
+  doi     = {10.1016/j.envsoft.2016.01.010}
+}
+
+@misc{nerc_l20,
+  author       = {{SeaDataNet}},
+  title        = {{SeaDataNet} measurand qualifier flags ({L20})},
+  howpublished = {NERC Vocabulary Server,
+                  \url{http://vocab.nerc.ac.uk/collection/L20/current/}},
+  year         = {2026},
+  urldate      = {2026-09-15}
+}
+
+@misc{epa_wqx3,
+  author       = {{U.S. Environmental Protection Agency}},
+  title        = {Water Quality Exchange ({WQX}) schema, version 3.0},
+  howpublished = {\url{https://www.exchangenetwork.net/schema/WQX/3/index.xsd}},
+  year         = {2026},
+  urldate      = {2026-09-15}
+}
+
+@article{read2017wqp,
+  author  = {Read, Emily K. and Carr, Lindsay and De Cicco, Laura and Dugan,
+             Hilary A. and Hanson, Paul C. and Hart, Julia A. and Kreft, James
+             and Read, Jordan S. and Winslow, Luke A.},
+  title   = {Water quality data for national-scale aquatic research: The
+             {Water} {Quality} {Portal}},
+  journal = {Water Resources Research},
+  volume  = {53},
+  number  = {2},
+  pages   = {1735--1745},
+  year    = {2017},
+  doi     = {10.1002/2016WR019993}
+}
+
+% Verified 2026-09-15 against the CIRCABC PDF: section 2.2.1 (p. 16) describes
+% tier 1, the dissolved annual average compared directly with the bioavailable
+% standard, and p. 17 places the cadmium hardness classes at tier 2. Endorsed by
+% the Water Directors, Helsinki, 26-27 November 2019; not legally binding.
+@misc{eu2019gd38,
+  author       = {{European Commission}},
+  title        = {Common Implementation Strategy for the Water Framework
+                  Directive (2000/60/{EC}), Guidance Document No.~38: Technical
+                  Guidance for implementing Environmental Quality Standards
+                  ({EQS}) for metals},
+  year         = {2019},
+  howpublished = {\url{https://circabc.europa.eu/sd/a/a705289f-7001-4c7d-ac7c-1cf8140e2117/Guidance%20No%2038%20-%20Technical%20guidance%20for%20EQS%20for%20metals.pdf}},
+  note         = {Consideration of metal bioavailability and natural background
+                  concentrations in assessing compliance}
+}
+
 @misc{eu2013priority,
   title        = {Directive 2013/39/EU of the European Parliament and of the
                   Council of 12 August 2013 amending Directives 2000/60/EC and

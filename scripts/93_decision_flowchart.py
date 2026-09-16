@@ -6,18 +6,27 @@ WHY THIS FIGURE
 Figure 6 draws the decision GEOMETRY -- where the outcomes sit relative to the
 threshold. Figure 11 walks four real rows through it twice. Neither shows the
 procedure itself: the order the questions are asked in, and why that order is
-not arbitrary. That order is the argument. A precondition is prior to every
-other question; Article 3(3b) reaches only the censored case; the uncertainty
-band applies only to a quantified value. Get the order wrong and the same four
-fields yield a different verdict.
+not arbitrary. That order is the argument. A record with no bound is asked
+nothing else; the fraction, the hardness class and the bioavailability tier are
+asked before any comparison; Article 3(3b) reaches only a bounded result; the
+uncertainty band applies only to a measured value. Get the order wrong and the
+same fields yield a different verdict.
 
 WHY IT CANNOT DRIFT
 -------------------
 A flowchart of an algorithm is a claim about the algorithm, and a drawing has
-no way to be wrong loudly. So each edge carries a WITNESS: concrete inputs that
-must make censo_outcome() return the outcome the edge leads to. Every witness is
-executed against the real function before the figure is written, and a mismatch
-refuses to draw rather than shipping a picture of code that no longer exists.
+no way to be wrong loudly. So each outcome edge carries WITNESSES: concrete
+inputs that must make assess() return the outcome the edge leads to. Every
+witness is executed against the real function before the figure is written,
+and a mismatch refuses to draw rather than shipping a picture of code that no
+longer exists.
+
+2.4.0. The procedure gained the applicability step (fraction, hardness class,
+CIS Guidance No. 38 tier 1), a bound test before it, and Article 5(2) for a
+mean below its own limit. The witness list gained a censored limit at 0.8 T:
+the old "censored, compliant" witness sat at 0.5 T, exactly where a band
+applied to non-detections would also have said Compliant, so the test could
+not have seen that change.
 
 Inputs  : scripts/22_waterbase_external.py (the function itself)
 Outputs : paper/figures/fig15_decision_flow.{pdf,svg,png}
@@ -42,7 +51,7 @@ EVAL = ROOT / "eval"
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 _m = __import__("22_waterbase_external")
-censo_outcome = _m.censo_outcome
+assess = _m.assess
 U = _m.LEGAL_UNCERTAINTY_AT_EQS
 
 INK, MUTED = "#1f1f1f", "#8a8a8a"
@@ -50,68 +59,122 @@ ASK = "#f4f4f2"
 OUT = {"exceedance": "#b03030", "compliant": "#3c7a3c",
        "indeterminate": "#c98a2e"}
 
-# Each test, in the order censo_outcome asks it, with WHY it is asked there.
+CD, PB = "7440-43-9", "7439-92-1"
+HC, BC = "censo:HardnessClassCondition", "censo:BioavailabilityCondition"
+
+# Each test, in the order assess() asks it, with WHY it is asked there.
 # (id, question, why this position)
 STEPS = [
-    ("pre", "Does the standard apply to what\nwas measured?\n"
-     "(bioavailable metal, hardness class)",
-     "First, because it is prior to every other question. If the standard is\n"
-     "written over bioavailable lead and the record reports total lead, there\n"
-     "is no comparison to make -- not a strict one, not a lenient one."),
+    ("bound", "Does the record establish a bound?\n"
+     "(a flag or a limit, and a limit for a flag)",
+     "First, because nothing else can be asked of a record that establishes no\n"
+     "interval. A row with neither a censoring flag nor a limit, or flagged\n"
+     "below a limit it does not state, is a defect of the record whatever the\n"
+     "standard and its conditions are, and it is reported as that."),
+    ("fraction", "Metal: is the result on the\ndissolved fraction?\n"
+     "(Annex I Part B point 3)",
+     "The water standards for cadmium, lead, mercury and nickel refer to the\n"
+     "dissolved concentration. A whole-water result is not a measurement of the\n"
+     "quantity the standard is written on, so no verdict is drawn from it --\n"
+     "not even a pass, which would rest on total >= dissolved, our reasoning and\n"
+     "not the Directive's."),
+    ("hardness", "Cadmium: is a hardness reported\nfor the station-year?\n"
+     "(footnote 9; GD 38 tier 2)",
+     "The cadmium standard depends on the hardness class of the water. The\n"
+     "release reports hardness, or calcium and magnesium, on rows of their own;\n"
+     "joined, it selects the class standard the comparison below uses. Without\n"
+     "it the applicable standard is unknown."),
+    ("bio", "Lead, nickel: does the dissolved\nresult pass the bioavailable\n"
+     "standard?  (GD 38 tier 1)",
+     "The bioavailable concentration cannot exceed the dissolved one, so a\n"
+     "dissolved result that clears the bioavailable standard clears it. The\n"
+     "comparison below is made, and only a pass or Article 3(3b) is kept;\n"
+     "anything else needs a bioavailability model the record cannot feed."),
     ("status", "Detection status, read from the\ncensoring flag, the value"
      "\nand the LOQ",
-     "Three states from three reported fields, and the LOQ is one of them: a\n"
-     "row with no flag AND no limit is unresolved, because nothing bounds\n"
-     "what the number means. The flag and the limit are separate statements --\n"
-     "an empty flag says nothing, a '0' says not censored, which is\n"
-     "information."),
+     "A flag set below the limit is censored; an unflagged value is quantified.\n"
+     "The flag and the limit are separate statements -- an empty flag says\n"
+     "nothing, a '0' says not censored, which is information."),
+    ("contra", "Is the reported mean below\nits own LOQ?  x < LOQ",
+     "Directive 2009/90/EC Article 5(2): a calculated mean below the limit of\n"
+     "quantification shall be referred to as 'less than limit of\n"
+     "quantification'. It is a bounded result the reporter did not flag, and it\n"
+     "is assessed as one."),
     ("art3", "Is the quantification limit\nabove the standard?  LOQ > T",
-     "Article 3(3b) reaches a result reported as below the quantification\n"
-     "limit, and only that. A quantified mean above the standard is evidence\n"
-     "of exceedance whatever the method's limit was."),
-    ("contra", "Is the reported value below\nits own LOQ?  x < LOQ",
-     "The row contradicts itself. Neither Article 3(3b) nor a comparison\n"
-     "applies to a number that cannot be both."),
-    ("band", "Is x within T/2 of T \u2014 the widest\nuncertainty the law lets a"
-     " method have?",
-     "Article 4(1) sets a CEILING, not a test: a method whose results may\n"
-     "lawfully be used has an expanded uncertainty of '50 % or below' at the\n"
-     "level of the standard. So T/2 is the widest interval the law would\n"
-     "permit around a result, and a value inside it is one that a method\n"
-     "meeting only the legal minimum could have produced on either side of\n"
-     "the standard. The Directive does not instruct this comparison; it is\n"
-     "the worst permitted method read against the record, which is the\n"
-     "conservative direction and costs 1.0 point of the headline."),
+     "Article 3(3b) reaches a result reported as below the quantification limit,\n"
+     "and compares the limit with the standard as a point. The band is not\n"
+     "applied here: the Directive does not apply it, and a limit inside the\n"
+     "band is flagged, not reclassified."),
+    ("band", "Where is x against T ± U?\n"
+     "(U reported, else 0.5 T)",
+     "Article 4(1) sets a CEILING, not a test: a lawfully usable method has an\n"
+     "expanded uncertainty of '50 % or below' at the level of the standard. A\n"
+     "reported uncertainty is used where the record carries one; none does\n"
+     "here, so U = 0.5 T, the widest the law permits, and a value inside it\n"
+     "could have been produced on either side of the standard."),
 ]
 
-# (from, label, to, witness) -- the witness is the input that must produce it.
-# kwargs to censo_outcome: status, val_ug, loq_ug, thr, precondition
-EDGES = [
-    ("pre", "no", "precondition_unmet",
-     dict(status="quantified", val_ug=5.0, loq_ug=0.1, thr=1.0,
-          precondition="bioavailable")),
-    ("pre", "yes", "status", None),
 
-    ("status", "unresolved", "indeterminate_unresolved",
-     dict(status="unresolved", val_ug=None, loq_ug=None, thr=1.0)),
+def w(status, val, loq, thr, **kw):
+    return dict(status=status, val_ug=val, loq_ug=loq, thr=thr, **kw)
+
+
+# (from, label, to, witnesses) -- every witness must produce `to`.
+EDGES = [
+    ("bound", "no flag, no limit", "indeterminate_unresolved",
+     [w("unresolved", None, None, 1.0),
+      w("unresolved", 0.3, None, 1.2, cas=PB, condition=BC, fraction="W")]),
+    ("bound", "flag, no limit", "indeterminate_other",
+     [w("censored", None, None, 1.0),
+      w("censored", None, None, 0.08, cas=CD, condition=HC, fraction="W")]),
+    ("bound", "yes", "fraction", None),
+
+    ("fraction", "no", "precondition_unmet",
+     [w("quantified", 0.3, 0.01, 1.2, cas=PB, condition=BC, fraction="W"),
+      w("censored", None, 0.01, 0.08, cas=CD, condition=HC, fraction="W",
+        hardness=300.0)]),
+    ("fraction", "yes, or not a metal", "hardness", None),
+
+    ("hardness", "no", "precondition_unmet",
+     [w("quantified", 0.02, 0.005, 0.08, cas=CD, condition=HC,
+        fraction="W-DIS")]),
+    ("hardness", "yes: class standard,\nor not cadmium", "bio", None),
+
+    ("bio", "no, and not Art. 3(3b)", "precondition_unmet",
+     [w("quantified", 5.0, 0.01, 1.2, cas=PB, condition=BC, fraction="W-DIS"),
+      w("quantified", 1.0, 0.01, 1.2, cas=PB, condition=BC, fraction="W-DIS")]),
+    ("bio", "pass, or not lead/nickel", "status", None),
+
     ("status", "censored", "art3", None),
     ("status", "quantified", "contra", None),
 
-    ("art3", "yes", "method_insufficient",
-     dict(status="censored", val_ug=None, loq_ug=2.0, thr=1.0)),
-    ("art3", "no", "compliant",
-     dict(status="censored", val_ug=None, loq_ug=0.5, thr=1.0)),
-
-    ("contra", "yes", "indeterminate_other",
-     dict(status="quantified", val_ug=0.2, loq_ug=0.5, thr=1.0)),
+    ("contra", "yes: '<LOQ', Art. 5(2)", "art3", None),
     ("contra", "no", "band", None),
 
-    ("band", "yes", "possible_exceedance",
-     dict(status="quantified", val_ug=1.2, loq_ug=0.1, thr=1.0)),
-    ("band", "no, above", "exceedance",
-     dict(status="quantified", val_ug=9.0, loq_ug=0.1, thr=1.0)),
-    ("band", "no, below", "compliant",
-     dict(status="quantified", val_ug=0.05, loq_ug=0.01, thr=1.0)),
+    ("art3", "yes", "method_insufficient",
+     [w("censored", None, 2.0, 1.0),
+      w("quantified", 0.2, 5.0, 1.0),
+      w("censored", None, 2.0, 1.2, cas=PB, condition=BC, fraction="W-DIS"),
+      w("censored", None, 0.12, 0.08, cas=CD, condition=HC, fraction="W-DIS",
+        hardness=30.0)]),
+    ("art3", "no", "compliant",
+     [w("censored", None, 0.8, 1.0),
+      w("censored", None, 1.0, 1.0),
+      w("quantified", 0.2, 0.5, 1.0),
+      w("censored", None, 0.12, 0.08, cas=CD, condition=HC, fraction="W-DIS",
+        hardness=150.0)]),
+
+    ("band", "within", "possible_exceedance",
+     [w("quantified", 1.2, 0.1, 1.0),
+      w("quantified", 0.05, 0.01, 0.08, cas=CD, condition=HC,
+        fraction="W-DIS", hardness=30.0)]),
+    ("band", "above", "exceedance",
+     [w("quantified", 9.0, 0.1, 1.0),
+      w("quantified", 0.5, 0.01, 0.08, cas=CD, condition=HC,
+        fraction="W-DIS", hardness=250.0)]),
+    ("band", "below", "compliant",
+     [w("quantified", 0.05, 0.01, 1.0),
+      w("quantified", 0.3, 0.01, 1.2, cas=PB, condition=BC, fraction="W-DIS")]),
 ]
 
 LEAF = {
@@ -126,18 +189,23 @@ LEAF = {
 
 
 def verify():
-    """Execute every witness. A drawn edge with no witness is not drawn."""
-    bad, ok = [], []
-    for src, lbl, dst, w in EDGES:
-        if w is None:
+    """Execute every witness. A drawn outcome edge with no witness is not drawn."""
+    bad, ok, n_wit = [], [], 0
+    for src, lbl, dst, wits in EDGES:
+        if wits is None:
             continue
-        got = censo_outcome(w.pop("status"), w.pop("val_ug"), w.pop("loq_ug"),
-                            w.pop("thr"), **w)
-        if got != dst:
-            bad.append(f"{src} --{lbl}--> {dst}: the function returns {got}")
-        else:
-            ok.append((src, lbl, dst))
-    return ok, bad
+        if not wits:
+            bad.append(f"{src} --{lbl}--> {dst}: no witness")
+            continue
+        for wit in wits:
+            kw = dict(wit)
+            got = assess(kw.pop("status"), kw.pop("val_ug"), kw.pop("loq_ug"),
+                         kw.pop("thr"), **kw)[0]
+            n_wit += 1
+            if got != dst:
+                bad.append(f"{src} --{lbl}--> {dst}: {wit} returns {got}")
+        ok.append((src, lbl, dst))
+    return ok, bad, n_wit
 
 
 def dot() -> str:
@@ -145,15 +213,16 @@ def dot() -> str:
          '  node [fontname="Helvetica", fontsize=10, shape=box, style="filled,rounded"];',
          '  edge [fontname="Helvetica", fontsize=9, color="%s"];' % MUTED]
     L.append('  input [label="one reported row:  censoring flag,  value x,'
-             '\\nquantification limit LOQ,  standard T", '
+             '\\nquantification limit LOQ,  standard T,\\nfraction,  hardness '
+             'of the station-year", '
              'shape=note, fillcolor="white", color="%s", fontsize=9];' % MUTED)
-    L.append('  input -> pre [style=dashed];')
+    L.append(f'  input -> {STEPS[0][0]} [style=dashed];')
     for sid, q, _ in STEPS:
         L.append(f'  {sid} [label="{q}", fillcolor="{ASK}", '
                  f'color="{INK}", shape=diamond, height=1.1, width=2.6];')
     # One node per OUTCOME CLASS, not per pipeline outcome: two reasons reach
-    # censo:BoundNotEstablished and two reach censo:Compliant, and drawing
-    # either twice would show a class the vocabulary does not have.
+    # censo:BoundNotEstablished, several reach PreconditionUnmet and Compliant,
+    # and drawing any of them twice would show a class the vocabulary lacks.
     node = {d: (LEAF[d][0] if d in LEAF else d) for _, _, d, _ in EDGES}
     seen = set()
     for _, _, dst, _ in EDGES:
@@ -170,7 +239,7 @@ def dot() -> str:
 
 
 def main() -> int:
-    ok, bad = verify()
+    ok, bad, n_wit = verify()
     if bad:
         print("  FAIL the flowchart draws paths the function does not take:")
         for b in bad:
@@ -185,28 +254,30 @@ def main() -> int:
     if not shutil.which("dot"):
         print("  ! graphviz 'dot' not found; wrote the source only")
         (FIGS / "fig15_decision_flow.dot").write_text(src, encoding="utf-8")
-        return 0
-    for fmt in ("pdf", "svg", "png"):
-        subprocess.run(["dot", f"-T{fmt}",
-                        "-o", str(FIGS / f"fig15_decision_flow.{fmt}")],
-                       input=src.encode(), check=True)
+    else:
+        for fmt in ("pdf", "svg", "png"):
+            subprocess.run(["dot", f"-T{fmt}",
+                            "-o", str(FIGS / f"fig15_decision_flow.{fmt}")],
+                           input=src.encode(), check=True)
 
     with (FDATA / "fig15_decision_flow.csv").open(
             "w", newline="", encoding="utf-8") as fh:
-        w = csv.writer(fh)
-        w.writerow(["from", "answer", "to", "witness_verified"])
-        for src_, lbl, dst, wit in EDGES:
-            w.writerow([src_, lbl, dst, "yes" if wit is not None else "—"])
+        wr = csv.writer(fh)
+        wr.writerow(["from", "answer", "to", "witnesses_verified"])
+        for src_, lbl, dst, wits in EDGES:
+            wr.writerow([src_, lbl.replace("\n", " "), dst,
+                         len(wits) if wits is not None else "—"])
 
     A = ["# The decision procedure, drawn and executed\n",
          "Generated by `scripts/93_decision_flowchart.py`.\n",
          "A flowchart of an algorithm is a claim about the algorithm, and a "
          "drawing has no way to be wrong loudly. Every edge leading to an "
-         "outcome therefore carries a witness --- concrete inputs that must "
-         "make `censo_outcome()` return it --- and all of them are executed "
-         "before the figure is written.\n",
+         "outcome therefore carries witnesses --- concrete inputs that must "
+         "make `assess()` return it --- and all of them are executed before "
+         "the figure is written.\n",
+         f"- tests drawn: **{len(STEPS)}**",
          f"- outcome edges drawn: **{len(ok)}**",
-         f"- witnesses executed against the live function: **{len(ok)}**",
+         f"- witnesses executed against the live function: **{n_wit}**",
          "- mismatches: **0**\n",
          "## Why the order is the argument\n"]
     for _, q, why in STEPS:
@@ -215,8 +286,8 @@ def main() -> int:
     EVAL.mkdir(parents=True, exist_ok=True)
     (EVAL / "decision_flowchart.md").write_text("\n".join(A) + "\n",
                                                 encoding="utf-8")
-    print(f"  fig15: {len(STEPS)} tests, {len(ok)} outcome edges, "
-          f"all witnesses verified against censo_outcome()")
+    print(f"  fig15: {len(STEPS)} tests, {len(ok)} outcome edges, {n_wit} "
+          f"witnesses verified against assess()")
     return 0
 
 

@@ -2649,6 +2649,18 @@ def check_no_dead_terms():
         "censo:Analyte":
             "abstract parent; packages emit analyte individuals typed with it "
             "or with a cereg: subclass",
+        # ENUMERATIONS, added in 2.4.0. Each has a closed set of members
+        # declared beside it in the vocabulary, and the graphs use the MEMBERS
+        # -- censo:RegulatoryDefaultUncertainty, censo:LimitWithinUncertaintyBand,
+        # cereg:PointComparison -- never the class name. A graph that typed an
+        # observation's flag with the class itself would be saying nothing.
+        "censo:UncertaintySource":
+            "enumeration; graphs use its members through censo:uncertaintySource",
+        "censo:AssessmentFlag":
+            "enumeration; graphs use its members through censo:assessmentFlag",
+        "cereg:CensoredResultRule":
+            "enumeration; packages use its members through "
+            "cereg:censoredResultRule",
     }
     core = ROOT / "ontology" / "censo-core.ttl"
     reg = ROOT / "ontology" / "censo-regulation.ttl"
@@ -3027,13 +3039,22 @@ def check_precondition_is_largest(tex_nums):
                 100 * (c.get("precondition_unmet", 0)
                        + c.get("indeterminate_unresolved", 0)) / ind
                 if ind else 0.0)
-    if pre <= mi:
-        record(FAIL, "precondition is the largest indeterminate reason",
-               f"precondition_unmet {pre:.1f} % no longer exceeds "
-               f"method_insufficient {mi:.1f} %; Section 5 says it does")
+    # 2.4.0 REVERSED THIS ORDERING, and the check follows the record rather
+    # than the old paragraph. While every conditional standard was unmet on
+    # sight, the precondition was the largest reason (18.8 %). Joining the
+    # hardness the release reports and applying CIS Guidance No. 38 leaves it
+    # at a fraction of that, and the method -- Article 3(3b) -- is the largest
+    # reason a verdict cannot be reached. That is the claim Section 5 makes now,
+    # so that is the ordering asserted.
+    if mi <= max(pre, unb):
+        record(FAIL, "the method is the largest indeterminate reason",
+               f"method_insufficient {mi:.1f} % no longer exceeds both "
+               f"precondition_unmet {pre:.1f} % and no bound {unb:.1f} %; "
+               f"Section 5 says it does")
     else:
-        record(OK, "precondition is the largest indeterminate reason",
-               f"{pre:.1f} % against {mi:.1f} %")
+        record(OK, "the method is the largest indeterminate reason",
+               f"{mi:.1f} % against precondition {pre:.1f} % and no bound "
+               f"{unb:.1f} %")
 
 
 def check_zero_substitution_paradox(tex_nums):
@@ -3060,13 +3081,25 @@ def check_zero_substitution_paradox(tex_nums):
     affirmed = c.get("exceedance", 0)
     check_claim(tex_nums, "zero-substitution exceedances not affirmed",
                 reported - affirmed)
-    if c.get("method_insufficient", 0):
+    # 2.4.0: ARTICLE 5(2) PUTS A HANDFUL HERE, and only those. A mean reported
+    # as quantified below its own limit is a '<LOQ' result in law; if that
+    # limit exceeds the standard it is set aside, while a pipeline reading the
+    # row enters the reported number and may call it exceeding. No other row
+    # can reach this cell, so the bound is the count of such means.
+    art52 = sum(int(r["n"]) for r in load("assessment_flags.csv")
+                if r["flag"].startswith("unflagged mean below its limit"))
+    mi0 = c.get("method_insufficient", 0)
+    check_claim(tex_nums, "zero substitution: set aside under Article 5(2)", mi0)
+    if mi0 > art52:
         record(FAIL, "zero substitution removes nothing for a censoring reason",
-               f"{c['method_insufficient']:,} rows are set aside by "
-               f"Article 3(3b) under zero substitution; Section 5 says none is")
+               f"{mi0:,} rows are set aside by Article 3(3b) under zero "
+               f"substitution, more than the {art52:,} unflagged means below "
+               f"their limit that alone can reach this cell")
     else:
         record(OK, "zero substitution removes nothing for a censoring reason",
-               f"all {reported - affirmed:,} removals are non-censoring")
+               f"{reported - affirmed - mi0:,} of {reported - affirmed:,} "
+               f"removals are non-censoring; the other {mi0:,} are unflagged "
+               f"means read as '<LOQ' under Art. 5(2) (at most {art52:,})")
 
 
 
@@ -3170,10 +3203,15 @@ def check_recent_window(tex_nums):
     check_claim(tex_nums, f"{last} alone: method_insufficient %",
                 100 * d_last["method_insufficient"] / t_last)
 
-    # the reversal, which is the actual claim
+    # THE ORDERING, which is the actual claim. Until 2.4.0 it was a reversal --
+    # the precondition largest over the record, the method largest in the last
+    # year -- and the reversal was an artefact of reading every conditional
+    # standard as unmet. With the applicability step evaluated, the method is
+    # the largest reason over the whole dated record AND in the last year, so
+    # there is no reversal to report and the check asserts the stable ordering.
     bad = []
-    if d_all["precondition_unmet"] <= d_all["method_insufficient"]:
-        bad.append("over the dated record the precondition is no longer the "
+    if d_all["method_insufficient"] <= d_all["precondition_unmet"]:
+        bad.append("over the dated record the method is no longer the "
                    "largest reason")
     if d_last["method_insufficient"] <= d_last["precondition_unmet"]:
         bad.append(f"in {last} the method is no longer the largest reason")
@@ -3839,13 +3877,20 @@ def check_substitution_decomposition(tex_nums):
                         if r["u_model"] == "absolute"
                         and r["censo_outcome"] in ("indeterminate_unresolved",
                                                    "indeterminate_other"))
+    art52 = sum(int(r["n"]) for r in load("assessment_flags.csv")
+                if r["flag"].startswith("unflagged mean below its limit"))
     bad = []
     for sub in ("zero", "half", "full"):
         band = c(sub, "exceedance") + c(sub, "possible_exceedance")
         unres = (c(sub, "indeterminate_unresolved")
                  + c(sub, "indeterminate_other"))
+        # 2.4.0: a FIFTH term. The two-valued comparator reads the unconditioned
+        # Annex I value, and CENSO reads cadmium against its hardness class, so
+        # a cadmium mean between 0.08 and its class standard is "exceeding" to
+        # the pipeline and Compliant in law. The term is not invariant under the
+        # substitution constant, and it is not an error.
         terms = band + unres + c(sub, "precondition_unmet") + \
-            c(sub, "method_insufficient")
+            c(sub, "method_insufficient") + c(sub, "compliant")
         total = sum(v for (s_, _), v in cell.items() if s_ == sub)
         if terms != total:
             bad.append(f"the {sub} column does not close: {terms:,} != "
@@ -3858,14 +3903,18 @@ def check_substitution_decomposition(tex_nums):
                                        + c("zero", "indeterminate_other")):
             bad.append(f"the unresolved term moves with the substitution "
                        f"({sub})")
-    if c("zero", "method_insufficient") != 0:
-        bad.append("zero substitution produces method-insufficient rows, "
-                   "which the decision procedure cannot do")
-    if c("full", "method_insufficient") != population_mi:
+    # Both identities now hold up to the unflagged means Article 5(2) reads as
+    # '<LOQ': the pipeline enters their reported number, not their limit.
+    if c("zero", "method_insufficient") > art52:
+        bad.append("zero substitution produces more method-insufficient rows "
+                   "than Article 5(2) can account for")
+    gap_mi = population_mi - c("full", "method_insufficient")
+    if gap_mi < 0 or gap_mi > art52:
         bad.append(f"full substitution gives "
                    f"{c('full', 'method_insufficient'):,} method-insufficient "
                    f"rows against a population count of {population_mi:,}; "
-                   f"the identity has broken")
+                   f"the identity has broken by more than Article 5(2)'s "
+                   f"{art52:,}")
     # The two secondary readings, owned here so the text may quote them.
     if population_pu:
         for sub in ("zero", "half", "full"):

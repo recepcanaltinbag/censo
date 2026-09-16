@@ -111,8 +111,8 @@ an open-world upper bound rather than as zero."""@en ;
     dcterms:created "2026-08-03"^^xsd:date ;
     vann:preferredNamespacePrefix "censo" ;
     vann:preferredNamespaceUri "https://w3id.org/censo/" ;
-    owl:versionIRI <https://w3id.org/censo/2.3.1> ;
-    owl:versionInfo "2.3.1" ;
+    owl:versionIRI <https://w3id.org/censo/2.4.0> ;
+    owl:versionInfo "2.4.0" ;
     rdfs:seeAlso <http://www.w3.org/ns/sosa/> ;
     owl:imports <http://www.w3.org/ns/sosa/> ,
                 <http://www.w3.org/ns/ssn/> ,
@@ -363,16 +363,22 @@ oversight. The release has one below-limit flag and no field distinguishing
 censo:CensoredObservation and this class stays empty. The vocabulary can carry
 the distinction; this record cannot supply it.
 
-AND NOT THE HOME FOR A ROW THAT CONTRADICTS ITSELF. The record contains
-quantified results reporting a value BELOW their own quantification limit --
-42 of 696,168 station-years. That pattern is what an estimated value looks
-like, and typing them here would be tempting for exactly that reason. It would
-also be an assertion the record does not support: the source says "this is a
-quantified mean" and says "the limit is higher than that mean", and nothing in
-it says which statement to believe. An unflagged estimated value, a transposed
-decimal and a limit copied from another method all produce the same two fields.
-They are censo:BoundNotEstablished, because what is true of them is that no
-bound can be trusted -- not that a particular one can."""@en .
+POPULATED FROM A RECORD THAT CAN SUPPLY IT. The US Water Quality Portal
+records a detection condition on each result, and a laboratory comment where
+the condition is left blank; derived/abox/censo-wqp.ttl carries every estimated
+result of a California slice (scripts/31_wqp_estimated.py). No result there
+carries both limits, so the closed interval [LOD, LOQ] is written as far as the
+record supplies it.
+
+AND NOT THE HOME FOR AN UNFLAGGED MEAN BELOW ITS OWN LIMIT. Waterbase contains
+annual means reported as quantified with a value below their quantification
+limit. Until 2.4.0 they were censo:BoundNotEstablished, read as a record
+contradicting itself. Directive 2009/90/EC, Article 5(2), settles what they are:
+"where a calculated mean value ... is below the limits of quantification, the
+value shall be referred to as 'less than limit of quantification'". They are
+censored results bounded by the limit, typed censo:CensoredObservation and
+flagged censo:MeanBelowOwnLimit -- not estimated, because nothing in the record
+says the substance was detected."""@en .
 
 censo:QuantifiedObservation a owl:Class ;
     rdfs:subClassOf sosa:Observation ;
@@ -609,17 +615,67 @@ censo:MatrixCondition a owl:Class ;
 censo:BioavailabilityCondition a owl:Class ;
     rdfs:subClassOf censo:ApplicabilityCondition ;
     rdfs:label "Bioavailability condition"@en ;
-    rdfs:comment """The threshold is a bioavailable concentration (as for nickel,
-lead, copper and zinc under EU EQS) and requires hardness, dissolved organic
-carbon and pH for normalisation. Absent those covariates, no compliance
-statement is possible."""@en .
+    rdfs:comment """The threshold is a bioavailable concentration (as for nickel
+and lead under EU law) and requires hardness, dissolved organic carbon and pH
+for normalisation.
+
+NOT "no statement is possible", which is what this comment said until 2.4.0.
+The bioavailable concentration cannot exceed the dissolved one, so a dissolved
+result that clears the standard clears it for the bioavailable fraction too:
+the first tier of CIS Guidance No. 38 (2019), section 2.2.1, which compares the
+dissolved annual average directly with the bioavailable standard. Only that
+pass is decided without the covariates -- an apparent exceedance needs a
+bioavailability model and stays censo:PreconditionUnmet -- and the rule layer
+states the exception in censo:PreconditionRuleShape."""@en .
 
 censo:HardnessClassCondition a owl:Class ;
     rdfs:subClassOf censo:ApplicabilityCondition ;
     rdfs:label "Hardness class condition"@en ;
     rdfs:comment """The threshold varies by water hardness class, as for cadmium.
 Without a hardness measurement the applicable class — and therefore the
-applicable threshold — is unknown."""@en .
+applicable threshold — is unknown.
+
+A package states one threshold per class, each requiring its own condition
+individual with the class's covariate range (censo:covariateMinimum,
+censo:covariateMaximum). An observation satisfies the condition of the class its
+water falls in, and is assessed against that threshold alone. Monitoring
+releases rarely report hardness on the measurement row; they often report it,
+or calcium and magnesium, on rows of their own at the same station and time,
+and that join is what supplies the class."""@en .
+
+censo:FractionCondition a owl:Class ;
+    rdfs:subClassOf censo:ApplicabilityCondition ;
+    rdfs:label "Fraction condition"@en ;
+    rdfs:comment """The threshold refers to one fraction of the water sample.
+Under EU law the water standards for cadmium, lead, mercury and nickel refer to
+the dissolved concentration, the phase passing a 0.45 µm filter (Directive
+2008/105/EC, Annex I, Part B, point 3). A result on another fraction is not a
+measurement of the quantity the standard is written on and supports no verdict.
+
+RETIRED AND RESTORED. An earlier version declared this class and retired it
+because no shipped graph exercised it: every metal assessment was
+censo:PreconditionUnmet for want of hardness, so the fraction was never the
+question. Joining the hardness the record reports elsewhere made it the
+question, and the record answers it -- roughly half of the metal station-years
+in Waterbase are whole-water results."""@en .
+
+censo:covariateMinimum a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain censo:ApplicabilityCondition ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "covariate minimum"@en ;
+    rdfs:comment "Inclusive lower end of the covariate range over which the condition holds, in censo:covariateUnit. Annex I's cadmium class 2 is '40 to < 50 mg CaCO3/l': minimum 40."@en .
+
+censo:covariateMaximum a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain censo:ApplicabilityCondition ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "covariate maximum"@en ;
+    rdfs:comment "Exclusive upper end of the covariate range over which the condition holds; absent for an open-ended class such as cadmium class 5, '≥ 200 mg CaCO3/l'."@en .
+
+censo:covariateUnit a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain censo:ApplicabilityCondition ;
+    rdfs:range qudt:Unit ;
+    rdfs:label "covariate unit"@en ;
+    rdfs:comment "Unit of censo:covariateMinimum and censo:covariateMaximum. A class boundary without a unit cannot be compared with a measured hardness."@en .
 
 censo:requiresCovariate a owl:ObjectProperty ;
     rdfs:domain censo:ApplicabilityCondition ;
@@ -632,6 +688,88 @@ censo:conditionSatisfied a owl:ObjectProperty ;
     rdfs:range censo:ApplicabilityCondition ;
     rdfs:label "condition satisfied"@en ;
     rdfs:comment "Materialised by the rule layer when the observation demonstrably meets the condition."@en .
+
+# ---- the uncertainty a verdict was drawn with, and what annotates it ----------
+#
+# The band a measured value is read with is a PARAMETER, not a constant: a
+# reported expanded uncertainty where the record carries one, the regulatory
+# default where it does not (0.5 T under Directive 2009/90/EC, Article 4(1)).
+# Which of the two produced a verdict is recorded beside it, so a reader can
+# tell a verdict drawn from the laboratory's own uncertainty from one drawn from
+# the legal maximum -- and every verdict in the shipped Waterbase graph is the
+# second, because no European release reports one.
+
+censo:expandedUncertainty a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain sosa:Observation ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "expanded uncertainty"@en ;
+    rdfs:comment """Half-width U (coverage factor k = 2) at the level of the
+threshold, in the unit of the result, with which the verdict on this observation
+was drawn. It relates to qudt:standardUncertainty u as U = k·u. A reported
+uncertainty stated at another concentration is not converted: it is replaced by
+the regulatory default, and censo:uncertaintySource says so."""@en .
+
+censo:uncertaintySource a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain sosa:Observation ;
+    rdfs:range censo:UncertaintySource ;
+    rdfs:label "uncertainty source"@en ;
+    rdfs:comment "Whether censo:expandedUncertainty was reported with the result or supplied as the regulation package's default."@en .
+
+censo:UncertaintySource a owl:Class ;
+    rdfs:label "Uncertainty source"@en ;
+    rdfs:comment "Where the uncertainty a verdict was drawn with came from."@en .
+
+censo:ReportedUncertainty a censo:UncertaintySource ;
+    rdfs:label "reported with the result"@en .
+
+censo:RegulatoryDefaultUncertainty a censo:UncertaintySource ;
+    rdfs:label "regulation package default"@en ;
+    rdfs:comment "The largest uncertainty the law permits a method to have, applied because the record reports none."@en .
+
+censo:assessmentFlag a owl:ObjectProperty ;
+    rdfs:domain sosa:Observation ;
+    rdfs:range censo:AssessmentFlag ;
+    rdfs:label "assessment flag"@en ;
+    rdfs:comment """An annotation on an assessment that never changes its
+verdict. Flags carry what a legal reading and a metrological reading disagree
+about, so that the verdict stays the Directive's and the disagreement stays
+queryable."""@en .
+
+censo:AssessmentFlag a owl:Class ;
+    rdfs:label "Assessment flag"@en ;
+    rdfs:comment "A verdict-neutral annotation on an assessment."@en .
+
+censo:LimitAbovePerformanceCriterion a censo:AssessmentFlag ;
+    rdfs:label "limit of quantification above 30 % of the standard"@en ;
+    rdfs:comment "The method fails the performance criterion of Directive 2009/90/EC, Article 4(1), whatever the verdict."@en .
+
+censo:LimitWithinUncertaintyBand a censo:AssessmentFlag ;
+    rdfs:label "limit within the uncertainty band"@en ;
+    rdfs:comment """A censored result whose quantification limit clears the
+standard, T − U < LOQ ≤ T. Article 3(3b) compares the limit with the standard
+as a point, and the verdict is Compliant; a measured value at the same level
+would be PossibleExceedance. The flag keeps that difference visible without
+making the metrological reading the legal one."""@en .
+
+censo:MeanBelowOwnLimit a censo:AssessmentFlag ;
+    rdfs:label "unflagged mean below its own limit"@en ;
+    rdfs:comment "Reported as quantified with a value below its quantification limit, and read as a censored result under Directive 2009/90/EC, Article 5(2). The reported number is kept as censo:reportedValue."@en .
+
+censo:UncertaintyAboveLegalMaximum a censo:AssessmentFlag ;
+    rdfs:label "reported uncertainty above the legal maximum"@en ;
+    rdfs:comment "A reported expanded uncertainty above 0.5 T: the reported value is used, and the method fails Directive 2009/90/EC, Article 4(1)."@en .
+
+censo:limitDefinition a owl:DatatypeProperty ;
+    rdfs:domain censo:AnalyticalMethod ;
+    rdfs:range xsd:string ;
+    rdfs:label "limit definition"@en ;
+    rdfs:comment """How the source defines the limit it reports, in its own
+words -- a method detection level, a laboratory reporting level, a practical
+quantitation limit. Definitions differ (a multiple of a blank standard
+deviation, a signal-to-noise ratio, the lowest calibration standard) and are
+not converted into one another. The verdict does not depend on it: the upper
+bound of a censored result is the limit reported, whatever its definition. What
+it makes visible is a definition changing at one station."""@en .
 
 censo:assessableAgainst a owl:ObjectProperty ;
     rdfs:domain sosa:Observation ;
@@ -801,7 +939,8 @@ version declared censo:CensoredAmbiguous for it. No European monitoring release
 states a detection limit -- WISE-6 carries procedureLOQValue and nothing else --
 so no row can be shown to be in that case, and a class no data can reach is a
 promise rather than a term. It is retired, on the same rule that retired
-censo:ClassBoundaryThreshold and censo:FractionCondition, and the distinction is
+censo:ClassBoundaryThreshold (censo:FractionCondition, retired by the same rule,
+was restored in 2.4.0 once data reached it), and the distinction is
 recorded here instead: where a release does report a detection limit, the
 narrower case is the one where the threshold falls below it, and it is strictly
 inside this class."""@en .
@@ -825,18 +964,19 @@ censo:NoThresholdDefined a owl:Class ;
 # with a hole in it, and the hole was the largest single reason in the record
 # after the two named provisions.
 #
-# It covers the second, much smaller population for the same reason: a row whose
-# value falls below the limit it was measured with contradicts itself, so no
-# interval it implies can be trusted either. In both cases what is missing is
-# not the verdict but the BOUND the verdict would compare, which is what the
-# name says.
+# It covers a second, much smaller population for the same reason: a row flagged
+# as below a limit it does not state. In both cases what is missing is not the
+# verdict but the BOUND the verdict would compare, which is what the name says.
+# (Until 2.4.0 it also covered unflagged means below their own limit; Article
+# 5(2) of Directive 2009/90/EC makes those censored results, see
+# censo:EstimatedObservation.)
 censo:BoundNotEstablished a owl:Class ;
     rdfs:subClassOf censo:IndeterminateCompliance ;
     rdfs:label "Bound not established"@en ;
     rdfs:comment """Case (e): the record establishes no bound to compare against
 the threshold. Either nothing says whether the number is a measurement — neither
 a censoring flag nor a limit is reported, so no interval can be built — or the
-number contradicts the limit reported beside it. The distinction from
+result is flagged as below a limit the record does not state. The distinction from
 MethodInsufficient matters: there the bound is known and known to be too wide,
 here there is no bound at all, and the two call for different repairs."""@en .
 

@@ -7,7 +7,7 @@
   <rdf:RDF xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-09-10T16:11:28.971713</dc:date>
+    <dc:date>2026-09-15T20:34:16.549696</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -39,7 +39,7 @@ z
 " style="fill:#ffffff;"/>
    </g>
    <g id="patch_3">
-    <path clip-path="url(#p449413dc78)" d="M 11.34 73.852107 
+    <path clip-path="url(#pb3c9df1f19)" d="M 11.34 73.852107 
 L 149.292175 73.852107 
 L 149.292175 52.479893 
 L 11.34 52.479893 
@@ -47,49 +47,49 @@ z
 " style="fill:#b03030;opacity:0.24;stroke:#b03030;stroke-linejoin:miter;stroke-width:0.9;"/>
    </g>
    <g id="patch_4">
-    <path clip-path="url(#p449413dc78)" d="M 11.34 120.31344 
-L 65.699376 120.31344 
-L 65.699376 98.941227 
+    <path clip-path="url(#pb3c9df1f19)" d="M 11.34 120.31344 
+L 62.26961 120.31344 
+L 62.26961 98.941227 
 L 11.34 98.941227 
 z
 " style="fill:#b03030;opacity:0.13;stroke:#7a7a7a;stroke-linejoin:miter;stroke-width:0.6;"/>
    </g>
    <g id="patch_5">
-    <path clip-path="url(#p449413dc78)" d="M 11.34 166.774773 
-L 31.348798 166.774773 
-L 31.348798 145.40256 
+    <path clip-path="url(#pb3c9df1f19)" d="M 11.34 166.774773 
+L 42.346041 166.774773 
+L 42.346041 145.40256 
 L 11.34 145.40256 
 z
 " style="fill:#b03030;opacity:0.13;stroke:#7a7a7a;stroke-linejoin:miter;stroke-width:0.6;"/>
    </g>
    <g id="patch_6">
-    <path clip-path="url(#p449413dc78)" d="M 11.34 213.236107 
-L 23.003264 213.236107 
-L 23.003264 191.863893 
+    <path clip-path="url(#pb3c9df1f19)" d="M 11.34 213.236107 
+L 23.955901 213.236107 
+L 23.955901 191.863893 
 L 11.34 191.863893 
 z
 " style="fill:#b03030;opacity:0.13;stroke:#7a7a7a;stroke-linejoin:miter;stroke-width:0.6;"/>
    </g>
    <g id="patch_7">
-    <path clip-path="url(#p449413dc78)" d="M 11.34 259.69744 
-L 21.313813 259.69744 
-L 21.313813 238.325227 
+    <path clip-path="url(#pb3c9df1f19)" d="M 11.34 259.69744 
+L 22.056127 259.69744 
+L 22.056127 238.325227 
 L 11.34 238.325227 
 z
 " style="fill:#b03030;opacity:0.13;stroke:#7a7a7a;stroke-linejoin:miter;stroke-width:0.6;"/>
    </g>
    <g id="patch_8">
-    <path clip-path="url(#p449413dc78)" d="M 11.34 306.158773 
-L 21.309689 306.158773 
-L 21.309689 284.78656 
+    <path clip-path="url(#pb3c9df1f19)" d="M 11.34 306.158773 
+L 21.518636 306.158773 
+L 21.518636 284.78656 
 L 11.34 284.78656 
 z
 " style="fill:#b03030;opacity:0.13;stroke:#7a7a7a;stroke-linejoin:miter;stroke-width:0.6;"/>
    </g>
    <g id="patch_9">
-    <path clip-path="url(#p449413dc78)" d="M 11.34 352.620107 
-L 21.309689 352.620107 
-L 21.309689 331.247893 
+    <path clip-path="url(#pb3c9df1f19)" d="M 11.34 352.620107 
+L 21.518636 352.620107 
+L 21.518636 331.247893 
 L 11.34 331.247893 
 z
 " style="fill:#3c7a3c;stroke:#3c7a3c;stroke-linejoin:miter;"/>
@@ -100,10 +100,10 @@ z
       <defs>
        <path d="M 0 0 
 L 0 2.6 
-" id="m395328734e" style="stroke:#3d3d3d;stroke-width:0.6;"/>
+" id="me377b60fa9" style="stroke:#3d3d3d;stroke-width:0.6;"/>
       </defs>
       <g>
-       <use style="fill:#3d3d3d;stroke:#3d3d3d;stroke-width:0.6;" x="11.34" xlink:href="#m395328734e" y="376.78"/>
+       <use style="fill:#3d3d3d;stroke:#3d3d3d;stroke-width:0.6;" x="11.34" xlink:href="#me377b60fa9" y="376.78"/>
       </g>
      </g>
      <g id="text_1">
@@ -113,7 +113,7 @@ L 0 2.6
     <g id="xtick_2">
      <g id="line2d_2">
       <g>
-       <use style="fill:#3d3d3d;stroke:#3d3d3d;stroke-width:0.6;" x="80.316087" xlink:href="#m395328734e" y="376.78"/>
+       <use style="fill:#3d3d3d;stroke:#3d3d3d;stroke-width:0.6;" x="80.316087" xlink:href="#me377b60fa9" y="376.78"/>
       </g>
      </g>
      <g id="text_2">
@@ -123,7 +123,7 @@ L 0 2.6
     <g id="xtick_3">
      <g id="line2d_3">
       <g>
-       <use style="fill:#3d3d3d;stroke:#3d3d3d;stroke-width:0.6;" x="149.292175" xlink:href="#m395328734e" y="376.78"/>
+       <use style="fill:#3d3d3d;stroke:#3d3d3d;stroke-width:0.6;" x="149.292175" xlink:href="#me377b60fa9" y="376.78"/>
       </g>
      </g>
      <g id="text_3">
@@ -144,37 +144,37 @@ L 390.70848 376.78
     <text style="fill:#b03030;font-family:DejaVu Sans;font-size:12px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:end;" transform="rotate(-0, 176.882609, 66.47725)" x="176.882609" y="66.47725">200,708</text>
    </g>
    <g id="text_6">
-    <text style="fill:#7a7a7a;font-family:DejaVu Sans;font-size:9.5px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:end;" transform="rotate(-0, 176.882609, 112.24874)" x="176.882609" y="112.24874">−121,620</text>
+    <text style="fill:#7a7a7a;font-family:DejaVu Sans;font-size:9.5px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:end;" transform="rotate(-0, 176.882609, 112.24874)" x="176.882609" y="112.24874">−126,610</text>
    </g>
    <g id="text_7">
     <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:8.8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 186.539262, 112.055583)" x="186.539262" y="112.055583">the quantification limit exceeds the standard — Art. 3(3b): shall not be considered</text>
    </g>
    <g id="text_8">
-    <text style="fill:#7a7a7a;font-family:DejaVu Sans;font-size:9.5px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:end;" transform="rotate(-0, 176.882609, 158.710073)" x="176.882609" y="158.710073">−49,977</text>
+    <text style="fill:#7a7a7a;font-family:DejaVu Sans;font-size:9.5px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:end;" transform="rotate(-0, 176.882609, 158.710073)" x="176.882609" y="158.710073">−28,987</text>
    </g>
    <g id="text_9">
-    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:8.8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 186.539262, 158.516917)" x="186.539262" y="158.516917">the standard is defined on a quantity — the record does not report</text>
+    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:8.8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 186.539262, 158.516917)" x="186.539262" y="158.516917">no censoring flag and no limit — so there is no bound to compare</text>
    </g>
    <g id="text_10">
-    <text style="fill:#7a7a7a;font-family:DejaVu Sans;font-size:9.5px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:end;" transform="rotate(-0, 176.882609, 205.171406)" x="176.882609" y="205.171406">−12,142</text>
+    <text style="fill:#7a7a7a;font-family:DejaVu Sans;font-size:9.5px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:end;" transform="rotate(-0, 176.882609, 205.171406)" x="176.882609" y="205.171406">−26,756</text>
    </g>
    <g id="text_11">
-    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:8.8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 186.539262, 204.97825)" x="186.539262" y="204.97825">no censoring flag and no limit — so there is no bound to compare</text>
+    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:8.8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 186.539262, 204.97825)" x="186.539262" y="204.97825">the standard is defined on a quantity — the record does not report</text>
    </g>
    <g id="text_12">
-    <text style="fill:#7a7a7a;font-family:DejaVu Sans;font-size:9.5px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:end;" transform="rotate(-0, 176.882609, 251.63274)" x="176.882609" y="251.63274">−2,458</text>
+    <text style="fill:#7a7a7a;font-family:DejaVu Sans;font-size:9.5px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:end;" transform="rotate(-0, 176.882609, 251.63274)" x="176.882609" y="251.63274">−2,764</text>
    </g>
    <g id="text_13">
     <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:8.8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 186.539262, 251.439583)" x="186.539262" y="251.439583">the interval the legal uncertainty permits — straddles the standard</text>
    </g>
    <g id="text_14">
-    <text style="fill:#7a7a7a;font-family:DejaVu Sans;font-size:9.5px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:end;" transform="rotate(-0, 176.882609, 298.094073)" x="176.882609" y="298.094073">−6</text>
+    <text style="fill:#7a7a7a;font-family:DejaVu Sans;font-size:9.5px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:end;" transform="rotate(-0, 176.882609, 298.094073)" x="176.882609" y="298.094073">−782</text>
    </g>
    <g id="text_15">
-    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:8.8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 186.539262, 297.900917)" x="186.539262" y="297.900917">the reported value contradicts — the limit beside it</text>
+    <text style="fill:#1f1f1f;font-family:DejaVu Sans;font-size:8.8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 186.539262, 297.900917)" x="186.539262" y="297.900917">compliant</text>
    </g>
    <g id="text_16">
-    <text style="fill:#3c7a3c;font-family:DejaVu Sans;font-size:12px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:end;" transform="rotate(-0, 176.882609, 345.24525)" x="176.882609" y="345.24525">14,505</text>
+    <text style="fill:#3c7a3c;font-family:DejaVu Sans;font-size:12px;font-stretch:normal;font-style:normal;font-weight:bold;text-anchor:end;" transform="rotate(-0, 176.882609, 345.24525)" x="176.882609" y="345.24525">14,809</text>
    </g>
    <g id="text_17">
     <text style="fill:#3c7a3c;font-family:DejaVu Sans;font-size:8.8px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(186.539262 339.435212)">quantified above the standard, method meets the criterion,</text>
@@ -186,7 +186,7 @@ L 390.70848 376.78
   </g>
  </g>
  <defs>
-  <clipPath id="p449413dc78">
+  <clipPath id="pb3c9df1f19">
    <rect height="348.46" width="379.36848" x="11.34" y="28.32"/>
   </clipPath>
  </defs>

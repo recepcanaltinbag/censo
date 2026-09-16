@@ -47,7 +47,7 @@ derived thresholds such as a total-pesticide sum."""@en ;
     vann:preferredNamespacePrefix "cereg" ;
     vann:preferredNamespaceUri "https://w3id.org/censo/reg/" ;
     owl:versionIRI <https://w3id.org/censo/reg/2.1.0> ;
-    owl:versionInfo "2.3.1" ;
+    owl:versionInfo "2.4.0" ;
     owl:imports <https://w3id.org/censo/> .
 
 ################################################################################
@@ -126,6 +126,45 @@ cereg:transcriptionStatus a owl:ObjectProperty ;
     rdfs:comment """Whether a value has been verified against the primary legal
 text. Machine-readable so that unverified values can be excluded from analysis
 rather than trusted by default."""@en .
+
+# ---- the decision rule is the package's, not the vocabulary's -----------------
+#
+# Two choices that change verdicts are policy, and a jurisdiction may make them
+# differently: how a censored result is compared with a standard, and what
+# uncertainty a measured value is read with when none is reported. They belong
+# with the thresholds, so that swapping a package swaps them too.
+
+cereg:censoredResultRule a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain cereg:RegulationPackage ;
+    rdfs:range cereg:CensoredResultRule ;
+    rdfs:label "censored result rule"@en ;
+    rdfs:comment "How the upper bound of a censored result is compared with a standard under this package."@en .
+
+cereg:CensoredResultRule a owl:Class ;
+    rdfs:label "Censored result rule"@en ;
+    rdfs:comment "A way of comparing a censored result with a standard."@en .
+
+cereg:PointComparison a cereg:CensoredResultRule ;
+    rdfs:label "point comparison"@en ;
+    rdfs:comment """The limit is compared with the standard as a point: Compliant
+if it does not exceed it, MethodInsufficient if it does. This is Article 3(3b)
+of Directive 2008/105/EC, and the EU package's rule."""@en .
+
+cereg:GuardBanded a cereg:CensoredResultRule ;
+    rdfs:label "guard-banded comparison"@en ;
+    rdfs:comment """The uncertainty band applies to the limit as it does to a
+measured value, so a limit within U of the standard yields PossibleExceedance. A
+precautionary reading in which a non-detection is never decided more strongly
+than a measurement at the same level; not the Directive's."""@en .
+
+cereg:defaultUncertaintyFactor a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain cereg:RegulationPackage ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "default uncertainty factor"@en ;
+    rdfs:comment """U / T applied to a measured value when the record reports no
+uncertainty: 0.5 under Directive 2009/90/EC, Article 4(1), which permits an
+expanded uncertainty of 50 % at the level of the standard. Zero is simple
+acceptance -- a point comparison with no band."""@en .
 
 cereg:TranscriptionStatus a owl:Class ;
     rdfs:label "Transcription status"@en ;

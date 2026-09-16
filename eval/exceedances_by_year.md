@@ -9,17 +9,17 @@ Years below 2,000 assessable station-years are carried in the CSV and not plotte
 | year | 1999 | 2024 |
 | assessable station-years | 2,385 | 55,545 |
 | two-valued exceedances, full limit | 745 | 16,561 |
-| exceedances the law can affirm | 0 | 727 |
-| undecidable | 100.0 % | 37.8 % |
+| exceedances the law can affirm | 0 | 746 |
+| undecidable | 100.0 % | 29.7 % |
 
 | across the plotted years | |
 |---|---|
-| most exceedances the law can affirm in any year | **1,331** |
+| most exceedances the law can affirm in any year | **1,360** |
 | most a full-limit pipeline reports in any year | **17,062** |
-| ratio in the final year | **22.8x** |
-| undecidable share from 2013 onward | **28.5–39.2 %**, 12 years |
+| ratio in the final year | **22.2x** |
+| undecidable share from 2013 onward | **19.6–36.0 %**, 12 years |
 
 The affirmable series does not grow with the record: monitoring effort scales and the number of exceedances an enforcement action could defend does not scale with it.
 
-Over the plotted years a two-valued pipeline entering non-detections at the full limit reports **13.6 times** as many exceedances as the law can affirm. The gap is a property of the reporting, not of a period: it is present at both ends of the series.
+Over the plotted years a two-valued pipeline entering non-detections at the full limit reports **13.3 times** as many exceedances as the law can affirm. The gap is a property of the reporting, not of a period: it is present at both ends of the series.
 

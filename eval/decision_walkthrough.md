@@ -9,7 +9,6 @@ Each row is one real station-year from the shipped graph, decided by CENSO and b
 | `Compliant` | Naphthalene | 2 | [0, 0.01] | compliant / compliant / compliant | **no** |
 | `MethodInsufficient` | Permethrin | 0.00027 | [0, 0.02] | compliant / exceeding / exceeding | **yes** |
 | `PossibleExceedance` | Clarithromycin | 0.13 | [0.124, 0.254] | exceeding / exceeding / exceeding | **no** |
-| `PreconditionUnmet` | Cadmium and its compounds (depending on water hardness classes) ( 9 ) | 0.08 | [0, 0.3] | compliant / exceeding / exceeding | **yes** |
 
-**2 of 4 rows get a different two-valued verdict depending on which substitution the pipeline happened to use**, and nothing in a two-valued output records that a choice was made. That is the difference the vocabulary exists to carry: not a better estimate, a statement the schema can hold.
+**1 of 3 rows get a different two-valued verdict depending on which substitution the pipeline happened to use**, and nothing in a two-valued output records that a choice was made. That is the difference the vocabulary exists to carry: not a better estimate, a statement the schema can hold.
 

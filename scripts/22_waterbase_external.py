@@ -205,8 +205,12 @@ def uncertainty_band(model, val_ug, thr):
     return LEGAL_UNCERTAINTY_AT_EQS * thr
 
 
+CENSORED_RULES = ("point", "guard")
+
+
 def censo_outcome(status, val_ug, loq_ug, thr, *, uncertainty=True,
-                  precondition=None, u_model="absolute"):
+                  precondition=None, u_model="absolute",
+                  censored_rule="point", u_reported=None):
     """The compliance outcome for one observation-threshold pair.
 
     Three values -- Compliant, Exceedance, IndeterminateCompliance -- with the
@@ -249,6 +253,19 @@ def censo_outcome(status, val_ug, loq_ug, thr, *, uncertainty=True,
     if status == "unresolved":
         return "indeterminate_unresolved"
     if status == "censored" and loq_ug is not None:
+        # THE CENSORED-RESULT RULE IS A PARAMETER, and "point" is the default
+        # because it is Article 3(3b): the limit against the standard, with no
+        # band, since a quantification limit already embodies the uncertainty
+        # at which a value stops being reportable. "guard" applies the band to
+        # the upper bound as well, so that a non-detection is never decided more
+        # strongly than a measurement at the same level. It is a defensible
+        # precautionary reading, not the Directive's, and it is reported as a
+        # sensitivity rather than used.
+        if censored_rule == "guard" and uncertainty:
+            u = (u_reported if u_reported is not None
+                 else uncertainty_band(u_model, loq_ug, thr))
+            if u > 0 and loq_ug > thr - u:
+                return "possible_exceedance"
         return "compliant"          # the bound clears the standard
     if status == "quantified" and val_ug is not None:
         if loq_ug is not None and val_ug < loq_ug:
@@ -256,7 +273,11 @@ def censo_outcome(status, val_ug, loq_ug, thr, *, uncertainty=True,
             # itself, and neither Article 3(3b) nor a comparison applies
             return "indeterminate_other"
         if uncertainty:
-            u = uncertainty_band(u_model, val_ug, thr)
+            # a reported expanded uncertainty (k = 2, at the level of T) where
+            # the record carries one; the largest Article 4(1) permits where it
+            # does not. No European release carries one.
+            u = (u_reported if u_reported is not None
+                 else uncertainty_band(u_model, val_ug, thr))
             if u > 0 and val_ug - u < thr < val_ug + u:
                 return "possible_exceedance"
         return "exceedance" if val_ug > thr else "compliant"
@@ -273,9 +294,10 @@ def censo_outcome(status, val_ug, loq_ug, thr, *, uncertainty=True,
 #         (Class 1: < 40 mg CaCO3/l ... Class 5: >= 200 mg CaCO3/l)."
 #   (12) "These EQS refer to bioavailable concentrations of the substances."
 #
-# WISE-6 reports neither hardness, nor dissolved organic carbon, nor pH on the
-# row, so neither condition can be evaluated from the aggregated release. That
-# is the finding, not a limitation of this pipeline.
+# WISE-6 reports neither hardness, nor dissolved organic carbon, nor pH ON THE
+# ROW. It does report them on rows of their own, so a condition is not unmet
+# merely because it exists: assess() evaluates what a cited source allows, and
+# censo_outcome(precondition=...) keeps the row-level reading.
 FOOTNOTE_CONDITION = {
     "9": "censo:HardnessClassCondition",
     "12": "censo:BioavailabilityCondition",
@@ -295,6 +317,180 @@ def conditional_thresholds(eqs_rows):
             if cas.strip():
                 out[cas.strip()] = hit
     return out
+
+
+# ------------------------------------------------- applicability, evaluated
+# THE RECORD CARRIES MORE THAN THE ROW. Until 2.4.0 every threshold with an
+# Annex I condition was PreconditionUnmet on sight, because WISE-6 reports no
+# hardness, pH or dissolved organic carbon ON THE ROW. It reports them on rows
+# of their own, at the same station in the same year -- a referee reading only
+# the paper saw that before this pipeline did. What the procedure now does with
+# a condition is limited to what a cited source sanctions:
+#
+#   fraction      Annex I Part B point 3: for cadmium, lead, mercury and nickel
+#                 the water EQS refer to the DISSOLVED concentration, so a result
+#                 on any other fraction supports no verdict at all.
+#   hardness      Annex I footnote 9, and CIS Guidance No. 38 Tier 2: cadmium is
+#                 compared with the standard of the water's hardness class,
+#                 taken as the station's annual mean hardness, or computed from
+#                 calcium and magnesium (Standard Methods 2340 B).
+#   bioavailable  CIS Guidance No. 38, section 2.2.1, Tier 1: a dissolved lead
+#                 or nickel result is compared directly with the bioavailable
+#                 standard and only a pass is accepted, since the bioavailable
+#                 concentration cannot exceed the dissolved one. A censored
+#                 result whose limit exceeds the standard is still Article
+#                 3(3b). Anything else needs a bioavailability model the record
+#                 cannot feed, and stays PreconditionUnmet.
+#
+# Two further readings are our own reasoning and are deliberately NOT here: a
+# pass on a whole-water result (total >= dissolved), and a cadmium verdict that
+# is the same under every hardness class. scripts/30_revision_sensitivity.py
+# reports what each would add to the headline.
+DISSOLVED_METALS = {"7440-43-9": "cadmium", "7439-92-1": "lead",
+                    "7439-97-6": "mercury", "7440-02-0": "nickel"}
+# Annex I entry 6, inland annual average by hardness class (mg CaCO3/L), read
+# from refs/legal/EU-2008-105_consolidated-2026-05-10.pdf. Class 1 is printed
+# "<= 0,08" and is applied as 0.08.
+CD_HARDNESS_CLASSES = ((1, 40.0, 0.08), (2, 50.0, 0.08), (3, 100.0, 0.09),
+                       (4, 200.0, 0.15), (5, math.inf, 0.25))
+# ...and the maximum allowable concentration by the same classes, for the
+# sample-level assessment in scripts/27_mac_exceedance.py ("<= 0,45" for class 1).
+CD_MAC_CLASSES = ((1, 40.0, 0.45), (2, 50.0, 0.45), (3, 100.0, 0.6),
+                  (4, 200.0, 0.9), (5, math.inf, 1.5))
+HARDNESS_CODE, CALCIUM_CODE, MAGNESIUM_CODE = (
+    "EEA_31-01-6", "CAS_7440-70-2", "CAS_7439-95-4")
+HARDNESS_TO_MG_CACO3 = {"mg{caco3}/l": 1.0, "mg/l": 1.0, "mmol/l": 100.09}
+# molar-mass ratios 100.09/40.08 and 100.09/24.31
+CA_TO_CACO3, MG_TO_CACO3 = 2.497, 4.118
+
+
+def cd_hardness_class(h, table=CD_HARDNESS_CLASSES):
+    """(class number, standard in ug/L) for a hardness in mg CaCO3/L."""
+    for k, upper, t in table:
+        if h < upper:
+            return k, t
+    return table[-1][0], table[-1][2]
+
+
+def is_dissolved(fraction):
+    return "DIS" in (fraction or "").upper()
+
+
+def load_covariates(path: Path):
+    """{(site, year): hardness in mg CaCO3/L} for the river station-years that
+    report one, directly or as calcium and magnesium.
+
+    A separate pass, cached under derived/interim/ by the archive's digest:
+    every stage that assesses a metal needs the same join, and they must reach
+    the same hardness for the same station-year or the graph and the counts
+    disagree. Mean hardness where it is reported; otherwise the calcium and
+    magnesium means, both required.
+    """
+    import json
+    digest = verify_digest(path)
+    cache = ROOT / "derived" / "interim" / f"waterbase_hardness_{digest[:16]}.json"
+    if cache.exists():
+        return {(s, y): h for s, y, h in
+                json.loads(cache.read_text(encoding="utf-8"))}
+    rows = open_rows(path)
+    col = pick(next(rows))
+
+    def get(row, role):
+        i = col.get(role)
+        return row[i].strip() if i is not None and i < len(row) else ""
+
+    acc = defaultdict(lambda: {"h": [], "ca": [], "mg": []})
+    for row in rows:
+        if not row:
+            continue
+        if "category" in col and get(row, "category") not in ("RW", ""):
+            continue
+        code = get(row, "code")
+        if code not in (HARDNESS_CODE, CALCIUM_CODE, MAGNESIUM_CODE):
+            continue
+        val = num(get(row, "value"))
+        if val is None or val <= 0:
+            continue
+        uom = get(row, "uom").lower().replace(" ", "")
+        key = (get(row, "site"), get(row, "year")[:4])
+        if code == HARDNESS_CODE:
+            f = HARDNESS_TO_MG_CACO3.get(uom)
+            if f:
+                acc[key]["h"].append(val * f)
+        else:
+            f = {"mg/l": 1.0, "ug/l": 1e-3}.get(uom)
+            if f:
+                acc[key]["ca" if code == CALCIUM_CODE else "mg"].append(val * f)
+    out = {}
+    for key, d in acc.items():
+        if d["h"]:
+            out[key] = sum(d["h"]) / len(d["h"])
+        elif d["ca"] and d["mg"]:
+            out[key] = (CA_TO_CACO3 * sum(d["ca"]) / len(d["ca"])
+                        + MG_TO_CACO3 * sum(d["mg"]) / len(d["mg"]))
+    cache.parent.mkdir(parents=True, exist_ok=True)
+    cache.write_text(json.dumps([[s, y, h] for (s, y), h in out.items()]),
+                     encoding="utf-8")
+    return out
+
+
+def assess(status, val_ug, loq_ug, thr, *, cas="", condition=None,
+           fraction="", hardness=None, u_model="absolute",
+           censored_rule="point", u_reported=None, classes=None,
+           fraction_rule=True):
+    """(outcome, route, applied threshold) for one observation-threshold pair.
+
+    The applicability step, then censo_outcome(). `route` says which rule
+    decided it, so every count built on this can say how much of the verdict
+    rests on the record alone and how much on a condition evaluated from it.
+
+    `classes` is the hardness-class table the threshold uses -- the annual
+    average by default, the maximum allowable concentration for a sample.
+    `fraction_rule` is False for a regulation that does not define its metal
+    standards on the dissolved fraction: the rule is Annex I Part B point 3,
+    and applying it to another jurisdiction's package would be importing EU
+    law into it.
+    """
+    kw = dict(u_model=u_model, censored_rule=censored_rule,
+              u_reported=u_reported)
+    # A MEAN BELOW ITS OWN LIMIT IS A "<LOQ" RESULT IN LAW. Directive
+    # 2009/90/EC, Article 5(2): "Where a calculated mean value of the
+    # measurement results ... is below the limits of quantification, the value
+    # shall be referred to as 'less than limit of quantification'." Waterbase
+    # rows are annual means, so an unflagged mean under its own limit is not a
+    # contradiction to be set aside but a censored result the reporter did not
+    # flag, bounded by the limit. censo_outcome() alone still reads it as the
+    # row does, which is the row-level reading.
+    if (status == "quantified" and val_ug is not None and loq_ug is not None
+            and val_ug < loq_ug):
+        status, val_ug = "censored", None
+    # A RECORD THAT ESTABLISHES NO BOUND IS ASKED NOTHING ELSE. No flag and no
+    # limit, a flag with no limit, or a number contradicting its own limit:
+    # none of these depends on the standard or on its conditions, so it is
+    # reported before either. The vocabulary already says it --
+    # censo:UnresolvedObservation may not be assessed against any threshold --
+    # and until this ordering the pipeline reported a lead row with no bound as
+    # PreconditionUnmet, naming the regulation's condition as the reason for a
+    # defect of the record.
+    base = censo_outcome(status, val_ug, loq_ug, thr, **kw)
+    if base in ("indeterminate_unresolved", "indeterminate_other"):
+        return base, "no bound established", thr
+    if fraction_rule and cas in DISSOLVED_METALS and not is_dissolved(fraction):
+        return "precondition_unmet", "fraction not dissolved", thr
+    if condition == "censo:HardnessClassCondition":
+        if hardness is None:
+            return "precondition_unmet", "no hardness reported", thr
+        k, t = cd_hardness_class(hardness, classes or CD_HARDNESS_CLASSES)
+        return (censo_outcome(status, val_ug, loq_ug, t, **kw),
+                f"hardness class {k}", t)
+    if condition == "censo:BioavailabilityCondition":
+        o = censo_outcome(status, val_ug, loq_ug, thr, **kw)
+        if o in ("compliant", "method_insufficient"):
+            return o, "bioavailability tier 1", thr
+        return "precondition_unmet", "bioavailability model required", thr
+    if condition is not None:
+        return "precondition_unmet", "condition not evaluable", thr
+    return censo_outcome(status, val_ug, loq_ug, thr, **kw), "direct", thr
 
 
 def two_valued(val_ug, loq_ug, censored, thr, k):
@@ -349,6 +545,8 @@ CANDIDATES = {
     # CEN/ISO code of the method. Needed to ask whether the limit is a
     # property of the instrument or of the run that produced the result.
     "method": ["procedureanalyticalmethod"],
+    # W, W-DIS, ...: the metal standards refer to the dissolved fraction
+    "matrix": ["procedureanalysedmatrix"],
 }
 
 
@@ -600,6 +798,107 @@ def test_decision() -> int:
         print("  FAIL an empty record reads as compliant under every rule")
         bad += 1
 
+    # APPLICABILITY, 2.4.0. Each case sits on the rule it tests: the fraction
+    # test before everything, the class boundary itself, the only two verdicts
+    # tier 1 may return, and a substance with no condition passing through.
+    CD, PB, HC, BC = ("7440-43-9", "7439-92-1", "censo:HardnessClassCondition",
+                      "censo:BioavailabilityCondition")
+    applic = [
+        (dict(status="quantified", val_ug=0.01, loq_ug=0.005, thr=0.08, cas=CD,
+              condition=HC, fraction="W", hardness=300.0),
+         "precondition_unmet", "fraction not dissolved",
+         "cadmium on whole water supports no verdict, not even a pass"),
+        (dict(status="quantified", val_ug=0.2, loq_ug=0.01, thr=0.08, cas=CD,
+              condition=HC, fraction="W-DIS", hardness=None),
+         "precondition_unmet", "no hardness reported",
+         "no hardness, no class, no standard"),
+        (dict(status="quantified", val_ug=0.05, loq_ug=0.01, thr=0.08, cas=CD,
+              condition=HC, fraction="W-DIS", hardness=250.0),
+         "compliant", "hardness class 5", "0.05 against the class-5 0.25"),
+        (dict(status="quantified", val_ug=0.05, loq_ug=0.01, thr=0.08, cas=CD,
+              condition=HC, fraction="W-DIS", hardness=30.0),
+         "possible_exceedance", "hardness class 1",
+         "the same 0.05 inside the band of the class-1 0.08"),
+        (dict(status="censored", val_ug=None, loq_ug=0.12, thr=0.08, cas=CD,
+              condition=HC, fraction="W-DIS", hardness=150.0),
+         "compliant", "hardness class 4", "a limit of 0.12 clears 0.15"),
+        (dict(status="censored", val_ug=None, loq_ug=0.12, thr=0.08, cas=CD,
+              condition=HC, fraction="W-DIS", hardness=30.0),
+         "method_insufficient", "hardness class 1",
+         "the same limit fails 0.08: Article 3(3b)"),
+        (dict(status="quantified", val_ug=0.05, loq_ug=0.01, thr=0.08, cas=CD,
+              condition=HC, fraction="W-DIS", hardness=40.0),
+         "possible_exceedance", "hardness class 2",
+         "40 mg/L opens class 2 ('40 to < 50'), not class 1"),
+        (dict(status="quantified", val_ug=0.3, loq_ug=0.01, thr=1.2, cas=PB,
+              condition=BC, fraction="W-DIS"),
+         "compliant", "bioavailability tier 1",
+         "dissolved lead well below the bioavailable standard passes"),
+        (dict(status="censored", val_ug=None, loq_ug=2.0, thr=1.2, cas=PB,
+              condition=BC, fraction="W-DIS"),
+         "method_insufficient", "bioavailability tier 1",
+         "a limit above the standard is Article 3(3b) at tier 1 too"),
+        (dict(status="quantified", val_ug=5.0, loq_ug=0.01, thr=1.2, cas=PB,
+              condition=BC, fraction="W-DIS"),
+         "precondition_unmet", "bioavailability model required",
+         "a dissolved exceedance is not a bioavailable one"),
+        (dict(status="quantified", val_ug=1.0, loq_ug=0.01, thr=1.2, cas=PB,
+              condition=BC, fraction="W-DIS"),
+         "precondition_unmet", "bioavailability model required",
+         "tier 1 accepts a pass, not a possible exceedance"),
+        (dict(status="quantified", val_ug=0.3, loq_ug=0.01, thr=1.2, cas=PB,
+              condition=BC, fraction="W"),
+         "precondition_unmet", "fraction not dissolved",
+         "a pass on whole water is our reasoning, not the guidance's"),
+        (dict(status="quantified", val_ug=9.9, loq_ug=0.05, thr=0.6,
+              cas="1912-24-9", condition=None, fraction=""),
+         "exceedance", "direct", "atrazine carries no condition"),
+        (dict(status="unresolved", val_ug=0.3, loq_ug=None, thr=1.2, cas=PB,
+              condition=BC, fraction="W-DIS"),
+         "indeterminate_unresolved", "no bound established",
+         "a lead row with no bound is a defect of the record, not of the "
+         "condition"),
+        (dict(status="quantified", val_ug=0.2, loq_ug=0.5, thr=1.0,
+              cas="1912-24-9"),
+         "compliant", "direct",
+         "Art. 5(2): a mean below its limit is '<LOQ', and 0.5 clears 1.0"),
+        (dict(status="quantified", val_ug=0.2, loq_ug=5.0, thr=1.0,
+              cas="1912-24-9"),
+         "method_insufficient", "direct",
+         "Art. 5(2) then Art. 3(3b): the same mean under a limit of 5"),
+        (dict(status="censored", val_ug=None, loq_ug=None, thr=0.08, cas=CD,
+              condition=HC, fraction="W", hardness=None),
+         "indeterminate_other", "no bound established",
+         "flagged below a limit it does not state: no bound, before any "
+         "fraction or hardness test"),
+    ]
+    for kw, want, want_route, why in applic:
+        got, route, _ = assess(**kw)
+        if (got, route) != (want, want_route):
+            print(f"  FAIL assess {kw}: got {(got, route)}, want "
+                  f"{(want, want_route)}  ({why})")
+            bad += 1
+    # the censored-result rule. "point" at LOQ = 0.8 T is the witness a band
+    # applied to non-detections would change; the band edge itself is open.
+    rules = [(0.8, "point", "compliant"), (0.8, "guard", "possible_exceedance"),
+             (0.5, "guard", "compliant"), (0.4, "guard", "compliant"),
+             (1.2, "guard", "method_insufficient")]
+    for loq, rule, want in rules:
+        got = censo_outcome("censored", None, loq * T, T, censored_rule=rule)
+        if got != want:
+            print(f"  FAIL censored LOQ={loq}T rule={rule}: got {got!r}, "
+                  f"want {want!r}")
+            bad += 1
+    # a reported uncertainty replaces the legal maximum
+    if censo_outcome("quantified", 1.2, 0.01, T, u_reported=0.1) != "exceedance":
+        print("  FAIL a reported U of 0.1 T must decide 1.2 T as an exceedance")
+        bad += 1
+    if censo_outcome("quantified", 1.2, 0.01, T, u_reported=0.3) != \
+            "possible_exceedance":
+        print("  FAIL a reported U of 0.3 T must leave 1.2 T undecided")
+        bad += 1
+    n_new = len(applic) + len(rules) + 2
+
     # the band must be symmetric about the standard and closed on neither side
     if censo_outcome("quantified", (1 - U) * T, 0.01, T) != "compliant":
         print("  FAIL lower band edge is not exclusive")
@@ -613,7 +912,7 @@ def test_decision() -> int:
     # 2 no-precondition controls. Counted rather than guessed, because a summary
     # that understates its own coverage invites someone to add a branch and no
     # test for it.
-    print(f"  decision procedure: {len(cases) + 21} cases, "
+    print(f"  decision procedure: {len(cases) + 21 + n_new} cases, "
           + ("all pass" if not bad else f"{bad} FAILURES"))
     return 1 if bad else 0
 
@@ -754,6 +1053,9 @@ def main() -> int:
     if cond:
         print(f"  conditional thresholds: {len(cond)} CAS number(s) -- "
               + ", ".join(sorted({k.split(':')[-1] for k in cond.values()})))
+    hardness_at = load_covariates(path)
+    print(f"  hardness joined from the release for {len(hardness_at):,} river "
+          f"station-years")
 
     rows = open_rows(path)
     try:
@@ -814,6 +1116,13 @@ def main() -> int:
     pop_status = defaultdict(int)
     pop_outcome = defaultdict(int)
     pop_unc = {m: defaultdict(int) for m in UNCERTAINTY_MODELS}
+    # Which rule decided each verdict; the row read alone, as the record
+    # reports it (the pre-2.4.0 reading, which the manuscript quotes second);
+    # and the band applied to censored bounds as well, the sensitivity.
+    pop_route = defaultdict(lambda: defaultdict(int))
+    pop_rowlevel = defaultdict(int)
+    pop_guard = defaultdict(int)
+    pop_flags = defaultdict(int)
     # WHAT THE LAW ASKS FOR AGAINST WHAT THE LABORATORIES REACHED.
     # The paper compares a quantification limit with a standard on every page
     # and no figure ever put the two on one axis; both were shown only through
@@ -1004,10 +1313,31 @@ def main() -> int:
             v_ug = val * factor if val is not None else None
             l_ug = loq * factor if loq is not None else None
             status = detection_status(get(row, "below_loq"), v_ug, l_ug)
-            outcome = censo_outcome(status, v_ug, l_ug, thr,
-                                    precondition=cond.get(cas))
+            applic = dict(cas=cas, condition=cond.get(cas),
+                          fraction=get(row, "matrix"),
+                          hardness=hardness_at.get((get(row, "site"),
+                                                    get(row, "year")[:4])))
+            outcome, route, t_applied = assess(status, v_ug, l_ug, thr, **applic)
             pop_status[status] += 1
             pop_outcome[outcome] += 1
+            pop_route[route][outcome] += 1
+            # Flags that annotate a verdict and never change it. A censored
+            # result whose limit clears the standard but sits inside the band
+            # a measured value would carry is Compliant in law and weak in
+            # metrology; recording it keeps both readings queryable.
+            if status == "censored" and outcome == "compliant" and l_ug is not None:
+                if l_ug > t_applied - LEGAL_UNCERTAINTY_AT_EQS * t_applied:
+                    pop_flags["limit within the uncertainty band"] += 1
+            if l_ug is not None and l_ug > 0.30 * t_applied:
+                pop_flags["limit above 0.3 T, Art. 4(1) not met"] += 1
+            if (status == "quantified" and v_ug is not None and l_ug is not None
+                    and v_ug < l_ug):
+                pop_flags["unflagged mean below its limit, read as <LOQ "
+                          "(Art. 5(2))"] += 1
+            pop_rowlevel[censo_outcome(status, v_ug, l_ug, thr,
+                                       precondition=cond.get(cas))] += 1
+            pop_guard[assess(status, v_ug, l_ug, thr, censored_rule="guard",
+                             **applic)[0]] += 1
             _sy = get(row, "site")
             _yy = get(row, "year")[:4]
             if _sy and _yy:
@@ -1029,9 +1359,8 @@ def main() -> int:
             # the same rows under all three readings of Article 4(1), so the
             # sensitivity cannot be over a different population than the headline
             for _m in UNCERTAINTY_MODELS:
-                pop_unc[_m][censo_outcome(status, v_ug, l_ug, thr,
-                                          precondition=cond.get(cas),
-                                          u_model=_m)] += 1
+                pop_unc[_m][assess(status, v_ug, l_ug, thr, u_model=_m,
+                                   **applic)[0]] += 1
             for rule, k in SUBSTITUTIONS:
                 tv = two_valued(v_ug, l_ug, status == "censored", thr, k)
                 pop_verdicts[(rule, outcome, tv)] += 1
@@ -1290,6 +1619,32 @@ def main() -> int:
         for (rule, outcome, tv), v in sorted(pop_verdicts.items()):
             w.writerow([rule, outcome, tv, v])
 
+    # How each verdict was reached, the row-level reading beside it, and the
+    # censored-result rule as a sensitivity. Tables, so the audit and the
+    # restatement read the numbers rather than this script's prose.
+    with (PROC / "applicability_routes.csv").open("w", newline="",
+                                                  encoding="utf-8") as fh:
+        w = csv.writer(fh)
+        w.writerow(["route", "censo_outcome", "n"])
+        for r_ in sorted(pop_route):
+            for o, v in sorted(pop_route[r_].items()):
+                w.writerow([r_, o, v])
+    with (PROC / "verdict_readings.csv").open("w", newline="",
+                                              encoding="utf-8") as fh:
+        w = csv.writer(fh)
+        w.writerow(["reading", "censo_outcome", "n"])
+        for name, tally_ in (("headline", pop_outcome),
+                             ("row_level", pop_rowlevel),
+                             ("censored_guard_band", pop_guard)):
+            for o, v in sorted(tally_.items()):
+                w.writerow([name, o, v])
+    with (PROC / "assessment_flags.csv").open("w", newline="",
+                                              encoding="utf-8") as fh:
+        w = csv.writer(fh)
+        w.writerow(["flag", "n"])
+        for f_, v in sorted(pop_flags.items()):
+            w.writerow([f_, v])
+
     # Group completeness as its own table. The manuscript reports it, so it has
     # to be recomputable rather than only printed: a number the audit cannot
     # reach is also a number the stale-value detector will mis-attribute.
@@ -1462,7 +1817,10 @@ def main() -> int:
                 "straddles the standard",
             "precondition_unmet":
                 "`PreconditionUnmet` — the standard is defined on a quantity "
-                "the record does not report (Annex I footnotes 9 and 12)",
+                "the record does not supply: a metal on a fraction other than "
+                "the dissolved one, cadmium with no hardness for its "
+                "station-year, lead or nickel not passing the bioavailable "
+                "standard (Annex I Part B point 3, footnotes 9 and 12)",
             "method_insufficient":
                 "`MethodInsufficient` — the quantification limit exceeds the "
                 "standard (Art. 3(3b))",
@@ -1475,8 +1833,8 @@ def main() -> int:
                 "`BoundNotEstablished` — neither a flag nor a limit, so no "
                 "interval can be built",
             "indeterminate_other":
-                "`BoundNotEstablished` — the number contradicts the limit "
-                "reported beside it",
+                "`BoundNotEstablished` — flagged below a limit the row does "
+                "not state",
         }
         for k in ("compliant", "exceedance", "possible_exceedance",
                   "precondition_unmet",
@@ -1518,6 +1876,29 @@ def main() -> int:
         A(f"> Taken together, **{ind:,} ({pct(ind, n_assessed)}) of these "
           f"assessments are not decidable** from the record as reported. A "
           f"two-valued schema has nowhere to put any of them.\n")
+
+        IND5 = ("possible_exceedance", "precondition_unmet",
+                "method_insufficient", "indeterminate_unresolved",
+                "indeterminate_other")
+        rl_n = sum(pop_rowlevel.values())
+        rl_u = sum(pop_rowlevel.get(k, 0) for k in IND5)
+        gd_u = sum(pop_guard.get(k, 0) for k in IND5)
+        A("### How the applicability of each standard was decided\n")
+        A("| route | assessments | undecidable |")
+        A("|---|---|---|")
+        for r_, d in sorted(pop_route.items(), key=lambda kv: -sum(kv[1].values())):
+            t_ = sum(d.values())
+            A(f"| {r_} | {t_:,} | {pct(sum(d.get(k, 0) for k in IND5), t_)} |")
+        A("")
+        A(f"> **Read row by row, as the record reports it, {pct(rl_u, rl_n)} "
+          f"is undecidable** ({rl_u:,} of {rl_n:,}). That reading treats every "
+          f"conditional standard as unmet because the row carries no hardness "
+          f"and no fraction test; the headline above joins the hardness the "
+          f"release reports on rows of its own and applies CIS Guidance No. 38 "
+          f"to the dissolved results.\n")
+        A(f"> Applying the uncertainty band to the upper bound of a censored "
+          f"result as well -- the precautionary reading, not Article 3(3b) -- "
+          f"would make {pct(gd_u, n_assessed)} undecidable.\n")
 
         A("### What a two-valued pipeline reports for the same rows\n")
         A("| non-detection enters at | exceedances reported | of those, resting "

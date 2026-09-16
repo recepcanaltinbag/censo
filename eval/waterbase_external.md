@@ -32,13 +32,13 @@ Article 4(1) permits an expanded measurement uncertainty of 50% *at the level of
 
 | reading | band | `PossibleExceedance` | `Exceedance` | undecidable |
 |---|---|---|---|---|
-| no band, a point comparison | 0 | 0 | 16,963 | 42.8% |
-| **u = 0.50 T**, what CENSO uses | 0.50 T | 6,639 | 14,505 | 43.8% |
-| u = 0.50 x, tracking the measurement | 0.50 x | 6,100 | 13,323 | 43.7% |
+| no band, a point comparison | 0 | 0 | 17,394 | 36.9% |
+| **u = 0.50 T**, what CENSO uses | 0.50 T | 7,046 | 14,809 | 38.4% |
+| u = 0.50 x, tracking the measurement | 0.50 x | 6,436 | 13,579 | 38.1% |
 
 Neither band contains the other -- the absolute one straddles the standard for x in (0.5T, 1.5T), the relative one for x in (2T/3, 2T) -- so which captures more rows is an empirical question about how concentrations sit against their standards, and it is measured here rather than argued.
 
-**The choice barely matters.** The whole uncertainty band is worth 1.0% of the undecidable share: remove it entirely, which is the point comparison a two-valued pipeline makes, and 42.8% of the record is still undecidable. The headline does not rest on this reading. What the reading does move is the count of affirmable exceedances, from 13,323 to 16,963 -- so a pipeline that reports an exceedance count without stating its uncertainty convention has left a free parameter in an enforcement-relevant number.
+**The choice barely matters.** The whole uncertainty band is worth 1.5% of the undecidable share: remove it entirely, which is the point comparison a two-valued pipeline makes, and 36.9% of the record is still undecidable. The headline does not rest on this reading. What the reading does move is the count of affirmable exceedances, from 13,579 to 17,394 -- so a pipeline that reports an exceedance count without stating its uncertainty convention has left a free parameter in an enforcement-relevant number.
 
 ## The three-valued assessment, over every assessable row
 
@@ -46,25 +46,44 @@ Every station-year whose substance carries a European annual-average standard is
 
 | outcome | n | share |
 |---|---|---|
-| `Compliant` | 376,827 | 54.1% |
-| `Exceedance` | 14,505 | 2.1% |
-| `PossibleExceedance` — the interval permitted by Art. 4(1) straddles the standard | 6,639 | 1.0% |
-| `PreconditionUnmet` — the standard is defined on a quantity the record does not report (Annex I footnotes 9 and 12) | 131,068 | 18.8% |
-| `MethodInsufficient` — the quantification limit exceeds the standard (Art. 3(3b)) | 121,620 | 17.5% |
-| `BoundNotEstablished` — neither a flag nor a limit, so no interval can be built | 45,467 | 6.5% |
-| `BoundNotEstablished` — the number contradicts the limit reported beside it | 42 | 0.0% |
+| `Compliant` | 414,172 | 59.5% |
+| `Exceedance` | 14,809 | 2.1% |
+| `PossibleExceedance` — the interval permitted by Art. 4(1) straddles the standard | 7,046 | 1.0% |
+| `PreconditionUnmet` — the standard is defined on a quantity the record does not supply: a metal on a fraction other than the dissolved one, cadmium with no hardness for its station-year, lead or nickel not passing the bioavailable standard (Annex I Part B point 3, footnotes 9 and 12) | 51,499 | 7.4% |
+| `MethodInsufficient` — the quantification limit exceeds the standard (Art. 3(3b)) | 126,610 | 18.2% |
+| `BoundNotEstablished` — neither a flag nor a limit, so no interval can be built | 82,032 | 11.8% |
 
-> **`PossibleExceedance` is not decorative: 6,639 assessments (1.0%) fall in it.** Directive 2009/90/EC Article 4(1) permits a measurement uncertainty of up to 50% (k = 2) at the level of the standard. A quantified result between 50% and 150% of the standard therefore has an interval that straddles it, and a method meeting only the legal minimum cannot decide the question either way. The uncertainty is not reported by WISE-6 — no European release carries one — so what is applied here is the largest uncertainty the law permits, not the actual one, and the result is a bound rather than an estimate.
+> **`PossibleExceedance` is not decorative: 7,046 assessments (1.0%) fall in it.** Directive 2009/90/EC Article 4(1) permits a measurement uncertainty of up to 50% (k = 2) at the level of the standard. A quantified result between 50% and 150% of the standard therefore has an interval that straddles it, and a method meeting only the legal minimum cannot decide the question either way. The uncertainty is not reported by WISE-6 — no European release carries one — so what is applied here is the largest uncertainty the law permits, not the actual one, and the result is a bound rather than an estimate.
 
-> Taken together, **304,836 (43.8%) of these assessments are not decidable** from the record as reported. A two-valued schema has nowhere to put any of them.
+> Taken together, **267,187 (38.4%) of these assessments are not decidable** from the record as reported. A two-valued schema has nowhere to put any of them.
+
+### How the applicability of each standard was decided
+
+| route | assessments | undecidable |
+|---|---|---|
+| direct | 519,633 | 24.7% |
+| no bound established | 82,032 | 100.0% |
+| fraction not dissolved | 37,656 | 100.0% |
+| bioavailability tier 1 | 29,793 | 9.6% |
+| bioavailability model required | 7,995 | 100.0% |
+| hardness class 5 | 5,975 | 22.2% |
+| no hardness reported | 5,848 | 100.0% |
+| hardness class 4 | 3,084 | 18.5% |
+| hardness class 1 | 2,203 | 12.4% |
+| hardness class 3 | 1,606 | 20.1% |
+| hardness class 2 | 343 | 14.0% |
+
+> **Read row by row, as the record reports it, 43.8% is undecidable** (304,836 of 696,168). That reading treats every conditional standard as unmet because the row carries no hardness and no fraction test; the headline above joins the hardness the release reports on rows of its own and applies CIS Guidance No. 38 to the dissolved results.
+
+> Applying the uncertainty band to the upper bound of a censored result as well -- the precautionary reading, not Article 3(3b) -- would make 44.5% undecidable.
 
 ### What a two-valued pipeline reports for the same rows
 
 | non-detection enters at | exceedances reported | of those, resting on a quantified measurement above the standard |
 |---|---|---|
-| zero | 59,251 | 14,505 (24.5%) |
-| half the limit | 171,285 | 14,505 (8.5%) |
-| the limit | 200,708 | 14,505 (7.2%) |
+| zero | 59,251 | 14,809 (25.0%) |
+| half the limit | 171,285 | 14,809 (8.6%) |
+| the limit | 200,708 | 14,809 (7.4%) |
 
 Counted row by row under each convention, not assumed. The spread between the first and last row is what a reader of a two-valued record cannot see, because the record does not say which convention produced it.
 

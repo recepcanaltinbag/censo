@@ -188,6 +188,31 @@ def main() -> int:
         for k in ("legacy", "added"):
             for d in ds:
                 w_.writerow(["b", k, f"1e{d}", split[k].get(d, 0)])
+        # THE SHADED BAND'S NUMBERS, in the figure's own data. The caption says
+        # the undecidable share of assessments since the recent window opens
+        # runs from one value to another over the shaded decades, and the audit
+        # requires a caption number to occur in the data the figure ships. They
+        # are computed here from the verdict table, per decade, over the same
+        # IndeterminateCompliance subclasses the headline counts.
+        IND = {"possible_exceedance", "precondition_unmet",
+               "method_insufficient", "indeterminate_unresolved",
+               "indeterminate_other"}
+        tot_r, und_r, since = {}, {}, None
+        for r in rows("verdicts_by_decade.csv") or []:
+            d = int(r["decade_log10_ug_l"])
+            if d > -4:
+                continue
+            n_r = int(r.get("n_recent") or 0)
+            since = r.get("recent_from") or since
+            tot_r[d] = tot_r.get(d, 0) + n_r
+            if r["censo_outcome"] in IND:
+                und_r[d] = und_r.get(d, 0) + n_r
+        shares = [100 * und_r.get(d, 0) / t for d, t in tot_r.items() if t]
+        if shares and since:
+            w_.writerow(["b", "shaded band: undecidable % since, lowest",
+                         since, round(min(shares))])
+            w_.writerow(["b", "shaded band: undecidable % since, highest",
+                         since, round(max(shares))])
 
     print(f"  fig16: (a) {moved:,} of {total:,} pairs move their limit; "
           f"(b) {la}/{na} additions vs {ll}/{nl} legacy below 1e-3")

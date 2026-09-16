@@ -48,6 +48,33 @@ rather than assumed, which Section~\ref{sec:results-profile} reports --- and
 what the profile cannot express is stated
 and moved to SHACL rather than asserted and left unenforced.
 
+\subsection{Water-quality exchange standards}
+\label{sec:related-exchange}
+Censoring is not unrepresented in water-quality data exchange, and the claim
+this paper makes has to be stated against the standards that do carry it. OGC
+WaterML~2.0~\cite{ogc2014waterml2} attaches a \texttt{censoredReason} to a
+time--value pair and admits a censoring threshold as an untyped point-level
+\texttt{qualifier}; ODM2~\cite{horsburgh2016odm2} and CUAHSI WaterML~1.1 carry a
+censor code (less-than, non-detect, present but not quantified) on every value;
+the SeaDataNet measurand qualifier flags~\cite{nerc_l20}, published as SKOS,
+separate a value below detection from one below the limit of quantification;
+and the US EPA Water Quality Exchange schema~\cite{epa_wqx3} goes furthest,
+recording a detection condition and, on each result, any number of typed
+detection and quantitation limits. \textbf{A censored result with its own limit
+is therefore expressible today}, in XML and relational exchange formats
+(Table~\ref{tab:exchange}). Three
+things are not. In the SeaDataNet flags and in ODM2 the limit occupies the value
+slot, so a reported number and the limit it was measured against cannot both be
+kept. None of these standards is an ontology in which the limit, the result and
+the applicable standard are related by axioms a reasoner or a shape can act on:
+WQX can list a water-quality criterion among a result's limits, but as one more
+limit type and not as a comparison. And none has a compliance outcome, so the
+third outcome Article~3(3b) requires, and the reason it was reached, has nowhere
+to go. The claim of this paper is confined accordingly. It is not that a
+non-detection cannot be flagged; it is that no surveyed vocabulary or exchange
+standard provides, in RDF/OWL, a result-level bound tied to the limit it came
+from and to a three-valued verdict against a conditional standard.
+
 \subsection{Laboratory and analytical vocabularies}
 The concepts CENSO adds would most plausibly already exist not in a water
 ontology but in a laboratory one, so the comparison in

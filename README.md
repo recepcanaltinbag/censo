@@ -31,14 +31,14 @@ treated as one era:
 | station-years with neither a censoring flag nor a limit | **25.5 %** |
 | — before 2015 → 2015 onwards | **49.7 %** → **0.0 %** |
 | assessments made with a method failing the legal LOQ criterion | **40.1 %** |
-| below-quantification assessments whose limit exceeds the standard | **17.5 %** |
+| below-quantification assessments whose limit exceeds the standard | **18.2 %** |
 | station-years reporting below the limit *and* a positive value for it | **55.0 %** |
 | exceedances a substituting pipeline reports, depending only on the rule | **59,251 – 200,708** |
 | of those, created by the half-LOQ substitution alone | **112,034** |
-| exceedances the law can affirm | **14,505** |
-| assessments where a precondition of the standard is unmet | **18.8 %** |
-| co-regulated verdicts that change when the regulation package is swapped | **17.7 %** |
-| individual samples undecidable against the maximum-allowable standard | **9.7 %** |
+| exceedances the law can affirm | **14,809** |
+| assessments where a precondition of the standard is unmet | **7.4 %** |
+| co-regulated verdicts that change when the regulation package is swapped | **16.0 %** |
+| individual samples undecidable against the maximum-allowable standard | **9.3 %** |
 
 The record-keeping failure is solved; the analytical failure is not, and
 substitution at source has not moved.

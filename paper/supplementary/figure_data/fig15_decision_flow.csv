@@ -1,13 +1,19 @@
-from,answer,to,witness_verified
-pre,no,precondition_unmet,yes
-pre,yes,status,—
-status,unresolved,indeterminate_unresolved,yes
+from,answer,to,witnesses_verified
+bound,"no flag, no limit",indeterminate_unresolved,2
+bound,"flag, no limit",indeterminate_other,2
+bound,yes,fraction,—
+fraction,no,precondition_unmet,2
+fraction,"yes, or not a metal",hardness,—
+hardness,no,precondition_unmet,1
+hardness,"yes: class standard, or not cadmium",bio,—
+bio,"no, and not Art. 3(3b)",precondition_unmet,2
+bio,"pass, or not lead/nickel",status,—
 status,censored,art3,—
 status,quantified,contra,—
-art3,yes,method_insufficient,yes
-art3,no,compliant,yes
-contra,yes,indeterminate_other,yes
+contra,"yes: '<LOQ', Art. 5(2)",art3,—
 contra,no,band,—
-band,yes,possible_exceedance,yes
-band,"no, above",exceedance,yes
-band,"no, below",compliant,yes
+art3,yes,method_insufficient,4
+art3,no,compliant,4
+band,within,possible_exceedance,2
+band,above,exceedance,2
+band,below,compliant,2

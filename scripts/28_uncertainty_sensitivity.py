@@ -106,6 +106,13 @@ def main() -> int:
     get = lambda row, k: (row[col[k]].strip()
                           if k in col and col[k] < len(row) else "")
 
+    # The decision is IMPORTED, both readings of it. This stage used to restate
+    # the censored branch by hand -- its own flag test, its own skip for a
+    # conditional standard -- which was right only while no condition could be
+    # met. Now the two readings are assess() with the package's rule and with
+    # the guard band, over the same join, so the difference between them is
+    # the difference between the two rules and nothing else.
+    hardness_at = _m.load_covariates(src)
     n_assessable = n_censored_compliant = n_would_flip = 0
     for row in it:
         if "category" in col and get(row, "category") not in ("RW", ""):
@@ -116,20 +123,28 @@ def main() -> int:
             continue
         T = eqs[cas]
         n_assessable += 1
-        # a precondition is prior to everything, exactly as in censo_outcome
-        if cond.get(cas) is not None:
-            continue
         factor = TO_UG_L.get(get(row, "uom").lower().replace(" ", ""))
-        loq = num(get(row, "loq"))
-        n_bel = num(get(row, "n_below"))
-        censored = truthy(get(row, "below_loq")) or (n_bel or 0) > 0
-        if not (censored and loq is not None and factor):
+        if factor is None:
             continue
-        loq_ug = loq * factor
-        if loq_ug > T:
-            continue                      # already MethodInsufficient, Art. 3(3b)
-        n_censored_compliant += 1
-        if loq_ug + U * T > T:            # the symmetric reading straddles
+        val, loq = num(get(row, "value")), num(get(row, "loq"))
+        v_ug = val * factor if val is not None else None
+        l_ug = loq * factor if loq is not None else None
+        status = _m.detection_status(get(row, "below_loq"), v_ug, l_ug)
+        applic = dict(cas=cas, condition=cond.get(cas),
+                      fraction=get(row, "matrix"),
+                      hardness=hardness_at.get((get(row, "site"),
+                                                get(row, "year")[:4])))
+        point = _m.assess(status, v_ug, l_ug, T, **applic)[0]
+        if point != "compliant":
+            continue
+        # censored, or an unflagged mean below its limit (Art. 5(2))
+        bounded = status == "censored" or (
+            status == "quantified" and v_ug is not None and l_ug is not None
+            and v_ug < l_ug)
+        if bounded:
+            n_censored_compliant += 1
+        if _m.assess(status, v_ug, l_ug, T, censored_rule="guard",
+                     **applic)[0] != "compliant":
             n_would_flip += 1
 
     pct = (lambda a, b: f"{100 * a / b:.1f}" if b else "0.0")

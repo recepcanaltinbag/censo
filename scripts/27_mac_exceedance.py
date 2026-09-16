@@ -192,6 +192,7 @@ _m = __import__("22_waterbase_external")
 detection_status = _m.detection_status
 censo_outcome = _m.censo_outcome
 conditional_thresholds = _m.conditional_thresholds
+assess = _m.assess
 
 
 def load_thresholds():
@@ -252,7 +253,8 @@ def self_test() -> int:
     return 1 if bad else 0
 
 
-def verdict(censored, val_ug, loq_ug, mac, precondition=None):
+def verdict(censored, val_ug, loq_ug, mac, *, cas="", condition=None,
+            fraction="", hardness=None, classes=None):
     """The verdict for one sample against a maximum-allowable standard.
 
     A thin adapter over censo_outcome, kept only to preserve this stage's
@@ -272,10 +274,19 @@ def verdict(censored, val_ug, loq_ug, mac, precondition=None):
         return "censored_no_loq"
     if not censored and val_ug is None:
         return "censored_no_loq"
-    out = censo_outcome(status, None if censored else val_ug, loq_ug, mac,
-                        precondition=precondition)
+    # 2.4.0: assess(), so the fraction, the hardness class and Article 5(2)
+    # apply here as they do to the annual average. The maximum allowable
+    # concentration has no bioavailable form (CIS Guidance No. 38, p. 13:
+    # compliance is assessed on the dissolved concentration), so the caller
+    # passes only the hardness-class condition, with the MAC class table.
+    out = assess(status, None if censored else val_ug, loq_ug, mac, cas=cas,
+                 condition=condition, fraction=fraction, hardness=hardness,
+                 classes=classes)[0]
     if out == "compliant":
-        return "compliant_censored" if censored else "compliant_quantified"
+        below_limit = (val_ug is not None and loq_ug is not None
+                       and val_ug < loq_ug)
+        return ("compliant_censored" if censored or below_limit
+                else "compliant_quantified")
     if out in ("indeterminate_unresolved", "indeterminate_other"):
         return "censored_no_loq"
     return out          # exceedance | method_insufficient | precondition_unmet
@@ -379,6 +390,10 @@ def main() -> int:
         idx, dup = index_aggregated(agg, set(mac_eqs))
         print(f"    {len(idx):,} station-years of a substance carrying both "
               f"standards ({len(dup):,} ambiguous keys dropped)")
+    # the station-year hardness scripts/22 joined, from the same cache: a
+    # sample takes the annual mean hardness of its station and year
+    hardness_at = (_m.load_covariates(agg) if agg and agg.exists()
+                   and agg.suffix.lower() == ".zip" else {})
 
     print(f"  streaming {src.name} ({src.stat().st_size/1e9:.2f} GB on disk) …",
           flush=True)
@@ -433,11 +448,16 @@ def main() -> int:
         lq = num(row[h["procedureloqvalue"]])
         v_ug = v * f if v is not None else None
         lq_ug = lq * f if lq is not None else None
-        out = verdict(censored, v_ug, lq_ug, mac,
-                      precondition=cond.get(cas))
-
         d = row[i_date].strip() if i_date is not None else ""
         yr = int(d[:4]) if len(d) >= 4 and d[:4].isdigit() else None
+        hc = cond.get(cas) == "censo:HardnessClassCondition"
+        out = verdict(censored, v_ug, lq_ug, mac, cas=cas,
+                      condition="censo:HardnessClassCondition" if hc else None,
+                      fraction=row[i_mat].strip() if i_mat is not None else "",
+                      hardness=hardness_at.get((
+                          row[i_site].strip() if i_site is not None else "",
+                          str(yr) if yr else "")),
+                      classes=_m.CD_MAC_CLASSES if hc else None)
         era = era_of(yr)
         sub = (row[i_lbl].strip() if i_lbl is not None else "") or code
         cty = (row[i_cty].strip() if i_cty is not None else "") or "??"
@@ -457,10 +477,13 @@ def main() -> int:
                 st = per_sy.get(key)
                 if st is None:
                     st = per_sy[key] = [None, False]
-                if not censored and v_ug is not None:
+                # only a sample the standard applies to, measured: a whole-
+                # water or classless sample says nothing about the MAC
+                if out in ("exceedance", "possible_exceedance",
+                           "compliant_quantified"):
                     if st[0] is None or v_ug > st[0]:
                         st[0] = v_ug
-                    if v_ug > mac:
+                    if out == "exceedance":
                         st[1] = True
 
     print(f"  {n:,} rows read; {kept:,} assessable against a "
@@ -476,6 +499,23 @@ def main() -> int:
         aa = aa_eqs.get(cas)
         mac = mac_eqs.get(cas)
         if aa is None or mac is None or st[0] is None:
+            cross["not_assessable_both"] += 1
+            continue
+        # The annual average under the same applicability the headline uses:
+        # the dissolved fraction, the cadmium class standard, and a lead or
+        # nickel mean that can only be called compliant without a model.
+        _, site_k, _, matrix_k, yr_k = key.split("|")
+        c_ = cond.get(cas)
+        if cas in _m.DISSOLVED_METALS and not _m.is_dissolved(matrix_k):
+            cross["not_assessable_both"] += 1
+            continue
+        if c_ == "censo:HardnessClassCondition":
+            h_ = hardness_at.get((site_k, yr_k))
+            if h_ is None:
+                cross["not_assessable_both"] += 1
+                continue
+            aa = _m.cd_hardness_class(h_)[1]
+        if c_ == "censo:BioavailabilityCondition" and mean_ug > aa:
             cross["not_assessable_both"] += 1
             continue
         cross["both_assessable"] += 1
@@ -529,9 +569,10 @@ def main() -> int:
                                "widest lawful uncertainty interval (Art. 4(1), "
                                "k=2) straddles the standard",
         "precondition_unmet": "**PreconditionUnmet** — the standard is defined "
-                              "on a quantity the record does not report "
-                              "(Annex I footnotes 9 and 12: hardness class, "
-                              "bioavailable concentration)",
+                              "on a quantity the record does not supply: a "
+                              "fraction other than the dissolved one (Annex I "
+                              "Part B point 3), or cadmium with no hardness "
+                              "reported for its station-year (footnote 9)",
         "compliant_quantified": "Compliant — a measured value at or below it",
         "compliant_censored": "Compliant — not detected, and the "
                               "quantification limit clears the standard",

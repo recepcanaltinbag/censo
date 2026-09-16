@@ -7,14 +7,14 @@ The paper claims regulations are pluggable, versioned packages. These are the pa
 | package | analytes | AA thresholds | MAC thresholds | file |
 |---|---|---|---|---|
 | `tr-ysky-2016` | 217 | 217 | 217 | `ontology/reg/tr-ysky-2016.ttl` |
-| `eu-2008-105-2026` | 59 | 56 | 43 | `ontology/reg/eu-2008-105-2026.ttl` |
+| `eu-2008-105-2026` | 59 | 60 | 47 | `ontology/reg/eu-2008-105-2026.ttl` |
 
 ## Re-parsed after writing
 
 | file | triples | classes/properties declared |
 |---|---|---|
 | `tr-ysky-2016.ttl` | 4,611 | **0 — individuals only, as required** |
-| `eu-2008-105-2026.ttl` | 1,389 | **0 — individuals only, as required** |
+| `eu-2008-105-2026.ttl` | 1,526 | **0 — individuals only, as required** |
 
 Every threshold carries `cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource`, because both sources are parsed from the legal PDFs. The project's working spreadsheet is deliberately not emitted: seven of its ten metal values, and a further eleven organics, disagree with the law.
 

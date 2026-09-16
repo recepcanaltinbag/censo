@@ -75,6 +75,7 @@ TO_UG_L = _m.TO_UG_L
 detection_status, censo_outcome = _m.detection_status, _m.censo_outcome
 two_valued, SUBSTITUTIONS = _m.two_valued, _m.SUBSTITUTIONS
 conditional_thresholds = _m.conditional_thresholds
+assess, load_covariates = _m.assess, _m.load_covariates
 
 OUTCOMES = ("compliant", "exceedance", "possible_exceedance",
             "precondition_unmet", "method_insufficient",
@@ -125,6 +126,8 @@ def main() -> int:
                 if c:
                     eqs.setdefault(c, v)
     cond = conditional_thresholds(rows_eqs)
+    # the same join, from the same cache, as scripts/22
+    hardness_at = load_covariates(src)
 
     it = open_rows(src)
     col = pick(next(it))
@@ -157,8 +160,10 @@ def main() -> int:
         v_ug = val * factor if val is not None else None
         l_ug = loq * factor if loq is not None else None
         status = detection_status(get(row, "below_loq"), v_ug, l_ug)
-        outcome = censo_outcome(status, v_ug, l_ug, thr,
-                                precondition=cond.get(cas))
+        outcome = assess(status, v_ug, l_ug, thr, cas=cas,
+                         condition=cond.get(cas), fraction=get(row, "matrix"),
+                         hardness=hardness_at.get((get(row, "site"),
+                                                   raw[:4])))[0]
         yr_tot[y] += 1
         if outcome == "exceedance":
             yr_affirm[y] += 1

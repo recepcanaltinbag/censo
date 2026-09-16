@@ -12,34 +12,34 @@ Annex I of Directive 2008/105/EC states two standards for most priority substanc
 
 | verdict | n | share |
 |---|---|---|
-| **Exceedance** — a measured value above the standard | 74,702 | 0.9% |
-| **PossibleExceedance** — a measured value whose widest lawful uncertainty interval (Art. 4(1), k=2) straddles the standard | 39,483 | 0.5% |
-| Compliant — a measured value at or below it | 547,052 | 6.7% |
-| Compliant — not detected, and the quantification limit clears the standard | 4,435,380 | 54.4% |
-| **PreconditionUnmet** — the standard is defined on a quantity the record does not report (Annex I footnotes 9 and 12: hardness class, bioavailable concentration) | 1,452,982 | 17.8% |
-| **MethodInsufficient** — not detected, but the quantification limit is *above* the standard, so no result this method could return would decide it (Art. 3(3b)) | 794,418 | 9.7% |
-| Unresolved — censoring declared with no limit recorded, or no value at all | 804,768 | 9.9% |
+| **Exceedance** — a measured value above the standard | 75,029 | 0.9% |
+| **PossibleExceedance** — a measured value whose widest lawful uncertainty interval (Art. 4(1), k=2) straddles the standard | 51,641 | 0.6% |
+| Compliant — a measured value at or below it | 787,720 | 9.7% |
+| Compliant — not detected, and the quantification limit clears the standard | 4,746,383 | 58.2% |
+| **PreconditionUnmet** — the standard is defined on a quantity the record does not supply: a fraction other than the dissolved one (Annex I Part B point 3), or cadmium with no hardness reported for its station-year (footnote 9) | 924,184 | 11.3% |
+| **MethodInsufficient** — not detected, but the quantification limit is *above* the standard, so no result this method could return would decide it (Art. 3(3b)) | 759,421 | 9.3% |
+| Unresolved — censoring declared with no limit recorded, or no value at all | 804,407 | 9.9% |
 
-> **794,418 samples (9.7%) are undecidable against a standard that applies to them individually**, because the laboratory could not quantify below it. A two-valued pipeline records every one of them as compliant, and the aggregated release cannot see them at all: averaged into an annual mean, they become one number compared against a different standard.
+> **759,421 samples (9.3%) are undecidable against a standard that applies to them individually**, because the laboratory could not quantify below it. A two-valued pipeline records every one of them as compliant, and the aggregated release cannot see them at all: averaged into an annual mean, they become one number compared against a different standard.
 
 > Excluded: 39,948 row(s) report a unit this pipeline does not convert to \si{\micro\gram\per\litre} and are not compared against any threshold. Units seen: `ug/kg` (39,881), `(blank)` (54), `mg/kg` (13).
 
 ## The same station-year under both standards
 
-The annual-average verdict is taken from the published mean; the maximum-allowable verdict from the samples behind that mean. **66,285** station-years can be assessed under both.
+The annual-average verdict is taken from the published mean; the maximum-allowable verdict from the samples behind that mean. **38,562** station-years can be assessed under both.
 
 | annual average | maximum allowable | n | share |
 |---|---|---|---|
-| compliant | compliant | 41,311 | 62.3% |
-| compliant | exceeding | 698 | 1.1% |
-| exceeding | compliant | 16,290 | 24.6% |
-| exceeding | exceeding | 7,986 | 12.0% |
+| compliant | compliant | 27,417 | 71.1% |
+| compliant | exceeding | 359 | 0.9% |
+| exceeding | compliant | 8,347 | 21.6% |
+| exceeding | exceeding | 2,439 | 6.3% |
 
-> **16,988 of these station-years (25.6%) receive different verdicts under the two standards, and they disagree in both directions.** Neither standard is a stricter version of the other: they are written about different units of observation.
+> **8,706 of these station-years (22.6%) receive different verdicts under the two standards, and they disagree in both directions.** Neither standard is a stricter version of the other: they are written about different units of observation.
 
-> **698 station-years (1.1%) are compliant on the annual mean while a sample behind that mean breaches the maximum allowable concentration.** Neither verdict is wrong and neither supersedes the other: they are answers to different questions, asked of different units of observation, and Annex I asks both. A schema that stores one threshold per substance can hold only one of them, and cannot record which one it holds.
+> **359 station-years (0.9%) are compliant on the annual mean while a sample behind that mean breaches the maximum allowable concentration.** Neither verdict is wrong and neither supersedes the other: they are answers to different questions, asked of different units of observation, and Annex I asks both. A schema that stores one threshold per substance can hold only one of them, and cannot record which one it holds.
 
-Coverage: of the 540,324 indexed station-years for these substances, 310,558 have no samples in the disaggregated release and 163,481 lack one of the two standards or a quantified sample. The shares above describe the 66,285 that can be read both ways.
+Coverage: of the 540,324 indexed station-years for these substances, 310,558 have no samples in the disaggregated release and 191,204 lack one of the two standards or a quantified sample. The shares above describe the 38,562 that can be read both ways.
 
 ## Substances least often decidable against their maximum-allowable standard
 
@@ -56,17 +56,17 @@ Coverage: of the 540,324 indexed station-years for these substances, 310,558 hav
 | Azitromycin | 16,578 | 26.6% | 50 |
 | Bifenthrin | 29,391 | 12.9% | 4 |
 | Tributyltin-cation | 149,442 | 12.4% | 164 |
-| Mercury and its compounds | 460,808 | 11.6% | 16,988 |
 | Endosulfan | 191,784 | 8.2% | 3,285 |
 | Cybutryne | 164,834 | 7.4% | 24 |
 | Chloroalkanes C10-13 | 183,659 | 5.4% | 91 |
+| Mercury and its compounds | 460,808 | 3.8% | 6,061 |
 
 ## Before and after 2015
 
 | period | assessable samples | exceedances | undecidable |
 |---|---|---|---|
-| before 2015 | 2,069,538 | 1.0% | 6.6% |
-| 2015 onwards | 6,079,247 | 0.9% | 10.8% |
+| before 2015 | 2,069,538 | 0.7% | 5.2% |
+| 2015 onwards | 6,079,247 | 1.0% | 10.7% |
 
 ## Limits
 

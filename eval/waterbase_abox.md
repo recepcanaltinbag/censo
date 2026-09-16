@@ -8,7 +8,7 @@ A graph of our own making would show that the vocabulary can carry a survey; it 
 
 - station-years in the population (river water, substance has a European standard): **696,168**
 - expressed in the graph (reservoir sample, seed 20260803): **40,000**
-- analytes: 56 · stations: 8,510 · triples: **501,110**
+- analytes: 56 · stations: 8,510 · triples: **530,920**
 
 ## Detection status assigned
 
@@ -22,14 +22,15 @@ A graph of our own making would show that the vocabulary can carry a survey; it 
 
 | outcome | n | share |
 |---|---|---|
-| `Compliant` | 21,719 | 54.3% |
-| `Exceedance` | 857 | 2.1% |
-| `PossibleExceedance` | 343 | 0.9% |
-| `MethodInsufficient` → `IndeterminateCompliance` | 6,885 | 17.2% |
-| `IndeterminateCompliance` (unresolved) | 2,617 | 6.5% |
-| `IndeterminateCompliance` (other) | 2 | 0.0% |
+| `Compliant` | 23,933 | 59.8% |
+| `Exceedance` | 878 | 2.2% |
+| `PossibleExceedance` | 371 | 0.9% |
+| `PreconditionUnmet` → `IndeterminateCompliance` | 2,975 | 7.4% |
+| `MethodInsufficient` → `IndeterminateCompliance` | 7,161 | 17.9% |
+| `IndeterminateCompliance` (unresolved) | 4,682 | 11.7% |
+| `IndeterminateCompliance` (other) | 0 | 0.0% |
 
-> **24.6%** of these assessments are not decidable from the record as reported: the record carries no bound at all, or the method's limit lies above the standard and Article~3(3b) requires the result to be set aside, or the interval Article~4(1) permits around the reported value straddles the standard.
+> **38.0%** of these assessments are not decidable from the record as reported: the record carries no bound at all, or the standard is defined on a quantity the record does not supply, or the method's limit lies above the standard and Article~3(3b) requires the result to be set aside, or the interval Article~4(1) permits around the reported value straddles the standard.
 
 ## What a two-valued pipeline returns for the same rows
 
@@ -39,19 +40,20 @@ A record with no usable number at all is read as zero under every rule, which is
 
 | CENSO outcome | → exceeding (zero) | → exceeding (half) | → exceeding (full) |
 |---|---|---|---|
-| `Compliant` (21,719) | 0 | 0 | 0 |
-| `Exceedance` (857) | 857 | 857 | 857 |
-| `MethodInsufficient` (6,885) | 0 | 5,479 | 6,885 |
-| `IndeterminateCompliance` (unresolved) (2,617) | 713 | 713 | 713 |
-| `IndeterminateCompliance` (other) (2) | 1 | 1 | 1 |
+| `Compliant` (23,933) | 5 | 14 | 44 |
+| `Exceedance` (878) | 878 | 878 | 878 |
+| `PossibleExceedance` (371) | 163 | 163 | 163 |
+| `PreconditionUnmet` (2,975) | 707 | 1,334 | 1,548 |
+| `MethodInsufficient` (7,161) | 1 | 5,677 | 7,161 |
+| `IndeterminateCompliance` (unresolved) (4,682) | 1,672 | 1,672 | 1,672 |
 
 | Substitution rule | Exceedances a two-valued pipeline reports | of which rest on a quantified measurement |
 |---|---|---|
-| non-detection at zero | 1,571 | 857 (54.6%) |
-| non-detection at half | 7,050 | 857 (12.2%) |
-| non-detection at full | 8,456 | 857 (10.1%) |
+| non-detection at zero | 3,426 | 878 (25.6%) |
+| non-detection at half | 9,738 | 878 (9.0%) |
+| non-detection at full | 11,466 | 878 (7.7%) |
 
-> Of the 9,504 assessments CENSO reports as not supportable, a two-valued pipeline returns a definite verdict for every one. How many of those verdicts are *exceeding* depends entirely on a convention the data does not fix: 714 at zero, 6,193 at half, 7,599 at full. That the answer moves this much with an arbitrary rule is the point: the assessment is not being read off the measurement.
+> Of the 15,189 assessments CENSO reports as not supportable, a two-valued pipeline returns a definite verdict for every one. How many of those verdicts are *exceeding* depends entirely on a convention the data does not fix: 2,543 at zero, 8,846 at half, 10,544 at full. That the answer moves this much with an arbitrary rule is the point: the assessment is not being read off the measurement.
 
 ## Cross-implementation check
 
@@ -59,6 +61,6 @@ A record with no usable number at all is read as zero under every rule, which is
 
 | quantity | streaming counter | this graph | |
 |---|---|---|---|
-| `MethodInsufficient` share | 17.5% (population) | 17.2% (sample) | agree |
+| `MethodInsufficient` share | 18.2% (population) | 17.9% (sample) | agree |
 
 Sampling standard error 0.19 percentage points; the two routes agree within it.

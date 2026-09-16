@@ -6,6 +6,74 @@ part worth keeping. Newest first. Numbers quoted here are recomputed by
 
 ---
 
+## 2.4.0 — 2026-09-15
+
+### Changed — a condition is evaluated from the record, not declared unmet on sight
+
+Every threshold with an Annex I condition was `PreconditionUnmet` for every
+observation, because WISE-6 reports no hardness, pH or dissolved organic carbon
+on the measurement row. It reports them on rows of their own, at the same
+station in the same year. A referee reading only the paper saw it first.
+
+The applicability step now evaluates what a cited source sanctions, and nothing
+more (`scripts/22_waterbase_external.py`, `assess()`):
+
+- **fraction** — `censo:FractionCondition`, restored: the water standards for
+  cadmium, lead, mercury and nickel refer to the dissolved concentration
+  (Annex I Part B point 3). A whole-water result supports no verdict.
+- **hardness class** — cadmium is compared with the standard of its class
+  (footnote 9; CIS Guidance No. 38 Tier 2), from the station-year's mean
+  hardness or from calcium and magnesium. The EU package states five cadmium
+  thresholds, each with a condition carrying its covariate range
+  (`censo:covariateMinimum`, `censo:covariateMaximum`, `censo:covariateUnit`).
+- **bioavailability** — CIS Guidance No. 38 Tier 1: a dissolved lead or nickel
+  result is compared directly with the bioavailable standard; only a pass, or
+  Article 3(3b), is kept.
+
+Two further readings are our own reasoning and are reported as sensitivities
+only (`scripts/30_revision_sensitivity.py`): a pass on a whole-water result,
+and a cadmium verdict that is the same under every class.
+
+### Changed — the order: a record with no bound is asked nothing else
+
+A lead row with no flag and no limit was `PreconditionUnmet`, naming the
+regulation's condition as the reason for a defect of the record. The bound test
+now comes first, which is what `censo:UnresolvedObservation ⊑
+¬∃assessableAgainst` has always said.
+
+### Changed — an unflagged mean below its own limit is a censored result
+
+Directive 2009/90/EC, Article 5(2): a calculated mean below the limit of
+quantification "shall be referred to as 'less than limit of quantification'".
+These rows were `BoundNotEstablished`; they are censored results bounded by the
+limit, flagged `censo:MeanBelowOwnLimit`.
+
+### Added — the band and the censored-result rule are parameters
+
+`censo:expandedUncertainty` and `censo:uncertaintySource` record the U a verdict
+was drawn with and whether it was reported or the package default;
+`cereg:censoredResultRule` (`cereg:PointComparison`, the EU rule, or
+`cereg:GuardBanded`) and `cereg:defaultUncertaintyFactor` put both choices in
+the package. `censo:assessmentFlag` carries verdict-neutral annotations:
+`LimitAbovePerformanceCriterion`, `LimitWithinUncertaintyBand`,
+`MeanBelowOwnLimit`, `UncertaintyAboveLegalMaximum`. `censo:limitDefinition`
+keeps a laboratory's own name for its limit (exercised by the WQP graph).
+
+### Fixed — two SHACL rules assumed a condition could never be met
+
+`censo:PreconditionRuleShape` typed every observation of a conditional analyte;
+`censo:MethodInsufficientRuleShape` compared a limit with every threshold of the
+analyte, so a class-4 cadmium observation was set aside for failing class 1.
+Both now apply only where the threshold's other conditions hold.
+
+### Added — the fourth detection status, and the exchange standards
+
+`scripts/31_wqp_estimated.py` populates `censo:EstimatedObservation` from a US
+Water Quality Portal slice; `scripts/07b_exchange_standards.py` assesses
+WaterML 2.0, WaterML 1.1, ODM2, SeaDataNet L20 and WQX from their own schemas.
+
+---
+
 ## 2.2.0 — 2026-09-08
 
 ### Added — censo:reportingYear, because the year was in the IRI and nowhere else

@@ -9,10 +9,10 @@ That is an asymmetry in which a non-detection is treated as *more* decisive than
 | | n | share |
 |---|---|---|
 | station-years a European annual-average standard reaches | 696,168 | |
-| of those, censored and currently `Compliant` | 377,187 | 54.2 % |
-| **would become `PossibleExceedance` under the symmetric reading** | **38,948** | **5.6 %** |
+| of those, censored and currently `Compliant` | 387,997 | 55.7 % |
+| **would become `PossibleExceedance` under the symmetric reading** | **42,600** | **6.1 %** |
 
-**The undecidable share would go from 43.8 % to 49.4 %** — a rise of 5.6 percentage points, recomputed from the same verdict table Section 5.4 is built from.
+**The undecidable share would go from 38.4 % to 44.5 %** — a rise of 6.1 percentage points, recomputed from the same verdict table Section 5.4 is built from.
 
 ## Why the band is not applied
 
@@ -20,7 +20,7 @@ That is an asymmetry in which a non-detection is treated as *more* decisive than
 
 **It would double-count.** A quantification limit is defined by uncertainty: it is the concentration at which relative uncertainty falls to an acceptable value. “Below the LOQ” already says “the signal was too small to quantify with acceptable uncertainty”. A quantified point value needs a band because a point carries no interval of its own; a censored result is already an interval, and adding a band to it counts the same uncertainty twice.
 
-**The burden of proof runs against us.** Applying the band would move 38,948 station-years out of `Compliant` and into the undecidable stratum, raising this paper's own headline. A methodological change that inflates one's own result has to be right on the merits and not merely symmetrical, and the two reasons above are why we judge it is not.
+**The burden of proof runs against us.** Applying the band would move 42,600 station-years out of `Compliant` and into the undecidable stratum, raising this paper's own headline. A methodological change that inflates one's own result has to be right on the merits and not merely symmetrical, and the two reasons above are why we judge it is not.
 
 What the symmetric reading would be right about is narrower and is worth stating: a laboratory whose method only just meets the legal minimum, reporting a non-detection at a limit just under the standard, has not established much. The vocabulary can already say so --- that row fails the Article 4(1) criterion whenever the limit exceeds 30 % of the standard, which is a stricter test than the one considered here and which the paper reports separately.
 

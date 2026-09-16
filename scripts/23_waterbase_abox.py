@@ -177,6 +177,13 @@ censo_outcome = _m.censo_outcome
 two_valued = _m.two_valued
 SUBSTITUTIONS = _m.SUBSTITUTIONS
 LEGAL_UNCERTAINTY_AT_EQS = _m.LEGAL_UNCERTAINTY_AT_EQS
+assess, load_covariates, is_dissolved = _m.assess, _m.load_covariates, \
+    _m.is_dissolved
+# Per CAS: the hardness-class thresholds the package declares, as
+# (minimum, maximum, value, threshold IRI, condition IRI); and the fraction
+# condition, which is met row by row by the fraction the row reports.
+CLASS_THR = {}
+FRACTION = {}
 
 
 def self_test_counterfactual():
@@ -287,6 +294,23 @@ def main() -> int:
             prev = eqs.get(cas)
             if prev is None or float(v) < prev[0]:
                 eqs[cas] = (float(v), name, iri, a_iri)
+    # One threshold per hardness class, read with its range from the package,
+    # so the class an observation is assessed against is the package's and not
+    # a table kept here.
+    for t in pkg.subjects(rdflib.RDF.type, CENSO.AnnualAverageThreshold):
+        a = next(pkg.objects(t, CENSO.appliesToAnalyte), None)
+        v = next(pkg.objects(t, CENSO.thresholdValue), None)
+        for c in pkg.objects(t, CENSO.requiresCondition):
+            if (c, rdflib.RDF.type, CENSO.HardnessClassCondition) not in pkg:
+                continue
+            lo = next(pkg.objects(c, CENSO.covariateMinimum), None)
+            hi = next(pkg.objects(c, CENSO.covariateMaximum), None)
+            for cas in cas_of.get(a, []):
+                CLASS_THR.setdefault(cas, []).append((
+                    float(lo) if lo is not None else float("-inf"),
+                    float(hi) if hi is not None else float("inf"),
+                    float(v), "cereg:" + str(t).rsplit("/", 1)[-1],
+                    "cereg:" + str(c).rsplit("/", 1)[-1]))
     # Which of those thresholds the PACKAGE declares conditional. Read from the
     # released package, not from a list here: the graph and the vocabulary must
     # agree about when a standard applies, and the only way to guarantee that is
@@ -320,6 +344,12 @@ def main() -> int:
         for c_iri in pkg.objects(th, CENSO.requiresCondition):
             needs = list(pkg.objects(c_iri, CENSO.requiresCovariate))
             qname = "cereg:" + str(c_iri).rsplit("/", 1)[-1]
+            if (c_iri, rdflib.RDF.type, CENSO.FractionCondition) in pkg:
+                # names no covariate and is not satisfied by scope: the row
+                # says which fraction it measured
+                for cas in cas_of.get(a, []):
+                    FRACTION[cas] = qname
+                continue
             for cas in cas_of.get(a, []):
                 if needs:
                     # the record reports none of the covariates it names
@@ -412,6 +442,8 @@ def main() -> int:
                 reservoir[j] = row
     print(f"  station-years with a European standard: {pop['n']:,}")
     print(f"  sampled into the graph                : {len(reservoir):,}")
+    # the hardness join scripts/22 made, from the same cache
+    hardness_at = load_covariates(path)
 
     out = [PREAMBLE]
     tally = defaultdict(int)
@@ -449,6 +481,31 @@ def main() -> int:
                "quantified": "censo:QuantifiedObservation",
                "unresolved": "censo:UnresolvedObservation"}[status]
         tally[status] += 1
+
+        # ---- the verdict, decided before anything about it is written ------
+        # assess() from scripts/22: no bound first, then the fraction, the
+        # hardness class and tier 1, then the comparison. It is decided here
+        # because WHICH threshold the observation is assessed against, and
+        # whether it is assessable at all, depend on it.
+        v_ug = val * factor if (val is not None and factor) else None
+        l_ug = loq * factor if (loq is not None and factor) else None
+        fraction = g(row, "procedureanalysedmatrix")
+        hardness = hardness_at.get((site, year[:4]))
+        outcome, route, t_used = assess(status, v_ug, l_ug, thr, cas=cas,
+                                        condition=_cond.get(cas),
+                                        fraction=fraction, hardness=hardness)
+        # Article 5(2) of Directive 2009/90/EC: a mean below its limit is a
+        # '<LOQ' result, so it is written as the censored result it is
+        mean_below_limit = (status == "quantified" and v_ug is not None
+                            and l_ug is not None and v_ug < l_ug)
+        if mean_below_limit:
+            cls = "censo:CensoredObservation"
+        class_cond = None
+        if route.startswith("hardness class") and hardness is not None:
+            for lo_, hi_, _v, ti_, ci_ in CLASS_THR.get(cas, []):
+                if lo_ <= hardness < hi_:
+                    t_iri, class_cond = ti_, ci_
+                    break
 
         # One method individual per (substance, LOQ): Waterbase reports the
         # limit that was in force, which is exactly what censo:AnalyticalMethod
@@ -498,7 +555,11 @@ def main() -> int:
         # reach it, and which is the fact that makes the row assessable in
         # principle and undecidable in practice.
         if cls != "censo:UnresolvedObservation":
-            lines.append(f"    censo:assessableAgainst {t_iri} ;")
+            # Assessable only where every condition the threshold requires is
+            # met, which is what the property means. It used to be asserted for
+            # PreconditionUnmet rows too, while the class said they were not.
+            if outcome != "precondition_unmet":
+                lines.append(f"    censo:assessableAgainst {t_iri} ;")
             # Why the threshold was applicable, rather than the reader assuming
             # it. Every threshold the packages emit carries a matrix condition,
             # and this row is river water, which is an inland surface water --
@@ -507,6 +568,10 @@ def main() -> int:
             # the observation is typed with records which.
             for c in SATISFIED.get(cas, []):
                 lines.append(f"    censo:conditionSatisfied {c} ;")
+            if cas in FRACTION and is_dissolved(fraction):
+                lines.append(f"    censo:conditionSatisfied {FRACTION[cas]} ;")
+            if class_cond:
+                lines.append(f"    censo:conditionSatisfied {class_cond} ;")
         if m_iri:
             lines.append(f"    sosa:usedProcedure {m_iri} ;")
         if cls == "censo:CensoredObservation" and loq is not None and factor:
@@ -517,7 +582,10 @@ def main() -> int:
             # row it is whatever convention the reporter used.
             if val is not None:
                 lines.append(f"    censo:reportedValue {lit(val*factor)} ;")
-            lines.append("    censo:censoringRecovered false ;")
+            # true for a mean read as '<LOQ' under Art. 5(2): the status was
+            # reconstructed from the value and the limit, not flagged at source
+            lines.append(f"    censo:censoringRecovered "
+                         f"{'true' if mean_below_limit else 'false'} ;")
         elif cls == "censo:QuantifiedObservation" and val is not None and factor:
             lines.append(f"    censo:reportedValue {lit(val*factor)} ;")
             # A quantified result is an INTERVAL too, and the vocabulary has
@@ -532,11 +600,16 @@ def main() -> int:
             # interval a lawful method could have -- and the outcome it
             # produces is "cannot be decided by a method that merely meets the
             # legal minimum", which is exactly what PossibleExceedance means.
-            u = LEGAL_UNCERTAINTY_AT_EQS * thr
+            u = LEGAL_UNCERTAINTY_AT_EQS * t_used
             lines.append(f"    censo:resultLowerBound "
                          f"{lit(max(0.0, val*factor - u))} ;")
             lines.append(f"    censo:resultUpperBound "
                          f"{lit(val*factor + u)} ;")
+            # the band as data, and where it came from: WISE-6 reports no
+            # uncertainty, so every one is the regulatory default
+            lines.append(f"    censo:expandedUncertainty {lit(u)} ;")
+            lines.append("    censo:uncertaintySource "
+                         "censo:RegulatoryDefaultUncertainty ;")
         elif cls == "censo:UnresolvedObservation" and val is not None and factor:
             # An unresolved row usually still carries a number; what it lacks
             # is any way to tell whether that number is a detection or a
@@ -546,6 +619,18 @@ def main() -> int:
             # because the value those rows turn on was never written down.
             lines.append(f"    censo:reportedValue {lit(val*factor)} ;")
 
+        # ---- flags: annotations that never change the verdict -------------
+        if l_ug is not None and l_ug > 0.30 * t_used:
+            lines.append("    censo:assessmentFlag "
+                         "censo:LimitAbovePerformanceCriterion ;")
+        if (cls == "censo:CensoredObservation" and outcome == "compliant"
+                and l_ug is not None
+                and l_ug > t_used - LEGAL_UNCERTAINTY_AT_EQS * t_used):
+            lines.append("    censo:assessmentFlag "
+                         "censo:LimitWithinUncertaintyBand ;")
+        if mean_below_limit:
+            lines.append("    censo:assessmentFlag censo:MeanBelowOwnLimit ;")
+
         # ---- compliance outcome ------------------------------------------
         # Article 3(3b): a below-LOQ result whose LOQ exceeds the EQS "shall
         # not be considered". That is MethodInsufficient, not compliance.
@@ -554,10 +639,6 @@ def main() -> int:
         # beside the class: the classes are defined over those properties, the
         # disjointness that makes the logic exclusive is declared on them, and
         # for as long as the graph asserted only the class, neither could fire.
-        v_ug = val * factor if (val is not None and factor) else None
-        l_ug = loq * factor if (loq is not None and factor) else None
-        outcome = censo_outcome(status, v_ug, l_ug, thr,
-                                precondition=_cond.get(cas))
         tally[outcome] += 1
         CLASS = {
             "method_insufficient": ("censo:MethodInsufficient", None),
@@ -645,8 +726,10 @@ def main() -> int:
                     exemplar_fallback[case] = row
 
         for rule, k in SUBSTITUTIONS:
-            tv = two_valued(v_ug, l_ug,
-                            cls == "censo:CensoredObservation", thr, k)
+            # the ROW's flag, as scripts/22 counts it: the counterfactual is
+            # what a pipeline reading the record does, and no such pipeline
+            # applies Article 5(2) to an unflagged mean
+            tv = two_valued(v_ug, l_ug, status == "censored", thr, k)
             counterfactual[(rule, outcome, tv)] += 1
 
         lines[-1] = lines[-1].rstrip(" ;") + " ."
@@ -771,6 +854,8 @@ def main() -> int:
     for k, lbl in (("compliant", "`Compliant`"),
                    ("exceedance", "`Exceedance`"),
                    ("possible_exceedance", "`PossibleExceedance`"),
+                   ("precondition_unmet",
+                    "`PreconditionUnmet` → `IndeterminateCompliance`"),
                    ("method_insufficient",
                     "`MethodInsufficient` → `IndeterminateCompliance`"),
                    ("indeterminate_unresolved",
@@ -790,18 +875,25 @@ def main() -> int:
     if listed != n:
         L.append(f"> **{n - listed:,} observations carry an outcome this "
                  f"table does not list.** That is a defect in the report.\n")
+    # PreconditionUnmet was listed in the check above and in neither the table
+    # nor this sum, so the graph's report called 30.5 % undecidable where the
+    # same definition over the same rows gives more. The definition is the
+    # headline's: every subclass of censo:IndeterminateCompliance.
     indet = (tally["method_insufficient"] + tally["indeterminate_unresolved"]
-             + tally["indeterminate_other"] + tally["possible_exceedance"])
+             + tally["indeterminate_other"] + tally["possible_exceedance"]
+             + tally["precondition_unmet"])
     L.append(f"> **{100*indet/n:.1f}%** of these assessments are not "
              f"decidable from the record as reported: the record carries no "
-             f"bound at all, or the method's limit lies above the standard and "
-             f"Article~3(3b) requires the result to be set aside, or the "
-             f"interval Article~4(1) permits around the reported value "
+             f"bound at all, or the standard is defined on a quantity the "
+             f"record does not supply, or the method's limit lies above the "
+             f"standard and Article~3(3b) requires the result to be set aside, "
+             f"or the interval Article~4(1) permits around the reported value "
              f"straddles the standard.\n")
 
     # ---- the two-valued counterfactual, counted ---------------------------
     UNSUP = ("method_insufficient", "indeterminate_unresolved",
-             "indeterminate_other")
+             "indeterminate_other", "precondition_unmet",
+             "possible_exceedance")
     L += ["## What a two-valued pipeline returns for the same rows\n",
           "Counted row by row, not assumed, and under all three substitution "
           "conventions in routine use: a non-detection entering the "
@@ -815,6 +907,8 @@ def main() -> int:
           "|---|" + "---|" * len(SUBSTITUTIONS)]
     tv_rows = [("compliant", "`Compliant`"),
                ("exceedance", "`Exceedance`"),
+               ("possible_exceedance", "`PossibleExceedance`"),
+               ("precondition_unmet", "`PreconditionUnmet`"),
                ("method_insufficient", "`MethodInsufficient`"),
                ("indeterminate_unresolved", "`IndeterminateCompliance` "
                 "(unresolved)"),

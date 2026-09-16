@@ -101,7 +101,19 @@ PACKAGES = [
 COMPLIANT, EXCEEDING, INSUFFICIENT, NOTHRESHOLD, UNRESOLVED = (
     "Compliant", "Exceeding", "MethodInsufficient", "NoThresholdDefined",
     "BoundNotEstablished")
-OUTCOMES = [COMPLIANT, EXCEEDING, INSUFFICIENT, NOTHRESHOLD, UNRESOLVED]
+# 2.4.0: the two outcomes this stage could not produce while it kept its own
+# decision function. It applied Article 3(3b) to quantified means as well, no
+# uncertainty band, and no applicability condition -- a different procedure
+# from the one the headline uses, under the claim that the procedure was
+# identical across jurisdictions. It now imports assess().
+POSSIBLE, PRECONDITION = "PossibleExceedance", "PreconditionUnmet"
+OUTCOMES = [COMPLIANT, EXCEEDING, POSSIBLE, INSUFFICIENT, PRECONDITION,
+            NOTHRESHOLD, UNRESOLVED]
+_MAP = {"compliant": COMPLIANT, "exceedance": EXCEEDING,
+        "possible_exceedance": POSSIBLE, "method_insufficient": INSUFFICIENT,
+        "precondition_unmet": PRECONDITION,
+        "indeterminate_unresolved": UNRESOLVED,
+        "indeterminate_other": UNRESOLVED}
 
 
 def load_package(path: Path):
@@ -139,7 +151,8 @@ def load_package(path: Path):
     return out
 
 
-def verdict(thr, value_ug, loq_ug, below_loq):
+def verdict(thr, value_ug, loq_ug, below_loq, *, status=None, cas="",
+            condition=None, fraction="", hardness=None, fraction_rule=True):
     """The four-valued outcome. Identical for every jurisdiction by construction.
 
     Order matters and follows the law, not convenience: Article 3(3b) is tested
@@ -149,18 +162,17 @@ def verdict(thr, value_ug, loq_ug, below_loq):
     # Tested before the threshold: a record that cannot be interpreted is
     # unresolvable under EVERY jurisdiction, so calling it "no standard" would
     # charge a reporting defect to the regulation.
-    if below_loq and loq_ug is None:
-        return UNRESOLVED
-    if not below_loq and value_ug is None:
+    status = status or ("censored" if below_loq else
+                        "quantified" if value_ug is not None else "unresolved")
+    if status == "unresolved" or (status == "censored" and loq_ug is None):
         return UNRESOLVED
     if thr is None:
         return NOTHRESHOLD
-    if loq_ug is not None and loq_ug > thr:
-        return INSUFFICIENT
-    if below_loq:
-        # the bound clears the standard, so the non-detection decides it
-        return COMPLIANT
-    return EXCEEDING if value_ug > thr else COMPLIANT
+    # Everything else is the shared procedure. The jurisdiction supplies the
+    # threshold and its conditions, and nothing else differs.
+    return _MAP[_m.assess(status, value_ug, loq_ug, thr, cas=cas,
+                          condition=condition, fraction=fraction,
+                          hardness=hardness, fraction_rule=fraction_rule)[0]]
 
 
 def self_test() -> int:
@@ -176,7 +188,9 @@ def self_test() -> int:
         (0.1,   None,  None, True,  UNRESOLVED),     # flag without a bound
         (None,  None,  None, True,  UNRESOLVED),     # and it stays unresolved
         (0.1,   None,  0.05, False, UNRESOLVED),     # no value, not censored
-        (0.1,   0.1,   0.01, False, COMPLIANT),      # equal is not exceeding
+        # at the standard: undecidable within the lawful band, which this
+        # stage could not say while it had no band
+        (0.1,   0.1,   0.01, False, POSSIBLE),
     ]
     bad = 0
     for thr, val, loq, bel, want in cases:
@@ -235,6 +249,16 @@ def main() -> int:
         packs.append((name, thr, cite))
         print(f"  {name}: {len(thr)} annual-average standards from {path.name}")
 
+    # The conditions the EU package attaches, and the hardness join, from the
+    # same sources scripts/22 uses. The Turkish package states no condition.
+    eqs_rows = []
+    p_eqs = PROC / "eu_eqs.csv"
+    if p_eqs.exists():
+        with p_eqs.open(encoding="utf-8") as fh:
+            eqs_rows = list(csv.DictReader(fh))
+    cond = _m.conditional_thresholds(eqs_rows)
+    hardness_at = _m.load_covariates(src) if src.suffix.lower() == ".zip" else {}
+
     rows = open_rows(src)
     header = next(rows)
     col = pick(header)
@@ -282,15 +306,23 @@ def main() -> int:
 
         val = num(get(row, "value"))
         loq = num(get(row, "loq"))
-        below = _m.truthy(get(row, "below_loq"))
         val_ug = val * factor if val is not None else None
         loq_ug = loq * factor if loq is not None else None
+        # the detection status as scripts/22 reads it, flag and limit both
+        status = _m.detection_status(get(row, "below_loq"), val_ug, loq_ug)
+        applic = dict(fraction=get(row, "matrix"),
+                      hardness=hardness_at.get((get(row, "site"),
+                                                get(row, "year")[:4])))
 
         scored += 1
         labels.setdefault(cas, get(row, "determinand") or code)
         vs = []
         for name, thr, _ in packs:
-            v = verdict(thr.get(cas), val_ug, loq_ug, below)
+            eu = name == "EU"
+            v = verdict(thr.get(cas), val_ug, loq_ug, status == "censored",
+                        status=status, cas=cas,
+                        condition=cond.get(cas) if eu else None,
+                        fraction_rule=eu, **applic)
             tally[name][v] += 1
             vs.append(v)
         cross[tuple(vs)] += 1

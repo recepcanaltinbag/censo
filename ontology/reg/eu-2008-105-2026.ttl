@@ -17,8 +17,8 @@
     dcterms:title "Directive 2008/105/EC, Annex I, consolidated text in force 10 May 2026"@en ;
     dcterms:description """Environmental quality standards for priority substances in inland surface waters, from the consolidated text of Directive 2008/105/EC as amended, in force on 10 May 2026. Parsed from the EUR-Lex primary text by scripts/10_parse_eu_eqs.py."""@en ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
-    owl:versionIRI <https://w3id.org/censo/reg/eu-2008-105-2026/2.1.0> ;
-    owl:versionInfo "2.1.0" ;
+    owl:versionIRI <https://w3id.org/censo/reg/eu-2008-105-2026/2.2.0> ;
+    owl:versionInfo "2.2.0" ;
     vann:preferredNamespacePrefix "cereg" ;
     vann:preferredNamespaceUri "https://w3id.org/censo/reg/" ;
     owl:imports <https://w3id.org/censo/reg/> ;
@@ -37,13 +37,23 @@ cereg:eu-2008-105-2026 a cereg:RegulationPackage ;
     cereg:inForceFrom "2026-05-10"^^xsd:date ;
     cereg:legalReference "Directive 2008/105/EC as amended by Directive 2013/39/EU, Annex I (consolidated)" ;
     cereg:sourceDocument cereg:eu-2008-105-2026-source ;
+    cereg:censoredResultRule cereg:PointComparison ;
+    cereg:defaultUncertaintyFactor "0.5"^^xsd:decimal ;
     cereg:definesThreshold
         cereg:eu-2008-105-2026-Anthracene-aa ,
         cereg:eu-2008-105-2026-Anthracene-mac ,
         cereg:eu-2008-105-2026-Benzene-aa ,
         cereg:eu-2008-105-2026-Benzene-mac ,
-        cereg:eu-2008-105-2026-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9-aa ,
-        cereg:eu-2008-105-2026-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9-mac ,
+        cereg:eu-2008-105-2026-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9-aa-class-1 ,
+        cereg:eu-2008-105-2026-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9-aa-class-2 ,
+        cereg:eu-2008-105-2026-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9-aa-class-3 ,
+        cereg:eu-2008-105-2026-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9-aa-class-4 ,
+        cereg:eu-2008-105-2026-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9-aa-class-5 ,
+        cereg:eu-2008-105-2026-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9-mac-class-1 ,
+        cereg:eu-2008-105-2026-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9-mac-class-2 ,
+        cereg:eu-2008-105-2026-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9-mac-class-3 ,
+        cereg:eu-2008-105-2026-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9-mac-class-4 ,
+        cereg:eu-2008-105-2026-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9-mac-class-5 ,
         cereg:eu-2008-105-2026-C-10-13-Chloroalkanes-10-aa ,
         cereg:eu-2008-105-2026-C-10-13-Chloroalkanes-10-mac ,
         cereg:eu-2008-105-2026-Chlorpyrifos-Chlorpyrifos-ethyl-aa ,
@@ -179,11 +189,6 @@ cereg:eu-2008-105-2026-cond-bioavailability a censo:BioavailabilityCondition ;
     censo:requiresCovariate cereg:covariate-pH ;
     rdfs:comment "Annex I footnote 12: these EQS refer to bioavailable concentrations of the substances, which requires hardness, dissolved organic carbon and pH for normalisation."@en .
 
-cereg:eu-2008-105-2026-cond-hardness-class a censo:HardnessClassCondition ;
-    rdfs:label "hardness class condition (eu-2008-105-2026)"@en ;
-    censo:requiresCovariate cereg:covariate-hardness ;
-    rdfs:comment "Annex I footnote 9: the EQS values vary with water hardness over five class categories, so the applicable value is unknown until the hardness is measured."@en .
-
 cereg:covariate-dissolvedOrganicCarbon a sosa:ObservableProperty ;
     rdfs:label "dissolvedOrganicCarbon"@en .
 
@@ -192,6 +197,53 @@ cereg:covariate-hardness a sosa:ObservableProperty ;
 
 cereg:covariate-pH a sosa:ObservableProperty ;
     rdfs:label "pH"@en .
+
+##############################################################################
+#  Conditions a record can meet: the fraction measured, and the
+#  hardness class of the water, one condition per class
+##############################################################################
+
+cereg:eu-2008-105-2026-cond-dissolved a censo:FractionCondition ;
+    rdfs:label "dissolved fraction (eu-2008-105-2026)"@en ;
+    rdfs:comment "Annex I Part B point 3: for cadmium, lead, mercury and nickel the water EQS refer to the dissolved concentration, the dissolved phase of a water sample obtained by filtration through a 0,45 um filter or any equivalent pre-treatment."@en .
+
+cereg:eu-2008-105-2026-cond-hardness-class-1 a censo:HardnessClassCondition ;
+    rdfs:label "hardness class 1, < 40 mg CaCO3/l (eu-2008-105-2026)"@en ;
+    censo:requiresCovariate cereg:covariate-hardness ;
+    censo:covariateMaximum "40.0"^^xsd:decimal ;
+    censo:covariateUnit unit:MilliGM-PER-L ;
+    rdfs:comment "Annex I footnote 9, class 1: < 40 mg CaCO3/l. Hardness is expressed as calcium carbonate."@en .
+
+cereg:eu-2008-105-2026-cond-hardness-class-2 a censo:HardnessClassCondition ;
+    rdfs:label "hardness class 2, 40 to < 50 mg CaCO3/l (eu-2008-105-2026)"@en ;
+    censo:requiresCovariate cereg:covariate-hardness ;
+    censo:covariateMinimum "40.0"^^xsd:decimal ;
+    censo:covariateMaximum "50.0"^^xsd:decimal ;
+    censo:covariateUnit unit:MilliGM-PER-L ;
+    rdfs:comment "Annex I footnote 9, class 2: 40 to < 50 mg CaCO3/l. Hardness is expressed as calcium carbonate."@en .
+
+cereg:eu-2008-105-2026-cond-hardness-class-3 a censo:HardnessClassCondition ;
+    rdfs:label "hardness class 3, 50 to < 100 mg CaCO3/l (eu-2008-105-2026)"@en ;
+    censo:requiresCovariate cereg:covariate-hardness ;
+    censo:covariateMinimum "50.0"^^xsd:decimal ;
+    censo:covariateMaximum "100.0"^^xsd:decimal ;
+    censo:covariateUnit unit:MilliGM-PER-L ;
+    rdfs:comment "Annex I footnote 9, class 3: 50 to < 100 mg CaCO3/l. Hardness is expressed as calcium carbonate."@en .
+
+cereg:eu-2008-105-2026-cond-hardness-class-4 a censo:HardnessClassCondition ;
+    rdfs:label "hardness class 4, 100 to < 200 mg CaCO3/l (eu-2008-105-2026)"@en ;
+    censo:requiresCovariate cereg:covariate-hardness ;
+    censo:covariateMinimum "100.0"^^xsd:decimal ;
+    censo:covariateMaximum "200.0"^^xsd:decimal ;
+    censo:covariateUnit unit:MilliGM-PER-L ;
+    rdfs:comment "Annex I footnote 9, class 4: 100 to < 200 mg CaCO3/l. Hardness is expressed as calcium carbonate."@en .
+
+cereg:eu-2008-105-2026-cond-hardness-class-5 a censo:HardnessClassCondition ;
+    rdfs:label "hardness class 5, >= 200 mg CaCO3/l (eu-2008-105-2026)"@en ;
+    censo:requiresCovariate cereg:covariate-hardness ;
+    censo:covariateMinimum "200.0"^^xsd:decimal ;
+    censo:covariateUnit unit:MilliGM-PER-L ;
+    rdfs:comment "Annex I footnote 9, class 5: >= 200 mg CaCO3/l. Hardness is expressed as calcium carbonate."@en .
 
 ##############################################################################
 #  Analytes referenced by this package
@@ -626,24 +678,122 @@ cereg:eu-2008-105-2026-Benzene-mac a censo:MaximumAllowableThreshold ;
     cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
     rdfs:comment "Annex I entry 4, category: Industrial substances."@en .
 
-cereg:eu-2008-105-2026-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9-aa a censo:AnnualAverageThreshold ;
-    rdfs:label "Cadmium and its compounds (depending on water hardness classes) ( 9 ) — annual average (0.08 µg/L)"@en ;
+cereg:eu-2008-105-2026-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9-aa-class-1 a censo:AnnualAverageThreshold ;
+    rdfs:label "Cadmium and its compounds (depending on water hardness classes) ( 9 ), hardness class 1 — annual average (0.08 µg/L)"@en ;
     censo:thresholdValue "0.08"^^xsd:decimal ;
     censo:thresholdUnit unit:MicroGM-PER-L ;
     censo:appliesToAnalyte cereg:analyte-eu-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9 ;
     censo:requiresCondition cereg:eu-2008-105-2026-cond-matrix ;
-    censo:requiresCondition cereg:eu-2008-105-2026-cond-hardness-class ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-dissolved ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-hardness-class-1 ;
     censo:definedBy cereg:eu-2008-105-2026 ;
     cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
     rdfs:comment "Annex I entry 6, category: Metals."@en .
 
-cereg:eu-2008-105-2026-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9-mac a censo:MaximumAllowableThreshold ;
-    rdfs:label "Cadmium and its compounds (depending on water hardness classes) ( 9 ) — maximum allowable concentration (0.45 µg/L)"@en ;
+cereg:eu-2008-105-2026-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9-aa-class-2 a censo:AnnualAverageThreshold ;
+    rdfs:label "Cadmium and its compounds (depending on water hardness classes) ( 9 ), hardness class 2 — annual average (0.08 µg/L)"@en ;
+    censo:thresholdValue "0.08"^^xsd:decimal ;
+    censo:thresholdUnit unit:MicroGM-PER-L ;
+    censo:appliesToAnalyte cereg:analyte-eu-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9 ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-matrix ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-dissolved ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-hardness-class-2 ;
+    censo:definedBy cereg:eu-2008-105-2026 ;
+    cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
+    rdfs:comment "Annex I entry 6, category: Metals."@en .
+
+cereg:eu-2008-105-2026-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9-aa-class-3 a censo:AnnualAverageThreshold ;
+    rdfs:label "Cadmium and its compounds (depending on water hardness classes) ( 9 ), hardness class 3 — annual average (0.09 µg/L)"@en ;
+    censo:thresholdValue "0.09"^^xsd:decimal ;
+    censo:thresholdUnit unit:MicroGM-PER-L ;
+    censo:appliesToAnalyte cereg:analyte-eu-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9 ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-matrix ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-dissolved ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-hardness-class-3 ;
+    censo:definedBy cereg:eu-2008-105-2026 ;
+    cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
+    rdfs:comment "Annex I entry 6, category: Metals."@en .
+
+cereg:eu-2008-105-2026-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9-aa-class-4 a censo:AnnualAverageThreshold ;
+    rdfs:label "Cadmium and its compounds (depending on water hardness classes) ( 9 ), hardness class 4 — annual average (0.15 µg/L)"@en ;
+    censo:thresholdValue "0.15"^^xsd:decimal ;
+    censo:thresholdUnit unit:MicroGM-PER-L ;
+    censo:appliesToAnalyte cereg:analyte-eu-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9 ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-matrix ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-dissolved ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-hardness-class-4 ;
+    censo:definedBy cereg:eu-2008-105-2026 ;
+    cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
+    rdfs:comment "Annex I entry 6, category: Metals."@en .
+
+cereg:eu-2008-105-2026-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9-aa-class-5 a censo:AnnualAverageThreshold ;
+    rdfs:label "Cadmium and its compounds (depending on water hardness classes) ( 9 ), hardness class 5 — annual average (0.25 µg/L)"@en ;
+    censo:thresholdValue "0.25"^^xsd:decimal ;
+    censo:thresholdUnit unit:MicroGM-PER-L ;
+    censo:appliesToAnalyte cereg:analyte-eu-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9 ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-matrix ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-dissolved ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-hardness-class-5 ;
+    censo:definedBy cereg:eu-2008-105-2026 ;
+    cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
+    rdfs:comment "Annex I entry 6, category: Metals."@en .
+
+cereg:eu-2008-105-2026-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9-mac-class-1 a censo:MaximumAllowableThreshold ;
+    rdfs:label "Cadmium and its compounds (depending on water hardness classes) ( 9 ), hardness class 1 — maximum allowable concentration (0.45 µg/L)"@en ;
     censo:thresholdValue "0.45"^^xsd:decimal ;
     censo:thresholdUnit unit:MicroGM-PER-L ;
     censo:appliesToAnalyte cereg:analyte-eu-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9 ;
     censo:requiresCondition cereg:eu-2008-105-2026-cond-matrix ;
-    censo:requiresCondition cereg:eu-2008-105-2026-cond-hardness-class ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-dissolved ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-hardness-class-1 ;
+    censo:definedBy cereg:eu-2008-105-2026 ;
+    cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
+    rdfs:comment "Annex I entry 6, category: Metals."@en .
+
+cereg:eu-2008-105-2026-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9-mac-class-2 a censo:MaximumAllowableThreshold ;
+    rdfs:label "Cadmium and its compounds (depending on water hardness classes) ( 9 ), hardness class 2 — maximum allowable concentration (0.45 µg/L)"@en ;
+    censo:thresholdValue "0.45"^^xsd:decimal ;
+    censo:thresholdUnit unit:MicroGM-PER-L ;
+    censo:appliesToAnalyte cereg:analyte-eu-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9 ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-matrix ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-dissolved ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-hardness-class-2 ;
+    censo:definedBy cereg:eu-2008-105-2026 ;
+    cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
+    rdfs:comment "Annex I entry 6, category: Metals."@en .
+
+cereg:eu-2008-105-2026-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9-mac-class-3 a censo:MaximumAllowableThreshold ;
+    rdfs:label "Cadmium and its compounds (depending on water hardness classes) ( 9 ), hardness class 3 — maximum allowable concentration (0.6 µg/L)"@en ;
+    censo:thresholdValue "0.6"^^xsd:decimal ;
+    censo:thresholdUnit unit:MicroGM-PER-L ;
+    censo:appliesToAnalyte cereg:analyte-eu-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9 ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-matrix ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-dissolved ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-hardness-class-3 ;
+    censo:definedBy cereg:eu-2008-105-2026 ;
+    cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
+    rdfs:comment "Annex I entry 6, category: Metals."@en .
+
+cereg:eu-2008-105-2026-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9-mac-class-4 a censo:MaximumAllowableThreshold ;
+    rdfs:label "Cadmium and its compounds (depending on water hardness classes) ( 9 ), hardness class 4 — maximum allowable concentration (0.9 µg/L)"@en ;
+    censo:thresholdValue "0.9"^^xsd:decimal ;
+    censo:thresholdUnit unit:MicroGM-PER-L ;
+    censo:appliesToAnalyte cereg:analyte-eu-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9 ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-matrix ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-dissolved ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-hardness-class-4 ;
+    censo:definedBy cereg:eu-2008-105-2026 ;
+    cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
+    rdfs:comment "Annex I entry 6, category: Metals."@en .
+
+cereg:eu-2008-105-2026-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9-mac-class-5 a censo:MaximumAllowableThreshold ;
+    rdfs:label "Cadmium and its compounds (depending on water hardness classes) ( 9 ), hardness class 5 — maximum allowable concentration (1.5 µg/L)"@en ;
+    censo:thresholdValue "1.5"^^xsd:decimal ;
+    censo:thresholdUnit unit:MicroGM-PER-L ;
+    censo:appliesToAnalyte cereg:analyte-eu-Cadmium-and-its-compounds-depending-on-water-hardness-classes-9 ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-matrix ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-dissolved ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-hardness-class-5 ;
     censo:definedBy cereg:eu-2008-105-2026 ;
     cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
     rdfs:comment "Annex I entry 6, category: Metals."@en .
@@ -854,6 +1004,7 @@ cereg:eu-2008-105-2026-Lead-and-its-compounds-aa a censo:AnnualAverageThreshold 
     censo:thresholdUnit unit:MicroGM-PER-L ;
     censo:appliesToAnalyte cereg:analyte-eu-Lead-and-its-compounds ;
     censo:requiresCondition cereg:eu-2008-105-2026-cond-matrix ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-dissolved ;
     censo:requiresCondition cereg:eu-2008-105-2026-cond-bioavailability ;
     censo:definedBy cereg:eu-2008-105-2026 ;
     cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
@@ -865,6 +1016,7 @@ cereg:eu-2008-105-2026-Lead-and-its-compounds-mac a censo:MaximumAllowableThresh
     censo:thresholdUnit unit:MicroGM-PER-L ;
     censo:appliesToAnalyte cereg:analyte-eu-Lead-and-its-compounds ;
     censo:requiresCondition cereg:eu-2008-105-2026-cond-matrix ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-dissolved ;
     censo:requiresCondition cereg:eu-2008-105-2026-cond-bioavailability ;
     censo:definedBy cereg:eu-2008-105-2026 ;
     cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
@@ -876,6 +1028,7 @@ cereg:eu-2008-105-2026-Mercury-and-its-compounds-mac a censo:MaximumAllowableThr
     censo:thresholdUnit unit:MicroGM-PER-L ;
     censo:appliesToAnalyte cereg:analyte-eu-Mercury-and-its-compounds ;
     censo:requiresCondition cereg:eu-2008-105-2026-cond-matrix ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-dissolved ;
     censo:definedBy cereg:eu-2008-105-2026 ;
     cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
     rdfs:comment "Annex I entry 21, category: Metals."@en .
@@ -906,6 +1059,7 @@ cereg:eu-2008-105-2026-Nickel-and-its-compounds-aa a censo:AnnualAverageThreshol
     censo:thresholdUnit unit:MicroGM-PER-L ;
     censo:appliesToAnalyte cereg:analyte-eu-Nickel-and-its-compounds ;
     censo:requiresCondition cereg:eu-2008-105-2026-cond-matrix ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-dissolved ;
     censo:requiresCondition cereg:eu-2008-105-2026-cond-bioavailability ;
     censo:definedBy cereg:eu-2008-105-2026 ;
     cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;
@@ -917,6 +1071,7 @@ cereg:eu-2008-105-2026-Nickel-and-its-compounds-mac a censo:MaximumAllowableThre
     censo:thresholdUnit unit:MicroGM-PER-L ;
     censo:appliesToAnalyte cereg:analyte-eu-Nickel-and-its-compounds ;
     censo:requiresCondition cereg:eu-2008-105-2026-cond-matrix ;
+    censo:requiresCondition cereg:eu-2008-105-2026-cond-dissolved ;
     censo:requiresCondition cereg:eu-2008-105-2026-cond-bioavailability ;
     censo:definedBy cereg:eu-2008-105-2026 ;
     cereg:transcriptionStatus cereg:VerifiedAgainstPrimarySource ;

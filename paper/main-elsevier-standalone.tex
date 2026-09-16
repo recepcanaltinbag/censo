@@ -124,31 +124,34 @@ record cannot express.
 Auditing the European Environment Agency's Waterbase (\num{4190833} river
 station-years, \num{637} substances, \num{37} countries) finds \num{44.9}\% of
 samples below the quantification limit and \num{40.1}\% of assessments from a
-method failing Directive 2009/90/EC. The two failures have different histories,
-and only one is live: station-years declaring neither a censoring flag nor a
-limit --- \num{25.5}\% overall --- fall to \num{0.0}\% in \num{2013} and stay
-there, a reporting defect the record repaired on a date, whereas the analytical
-failure is no better in \num{2024} than in \num{2006}, \num{47.7}\% against
-\num{46.3}\%. Read on \num{2024} alone the argument is unchanged, so it is not
-an artefact of an archive. Substitution manufactures findings: the same records yield
+method failing Directive 2009/90/EC. The two failures have different histories:
+station-years declaring neither a censoring flag nor a limit --- \num{25.5}\%
+overall --- are absent after \num{2012}, when the set of reporters also changes,
+whereas since \num{2020} \num{19.3}\% of assessments are still below-quantification
+results whose limit exceeds the standard, so the analytical failure is not an
+artefact of an archive. Substitution manufactures findings: the same records yield
 \num{59251} to \num{200708} exceedances as non-detections enter at zero, half
 the limit or the limit, \num{112034} created by the substitution alone and only
-\num{14505} affirmable in law. The \num{2026} standards are applied to a record that
+\num{14809} affirmable in law. The \num{2026} standards are applied to a record that
 predates them: the test is what the monitoring can decide, not who breached
 what.
 
 CENSO is an OWL~2 ontology on SOSA/SSN whose central choices the record decides.
-The quantification limit belongs to the analytical \emph{run}, not the
-instrument: \num{56.4}\% of multi-year station--substance pairs carry more than
-one, which a threshold column cannot hold. Compliance is three-valued --- met,
-not met, or not determinable, the outcomes the Directive admits --- the third
-subtyped by the reason, which keeps an unmeasurable standard apart from an
-unreported bound. Of \num{696168} station-years a European standard reaches,
-\num{43.8}\% are undecidable --- and the largest reason is not the analytical
-one: \num{25.4} of those points arise before any limit is compared to any
-standard, \num{18.8}\% because the standard is written over a quantity the
-record does not report. Swapping the regulation package re-decides
-\num{17.7}\% of co-regulated outcomes. Of \num{21} ontologies parsed --- reaching outside the water domain to
+The quantification limit is not a property of the instrument: \num{56.4}\% of
+multi-year station--substance pairs carry more than one, which a threshold column
+cannot hold, and CENSO carries the bound each limit implies onto the result it
+qualifies. Compliance is three-valued --- met, not met, or not determinable, the
+outcomes the Directive admits --- the third subtyped by the reason, which keeps
+an unmeasurable standard apart from an unreported bound. Of \num{696168}
+station-years a European standard reaches, \num{38.4}\% are undecidable, and the
+largest single reason is analytical: \num{18.2}\% are below-quantification results
+Article~3(3b) sets aside. The other half arises before any limit meets any
+standard --- \num{19.2} points with no bound at all or with a standard written
+over a quantity the record does not supply, once the water hardness the release
+reports on rows of its own is joined and the first tier of the EU bioavailability
+guidance is applied; read row by row, without that join, \num{43.8}\% are
+undecidable. Swapping the regulation package re-decides
+\num{16.0}\% of co-regulated outcomes. Of \num{21} ontologies parsed --- reaching outside the water domain to
 the analytical-chemistry vocabularies, one of which defines the quantification
 limit from the IUPAC Gold Book and still binds it to the method --- none carries
 a censoring status, and \num{20} cannot separate a non-detection from a
@@ -178,12 +181,15 @@ ontology \sep open world assumption
 % force" carries the counterfactual; "assessable station-years" carries the
 % denominator. Six bullets also broke Elsevier's 3--5 rule; the precondition
 % bullet is parked below and can be swapped for any of these five.
-\item EU law mandates a third outcome that no surveyed vocabulary can express
+% Narrowed: WaterML 2.0, ODM2, SeaDataNet L20 and WQX all flag a censored
+% result, and WQX attaches its limit (Section 2, exchange standards). What none
+% has is the bound, the limit and a three-valued verdict related in RDF/OWL.
+\item No RDF vocabulary links a censored result to the three-valued verdict EU law requires
 \item Under standards now in force, \num{40.1}\% of assessable station-years fail the LOQ test
 \item \num{25.5}\% of river station-years record neither a censoring flag nor a limit
 \item Substitution invents \num{112034} of the \num{171285} exceedances it reports
-\item Swapping the regulation package changes \num{17.7}\% of co-regulated verdicts
-% \item \num{18.8}\% of assessable station-years meet a standard's precondition nowhere
+\item Swapping the regulation package changes \num{16.0}\% of co-regulated verdicts
+% \item \num{38.4}\% of assessable station-years are undecidable once each standard's conditions are evaluated
 \end{highlights}
 
 
@@ -349,6 +355,33 @@ rather than assumed, which Section~\ref{sec:results-profile} reports --- and
 what the profile cannot express is stated
 and moved to SHACL rather than asserted and left unenforced.
 
+\subsection{Water-quality exchange standards}
+\label{sec:related-exchange}
+Censoring is not unrepresented in water-quality data exchange, and the claim
+this paper makes has to be stated against the standards that do carry it. OGC
+WaterML~2.0~\cite{ogc2014waterml2} attaches a \texttt{censoredReason} to a
+time--value pair and admits a censoring threshold as an untyped point-level
+\texttt{qualifier}; ODM2~\cite{horsburgh2016odm2} and CUAHSI WaterML~1.1 carry a
+censor code (less-than, non-detect, present but not quantified) on every value;
+the SeaDataNet measurand qualifier flags~\cite{nerc_l20}, published as SKOS,
+separate a value below detection from one below the limit of quantification;
+and the US EPA Water Quality Exchange schema~\cite{epa_wqx3} goes furthest,
+recording a detection condition and, on each result, any number of typed
+detection and quantitation limits. \textbf{A censored result with its own limit
+is therefore expressible today}, in XML and relational exchange formats
+(Table~\ref{tab:exchange}). Three
+things are not. In the SeaDataNet flags and in ODM2 the limit occupies the value
+slot, so a reported number and the limit it was measured against cannot both be
+kept. None of these standards is an ontology in which the limit, the result and
+the applicable standard are related by axioms a reasoner or a shape can act on:
+WQX can list a water-quality criterion among a result's limits, but as one more
+limit type and not as a comparison. And none has a compliance outcome, so the
+third outcome Article~3(3b) requires, and the reason it was reached, has nowhere
+to go. The claim of this paper is confined accordingly. It is not that a
+non-detection cannot be flagged; it is that no surveyed vocabulary or exchange
+standard provides, in RDF/OWL, a result-level bound tied to the limit it came
+from and to a three-valued verdict against a conditional standard.
+
 \subsection{Laboratory and analytical vocabularies}
 The concepts CENSO adds would most plausibly already exist not in a water
 ontology but in a laboratory one, so the comparison in
@@ -458,8 +491,8 @@ methods with different limits, and the release states no rule for combining
 them. Choosing one would be inventing the datum the record withholds. What the
 choice can cost is bounded without making it: removing every duplicate row
 moves the undecidable share of Section~\ref{sec:results-wbabox} from
-\num{43.8}\,\% to between \num{43.2} and \num{44.2}\,\% --- at most
-\num{0.56} percentage points --- whichever of the two rows a deduplicating
+\num{38.4}\,\% to between \num{37.8} and \num{38.8}\,\% --- at most
+\num{0.6} percentage points --- whichever of the two rows a deduplicating
 rule were to keep. The aggregated
 release is used because an annual-average standard is defined against an annual
 mean, which is what one row holds.
@@ -484,7 +517,7 @@ station-years carry hundreds of samples and most carry a handful. Every
 maximum-allowable result in Section~\ref{sec:results-mac} therefore describes
 that covered stratum and is reported apart from the annual-mean results --- not
 only as a coverage caveat, but because the two standards disagree on
-\num{25.6}\,\% of the station-years readable both ways, and disagree in both
+\num{22.6}\,\% of the station-years readable both ways, and disagree in both
 directions, so neither is a stricter version of the other. The SQLite distributions
 duplicate the CSV releases and are unused; the by-water-body aggregation is a
 different spatial unit, not comparable to a station-year.
@@ -657,12 +690,13 @@ and \texttt{requiresCondition} links to \texttt{ApplicabilityCondition}
 subclasses: matrix, analytical fraction, bioavailability basis, hardness class.
 Where a precondition is unmet the outcome is \texttt{PreconditionUnmet}, one
 of the five subclasses of \texttt{IndeterminateCompliance} --- not a default
-pass. Section~\ref{sec:results-wbabox} finds it the largest of them. Annex~I
-creates two such conditions in footnotes: the standards for lead and nickel
-``refer to bioavailable concentrations of the substances'', and cadmium's
-``vary depending on the hardness of the water as specified in five class
-categories''. The released package attaches them, and
-Section~\ref{sec:results-precondition} shows what they decide.
+pass. Annex~I creates three such conditions: the metal standards refer to the
+dissolved fraction (Part~B point~3), those for lead and nickel ``refer to
+bioavailable concentrations of the substances'', and cadmium's ``vary depending
+on the hardness of the water as specified in five class categories''. The
+released package attaches them, with one cadmium threshold per class carrying the
+covariate range of its condition, and Section~\ref{sec:results-precondition}
+shows how far the record lets each be evaluated.
 
 \paragraph{Compliance is three-valued, and the third value records why.}
 \texttt{Exceedance}, \texttt{Compliant} and \texttt{IndeterminateCompliance} are
@@ -679,17 +713,26 @@ nothing, which is indeterminacy with a particular cause, and the assessment
 reported in Section~\ref{sec:results-wbabox} has counted it that way throughout.
 
 \paragraph{The order the questions are asked in is part of the claim.}
-Figure~\ref{fig:decision-flow} draws the procedure. It is five tests, and their
-order is not a convenience: a precondition is asked first because it is prior to
-every other question --- where the standard is written over bioavailable lead
-and the record reports total lead, there is no comparison to make, strict or
-lenient. Article~3(3b) is asked next and only of a censored result, because it
-reaches a value \emph{reported as less than} the quantification limit and
-nothing else; an earlier version of this pipeline applied it wherever the limit
-exceeded the standard, which set aside quantified means as
-well --- deleting from the count results that were evidence of exceedance. The uncertainty band is
-asked last and only of a quantified value, because a censored result is already
-an interval. Reorder these and the same four reported fields yield a different
+Figure~\ref{fig:decision-flow} draws the procedure. It is eight tests, and their
+order is not a convenience. Whether the record establishes a bound at all is
+asked first, because a row with neither a flag nor a limit is a defect of the
+record under every standard and every condition. Applicability is asked next ---
+the fraction analysed, the hardness class, the first tier of the bioavailability
+guidance~\cite{eu2019gd38} --- because where the standard is written over
+dissolved or bioavailable lead and the record reports total lead there is no
+comparison to make, strict or lenient. Article~3(3b) is asked only of a bounded
+result, because it reaches a value \emph{reported as less than} the quantification
+limit; an unflagged mean below its own limit is such a result under Article~5(2)
+of Directive 2009/90/EC and is asked it too. An earlier version of this pipeline
+applied the provision wherever the limit exceeded the standard, which set aside
+quantified means as well --- deleting from the count results that were evidence
+of exceedance. The uncertainty band is asked last and only of a measured value.
+Its half-width $U$ is a parameter: the expanded uncertainty ($k=2$) the record
+reports at the level of the standard, or, where it reports none, $U=0.5\,T$, the
+widest Article~4(1) permits; the source of $U$ is recorded with each verdict, and
+Waterbase reports none. How a bounded result meets the standard is a parameter of
+the regulation package too, and the European package states the point comparison
+of Article~3(3b). Reorder these and the same four reported fields yield a different
 verdict, which is why the procedure is drawn rather than described. Each path in
 the figure carries a witness --- inputs that must produce the outcome it leads
 to --- and all of them are executed against the function itself before the
@@ -698,11 +741,12 @@ cannot outlive the code.
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=0.92\textwidth]{fig15_decision_flow.pdf}
-\caption{How one observation is decided against one threshold, from the four
-fields a record reports. The quantification limit enters three times --- it
-decides whether the row has a detection status at all, it is what
-Article~3(3b) compares against the standard, and a value below its own limit
-is a row contradicting itself --- which is why a schema that stores only the
+\caption{How one observation is decided against one threshold, from the fields
+a record reports and the covariates of its station-year. The quantification
+limit enters three times --- it decides whether the row establishes a bound at
+all, it is what Article~3(3b) compares against the standard, and a mean below
+its own limit is a result Article~5(2) makes ``less than limit of
+quantification'' --- which is why a schema that stores only the
 value cannot run this procedure. Units are reconciled before any of it: a reported limit and a standard reach
 the comparison in \si{\micro\gram\per\litre}, converted from the unit the
 record states, and a row whose unit is unrecognised is excluded rather than
@@ -710,7 +754,8 @@ assumed\src{scripts/22\_waterbase\_external.py}. The rules in the shipped
 shapes compare the two numbers directly, which is correct only because that
 conversion has already happened.
 
-The half-width $T/2$ in the last test is not a
+The half-width $U$ in the last test is the reported expanded uncertainty where
+the record carries one and $T/2$ where it does not, and $T/2$ is not a
 threshold the Directive states. It is the \emph{widest} uncertainty
 Article~4(1) lets a usable method have at the level of the standard, so a value
 within $T/2$ of the standard is one a method meeting only the legal minimum
@@ -980,7 +1025,7 @@ method's results may be used~\cite{eu2009qaqc}. \textbf{\num{40.1}\% of station-
 does not meet it.}
 
 \paragraph{Article~3(3b) is routinely unenforceable.}
-Of the station-years for which a European standard exists, \textbf{\num{17.5}\% report a below-quantification result whose limit exceeds that standard}, which the Directive
+Of the station-years for which a European standard exists, \textbf{\num{18.2}\% report a below-quantification result whose limit exceeds that standard}, which the Directive
 requires to be set aside. For three pyrethroid insecticides --- deltamethrin,
 bifenthrin and esfenvalerate --- the figure is \num{100}\%: none has ever, in
 this record, been measured by a method capable of deciding its own standard.
@@ -1041,14 +1086,18 @@ record is dated \num{2015} or later, and the three failures behave differently
 over time --- but not in the same way, and not gradually
 (Figure~\ref{fig:by-year}).
 
-\textbf{One failure was repaired on a date.} The share of station-years
+\textbf{One failure ended at a boundary.} The share of station-years
 declaring neither a censoring flag nor a limit falls from \num{31.8}\,\% in
 \num{2012} to \num{0.0}\,\% in \num{2013}, and stays there for the
-\num{12} years to \num{2024}: not a trend, a step. \textbf{The other two did
-not move.} The share of assessments from a method failing the \num{30}\,\%
-criterion is \num{46.3}\,\% in \num{2006} and \num{47.7}\,\% in
-\num{2024}; the share whose limit exceeds the standard outright, \num{28.1}\,\%
-and \num{28.2}\,\%. Substitution at source never moves at all: censored rows
+\num{12} years to \num{2024}. The reporters change at the same boundary --- from
+\num{33} countries in \num{2012} to \num{9} in \num{2013} --- and every one of the
+\num{9} present on both sides goes to zero in the same year, so the fall dates a
+reporting requirement rather than a gradual change in
+practice\src{scripts/30\_revision\_sensitivity.py}. \textbf{The other two did
+not end.} Years far apart in the record come from almost wholly different
+reporters and are not compared here, but in \num{2024} \num{47.7}\,\% of
+assessments still come from a method failing the \num{30}\,\% criterion and
+\num{28.2}\,\% from one whose limit exceeds the standard outright. Substitution at source never moves at all: censored rows
 carrying a positive value stay between \num{97.2}\,\% and \num{100}\,\%
 across every year the record can speak about. Twelve years after the
 record-keeping defect was repaired, the analytical defect is where it was.
@@ -1196,18 +1245,19 @@ class is assigned from EEA columns.
 \paragraph{The assessment is the population, not a sample.}
 The decision is arithmetic on four reported fields, applied to all
 \num{696168} station-years whose substance carries a European
-standard\src{scripts/22\_waterbase\_external.py}. \textbf{\num{43.8}\,\% are not
+standard\src{scripts/22\_waterbase\_external.py}. \textbf{\num{38.4}\,\% are not
 decidable from the record as reported} --- one outcome,
 \texttt{IndeterminateCompliance}, reached for four distinct reasons the
-vocabulary keeps apart as its subclasses: \num{18.8}\,\%
-\texttt{PreconditionUnmet}, where the standard is defined on a quantity the
-record does not report (Section~\ref{sec:results-precondition});
-\num{17.5}\,\% \texttt{MethodInsufficient}, where a below-quantification result
+vocabulary keeps apart as its subclasses: \num{18.2}\,\%
+\texttt{MethodInsufficient}, where a below-quantification result
 carries a limit above the standard, which Article~3(3b) requires to be set
-aside; \num{6.5}\,\% \texttt{BoundNotEstablished}, with no bound to compare at
+aside; \num{11.8}\,\% \texttt{BoundNotEstablished}, with no bound to compare at
 all --- the outcome that follows from a \texttt{UnresolvedObservation}, which
 names the measurement whose censoring status is unknown, where
-\texttt{BoundNotEstablished} names the verdict it forces; \num{1.0}\,\% \texttt{PossibleExceedance}, where the interval straddles the
+\texttt{BoundNotEstablished} names the verdict it forces; \num{7.4}\,\%
+\texttt{PreconditionUnmet}, where the standard is defined on a quantity the
+record does not supply (Section~\ref{sec:results-precondition}); and
+\num{1.0}\,\% \texttt{PossibleExceedance}, where the interval straddles the
 limit. A two-valued schema has nowhere to put any of them and collapses all four
 into compliance. The vocabulary declares a \emph{fifth},
 \texttt{NoThresholdDefined}, which cannot arise in this denominator by
@@ -1216,30 +1266,32 @@ threshold exists for every one of them. It is reported in the assessment of an
 unregulated substance, and its absence here is a property of the population
 rather than of the taxonomy.
 
-\paragraph{The analytical failure is not the largest reason.} At
-\num{18.8}\,\%, \texttt{PreconditionUnmet} exceeds \texttt{MethodInsufficient}
-at \num{17.5}\,\%, and adding the \num{6.5}\,\% with no bound at all gives
-\textbf{\num{25.4} of the \num{43.8} points --- \num{57.9}\,\% of the
-undecidable record --- arising before any limit is set beside any threshold}.
-That is not what this paper set out to find. The argument from
-The argument this paper opens with runs through the quantification limit: a bound stored as
-a number, a limit above the standard, Article~3(3b). The record answers with
-something prior to it. For lead, nickel and cadmium the standard is written over
-bioavailable concentration or over a hardness class, the record reports neither,
-and no laboratory improvement reaches the failure: a better method measures the
-wrong quantity more precisely.
+\paragraph{The analytical failure is the largest reason, and the record
+fails before it as often.} At \num{18.2}\,\%, \texttt{MethodInsufficient} is the largest
+single reason a verdict cannot be reached. The two strata that arise before any
+limit is set beside any threshold --- \num{11.8}\,\% with no bound at all and
+\num{7.4}\,\% whose standard does not apply to what was reported --- together
+make \textbf{\num{19.2} of the \num{38.4} points, \num{50.0}\,\% of the
+undecidable record}. These shares are reached only once the applicability of
+each standard is evaluated rather than declared unmet on sight: the release
+reports water hardness, calcium and magnesium on rows of their own, and joining
+them to the metal results decides assessments a row-level reading cannot
+(Section~\ref{sec:results-precondition}). Read row by row, without the join,
+\num{43.8}\,\% are undecidable and the precondition appears to be the largest
+reason; that ordering was an artefact of the reading, not a property of the
+record.
 
-The consequence for the vocabulary is that the least-exercised of the four
-commitments turns out to be the load-bearing one. \emph{A threshold is a
-conditional judgement} (Section~\ref{sec:methods-vocab}) was motivated by two
-footnotes in Annex~I, and on the evidence of this record it decides more of the
-assessment than the commitment the paper is named for. A vocabulary that models
-the limit correctly and treats a threshold as a bare number would still fail on
-\num{18.8}\,\% of the population --- silently, and in the direction of
-reporting compliance.
+The consequence for the vocabulary is that \emph{a threshold is a conditional
+judgement} (Section~\ref{sec:methods-vocab}) is a step of the procedure and not a
+label on it. A vocabulary that models the limit correctly and treats a threshold
+as a bare number has two options, both wrong: declare every conditional standard
+unmet, which overstates the undecidable share by \num{5.4} points here, or
+compare a whole-water result with a dissolved standard, which decides
+\num{37656} assessments on a quantity the standard is not written on ---
+silently, and in either direction.
 
 The taxonomy is not free ornament, and the cheaper alternative shows why: a
-schema with a single indeterminacy flag reports the same \num{43.8}\,\% and
+schema with a single indeterminacy flag reports the same \num{38.4}\,\% and
 loses the four. They are not degrees of one defect but different objects, and
 they call for different repairs --- a schema field for the covariates, a better
 laboratory, a reported limit, a reported uncertainty --- of which only one is
@@ -1329,30 +1381,28 @@ about is larger at the end of the record than at the beginning.}
 \label{fig:country-year}
 \end{figure}
 
-\paragraph{On the recent record the share falls and the composition
-reverses.} Pooling half a century invites the reply that the finding is
+\paragraph{On the recent record the share falls, and the method is what
+remains.} Pooling half a century invites the reply that the finding is
 historical, so the same decomposition is read over the last five years the
 record carries\src{scripts/29\_exceedances\_by\_year.py}. Across
 \num{2020}--\num{2024}, \num{264135} station-years are assessable and
-\textbf{\num{32.1}\,\% are undecidable} against \num{43.2}\,\% over the
-dated record --- eleven points lower, and \emph{the fall is almost entirely
-one stratum}. \texttt{BoundNotEstablished} runs at \num{6.4}\,\% over the
+\textbf{\num{23.8}\,\% are undecidable} against \num{37.8}\,\% over the
+dated record --- fourteen points lower, and \emph{the fall is almost entirely
+one stratum}. \texttt{BoundNotEstablished} runs at \num{10.9}\,\% over the
 record and at \num{0.0}\,\% since \num{2020}: the reporting defect
-Section~\ref{sec:results-era} dates to \num{2013} is genuinely gone.
-\texttt{PreconditionUnmet} falls from \num{18.2} to \num{12.2}\,\%, which
-is a change in which substances are monitored rather than in what can be
+Section~\ref{sec:results-era} dates to \num{2013} is gone.
+\texttt{PreconditionUnmet} falls from \num{7.5} to \num{3.5}\,\%, a change in
+which substances and fractions are reported rather than in what can be
 measured.
 
 \textbf{The stratum this paper is about moved the other way.}
-\texttt{MethodInsufficient} is \num{17.6}\,\% over the dated record,
-\num{18.9}\,\% across \num{2020}--\num{2024} and \num{27.2}\,\% in
-\num{2024} alone. Over the whole record the largest reason a verdict cannot be
-reached is that the standard does not apply to what was measured; in the most
-recent year it is, by a wide margin, that the method could not measure it well
-enough. The record-keeping improved and the analytical capability did not
-follow the standards down, so the composition of the indeterminacy has
-inverted --- and the reading on which this vocabulary was built is the one the
-recent record supports most strongly, not least.
+\texttt{MethodInsufficient} is \num{18.4}\,\% over the dated record,
+\num{19.3}\,\% across \num{2020}--\num{2024} and \num{27.4}\,\% in
+\num{2024} alone. It is the largest reason a verdict cannot be reached over the
+whole record and, by a wide margin, in the most recent year. The record-keeping
+improved and the analytical capability did not follow the standards down ---
+and the reading on which this vocabulary was built is the one the recent record
+supports most strongly, not least.
 
 \subsection{The headline does not rest on the uncertainty reading}
 \label{sec:results-uncertainty}
@@ -1365,34 +1415,34 @@ measurement.
 
 \begin{table}[htbp]\centering
 \caption{The three readings of Article~4(1), over every assessable
-station-year. The undecidable share moves by less than one point across all
-three; the affirmable exceedance count moves by a quarter.}
+station-year. The undecidable share moves by one and a half points across all
+three; the affirmable exceedance count moves by more than a quarter.}
 \label{tab:uncertainty}
 \begin{tabular}{llrrr}
 \toprule
 reading & band & \texttt{PossibleExc.} & \texttt{Exceedance} & undecidable \\
 \midrule
-no band & $0$ & \num{0} & \num{16963} & \num{42.8}\,\% \\
-\textbf{absolute} & $0.5\,T$ & \num{6639} & \num{14505} & \num{43.8}\,\% \\
-relative & $0.5\,x$ & \num{6100} & \num{13323} & \num{43.7}\,\% \\
+no band & $0$ & \num{0} & \num{17394} & \num{36.9}\,\% \\
+\textbf{absolute} & $0.5\,T$ & \num{7046} & \num{14809} & \num{38.4}\,\% \\
+relative & $0.5\,x$ & \num{6436} & \num{13579} & \num{38.1}\,\% \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \textbf{The choice barely matters for the finding.} The entire band is worth
-\num{1.0} point of the undecidable share. Remove it altogether --- the point
+\num{1.5} points of the undecidable share. Remove it altogether --- the point
 comparison a two-valued pipeline already makes, granting the objection in full
---- and \textbf{\num{42.8}\,\% of the record is still undecidable}. The
+--- and \textbf{\num{36.9}\,\% of the record is still undecidable}. The
 headline is carried by the strata the band does not touch: a standard defined
 on an unreported quantity, a limit above the standard, a value with no bound at
 all. Nor is the relative reading the more conservative one, which inspecting
-the intervals would not have told us: it sets aside \num{6100} rows against
-the absolute band's \num{6639}, because concentrations cluster low against
+the intervals would not have told us: it sets aside \num{6436} rows against
+the absolute band's \num{7046}, because concentrations cluster low against
 their standards and the absolute band reaches further down.
 
 \textbf{What the choice does move is the enforcement number.} Affirmable
-exceedances run from \num{13323} to \num{16963} across the three readings, a
-range of \num{27}\,\%. A pipeline that reports an exceedance count without
+exceedances run from \num{13579} to \num{17394} across the three readings, a
+range of \num{28}\,\%. A pipeline that reports an exceedance count without
 stating its uncertainty convention has therefore left a free parameter inside a
 number an enforcement action would rest on --- the same defect as the
 substitution constant, one level further in.
@@ -1415,18 +1465,22 @@ value of the limit of quantification concerned''~\cite{eu2009qaqc}. The same
 instrument that sets the performance criterion also mandates the substitution,
 and the substitution pushes results \emph{above} the standard: of the \num{171285}
 exceedances such a pipeline reports, \num{112034} exist only because the
-substitution lifted a censored result past the limit, \num{30140} are asserted
-against a standard that is not defined on the quantity the record reports, and
-\num{12142} rest on a number whose censoring status the record never states.
-\num{14505} are exceedances the law can affirm --- quantified, above the
+substitution lifted a censored result past the limit, \num{12509} are asserted
+against a standard that does not apply to what the record reports, and
+\num{28987} rest on a number whose censoring status the record never states.
+\num{14809} are exceedances the law can affirm --- quantified, above the
 standard, with an applicable standard and an interval that does not straddle it.
 Figure~\ref{fig:funnel} shows the attrition step by step, each removal labelled
 with the reason the record cannot support the verdict.
-A further \num{2458} are quantified above the standard and set aside all the
+A further \num{2764} are quantified above the standard and set aside all the
 same, because the widest interval Article~4(1) permits straddles it. Article~3(3b)
 sets aside no quantified result: it reaches a value reported as below the
 quantification limit, and a mean quantified above the standard is evidence of
-exceedance whatever the method's limit was. Zero, half the limit and the limit
+exceedance whatever the method's limit was. The last few are the rule applied
+exactly: \num{176} cadmium means above the unconditioned Annex~I value but within
+the standard of their own hardness class, and \num{6} unflagged means that
+Article~5(2) of Directive 2009/90/EC makes results below a limit that exceeds
+the standard. Zero, half the limit and the limit
 itself report \num{59251}, \num{171285} and \num{200708} exceedances over the
 same records --- a \num{3.4}-fold range in the enforcement-relevant number,
 selected by a rule the data does not determine
@@ -1436,16 +1490,18 @@ selected by a rule the data does not determine
 Zero is the substitution that cannot manufacture an exceedance: a censored
 result entered at zero is below every positive standard, so it is never
 reported as exceeding. Yet a zero-substituting pipeline still reports
-\num{59251} exceedances against the \num{14505} the law can affirm --- more
-than four times as many --- and the reason is worth stating plainly, because a
+\num{59251} exceedances against the \num{14809} the law can affirm --- four
+times as many --- and the reason is worth stating plainly, because a
 reader who expects the gap to come from censoring will read the arithmetic as
-an error. \textbf{It does not come from censoring.} Of the \num{44746}
-reported exceedances CENSO does not affirm under this rule, \emph{not one} is
-set aside by Article~3(3b): \texttt{MethodInsufficient} is empty here by
-construction, exactly because zero never lifts a censored row past the
-standard. The removals are \num{30140} whose standard is not defined on the
-quantity reported, \num{12142} resting on a number whose censoring status the
-record never states, and \num{2458} whose lawful interval straddles the limit.
+an error. \textbf{It does not come from censoring.} Of the \num{44442}
+reported exceedances CENSO does not affirm under this rule, only \num{6} are
+set aside by Article~3(3b), and those are the unflagged means above: the
+pipeline enters their reported number, while Article~5(2) makes them results
+below a limit that exceeds the standard. Zero never lifts a flagged censored row
+past the standard. The removals are \num{28987} resting on a number whose
+censoring status the record never states, \num{12509} whose standard does not
+apply to what was reported, \num{2764} whose lawful interval straddles the limit,
+and the \num{176} cadmium means judged against their own hardness class.
 The substitution constant governs how many exceedances are \emph{created}; it
 governs none of how many are \emph{supportable}. Those are separate failures,
 and a pipeline can be conservative about the first while still reporting four
@@ -1453,7 +1509,7 @@ times more than the record establishes.
 
 \paragraph{The graph is a materialisation, not the analysis.}
 A reservoir sample of \num{40000} station-years is expressed as RDF
-(\num{501110} triples): a pure-Python triple store cannot hold four million
+(\num{530920} triples): a pure-Python triple store cannot hold four million
 rows, and inflating it would misreport what was reasoned over. \num{11.7}\% of
 its observations are \texttt{UnresolvedObservation}, a state no other surveyed
 vocabulary can express.
@@ -1464,7 +1520,7 @@ vocabulary can express.
 substance carries a European standard, not a sample --- read four ways. The top
 three rows are the identical records under the three substitution conventions
 in routine use; they disagree about the number of exceedances by a factor of
-\num{3.4}, and \num{14505} are exceedances the law can affirm. The bottom
+\num{3.4}, and \num{14809} are exceedances the law can affirm. The bottom
 row reports the outcomes the law distinguishes instead of absorbing them into
 compliance; \emph{possible exceedance} is a quantified result whose widest
 lawful uncertainty interval straddles the standard. \textbf{(b)} The same four
@@ -1481,7 +1537,7 @@ band this paper is about \emph{widens}. The plotted values are in
 
 \paragraph{What the graph adds, and what it does not.}
 The graph returns the same method-insufficiency share as the streaming count
---- \num{17.2}\,\% on the sample against \num{17.5}\,\% on the population,
+--- \num{17.9}\,\% on the sample against \num{18.2}\,\% on the population,
 inside the \num{0.19}-point sampling error --- but that agreement is a
 consistency check rather than corroboration: both routes call one decision procedure, held in a single module
 precisely so the two cannot drift. What the check establishes is that
@@ -1491,30 +1547,42 @@ ontology was needed to count: it was not. The counting could always have been
 done. What only the graph does is answer \emph{which} assessments are
 unsupportable, under which limit, for which substance, in one query.
 
-\subsection{A standard that cannot be applied to what the record reports}
+\subsection{A standard that can only sometimes be applied to what the record
+reports}
 \label{sec:results-precondition}
-Two Annex~I footnotes make a threshold conditional rather than absolute. Footnote
-12 states that the standards for lead and nickel ``refer to bioavailable
+Annex~I makes its metal standards conditional. Part~B point~3 defines the water
+standards for cadmium, lead, mercury and nickel on the dissolved concentration;
+footnote 12 states that those for lead and nickel ``refer to bioavailable
 concentrations of the substances''; footnote 9 that cadmium's ``vary depending on
-the hardness of the water as specified in five class categories''. Bioavailable
-normalisation needs hardness, dissolved organic carbon and pH; the hardness class
-needs hardness. WISE-6 reports none of them on the row.
+the hardness of the water as specified in five class categories''. WISE-6 reports
+none of the covariates on the measurement row. It does report the fraction
+analysed, and it reports water hardness, calcium and magnesium on rows of their
+own, at the same station in the same year.
 
-So for these three substances there is no comparison to make. Not a strict one
-and not a lenient one: the number in Annex~I and the number in the record are not
-measurements of the same quantity, and asking whether the method's limit reaches
-\num{30}\,\% of the standard is asking about the wrong quantity. The released
-package attaches the two conditions to the six thresholds they govern, and the
-assessment returns \texttt{PreconditionUnmet} ahead of every other test ---
-before the value, before the limit, before Article~3(3b).
+So the conditions are evaluated rather than declared unmet, and only as far as a
+cited source allows\src{scripts/22\_waterbase\_external.py}. A result on a
+fraction other than the dissolved one supports no verdict. Cadmium is compared
+with the standard of its hardness class, the second tier of the Commission's
+guidance on metal standards~\cite{eu2019gd38}. A dissolved lead or nickel result
+is compared directly with the bioavailable standard, the first tier of the same
+guidance, and only a pass is accepted, since the bioavailable concentration
+cannot exceed the dissolved one. The released package carries one cadmium
+threshold per hardness class, each with the covariate range of its condition, and
+the fraction condition on all four metals.
 
-\textbf{That is \num{131068} assessments, \num{18.8}\,\% of every station-year
-a European standard reaches}\src{scripts/22\_waterbase\_external.py}. They are
-not a marginal stratum: cadmium, lead and nickel are among the most reported
-substances in the record. A two-valued pipeline decides all of them anyway, and
-decides them in both directions --- \num{30140} are reported as exceedances of a
-standard that is not defined on what was measured, the remainder as compliance
-with it.
+\textbf{After that, \num{51499} assessments remain \texttt{PreconditionUnmet},
+\num{7.4}\,\% of every station-year a European standard reaches:} \num{37656}
+whole-water results, \num{5848} cadmium results for which no hardness is
+reported, and \num{7995} dissolved lead and nickel results that only a
+bioavailability model could decide. Read row by row the same stratum is
+\num{131068} assessments. A two-valued pipeline decides all of them anyway, and
+decides them in both directions --- \num{12509} are reported as exceedances of a
+standard that does not apply to what was measured, the remainder as compliance
+with it. Two further readings would decide more and are ours rather than the
+guidance's --- a pass on a whole-water result, since a total concentration cannot
+be below the dissolved one, and a cadmium verdict that is the same under every
+hardness class --- so they are reported as a sensitivity and not
+applied\src{scripts/30\_revision\_sensitivity.py}.
 
 This is the commitment a threshold column cannot hold at all. The other three
 could in principle be bolted onto a table: a censoring flag, a limit per row, a
@@ -1523,7 +1591,7 @@ travels with the regulation, not with the measurement --- so a column of
 thresholds has nowhere to record that a threshold was inapplicable, and no way to
 distinguish that from a threshold that was met. The vocabulary named lead, nickel
 and cadmium in its class comments before this record was read; the record returns
-\num{131068} assessments where those comments decide the outcome.
+\num{51499} assessments where those conditions still decide the outcome.
 
 This stratum is metals, and only metals, because Annex~I attaches its
 applicability conditions there and nowhere else. It is one of the four reasons an
@@ -1588,12 +1656,15 @@ Section~\ref{sec:methods-why} claims: both packages are read as data, and only
 the file supplying the threshold changes.
 
 Of the \num{1488677} river station-years regulated by at least one instrument,
-\num{81.9}\% change outcome when the package is swapped, but most of that is
+\num{70.6}\% change outcome when the package is swapped, but most of that is
 coverage: one jurisdiction regulating a substance the other does not, a fact
 about the legal texts rather than about any measurement. Where \emph{both}
-regulate and only the numeric standard differs, \textbf{\num{17.7}\% (95\,\% CI \num{17.6}--\num{17.9}\,\%) still change outcome}, mostly the \num{47999} the
-European standard sets aside as method-insufficient and the looser Turkish
-limit can decide. Figure~\ref{fig:two-regimes} shows the widest single case:
+regulate, \textbf{\num{16.0}\% (95\,\% CI \num{15.8}--\num{16.1}\,\%) still
+change outcome}, mostly the \num{44131} the European standard sets aside as
+method-insufficient and the looser Turkish limit can decide. The procedure is
+the same code in both columns; what the package supplies is the threshold and
+its conditions, so the fraction, hardness-class and bioavailability conditions
+of Annex~I reach the European column and not the Turkish one. Figure~\ref{fig:two-regimes} shows the widest single case:
 chlorpyrifos, whose two annual-average standards differ by a factor of
 \num{65}, so that a measurement between them is an exceedance under one package
 and compliant under the other.
@@ -1621,14 +1692,19 @@ inconsistency.
 
 Reading the disaggregated release --- \num{96597294} individual sample records
 --- makes it computable\src{scripts/27\_mac\_exceedance.py}. Of the \num{8148785}
-river samples with such a standard and a convertible unit, \num{74702} exceed it outright and \textbf{\num{794418} (\num{9.7}\,\%) are undecidable}: not
+river samples with such a standard and a convertible unit, \num{75029} exceed it outright and \textbf{\num{759421} (\num{9.3}\,\%) are undecidable}: not
 detected, with a quantification limit \emph{above} the standard, so no result
 the method could have returned would have settled it. Article~3(3b) requires
-those to be set aside; a two-valued pipeline records every one as compliant.
+those to be set aside; a two-valued pipeline records every one as compliant. A
+further \num{924184} are metal samples on a fraction, or cadmium samples in a
+hardness class, the standard is not written on or the record does not state; the
+maximum allowable concentration has no bioavailable form, so no tier applies to
+lead or nickel here~\cite{eu2019gd38}.
 
 \paragraph{The two standards disagree, and a column can hold only one.}
-Of the \num{66285} station-years assessable under both,
-\num{25.6}\,\% receive different verdicts: in \textbf{\num{1.1}\,\% --- \num{698} station-years --- the published annual mean is compliant while
+Of the \num{38562} station-years assessable under both, with the same
+applicability conditions on each side,
+\num{22.6}\,\% receive different verdicts: in \textbf{\num{0.9}\,\% --- \num{359} station-years --- the published annual mean is compliant while
 a sample behind it breaches the maximum allowable concentration}
 (Figure~\ref{fig:two-thresholds}a), in the rest the mean exceeds while no
 single sample does. Neither verdict is wrong and neither supersedes the other;
@@ -1657,9 +1733,10 @@ in \texttt{supplementary/figure\_data/fig07\_two\_thresholds.csv}. Generated by
 
 The disaggregated release does not hold the samples behind every aggregated
 station-year, so these shares describe the stratum readable at both units and not
-the whole record: \num{66285} of the \num{376843} station-years that carry an
-annual-average verdict and a maximum-allowable standard --- \num{17.6}\,\% ---
-have samples behind them in the disaggregated release. Whether that stratum
+the whole record: \num{38562} of the \num{349120} station-years that carry an
+annual-average verdict and a maximum-allowable standard --- \num{11.0}\,\% ---
+have samples behind them in the disaggregated release and a standard that applies
+to what was measured on both sides. Whether that stratum
 resembles the rest is not something the release lets us test, since the missing
 station-years are missing precisely their samples; the per-substance and
 per-country coverage is in
@@ -1692,7 +1769,7 @@ Chlorpyrifos carries an annual-average standard of
 \num{0.00046}\,\si{\micro\gram\per\litre} in Annex~I and \num{0.03} in Table~4
 of the Turkish regulation, a factor of \num{65}. A measurement between the two
 is an exceedance under one package and compliant under the other, and
-\num{23208} station-years in this record fall in that band. Both values are read
+\num{21566} station-years in this record fall in that band. Both values are read
 from the released regulation packages, which can be loaded together because each
 threshold cites the instrument that defines it. Generated by
 \texttt{scripts/92b\_use\_case\_figures.py}.}
@@ -1709,16 +1786,16 @@ the record can support narrowing?
 \textbf{It is not.} Over the \num{26} years from \num{1999} to \num{2024} in
 which the record can carry a rate (Figure~\ref{fig:exceed-year}), exceedances
 the law can affirm never exceed
-\num{1331} in a year and stand at \num{727} in \num{2024}. Exceedances a
+\num{1360} in a year and stand at \num{746} in \num{2024}. Exceedances a
 pipeline entering non-detections at the full quantification limit would report
 reach \num{17062}, and \num{16561} in the same final year --- a factor of
-\num{22.8}. The affirmable series does not grow with the record: the monitoring
+\num{22.2}. The affirmable series does not grow with the record: the monitoring
 effort scales, and the number of exceedances an enforcement action could defend
 does not scale with it\src{scripts/29\_exceedances\_by\_year.py}.
 
 The undecidable share does improve, and stops improving. It falls from
 \num{100}\,\% in the first plotted years to a band of
-\num{28.5}--\num{39.2}\,\% from \num{2013} onward, where it has stayed for
+\num{19.6}--\num{36.0}\,\% from \num{2013} onward, where it has stayed for
 twelve years. That is the same shape Section~\ref{sec:results-era} finds in the
 analytical failure, seen from the other side: the record-keeping repair moved
 the share once, and nothing since has moved it again.
@@ -1901,6 +1978,46 @@ text\src{scripts/11\_assess\_competitor\_papers.py}: in none do \emph{detection
 limit}, \emph{LOD}, \emph{LOQ}, \emph{censoring} or \emph{non-detection} occur.
 This is weaker evidence than parsing a file and is labelled as such.
 
+\paragraph{Exchange standards.}
+% generated by scripts/07b_exchange_standards.py
+% >>> begin tables/tab_exchange.tex
+% GENERATED by scripts/07b_exchange_standards.py -- do not edit.
+\begin{table*}[htbp]\centering
+\caption{Censoring in water-quality data-exchange standards, decided by searching each standard's own schema, SQL definition or controlled vocabulary for the field or code. A dash means it was searched for and is absent. These are exchange formats rather than ontologies, so they are assessed here and not in Table~\ref{tab:gap}, whose method scores ontology terms and would give each of them an empty row. Every exchange format flags a censored result except O\&M, whose generic observation parameter can hold a detection limit but no censoring status; none relates a result to a standard through a compliance outcome.}
+\label{tab:exchange}
+\scriptsize\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{l l c c l c c c}
+\toprule
+Standard & Form & censoring & detected, not quant. & limit held on & standard & verdict & applic. \\
+\midrule
+OGC WaterML 2.0 & XML Schema & \checkmark & -- & untyped point qualifier & -- & -- & -- \\
+CUAHSI WaterML 1.1 & XML Schema & \checkmark & \checkmark & none & -- & -- & -- \\
+ISO 19156 / OGC O\&M 2.0 & XML Schema & -- & -- & untyped observation parameter & -- & -- & -- \\
+ODM2 & SQL + SKOS & \checkmark & \checkmark & the value field & -- & -- & -- \\
+SeaDataNet L20 & SKOS & \checkmark & \checkmark & the value field & -- & -- & -- \\
+US EPA WQX 3.0 & XML Schema + domain lists & \checkmark & \checkmark & the result, typed & as a limit type & -- & -- \\
+\textbf{CENSO (this work)} & OWL 2 RL + SHACL & \checkmark & \checkmark & the method; bound on the result & \checkmark & three-valued & \checkmark \\
+\bottomrule
+\end{tabular}
+\end{table*}
+% <<< end tables/tab_exchange.tex
+Censoring is carried outside ontologies, and the gap table's method cannot see
+it there: it scores ontology terms, and a schema or a code list scores none. The
+water-quality exchange standards that carry censoring are therefore assessed
+separately (Table~\ref{tab:exchange}), by searching each standard's own schema,
+SQL definition or controlled vocabulary for the field or
+code\src{scripts/07b\_exchange\_standards.py}. Every water-quality format flags
+a censored result, and all but WaterML~2.0 separate a non-detection from a
+detection that could not be quantified; the observation model beneath them,
+ISO~19156 O\&M, can attach a detection limit to an observation only as a generic
+named parameter and has no censoring status at all. In one respect WQX goes further than CENSO: it attaches
+any number of typed limits to the individual result, where CENSO holds the limit
+on the method and carries onto the result only the bound it implies. What none
+of them has is a standard the result is compared with, a compliance outcome, or
+a condition under which the standard applies. The claim Table~\ref{tab:gap}
+tests is accordingly not that censoring is unrepresented, but that no vocabulary
+relates a censored result to the verdict it permits.
+
 \subsection{What a term list cannot show: the vocabularies cannot separate the
 readings}
 \label{sec:results-separation}
@@ -1980,7 +2097,7 @@ once it is added: on the result, not on the device.
 \label{sec:results-cq}
 Twenty competency questions, each tied to an axiom, were executed over the
 Waterbase graph with the two vocabulary modules and both regulation packages,
-\num{507697} triples as
+\num{537437} triples as
 loaded\src{scripts/17\_run\_competency\_questions.py}. \textbf{All twenty
 return answers.} Full OWL~2~RL closure over a graph this size is impractical in
 pure Python, so one entailment is materialised: \texttt{rdfs:subClassOf} on
@@ -2009,7 +2126,7 @@ data, and their SPARQL, rows and times are in the supplementary material.
 record. A pipeline entering non-detections at the full quantification limit
 reports \num{200708} exceedances; five strata are removed, each because the
 record cannot support the verdict rather than because the verdict is wrong, and
-\num{14505} remain. The largest deduction is Article~3(3b) doing what it says:
+\num{14809} remain. The largest deduction is Article~3(3b) doing what it says:
 a below-quantification result whose limit exceeds the standard shall not be
 considered. Every step ships in
 \texttt{supplementary/figure\_data/fig12\_enforcement\_funnel.csv}.
@@ -2134,17 +2251,18 @@ carrying the limit onto the result buys.
 \subsection{Failures that no preprocessing rule can repair}
 Three findings survive any substitution rule. Where the quantification limit
 exceeds the threshold, no handling of the non-detects can demonstrate
-compliance: \num{17.5}\% of assessments against a European standard, and every
+compliance: \num{18.2}\% of assessments against a European standard, and every
 assessment for some pesticides (Section~\ref{sec:results-waterbase}).
 Substitution only manufactures a verdict whose direction depends on the rule
 chosen (Section~\ref{sec:results-wbabox}).
 
-Several thresholds carry preconditions the record cannot satisfy: cadmium's
-Annex~I standard is stated over five water-hardness classes, and the
-bioavailability-corrected standards need covariates the aggregated release
-lacks. A numeric threshold column carries neither the covariates nor any way to
-say the standard could not be applied; CENSO returns
-\texttt{PreconditionUnmet} rather than a default pass.
+Several thresholds carry preconditions: cadmium's Annex~I standard is stated
+over five water-hardness classes, the lead and nickel standards over the
+bioavailable concentration, and all four metal standards over the dissolved
+fraction. A numeric threshold column carries neither the covariates nor any way
+to say the standard could not be applied. CENSO evaluates the condition where the
+record supplies what it needs and returns \texttt{PreconditionUnmet} where it
+does not, rather than a default pass.
 
 A threshold can also be transcribed wrongly, and nothing in a conventional
 workflow would surface it. Both regulation packages released here carry a
@@ -2160,22 +2278,28 @@ provenance this section argues for, applied to the argument's own inputs.
 
 \subsection{What twelve years of reform fixed, and what it did not}
 \label{sec:disc-reform}
-The record shows real progress, and it should be said plainly. The share of
+The record shows real progress, and it should be read carefully. The share of
 station-years declaring neither a censoring flag nor a limit falls from
 \num{31.8}\,\% in \num{2012} to \num{0.0}\,\% in \num{2013} and has stayed there
-for \num{12} years. That is not a trend, it is a step: European reporters now
-record the limit in force, every time. The representational correction this paper
-asks for at the point of measurement is work they have already done once.
+for \num{12} years. It is not a change in laboratory practice alone: the
+reporters change at the same boundary, from \num{33} countries in \num{2012} to
+\num{9} in \num{2013}, and every one of the \num{9} reporting on both sides goes
+to zero in the same year, which is what a change in the reporting requirement
+looks like\src{scripts/30\_revision\_sensitivity.py}. What it does show is that
+recording the limit with every result can be required and complied with: the
+representational correction this paper asks for is work reporters have already
+been made to do once.
 
 It did not make the problem smaller. It made it \emph{visible}, which is a
 different achievement, and three insufficiencies survive it.
 
 \emph{The analytical capability did not follow the record-keeping.} Once the
 limit is reported it can be tested, and the test has the same answer it had
-eighteen years ago: \num{46.3}\,\% of assessments failed the \num{30}\,\%
-criterion in \num{2006} and \num{47.7}\,\% in \num{2024}, with the share whose
-limit exceeds the standard outright at \num{28.1}\,\% and \num{28.2}\,\%. The
-limit is now always written down, and it is still too high.
+before, as far as the record can say. The authorities reporting early and late
+in the record are almost wholly different, so years far apart are not compared;
+but since \num{2020} \num{19.3}\,\% of assessments are still below-quantification
+results whose limit exceeds the standard, and in \num{2024} alone
+\num{27.4}\,\%. The limit is now always written down, and it is still too high.
 
 \emph{The reform reached the metadata, not the value.} Censored rows carrying a
 positive number stay between \num{97.2}\,\% and \num{100}\,\% across every year
@@ -2199,12 +2323,15 @@ close a gap that the threshold is widening.
 
 And one insufficiency is of a different kind altogether, because no analytical
 improvement touches it. For cadmium, lead and nickel the standard is defined on a
-quantity the reporting schema has no field for: a hardness class, or a
+quantity the measurement row has no field for: a hardness class, or a
 bioavailable concentration requiring hardness, dissolved organic carbon and pH.
-That is \num{131068} assessments, \num{18.8}\,\% of every station-year a European
-standard reaches (Section~\ref{sec:results-precondition}). A better laboratory
-does not help here. Only a schema with somewhere to put the covariates does, and
-a vocabulary that can say the standard was not applicable rather than met.
+Joining what the release reports elsewhere decides most of these assessments, but
+\num{51499} remain, \num{7.4}\,\% of every station-year a European standard
+reaches (Section~\ref{sec:results-precondition}), \num{37656} of them because the
+fraction analysed is not the one the standard is written on. A better laboratory
+does not help here. A measurement row that carries its covariates and its
+fraction does, and a vocabulary that can say the standard was not applicable
+rather than met.
 
 That last insufficiency is a metals problem, and it is worth saying so, because
 the others are not. The censoring this paper is about is worst where the
@@ -2330,7 +2457,7 @@ deciding whether to adopt a vocabulary needs and what a term list cannot show.
     rejection and ISO/IEC~17025 requires the rule to be stated~\cite{iso17025};
     what is new here is not the rule but that the outcome it produces is a
     class a query can return. It makes \texttt{PossibleExceedance} operative ---
-    \num{6639} assessments --- but it is a \emph{bound}, not an estimate: none
+    \num{7046} assessments --- but it is a \emph{bound}, not an estimate: none
     can be decided from what is reported, though a laboratory beating the legal
     minimum would decide some. A \emph{censored} result whose limit exceeds the
     standard has an interval straddling the threshold, so two subclasses of
@@ -2340,21 +2467,24 @@ deciding whether to adopt a vocabulary needs and what a term list cannot show.
     so the precedence chooses the reason recorded, not the verdict.
   \item \textbf{The uncertainty band is applied to quantified results and not
     to non-detections, and that asymmetry is a choice.} Read symmetrically, a
-    censored row would carry the interval $[0,\ \mathrm{LOQ}+0.5\,T]$ and every
-    row whose limit exceeds half the standard would become undecidable ---
-    \num{38948} station-years, taking the undecidable share from
-    \num{43.8}\,\% to \num{49.4}\,\%\src{scripts/28\_uncertainty\_sensitivity.py}.
-    We do not apply it, for two reasons and against our own interest.
-    Article~3(3b) gives a below-quantification result its own rule and that rule
-    is a \emph{point} comparison of the limit against the standard; Article~4(1)'s
-    figure is specified at the level of the standard, which characterises
-    measurements made near it. And a quantification limit is itself defined by
-    uncertainty --- it is where relative uncertainty falls to an acceptable
-    value --- so a quantified point value needs a band because a point carries
-    no interval of its own, while a censored result is already an interval and
-    adding a band to it counts the same uncertainty twice. The alternative is
-    reported rather than buried, because the change would have raised our own
-    headline and a change in that direction has to be right on the merits.
+    censored row would carry the interval $[0,\ \mathrm{LOQ}+U]$ and every
+    row whose limit lies within $U$ of the standard would become undecidable ---
+    \num{42600} station-years, taking the undecidable share from
+    \num{38.4}\,\% to \num{44.5}\,\%\src{scripts/28\_uncertainty\_sensitivity.py}.
+    We do not apply it, because the Directive does not. Article~3(3b) gives a
+    below-quantification result its own rule, a \emph{point} comparison of the
+    limit against the standard, and Article~5(2) of Directive 2009/90/EC makes a
+    mean below the limit a ``less than limit of quantification'' result rather
+    than a value with an interval; the band is a metrological rule, applied where
+    the record carries a measured value. The consequence is real and is kept
+    visible rather than argued away: a limit of $0.9\,T$ yields
+    \texttt{Compliant} where a measured $0.9\,T$ would yield
+    \texttt{PossibleExceedance}. Every censored result whose limit lies within
+    the band therefore carries the flag \texttt{LimitWithinUncertaintyBand}
+    without changing its verdict --- \num{42594} of them --- and the rule is a
+    parameter of the regulation package, so a jurisdiction that prefers the
+    precautionary comparison can state it. The alternative is reported rather
+    than buried, because it would have raised our own headline.
   \item \textbf{One matrix.} River water only; lakes, transitional and coastal
     waters have their own standards and are not analysed here.
   \item \textbf{The vocabulary comparison is of published files.} An ontology
@@ -2459,7 +2589,7 @@ Across \num{4190833} river station-years, \num{44.9}\% of samples lie below the
 quantification limit, and \num{25.5}\% of station-years carry neither a censoring
 flag nor a limit, so a zero and a measured trace cannot be told apart. Where a
 standard exists, \num{40.1}\% of assessments come from a method failing the
-performance criterion of Directive 2009/90/EC, and \num{17.5}\% from one whose
+performance criterion of Directive 2009/90/EC, and \num{18.2}\% from one whose
 limit exceeds the standard outright --- results Article~3(3b) requires to be set
 aside and a two-valued pipeline records as compliance.
 
@@ -2473,12 +2603,13 @@ method that cannot decide its own standard.
 
 Over \num{696168} assessments --- station-years, not samples --- the same
 records yield a \num{3.4}-fold range in exceedances according to whether a
-non-detection is entered at zero, half the limit or the limit; \num{14505}
-are exceedances the law can affirm: the number a two-valued pipeline reports is
-fixed by the convention, not by the chemistry. Annex~I also
+non-detection is entered at zero, half the limit or the limit; \num{14809}
+are exceedances the law can affirm, and \num{38.4}\,\% of the assessments cannot
+be decided at all once the conditions of each standard are evaluated: the number
+a two-valued pipeline reports is fixed by the convention, not by the chemistry. Annex~I also
 states a second standard on a different unit of observation, and reading the
 \num{96597294} individual samples of the disaggregated release leaves
-\num{9.7}\,\% of them undecidable for the same reason, with \num{25.6}\,\% of
+\num{9.3}\,\% of them undecidable for the same reason, with \num{22.6}\,\% of
 the station-years assessable under both standards receiving different verdicts
 --- two answers a single threshold column cannot hold at once.
 
@@ -2491,7 +2622,7 @@ one shrug. Its axioms reject all eight defects drawn
 from this dataset and accept both controls, and expressing the record in it
 loses nothing: every row classified in the graph lands where the streaming
 count puts it. Applying two jurisdictions to
-the same observations changes \num{17.7}\% of the outcomes both regulate, with
+the same observations changes \num{16.0}\% of the outcomes both regulate, with
 no code change. Of the \num{21} ontologies parsed, none combines these
 capabilities and none carries a censoring status at all, and the shortfall is
 not lexical: on one real record \num{20} of them cannot separate a non-detection

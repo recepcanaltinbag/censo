@@ -122,12 +122,13 @@ and \texttt{requiresCondition} links to \texttt{ApplicabilityCondition}
 subclasses: matrix, analytical fraction, bioavailability basis, hardness class.
 Where a precondition is unmet the outcome is \texttt{PreconditionUnmet}, one
 of the five subclasses of \texttt{IndeterminateCompliance} --- not a default
-pass. Section~\ref{sec:results-wbabox} finds it the largest of them. Annex~I
-creates two such conditions in footnotes: the standards for lead and nickel
-``refer to bioavailable concentrations of the substances'', and cadmium's
-``vary depending on the hardness of the water as specified in five class
-categories''. The released package attaches them, and
-Section~\ref{sec:results-precondition} shows what they decide.
+pass. Annex~I creates three such conditions: the metal standards refer to the
+dissolved fraction (Part~B point~3), those for lead and nickel ``refer to
+bioavailable concentrations of the substances'', and cadmium's ``vary depending
+on the hardness of the water as specified in five class categories''. The
+released package attaches them, with one cadmium threshold per class carrying the
+covariate range of its condition, and Section~\ref{sec:results-precondition}
+shows how far the record lets each be evaluated.
 
 \paragraph{Compliance is three-valued, and the third value records why.}
 \texttt{Exceedance}, \texttt{Compliant} and \texttt{IndeterminateCompliance} are
@@ -144,17 +145,26 @@ nothing, which is indeterminacy with a particular cause, and the assessment
 reported in Section~\ref{sec:results-wbabox} has counted it that way throughout.
 
 \paragraph{The order the questions are asked in is part of the claim.}
-Figure~\ref{fig:decision-flow} draws the procedure. It is five tests, and their
-order is not a convenience: a precondition is asked first because it is prior to
-every other question --- where the standard is written over bioavailable lead
-and the record reports total lead, there is no comparison to make, strict or
-lenient. Article~3(3b) is asked next and only of a censored result, because it
-reaches a value \emph{reported as less than} the quantification limit and
-nothing else; an earlier version of this pipeline applied it wherever the limit
-exceeded the standard, which set aside quantified means as
-well --- deleting from the count results that were evidence of exceedance. The uncertainty band is
-asked last and only of a quantified value, because a censored result is already
-an interval. Reorder these and the same four reported fields yield a different
+Figure~\ref{fig:decision-flow} draws the procedure. It is eight tests, and their
+order is not a convenience. Whether the record establishes a bound at all is
+asked first, because a row with neither a flag nor a limit is a defect of the
+record under every standard and every condition. Applicability is asked next ---
+the fraction analysed, the hardness class, the first tier of the bioavailability
+guidance~\cite{eu2019gd38} --- because where the standard is written over
+dissolved or bioavailable lead and the record reports total lead there is no
+comparison to make, strict or lenient. Article~3(3b) is asked only of a bounded
+result, because it reaches a value \emph{reported as less than} the quantification
+limit; an unflagged mean below its own limit is such a result under Article~5(2)
+of Directive 2009/90/EC and is asked it too. An earlier version of this pipeline
+applied the provision wherever the limit exceeded the standard, which set aside
+quantified means as well --- deleting from the count results that were evidence
+of exceedance. The uncertainty band is asked last and only of a measured value.
+Its half-width $U$ is a parameter: the expanded uncertainty ($k=2$) the record
+reports at the level of the standard, or, where it reports none, $U=0.5\,T$, the
+widest Article~4(1) permits; the source of $U$ is recorded with each verdict, and
+Waterbase reports none. How a bounded result meets the standard is a parameter of
+the regulation package too, and the European package states the point comparison
+of Article~3(3b). Reorder these and the same four reported fields yield a different
 verdict, which is why the procedure is drawn rather than described. Each path in
 the figure carries a witness --- inputs that must produce the outcome it leads
 to --- and all of them are executed against the function itself before the
@@ -163,11 +173,12 @@ cannot outlive the code.
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=0.92\textwidth]{fig15_decision_flow.pdf}
-\caption{How one observation is decided against one threshold, from the four
-fields a record reports. The quantification limit enters three times --- it
-decides whether the row has a detection status at all, it is what
-Article~3(3b) compares against the standard, and a value below its own limit
-is a row contradicting itself --- which is why a schema that stores only the
+\caption{How one observation is decided against one threshold, from the fields
+a record reports and the covariates of its station-year. The quantification
+limit enters three times --- it decides whether the row establishes a bound at
+all, it is what Article~3(3b) compares against the standard, and a mean below
+its own limit is a result Article~5(2) makes ``less than limit of
+quantification'' --- which is why a schema that stores only the
 value cannot run this procedure. Units are reconciled before any of it: a reported limit and a standard reach
 the comparison in \si{\micro\gram\per\litre}, converted from the unit the
 record states, and a row whose unit is unrecognised is excluded rather than
@@ -175,7 +186,8 @@ assumed\src{scripts/22\_waterbase\_external.py}. The rules in the shipped
 shapes compare the two numbers directly, which is correct only because that
 conversion has already happened.
 
-The half-width $T/2$ in the last test is not a
+The half-width $U$ in the last test is the reported expanded uncertainty where
+the record carries one and $T/2$ where it does not, and $T/2$ is not a
 threshold the Directive states. It is the \emph{widest} uncertainty
 Article~4(1) lets a usable method have at the level of the standard, so a value
 within $T/2$ of the standard is one a method meeting only the legal minimum

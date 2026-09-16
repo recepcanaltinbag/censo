@@ -40,7 +40,7 @@ express."""@en ;
     vann:preferredNamespacePrefix "censosh" ;
     vann:preferredNamespaceUri "https://w3id.org/censo/shapes#" ;
     owl:versionIRI <https://w3id.org/censo/shapes/2.1.0> ;
-    owl:versionInfo "2.3.1" ;
+    owl:versionInfo "2.4.0" ;
     rdfs:seeAlso <https://w3id.org/censo/> .
 
 censo:ObservationShape a sh:NodeShape ;
@@ -325,7 +325,19 @@ from status assessment, which is exactly the verdict this rule materialises.""" 
                    <http://www.w3.org/ns/sosa/usedProcedure> ?m .
               ?m censo:limitOfQuantification ?loq .
               FILTER (?loq > ?tv)
+              FILTER NOT EXISTS {
+                $this censo:requiresCondition ?c .
+                FILTER NOT EXISTS { ?obs censo:conditionSatisfied ?c }
+                FILTER NOT EXISTS { ?c a censo:BioavailabilityCondition }
+              }
             }""" ] .
+# ONLY AGAINST A THRESHOLD WHOSE OTHER CONDITIONS HOLD. With one threshold per
+# cadmium hardness class, a limit of 0.12 ug/L exceeds the class-1 standard and
+# clears the class-4 one; unrestricted, this rule typed a class-4 observation
+# MethodInsufficient because a threshold for other water existed. A fraction or
+# hardness condition the observation does not meet removes the threshold from
+# consideration. A bioavailability condition does not: Article 3(3b) sets the
+# result aside whatever the bioavailable fraction is.
 # The censoring condition is not optional. Article 3(3b) reaches a result
 # "reported as less than the limit of quantification"; without that line the
 # rule sets aside quantified means as well, which deletes exceedances the
@@ -345,10 +357,41 @@ results rather than silent passes.""" ;
             CONSTRUCT { ?obs a censo:IndeterminateCompliance , censo:PreconditionUnmet . }
             WHERE {
               $this censo:appliesToAnalyte ?a ;
-                    censo:requiresCondition ?c .
+                    censo:requiresCondition ?c ;
+                    censo:thresholdValue ?tv .
               ?obs censo:hasAnalyte ?a .
               FILTER NOT EXISTS { ?obs censo:conditionSatisfied ?c }
+              # a record with no bound has that as its reason
+              FILTER NOT EXISTS { ?obs a censo:UnresolvedObservation }
+              # another threshold for the analyte whose every condition holds:
+              # the observation's hardness class
+              FILTER NOT EXISTS {
+                ?t2 censo:appliesToAnalyte ?a .
+                FILTER (?t2 != $this)
+                FILTER NOT EXISTS {
+                  ?t2 censo:requiresCondition ?c3 .
+                  FILTER NOT EXISTS { ?obs censo:conditionSatisfied ?c3 }
+                }
+              }
+              # tier 1: a pass against a bioavailable standard stands, and so
+              # does Article 3(3b)
+              FILTER NOT EXISTS {
+                ?c a censo:BioavailabilityCondition .
+                { ?obs censo:belowThreshold $this }
+                UNION
+                { ?obs a censo:CensoredObservation ;
+                       <http://www.w3.org/ns/sosa/usedProcedure>/censo:limitOfQuantification ?loq .
+                  FILTER (?loq > ?tv) }
+              }
             }""" ] .
+# 2.4.0: THREE EXCEPTIONS, each one a rule the pipeline already applied. An
+# unmet condition used to type every observation of the analyte, which was true
+# only while no condition could ever be met. The exceptions are exactly the
+# cases scripts/22_waterbase_external.py assess() decides before or instead of
+# the condition: no bound at all; a hardness class whose threshold the
+# observation is assessed against; and CIS Guidance No. 38 tier 1 on a
+# bioavailable standard, where a pass is accepted and a censored limit above the
+# standard is still Article 3(3b).
 
 censo:CampaignShape a sh:NodeShape ;
     sh:targetClass censo:Campaign ;

@@ -21,7 +21,8 @@ Restate from this table instead.
 | 5.1 | LOQ above the EQS | **154,565** |  |
 | 5.1 | LOQ above the EQS % | **22.2** |  |
 | 5.1 | failing the 30 % criterion % | **40.1** |  |
-| 5.1 | censored rows carrying a positive value % | **99.4** |  |
+| 5.1 | station-years substituting at source % | **55.0** | of all river station-years -- the value 5.1 asserts |
+| 5.2 | censored rows carrying a positive value % | **99.4** | of censored station-years -- the era table's denominator |
 | 5.1 | substances | **637** |  |
 | 5.1 | reporting countries | **37** |  |
 | 5.1 | substances at 100 % LOQ-above-EQS | **3: Bifenthrin, Deltamethrin, Esfenvalerate** |  |
@@ -60,34 +61,34 @@ Restate from this table instead.
 | 5.4 | two-valued exceedances (half) | **171,285** |  |
 | 5.4 | two-valued exceedances (full) | **200,708** |  |
 | 5.4 | substitution fold-change | **3.4** |  |
-| 5.4 | exceedances the law can affirm | **14,505** |  |
+| 5.4 | exceedances the law can affirm | **14,809** |  |
 | 5.4 | created by the half-LOQ substitution | **112,034** |  |
 | 5.4 | created by the half-LOQ substitution % | **65.4** |  |
-| 5.4 | set aside: method limit exceeds the standard | **0** |  |
-| 5.4 | set aside: interval straddles the standard | **2,458** |  |
-| 5.4 | quantified above the standard but set aside | **2,458** |  |
-| 5.4 | exceedances resting on an unresolved number | **12,142** |  |
-| 5.4 | precondition unmet % | **18.8** |  |
-| 5.4 | limit above the standard % | **17.5** |  |
-| 5.4 | no bound at all % | **6.5** |  |
+| 5.4 | set aside: method limit exceeds the standard | **6** |  |
+| 5.4 | set aside: interval straddles the standard | **2,764** |  |
+| 5.4 | quantified above the standard but set aside | **2,770** |  |
+| 5.4 | exceedances resting on an unresolved number | **28,987** |  |
+| 5.4 | precondition unmet % | **7.4** |  |
+| 5.4 | limit above the standard % | **18.2** |  |
+| 5.4 | no bound at all % | **11.8** |  |
 | 5.4 | possible-exceedance % | **1.0** |  |
-| 5.4 | unsupportable % | **43.8** |  |
-| 5.4 | PreconditionUnmet assessments | **131,068** |  |
-| 5.4 | PossibleExceedance assessments | **6,639** |  |
+| 5.4 | unsupportable % | **38.4** |  |
+| 5.4 | PreconditionUnmet assessments | **51,499** |  |
+| 5.4 | PossibleExceedance assessments | **7,046** |  |
 | 5.6 | rows scored | **1,488,677** |  |
 | 5.6 | rows co regulated | **325,011** |  |
-| 5.6 | co regulated differ | **57,620** |  |
-| 5.6 | changed outcome % | **81.9** |  |
-| 5.6 | co-regulated divergence % | **17.7** |  |
+| 5.6 | co regulated differ | **51,902** |  |
+| 5.6 | changed outcome % | **70.6** |  |
+| 5.6 | co-regulated divergence % | **16.0** |  |
 | 5.7 | MAC: assessable samples | **8,148,785** |  |
-| 5.7 | MAC: exceedances | **74,702** |  |
+| 5.7 | MAC: exceedances | **75,029** |  |
 | 5.7 | MAC: exceedance % | **0.9** |  |
-| 5.7 | MAC: undecidable samples | **794,418** |  |
-| 5.7 | MAC: undecidable % | **9.7** |  |
-| 5.7 | MAC: station-years assessable under both | **66,285** |  |
-| 5.7 | MAC: disagree either way % | **25.6** |  |
-| 5.7 | MAC: compliant on the mean, exceeding on a sample | **698** |  |
-| 5.7 | MAC: compliant on the mean, exceeding on a sample % | **1.1** |  |
+| 5.7 | MAC: undecidable samples | **759,421** |  |
+| 5.7 | MAC: undecidable % | **9.3** |  |
+| 5.7 | MAC: station-years assessable under both | **38,562** |  |
+| 5.7 | MAC: disagree either way % | **22.6** |  |
+| 5.7 | MAC: compliant on the mean, exceeding on a sample | **359** |  |
+| 5.7 | MAC: compliant on the mean, exceeding on a sample % | **0.9** |  |
 | 5.8 | country spread, lowest | **3.3** |  |
 | 5.8 | country spread, highest | **97.4** |  |
 

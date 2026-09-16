@@ -76,10 +76,20 @@ STAGES = [
     # The same question as the headline, asked as a series: does the gap
     # between what a pipeline reports and what the law can affirm narrow?
     ("29_exceedances_by_year.py", "exceedances year by year", True),
+    # Three referee objections to the headline -- the co-parameter join, the
+    # composition of the reporters, implausible limits -- each measured with
+    # the decision procedure imported from 22. Writes only its own report.
+    ("30_revision_sensitivity.py", "measure the headline's three sensitivities", True),
+    # The fourth detection status, from the US Water Quality Portal slice under
+    # Data/wqp/. Skips itself when the slice is absent.
+    ("31_wqp_estimated.py", "populate the estimated status from WQP", False),
     # After 19: it reads the released packages. Before 24, which is the
     # analysis the alignment has to agree with.
     ("20_align_external.py", "align to ChEBI and CHMO", False),
     ("07_verify_gap_table.py", "parse the comparison ontologies", False),
+    # Not ontologies, so not rows of the gap table: schemas, SQL and code lists
+    # searched for the censoring field itself.
+    ("07b_exchange_standards.py", "assess the water-quality exchange standards", False),
     ("11_assess_competitor_papers.py", "assess paper-only ontologies", False),
     ("09_verify_bibliography.py", "check the bibliography against Crossref", False),
     ("validate_ontology.py", "validate the ontology modules", False),
@@ -137,6 +147,10 @@ STAGES = [
     ("15b_oops.py", "scan for modelling pitfalls with OOPS!", False),
     ("96_flatten_paper.py", "inline the manuscript into one file", False),
     ("95_numbers_manifest.py", "trace every number to its script", False),
+    # The numbers, assembled from the data into one file, so a reader -- or a
+    # rewrite of the prose -- works from the results rather than from the
+    # manuscript's own sentences.
+    ("95b_results_report.py", "assemble every result into one report", False),
     ("99_audit.py", "recompute every claim and fail on a mismatch", False),
 ]
 

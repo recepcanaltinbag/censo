@@ -37,17 +37,18 @@ carrying the limit onto the result buys.
 \subsection{Failures that no preprocessing rule can repair}
 Three findings survive any substitution rule. Where the quantification limit
 exceeds the threshold, no handling of the non-detects can demonstrate
-compliance: \num{17.5}\% of assessments against a European standard, and every
+compliance: \num{18.2}\% of assessments against a European standard, and every
 assessment for some pesticides (Section~\ref{sec:results-waterbase}).
 Substitution only manufactures a verdict whose direction depends on the rule
 chosen (Section~\ref{sec:results-wbabox}).
 
-Several thresholds carry preconditions the record cannot satisfy: cadmium's
-Annex~I standard is stated over five water-hardness classes, and the
-bioavailability-corrected standards need covariates the aggregated release
-lacks. A numeric threshold column carries neither the covariates nor any way to
-say the standard could not be applied; CENSO returns
-\texttt{PreconditionUnmet} rather than a default pass.
+Several thresholds carry preconditions: cadmium's Annex~I standard is stated
+over five water-hardness classes, the lead and nickel standards over the
+bioavailable concentration, and all four metal standards over the dissolved
+fraction. A numeric threshold column carries neither the covariates nor any way
+to say the standard could not be applied. CENSO evaluates the condition where the
+record supplies what it needs and returns \texttt{PreconditionUnmet} where it
+does not, rather than a default pass.
 
 A threshold can also be transcribed wrongly, and nothing in a conventional
 workflow would surface it. Both regulation packages released here carry a
@@ -63,22 +64,28 @@ provenance this section argues for, applied to the argument's own inputs.
 
 \subsection{What twelve years of reform fixed, and what it did not}
 \label{sec:disc-reform}
-The record shows real progress, and it should be said plainly. The share of
+The record shows real progress, and it should be read carefully. The share of
 station-years declaring neither a censoring flag nor a limit falls from
 \num{31.8}\,\% in \num{2012} to \num{0.0}\,\% in \num{2013} and has stayed there
-for \num{12} years. That is not a trend, it is a step: European reporters now
-record the limit in force, every time. The representational correction this paper
-asks for at the point of measurement is work they have already done once.
+for \num{12} years. It is not a change in laboratory practice alone: the
+reporters change at the same boundary, from \num{33} countries in \num{2012} to
+\num{9} in \num{2013}, and every one of the \num{9} reporting on both sides goes
+to zero in the same year, which is what a change in the reporting requirement
+looks like\src{scripts/30\_revision\_sensitivity.py}. What it does show is that
+recording the limit with every result can be required and complied with: the
+representational correction this paper asks for is work reporters have already
+been made to do once.
 
 It did not make the problem smaller. It made it \emph{visible}, which is a
 different achievement, and three insufficiencies survive it.
 
 \emph{The analytical capability did not follow the record-keeping.} Once the
 limit is reported it can be tested, and the test has the same answer it had
-eighteen years ago: \num{46.3}\,\% of assessments failed the \num{30}\,\%
-criterion in \num{2006} and \num{47.7}\,\% in \num{2024}, with the share whose
-limit exceeds the standard outright at \num{28.1}\,\% and \num{28.2}\,\%. The
-limit is now always written down, and it is still too high.
+before, as far as the record can say. The authorities reporting early and late
+in the record are almost wholly different, so years far apart are not compared;
+but since \num{2020} \num{19.3}\,\% of assessments are still below-quantification
+results whose limit exceeds the standard, and in \num{2024} alone
+\num{27.4}\,\%. The limit is now always written down, and it is still too high.
 
 \emph{The reform reached the metadata, not the value.} Censored rows carrying a
 positive number stay between \num{97.2}\,\% and \num{100}\,\% across every year
@@ -102,12 +109,15 @@ close a gap that the threshold is widening.
 
 And one insufficiency is of a different kind altogether, because no analytical
 improvement touches it. For cadmium, lead and nickel the standard is defined on a
-quantity the reporting schema has no field for: a hardness class, or a
+quantity the measurement row has no field for: a hardness class, or a
 bioavailable concentration requiring hardness, dissolved organic carbon and pH.
-That is \num{131068} assessments, \num{18.8}\,\% of every station-year a European
-standard reaches (Section~\ref{sec:results-precondition}). A better laboratory
-does not help here. Only a schema with somewhere to put the covariates does, and
-a vocabulary that can say the standard was not applicable rather than met.
+Joining what the release reports elsewhere decides most of these assessments, but
+\num{51499} remain, \num{7.4}\,\% of every station-year a European standard
+reaches (Section~\ref{sec:results-precondition}), \num{37656} of them because the
+fraction analysed is not the one the standard is written on. A better laboratory
+does not help here. A measurement row that carries its covariates and its
+fraction does, and a vocabulary that can say the standard was not applicable
+rather than met.
 
 That last insufficiency is a metals problem, and it is worth saying so, because
 the others are not. The censoring this paper is about is worst where the
@@ -233,7 +243,7 @@ deciding whether to adopt a vocabulary needs and what a term list cannot show.
     rejection and ISO/IEC~17025 requires the rule to be stated~\cite{iso17025};
     what is new here is not the rule but that the outcome it produces is a
     class a query can return. It makes \texttt{PossibleExceedance} operative ---
-    \num{6639} assessments --- but it is a \emph{bound}, not an estimate: none
+    \num{7046} assessments --- but it is a \emph{bound}, not an estimate: none
     can be decided from what is reported, though a laboratory beating the legal
     minimum would decide some. A \emph{censored} result whose limit exceeds the
     standard has an interval straddling the threshold, so two subclasses of
@@ -243,21 +253,24 @@ deciding whether to adopt a vocabulary needs and what a term list cannot show.
     so the precedence chooses the reason recorded, not the verdict.
   \item \textbf{The uncertainty band is applied to quantified results and not
     to non-detections, and that asymmetry is a choice.} Read symmetrically, a
-    censored row would carry the interval $[0,\ \mathrm{LOQ}+0.5\,T]$ and every
-    row whose limit exceeds half the standard would become undecidable ---
-    \num{38948} station-years, taking the undecidable share from
-    \num{43.8}\,\% to \num{49.4}\,\%\src{scripts/28\_uncertainty\_sensitivity.py}.
-    We do not apply it, for two reasons and against our own interest.
-    Article~3(3b) gives a below-quantification result its own rule and that rule
-    is a \emph{point} comparison of the limit against the standard; Article~4(1)'s
-    figure is specified at the level of the standard, which characterises
-    measurements made near it. And a quantification limit is itself defined by
-    uncertainty --- it is where relative uncertainty falls to an acceptable
-    value --- so a quantified point value needs a band because a point carries
-    no interval of its own, while a censored result is already an interval and
-    adding a band to it counts the same uncertainty twice. The alternative is
-    reported rather than buried, because the change would have raised our own
-    headline and a change in that direction has to be right on the merits.
+    censored row would carry the interval $[0,\ \mathrm{LOQ}+U]$ and every
+    row whose limit lies within $U$ of the standard would become undecidable ---
+    \num{42600} station-years, taking the undecidable share from
+    \num{38.4}\,\% to \num{44.5}\,\%\src{scripts/28\_uncertainty\_sensitivity.py}.
+    We do not apply it, because the Directive does not. Article~3(3b) gives a
+    below-quantification result its own rule, a \emph{point} comparison of the
+    limit against the standard, and Article~5(2) of Directive 2009/90/EC makes a
+    mean below the limit a ``less than limit of quantification'' result rather
+    than a value with an interval; the band is a metrological rule, applied where
+    the record carries a measured value. The consequence is real and is kept
+    visible rather than argued away: a limit of $0.9\,T$ yields
+    \texttt{Compliant} where a measured $0.9\,T$ would yield
+    \texttt{PossibleExceedance}. Every censored result whose limit lies within
+    the band therefore carries the flag \texttt{LimitWithinUncertaintyBand}
+    without changing its verdict --- \num{42594} of them --- and the rule is a
+    parameter of the regulation package, so a jurisdiction that prefers the
+    precautionary comparison can state it. The alternative is reported rather
+    than buried, because it would have raised our own headline.
   \item \textbf{One matrix.} River water only; lakes, transitional and coastal
     waters have their own standards and are not analysed here.
   \item \textbf{The vocabulary comparison is of published files.} An ontology

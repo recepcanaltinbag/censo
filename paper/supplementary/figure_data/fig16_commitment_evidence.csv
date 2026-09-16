@@ -23,3 +23,5 @@ b,added,1e-2,8
 b,added,1e-1,5
 b,added,1e0,1
 b,added,1e1,0
+b,"shaded band: undecidable % since, lowest",2020,84
+b,"shaded band: undecidable % since, highest",2020,100

@@ -1,0 +1,31 @@
+route,censo_outcome,n
+bioavailability model required,precondition_unmet,7995
+bioavailability tier 1,compliant,26943
+bioavailability tier 1,method_insufficient,2850
+direct,compliant,376863
+direct,exceedance,14505
+direct,method_insufficient,121626
+direct,possible_exceedance,6639
+fraction not dissolved,precondition_unmet,37656
+hardness class 1,compliant,1883
+hardness class 1,exceedance,46
+hardness class 1,method_insufficient,216
+hardness class 1,possible_exceedance,58
+hardness class 2,compliant,282
+hardness class 2,exceedance,13
+hardness class 2,method_insufficient,33
+hardness class 2,possible_exceedance,15
+hardness class 3,compliant,1232
+hardness class 3,exceedance,51
+hardness class 3,method_insufficient,248
+hardness class 3,possible_exceedance,75
+hardness class 4,compliant,2413
+hardness class 4,exceedance,101
+hardness class 4,method_insufficient,440
+hardness class 4,possible_exceedance,130
+hardness class 5,compliant,4556
+hardness class 5,exceedance,93
+hardness class 5,method_insufficient,1197
+hardness class 5,possible_exceedance,129
+no bound established,indeterminate_unresolved,82032
+no hardness reported,precondition_unmet,5848

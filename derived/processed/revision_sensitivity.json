@@ -1,0 +1,979 @@
+{
+ "assessed": 696168,
+ "baseline": {
+  "compliant": 376827,
+  "precondition_unmet": 131068,
+  "method_insufficient": 121620,
+  "possible_exceedance": 6639,
+  "exceedance": 14505,
+  "indeterminate_unresolved": 45467,
+  "indeterminate_other": 42
+ },
+ "baseline_undecidable_pct": 43.78770641569277,
+ "half_loq_exceedances_by_outcome": {
+  "method_insufficient": 97462,
+  "possible_exceedance": 2458,
+  "exceedance": 14505,
+  "precondition_unmet": 44712,
+  "indeterminate_unresolved": 12142,
+  "indeterminate_other": 6
+ },
+ "join": {
+  "outcomes": {
+   "compliant": 432681,
+   "method_insufficient": 135284,
+   "possible_exceedance": 7046,
+   "exceedance": 15023,
+   "precondition_unmet": 58740,
+   "indeterminate_unresolved": 47351,
+   "indeterminate_other": 43
+  },
+  "undecidable_pct": 35.69023569023569,
+  "routes": {
+   "7440-43-9": {
+    "invariant-over-classes -> compliant": 5078,
+    "no-hardness -> precondition_unmet": 14970,
+    "invariant-over-classes -> exceedance": 214,
+    "total-not-dissolved -> precondition_unmet": 1327,
+    "hardness -> indeterminate_unresolved": 1437,
+    "hardness -> compliant": 12738,
+    "hardness -> method_insufficient": 3629,
+    "hardness -> exceedance": 280,
+    "hardness -> possible_exceedance": 345,
+    "ca+mg -> compliant": 2572,
+    "ca+mg -> method_insufficient": 531,
+    "ca+mg -> possible_exceedance": 62,
+    "ca+mg -> exceedance": 24,
+    "ca+mg -> indeterminate_unresolved": 447,
+    "hardness -> indeterminate_other": 1
+   },
+   "7439-92-1": {
+    "tier1-clears-bioavailable -> compliant": 21624,
+    "needs-BLM:pH+DOC-present -> precondition_unmet": 1590,
+    "tier1-limit-above-standard -> method_insufficient": 5416,
+    "needs-BLM:pH/DOC-missing -> precondition_unmet": 16045
+   },
+   "7440-02-0": {
+    "needs-BLM:pH+DOC-present -> precondition_unmet": 3531,
+    "tier1-clears-bioavailable -> compliant": 13842,
+    "needs-BLM:pH/DOC-missing -> precondition_unmet": 21277,
+    "tier1-limit-above-standard -> method_insufficient": 4088
+   }
+  },
+  "transitions": {
+   "precondition_unmet -> compliant": 55854,
+   "precondition_unmet -> precondition_unmet": 58740,
+   "precondition_unmet -> exceedance": 518,
+   "precondition_unmet -> method_insufficient": 13664,
+   "precondition_unmet -> indeterminate_unresolved": 1884,
+   "precondition_unmet -> possible_exceedance": 407,
+   "precondition_unmet -> indeterminate_other": 1
+  },
+  "matrix": {
+   "7440-43-9": {
+    "W-DIS": 20958,
+    "W": 22697
+   },
+   "7439-92-1": {
+    "W-DIS": 21847,
+    "W": 22828
+   },
+   "7440-02-0": {
+    "W-DIS": 20836,
+    "W": 21902
+   }
+  },
+  "scenarios": {
+   "data join only": {
+    "outcomes": {
+     "compliant": 392137,
+     "precondition_unmet": 108081,
+     "method_insufficient": 125780,
+     "possible_exceedance": 7644,
+     "exceedance": 15132,
+     "indeterminate_unresolved": 47351,
+     "indeterminate_other": 43
+    },
+    "undecidable_pct": 41.49846014180485
+   },
+   "+ verdict invariant over the classes": {
+    "outcomes": {
+     "compliant": 397215,
+     "method_insufficient": 125780,
+     "possible_exceedance": 7644,
+     "exceedance": 15752,
+     "precondition_unmet": 102383,
+     "indeterminate_unresolved": 47351,
+     "indeterminate_other": 43
+    },
+    "undecidable_pct": 40.67997954516726
+   },
+   "+ bioavailability tier 1": {
+    "outcomes": {
+     "compliant": 432681,
+     "method_insufficient": 135284,
+     "possible_exceedance": 7644,
+     "exceedance": 15752,
+     "precondition_unmet": 57413,
+     "indeterminate_unresolved": 47351,
+     "indeterminate_other": 43
+    },
+    "undecidable_pct": 35.585519587226074
+   },
+   "+ dissolved-fraction rule": {
+    "outcomes": {
+     "compliant": 432681,
+     "method_insufficient": 135284,
+     "possible_exceedance": 7046,
+     "exceedance": 15023,
+     "precondition_unmet": 58740,
+     "indeterminate_unresolved": 47351,
+     "indeterminate_other": 43
+    },
+    "undecidable_pct": 35.69023569023569
+   },
+   "guidance-bounded (headline)": {
+    "outcomes": {
+     "compliant": 414130,
+     "precondition_unmet": 87173,
+     "method_insufficient": 126604,
+     "possible_exceedance": 7046,
+     "exceedance": 14809,
+     "indeterminate_unresolved": 46363,
+     "indeterminate_other": 43
+    },
+    "undecidable_pct": 38.385705749186975
+   }
+  }
+ },
+ "composition": {
+  "countries_assessed": 33,
+  "countries_over_floor": 18,
+  "floor": 2000,
+  "per_country": {
+   "ES": {
+    "n": 316783,
+    "undecidable_pct": 35.06595997891301,
+    "affirmed": 4667
+   },
+   "FR": {
+    "n": 124560,
+    "undecidable_pct": 39.68368657675016,
+    "affirmed": 2505
+   },
+   "CZ": {
+    "n": 86245,
+    "undecidable_pct": 37.21259203432083,
+    "affirmed": 4619
+   },
+   "IT": {
+    "n": 49405,
+    "undecidable_pct": 72.02914684748507,
+    "affirmed": 273
+   },
+   "DE": {
+    "n": 37077,
+    "undecidable_pct": 50.87250856326024,
+    "affirmed": 902
+   },
+   "BE": {
+    "n": 21589,
+    "undecidable_pct": 34.67969799434898,
+    "affirmed": 945
+   },
+   "PL": {
+    "n": 11736,
+    "undecidable_pct": 83.61451942740287,
+    "affirmed": 74
+   },
+   "FI": {
+    "n": 4801,
+    "undecidable_pct": 94.4594876067486,
+    "affirmed": 41
+   },
+   "AT": {
+    "n": 4685,
+    "undecidable_pct": 99.82924226254002,
+    "affirmed": 0
+   },
+   "HU": {
+    "n": 4620,
+    "undecidable_pct": 99.56709956709956,
+    "affirmed": 10
+   },
+   "RO": {
+    "n": 4531,
+    "undecidable_pct": 88.39108364599426,
+    "affirmed": 40
+   },
+   "IE": {
+    "n": 3801,
+    "undecidable_pct": 69.6921862667719,
+    "affirmed": 119
+   },
+   "SK": {
+    "n": 3554,
+    "undecidable_pct": 44.25998874507597,
+    "affirmed": 139
+   },
+   "SE": {
+    "n": 3170,
+    "undecidable_pct": 98.67507886435331,
+    "affirmed": 5
+   },
+   "LT": {
+    "n": 3088,
+    "undecidable_pct": 82.67487046632124,
+    "affirmed": 12
+   },
+   "RS": {
+    "n": 3053,
+    "undecidable_pct": 74.09105797576154,
+    "affirmed": 5
+   },
+   "HR": {
+    "n": 2233,
+    "undecidable_pct": 65.33811016569638,
+    "affirmed": 12
+   },
+   "NL": {
+    "n": 2044,
+    "undecidable_pct": 46.330724070450096,
+    "affirmed": 69
+   },
+   "BG": {
+    "n": 1495,
+    "undecidable_pct": 98.26086956521739,
+    "affirmed": 2
+   },
+   "NO": {
+    "n": 1486,
+    "undecidable_pct": 100.0,
+    "affirmed": 0
+   },
+   "LV": {
+    "n": 1137,
+    "undecidable_pct": 96.74582233948989,
+    "affirmed": 0
+   },
+   "BA": {
+    "n": 992,
+    "undecidable_pct": 86.18951612903226,
+    "affirmed": 26
+   },
+   "CY": {
+    "n": 935,
+    "undecidable_pct": 46.20320855614973,
+    "affirmed": 23
+   },
+   "MK": {
+    "n": 791,
+    "undecidable_pct": 100.0,
+    "affirmed": 0
+   },
+   "EL": {
+    "n": 556,
+    "undecidable_pct": 73.56115107913669,
+    "affirmed": 3
+   },
+   "EE": {
+    "n": 533,
+    "undecidable_pct": 99.81238273921201,
+    "affirmed": 0
+   },
+   "XK": {
+    "n": 420,
+    "undecidable_pct": 100.0,
+    "affirmed": 0
+   },
+   "PT": {
+    "n": 286,
+    "undecidable_pct": 90.20979020979021,
+    "affirmed": 4
+   },
+   "LU": {
+    "n": 255,
+    "undecidable_pct": 66.27450980392157,
+    "affirmed": 10
+   },
+   "MT": {
+    "n": 150,
+    "undecidable_pct": 32.666666666666664,
+    "affirmed": 0
+   },
+   "CH": {
+    "n": 117,
+    "undecidable_pct": 72.64957264957265,
+    "affirmed": 0
+   },
+   "IS": {
+    "n": 25,
+    "undecidable_pct": 92.0,
+    "affirmed": 0
+   },
+   "AL": {
+    "n": 15,
+    "undecidable_pct": 100.0,
+    "affirmed": 0
+   }
+  },
+  "without_ES": {
+   "n": 379385,
+   "undecidable_pct": 51.07028480303649,
+   "affirmed": 9838
+  },
+  "equal_weight_mean_pct": 67.58150228107189,
+  "equal_weight_median_pct": 70.86066655712848,
+  "leave_one_out_min": [
+   "IT",
+   41.63039629663416
+  ],
+  "leave_one_out_max": [
+   "ES",
+   51.07028480303649
+  ],
+  "joined_without_ES_pct": 43.93927013455988,
+  "joined_equal_weight_mean_pct": 58.95900447293215
+ },
+ "step_2012_2013": {
+  "all reporters": {
+   "2012": [
+    87749,
+    276192,
+    31.771014366817287
+   ],
+   "2013": [
+    0,
+    70059,
+    0.0
+   ],
+   "countries_2012": 33,
+   "countries_2013": 9
+  },
+  "present in both years": {
+   "2012": [
+    11614,
+    66154,
+    17.556005683707713
+   ],
+   "2013": [
+    0,
+    70059,
+    0.0
+   ],
+   "countries_2012": 9,
+   "countries_2013": 9
+  },
+  "only_2012": {
+   "AL": [
+    242,
+    252
+   ],
+   "AT": [
+    1334,
+    1387
+   ],
+   "BA": [
+    648,
+    675
+   ],
+   "BG": [
+    230,
+    1772
+   ],
+   "CH": [
+    456,
+    1112
+   ],
+   "CY": [
+    284,
+    1859
+   ],
+   "FI": [
+    3124,
+    4442
+   ],
+   "FR": [
+    26523,
+    88901
+   ],
+   "HR": [
+    728,
+    2133
+   ],
+   "IE": [
+    1035,
+    5087
+   ],
+   "IS": [
+    22,
+    44
+   ],
+   "IT": [
+    17247,
+    64869
+   ],
+   "LT": [
+    413,
+    1188
+   ],
+   "LU": [
+    36,
+    36
+   ],
+   "LV": [
+    285,
+    580
+   ],
+   "ME": [
+    395,
+    395
+   ],
+   "MK": [
+    377,
+    475
+   ],
+   "MT": [
+    10,
+    138
+   ],
+   "NL": [
+    579,
+    1861
+   ],
+   "NO": [
+    578,
+    1163
+   ],
+   "PL": [
+    16883,
+    22501
+   ],
+   "RS": [
+    892,
+    4280
+   ],
+   "SE": [
+    3238,
+    3969
+   ],
+   "XK": [
+    576,
+    919
+   ]
+  },
+  "only_2013": {},
+  "both_detail": {
+   "BE": {
+    "2012": [
+     493,
+     5723
+    ],
+    "2013": [
+     0,
+     4029
+    ]
+   },
+   "CZ": {
+    "2012": [
+     0,
+     17639
+    ],
+    "2013": [
+     0,
+     17960
+    ]
+   },
+   "DE": {
+    "2012": [
+     390,
+     11943
+    ],
+    "2013": [
+     0,
+     8231
+    ]
+   },
+   "DK": {
+    "2012": [
+     164,
+     164
+    ],
+    "2013": [
+     0,
+     160
+    ]
+   },
+   "EE": {
+    "2012": [
+     1516,
+     1526
+    ],
+    "2013": [
+     0,
+     1982
+    ]
+   },
+   "ES": {
+    "2012": [
+     7312,
+     21657
+    ],
+    "2013": [
+     0,
+     35584
+    ]
+   },
+   "RO": {
+    "2012": [
+     1115,
+     4372
+    ],
+    "2013": [
+     0,
+     1365
+    ]
+   },
+   "SK": {
+    "2012": [
+     560,
+     3066
+    ],
+    "2013": [
+     0,
+     732
+    ]
+   },
+   "TR": {
+    "2012": [
+     64,
+     64
+    ],
+    "2013": [
+     0,
+     16
+    ]
+   }
+  }
+ },
+ "by_year": {
+  "2000": {
+   "n": 2965,
+   "undecidable_pct": 100.0,
+   "n_without_ES": 2965,
+   "undecidable_without_ES_pct": 100.0,
+   "countries": 12,
+   "ES_share_pct": 0.0
+  },
+  "2001": {
+   "n": 4221,
+   "undecidable_pct": 100.0,
+   "n_without_ES": 4221,
+   "undecidable_without_ES_pct": 100.0,
+   "countries": 12,
+   "ES_share_pct": 0.0
+  },
+  "2002": {
+   "n": 4414,
+   "undecidable_pct": 100.0,
+   "n_without_ES": 4414,
+   "undecidable_without_ES_pct": 100.0,
+   "countries": 15,
+   "ES_share_pct": 0.0
+  },
+  "2003": {
+   "n": 4507,
+   "undecidable_pct": 100.0,
+   "n_without_ES": 4507,
+   "undecidable_without_ES_pct": 100.0,
+   "countries": 18,
+   "ES_share_pct": 0.0
+  },
+  "2004": {
+   "n": 5086,
+   "undecidable_pct": 100.0,
+   "n_without_ES": 5086,
+   "undecidable_without_ES_pct": 100.0,
+   "countries": 21,
+   "ES_share_pct": 0.0
+  },
+  "2005": {
+   "n": 6615,
+   "undecidable_pct": 86.66666666666667,
+   "n_without_ES": 6615,
+   "undecidable_without_ES_pct": 86.66666666666667,
+   "countries": 21,
+   "ES_share_pct": 0.0
+  },
+  "2006": {
+   "n": 12514,
+   "undecidable_pct": 54.275211762825634,
+   "n_without_ES": 12514,
+   "undecidable_without_ES_pct": 54.275211762825634,
+   "countries": 22,
+   "ES_share_pct": 0.0
+  },
+  "2007": {
+   "n": 29626,
+   "undecidable_pct": 60.62242624721529,
+   "n_without_ES": 29626,
+   "undecidable_without_ES_pct": 60.62242624721529,
+   "countries": 24,
+   "ES_share_pct": 0.0
+  },
+  "2008": {
+   "n": 25157,
+   "undecidable_pct": 57.745359144572085,
+   "n_without_ES": 25157,
+   "undecidable_without_ES_pct": 57.745359144572085,
+   "countries": 29,
+   "ES_share_pct": 0.0
+  },
+  "2009": {
+   "n": 36826,
+   "undecidable_pct": 47.854776516591535,
+   "n_without_ES": 33991,
+   "undecidable_without_ES_pct": 46.1504515901268,
+   "countries": 27,
+   "ES_share_pct": 7.698365285396191
+  },
+  "2010": {
+   "n": 40730,
+   "undecidable_pct": 56.209182420820035,
+   "n_without_ES": 34565,
+   "undecidable_without_ES_pct": 54.02574858961377,
+   "countries": 28,
+   "ES_share_pct": 15.136263196660938
+  },
+  "2011": {
+   "n": 49751,
+   "undecidable_pct": 52.47532712910293,
+   "n_without_ES": 45018,
+   "undecidable_without_ES_pct": 50.26211737527211,
+   "countries": 29,
+   "ES_share_pct": 9.513376615545422
+  },
+  "2012": {
+   "n": 58325,
+   "undecidable_pct": 45.423060437205315,
+   "n_without_ES": 54836,
+   "undecidable_without_ES_pct": 43.677511124079075,
+   "countries": 27,
+   "ES_share_pct": 5.981997428204034
+  },
+  "2013": {
+   "n": 10974,
+   "undecidable_pct": 33.36067067614361,
+   "n_without_ES": 6463,
+   "undecidable_without_ES_pct": 35.43246170509052,
+   "countries": 6,
+   "ES_share_pct": 41.10625113905595
+  },
+  "2014": {
+   "n": 11902,
+   "undecidable_pct": 32.48193580910771,
+   "n_without_ES": 6538,
+   "undecidable_without_ES_pct": 35.04129703273172,
+   "countries": 6,
+   "ES_share_pct": 45.06805578894304
+  },
+  "2015": {
+   "n": 13045,
+   "undecidable_pct": 31.16136450747413,
+   "n_without_ES": 6227,
+   "undecidable_without_ES_pct": 33.0175044162518,
+   "countries": 5,
+   "ES_share_pct": 52.265235722499035
+  },
+  "2016": {
+   "n": 15886,
+   "undecidable_pct": 36.86894120609342,
+   "n_without_ES": 7859,
+   "undecidable_without_ES_pct": 33.5157144674895,
+   "countries": 5,
+   "ES_share_pct": 50.528767468211
+  },
+  "2017": {
+   "n": 14183,
+   "undecidable_pct": 39.23006416131989,
+   "n_without_ES": 7525,
+   "undecidable_without_ES_pct": 33.32890365448505,
+   "countries": 5,
+   "ES_share_pct": 46.9435239371078
+  },
+  "2018": {
+   "n": 25908,
+   "undecidable_pct": 38.15037826154084,
+   "n_without_ES": 18395,
+   "undecidable_without_ES_pct": 35.34656156564284,
+   "countries": 5,
+   "ES_share_pct": 28.998764860274818
+  },
+  "2019": {
+   "n": 50130,
+   "undecidable_pct": 37.25513664472372,
+   "n_without_ES": 15933,
+   "undecidable_without_ES_pct": 35.209941630578044,
+   "countries": 5,
+   "ES_share_pct": 68.21663674446438
+  },
+  "2020": {
+   "n": 42285,
+   "undecidable_pct": 33.39955066808561,
+   "n_without_ES": 12195,
+   "undecidable_without_ES_pct": 37.48257482574826,
+   "countries": 4,
+   "ES_share_pct": 71.15998581057113
+  },
+  "2021": {
+   "n": 45022,
+   "undecidable_pct": 31.04038025854027,
+   "n_without_ES": 12197,
+   "undecidable_without_ES_pct": 34.77904402721981,
+   "countries": 4,
+   "ES_share_pct": 72.90880014215273
+  },
+  "2022": {
+   "n": 59103,
+   "undecidable_pct": 28.51801093007123,
+   "n_without_ES": 1374,
+   "undecidable_without_ES_pct": 32.02328966521106,
+   "countries": 3,
+   "ES_share_pct": 97.67524491142582
+  },
+  "2023": {
+   "n": 62180,
+   "undecidable_pct": 30.117401093599227,
+   "n_without_ES": 11718,
+   "undecidable_without_ES_pct": 34.29766171701655,
+   "countries": 4,
+   "ES_share_pct": 81.15471212608556
+  },
+  "2024": {
+   "n": 55545,
+   "undecidable_pct": 37.794580970384374,
+   "n_without_ES": 178,
+   "undecidable_without_ES_pct": 100.0,
+   "countries": 2,
+   "ES_share_pct": 99.67953911243136
+  }
+ },
+ "plausibility": {
+  "slip": {
+   "decades_above_substance_median": 3.0,
+   "rows": 5245,
+   "pct_of_assessed": 0.7534100964135094,
+   "their_outcomes": {
+    "method_insufficient": 3489,
+    "precondition_unmet": 1525,
+    "exceedance": 190,
+    "indeterminate_unresolved": 41
+   },
+   "excluded_undecidable_pct": 43.38848178451144,
+   "excluded_method_insufficient": 118131,
+   "divided_by_1000_undecidable_pct": 43.49338090805668,
+   "top_substances": [
+    [
+     "50-29-3",
+     999
+    ],
+    [
+     "7439-92-1",
+     587
+    ],
+    [
+     "608-93-5",
+     536
+    ],
+    [
+     "7440-43-9",
+     475
+    ],
+    [
+     "7440-02-0",
+     463
+    ],
+    [
+     "36643-28-4",
+     153
+    ],
+    [
+     "206-44-0",
+     125
+    ],
+    [
+     "62-73-7",
+     123
+    ],
+    [
+     "120-12-7",
+     122
+    ],
+    [
+     "115-32-2",
+     115
+    ]
+   ],
+   "top_countries": [
+    [
+     "ES",
+     3851
+    ],
+    [
+     "DE",
+     973
+    ],
+    [
+     "IT",
+     326
+    ],
+    [
+     "MK",
+     37
+    ],
+    [
+     "CY",
+     36
+    ],
+    [
+     "PT",
+     15
+    ],
+    [
+     "LV",
+     7
+    ]
+   ]
+  },
+  "loose": {
+   "decades_above_substance_median": 2.0,
+   "rows": 13424,
+   "pct_of_assessed": 1.9282701876558532,
+   "their_outcomes": {
+    "precondition_unmet": 4401,
+    "method_insufficient": 8610,
+    "compliant": 84,
+    "exceedance": 277,
+    "indeterminate_unresolved": 48,
+    "possible_exceedance": 4
+   },
+   "excluded_undecidable_pct": 42.735344433638375,
+   "excluded_method_insufficient": 113010,
+   "divided_by_1000_undecidable_pct": 42.98315923742545,
+   "top_substances": [
+    [
+     "7439-92-1",
+     1857
+    ],
+    [
+     "7440-02-0",
+     1820
+    ],
+    [
+     "91-20-3",
+     1435
+    ],
+    [
+     "50-29-3",
+     1069
+    ],
+    [
+     "2921-88-2",
+     893
+    ],
+    [
+     "7440-43-9",
+     724
+    ],
+    [
+     "608-93-5",
+     678
+    ],
+    [
+     "52315-07-8",
+     467
+    ],
+    [
+     "87-86-5",
+     450
+    ],
+    [
+     "36643-28-4",
+     413
+    ]
+   ],
+   "top_countries": [
+    [
+     "ES",
+     10103
+    ],
+    [
+     "DE",
+     1411
+    ],
+    [
+     "IT",
+     1195
+    ],
+    [
+     "FR",
+     466
+    ],
+    [
+     "IE",
+     55
+    ],
+    [
+     "MK",
+     51
+    ],
+    [
+     "CY",
+     49
+    ],
+    [
+     "SK",
+     32
+    ]
+   ]
+  },
+  "chlorpyrifos": {
+   "limits": 23974,
+   "median_ug_L": 0.009,
+   "at_or_above_1_ug_L": 893,
+   "values_at_or_above_1": [
+    1.0,
+    1.5,
+    2.0,
+    3.0,
+    4.0,
+    4.06,
+    5.0,
+    6.0,
+    8.0,
+    9.0,
+    10.0,
+    11.0,
+    12.0,
+    13.0,
+    15.0,
+    16.0,
+    17.0,
+    19.0,
+    20.0,
+    22.0,
+    23.0,
+    24.0,
+    29.0,
+    30.0,
+    32.0,
+    34.0,
+    40.0,
+    42.0,
+    44.0,
+    50.0,
+    100.0
+   ]
+  }
+ }
+}
