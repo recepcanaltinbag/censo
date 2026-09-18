@@ -771,6 +771,24 @@ not converted into one another. The verdict does not depend on it: the upper
 bound of a censored result is the limit reported, whatever its definition. What
 it makes visible is a definition changing at one station."""@en .
 
+censo:conditionScreened a owl:ObjectProperty ;
+    rdfs:domain sosa:Observation ;
+    rdfs:range censo:ApplicabilityCondition ;
+    rdfs:label "condition screened"@en ;
+    rdfs:comment """The condition was NOT evaluated, and the verdict holds
+anyway because it is the same for every value the condition could take. That is
+a screening step, and it is recorded as one: censo:conditionSatisfied would
+claim the record supplies what the condition needs, which it does not.
+
+The case this exists for is the first tier of the Commission's guidance on
+metal standards: a bioavailable concentration cannot exceed the dissolved one,
+so a dissolved result that clears the bioavailable standard clears it whatever
+the bioavailability model would say, and a result below a quantification limit
+above the standard is set aside by Article 3(3b) either way. A reader can ask
+the graph which verdicts rest on a screen rather than on an evaluated
+condition, and the rule layer stops short of censo:PreconditionUnmet for
+exactly these."""@en .
+
 censo:assessableAgainst a owl:ObjectProperty ;
     rdfs:domain sosa:Observation ;
     rdfs:range censo:Threshold ;

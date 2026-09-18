@@ -472,9 +472,19 @@ def assess(status, val_ug, loq_ug, thr, *, cas="", condition=None,
     # and until this ordering the pipeline reported a lead row with no bound as
     # PreconditionUnmet, naming the regulation's condition as the reason for a
     # defect of the record.
-    base = censo_outcome(status, val_ug, loq_ug, thr, **kw)
-    if base in ("indeterminate_unresolved", "indeterminate_other"):
-        return base, "no bound established", thr
+    if status == "unresolved":
+        return "indeterminate_unresolved", "no bound established", thr
+    if status == "censored" and loq_ug is None:
+        return "indeterminate_other", "no bound established", thr
+    # 2  A SUBSTANCE THE PACKAGE DOES NOT REGULATE. The outcome the vocabulary
+    # declares for it is censo:NoThresholdDefined, and it is a fact about the
+    # regulation rather than about the record -- which is why it is asked after
+    # the bound and before everything else. No Waterbase row in this paper's
+    # denominator reaches it, by construction: the population is the rows a
+    # European standard covers. scripts/24_dual_regulation.py is where it
+    # arises, because one jurisdiction regulates what the other does not.
+    if thr is None:
+        return "no_threshold_defined", "no standard for this analyte", None
     if fraction_rule and cas in DISSOLVED_METALS and not is_dissolved(fraction):
         return "precondition_unmet", "fraction not dissolved", thr
     if condition == "censo:HardnessClassCondition":
@@ -853,6 +863,13 @@ def test_decision() -> int:
         (dict(status="quantified", val_ug=9.9, loq_ug=0.05, thr=0.6,
               cas="1912-24-9", condition=None, fraction=""),
          "exceedance", "direct", "atrazine carries no condition"),
+        (dict(status="quantified", val_ug=9.9, loq_ug=0.05, thr=None,
+              cas="1912-24-9", condition=None, fraction=""),
+         "no_threshold_defined", "no standard for this analyte",
+         "a substance the package does not regulate"),
+        (dict(status="unresolved", val_ug=None, loq_ug=None, thr=None),
+         "indeterminate_unresolved", "no bound established",
+         "no bound is prior even to whether a standard exists"),
         (dict(status="unresolved", val_ug=0.3, loq_ug=None, thr=1.2, cas=PB,
               condition=BC, fraction="W-DIS"),
          "indeterminate_unresolved", "no bound established",

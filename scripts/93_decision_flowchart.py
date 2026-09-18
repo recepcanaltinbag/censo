@@ -71,6 +71,13 @@ STEPS = [
      "interval. A row with neither a censoring flag nor a limit, or flagged\n"
      "below a limit it does not state, is a defect of the record whatever the\n"
      "standard and its conditions are, and it is reported as that."),
+    ("threshold", "Is a standard defined for\nthis substance here?",
+     "Asked after the bound and before everything else, because it is a fact\n"
+     "about the REGULATION and not about the record: a jurisdiction that sets\n"
+     "no limit for a substance has not found it compliant. No row in this\n"
+     "paper's denominator reaches it -- the population is the rows a European\n"
+     "standard covers -- and it arises when the same observations are assessed\n"
+     "under a second package, which regulates a different list."),
     ("fraction", "Metal: is the result on the\ndissolved fraction?\n"
      "(Annex I Part B point 3)",
      "The water standards for cadmium, lead, mercury and nickel refer to the\n"
@@ -121,13 +128,18 @@ def w(status, val, loq, thr, **kw):
 
 # (from, label, to, witnesses) -- every witness must produce `to`.
 EDGES = [
+    ("threshold", "no", "no_threshold_defined",
+     [w("quantified", 0.5, 0.01, None),
+      w("censored", None, 0.01, None)]),
+    ("threshold", "yes", "fraction", None),
+
     ("bound", "no flag, no limit", "indeterminate_unresolved",
      [w("unresolved", None, None, 1.0),
       w("unresolved", 0.3, None, 1.2, cas=PB, condition=BC, fraction="W")]),
     ("bound", "flag, no limit", "indeterminate_other",
      [w("censored", None, None, 1.0),
       w("censored", None, None, 0.08, cas=CD, condition=HC, fraction="W")]),
-    ("bound", "yes", "fraction", None),
+    ("bound", "yes", "threshold", None),
 
     ("fraction", "no", "precondition_unmet",
      [w("quantified", 0.3, 0.01, 1.2, cas=PB, condition=BC, fraction="W"),
@@ -178,6 +190,7 @@ EDGES = [
 ]
 
 LEAF = {
+    "no_threshold_defined": ("NoThresholdDefined", "indeterminate"),
     "precondition_unmet": ("PreconditionUnmet", "indeterminate"),
     "indeterminate_unresolved": ("BoundNotEstablished", "indeterminate"),
     "method_insufficient": ("MethodInsufficient", "indeterminate"),

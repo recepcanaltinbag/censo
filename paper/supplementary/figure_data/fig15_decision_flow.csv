@@ -1,7 +1,9 @@
 from,answer,to,witnesses_verified
+threshold,no,no_threshold_defined,2
+threshold,yes,fraction,—
 bound,"no flag, no limit",indeterminate_unresolved,2
 bound,"flag, no limit",indeterminate_other,2
-bound,yes,fraction,—
+bound,yes,threshold,—
 fraction,no,precondition_unmet,2
 fraction,"yes, or not a metal",hardness,—
 hardness,no,precondition_unmet,1

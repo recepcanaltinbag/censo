@@ -228,6 +228,24 @@ censo:conditionSatisfied a owl:ObjectProperty ;
     rdfs:domain sosa:Observation ;
     rdfs:range censo:ApplicabilityCondition .
 
+censo:conditionScreened a owl:ObjectProperty ;
+    rdfs:label "condition screened"@en ;
+    rdfs:comment """The condition was NOT evaluated, and the verdict holds
+anyway because it is the same for every value the condition could take. That is
+a screening step, and it is recorded as one: censo:conditionSatisfied would
+claim the record supplies what the condition needs, which it does not.
+
+The case this exists for is the first tier of the Commission's guidance on
+metal standards: a bioavailable concentration cannot exceed the dissolved one,
+so a dissolved result that clears the bioavailable standard clears it whatever
+the bioavailability model would say, and a result below a quantification limit
+above the standard is set aside by Article 3(3b) either way. A reader can ask
+the graph which verdicts rest on a screen rather than on an evaluated
+condition, and the rule layer stops short of censo:PreconditionUnmet for
+exactly these."""@en ;
+    rdfs:domain sosa:Observation ;
+    rdfs:range censo:ApplicabilityCondition .
+
 censo:covariateMaximum a owl:DatatypeProperty,
         owl:FunctionalProperty ;
     rdfs:label "covariate maximum"@en ;
@@ -880,10 +898,6 @@ cereg:AggregationFunction a owl:Class ;
     rdfs:label "Aggregation function"@en ;
     rdfs:comment "How the members of a substance group are combined into the single quantity the threshold applies to."@en .
 
-censo:ApplicabilityCondition a owl:Class ;
-    rdfs:label "Applicability condition"@en ;
-    rdfs:comment "A condition that must hold before a threshold may be applied to an observation."@en .
-
 cereg:RegulationPackage a owl:Class ;
     rdfs:label "Regulation package"@en ;
     rdfs:comment """A self-contained set of thresholds attributable to one legal
@@ -898,6 +912,10 @@ had to be typed as both."""@en ;
     rdfs:subClassOf prov:Entity,
         censo:Regulation .
 
+censo:ApplicabilityCondition a owl:Class ;
+    rdfs:label "Applicability condition"@en ;
+    rdfs:comment "A condition that must hold before a threshold may be applied to an observation."@en .
+
 censo:Threshold a owl:Class ;
     rdfs:label "Threshold"@en ;
     rdfs:comment "A concentration limit set by a regulation, together with the conditions under which it may lawfully be applied."@en .
@@ -905,6 +923,9 @@ censo:Threshold a owl:Class ;
 sosa:Observation a owl:Class ;
     rdfs:label "Observation"@en ;
     rdfs:comment "Reused from SOSA; declared here only so that this standalone distribution is self-describing."@en .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( cereg:RegulationPackage cereg:SubstanceGroup cereg:AggregationFunction cereg:TranscriptionStatus ) .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( censo:AnnualAverageThreshold censo:MaximumAllowableThreshold ) .
@@ -932,7 +953,4 @@ sosa:Observation a owl:Class ;
     owl:intersectionOf ( sosa:Observation [ a owl:Restriction ;
                 owl:onProperty censo:belowThreshold ;
                 owl:someValuesFrom censo:Threshold ] ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( cereg:RegulationPackage cereg:SubstanceGroup cereg:AggregationFunction cereg:TranscriptionStatus ) .
 

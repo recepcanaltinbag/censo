@@ -20,54 +20,58 @@
  },
  "join": {
   "outcomes": {
-   "compliant": 432681,
-   "method_insufficient": 135284,
+   "compliant": 432723,
+   "method_insufficient": 135290,
    "possible_exceedance": 7046,
    "exceedance": 15023,
-   "precondition_unmet": 58740,
-   "indeterminate_unresolved": 47351,
-   "indeterminate_other": 43
+   "precondition_unmet": 24054,
+   "indeterminate_unresolved": 82032
   },
-  "undecidable_pct": 35.69023569023569,
+  "undecidable_pct": 35.68420266372485,
   "routes": {
    "7440-43-9": {
     "invariant-over-classes -> compliant": 5078,
-    "no-hardness -> precondition_unmet": 14970,
+    "no-hardness -> precondition_unmet": 5612,
     "invariant-over-classes -> exceedance": 214,
     "total-not-dissolved -> precondition_unmet": 1327,
-    "hardness -> indeterminate_unresolved": 1437,
-    "hardness -> compliant": 12738,
+    "no bound established -> indeterminate_unresolved": 11242,
+    "hardness -> compliant": 12739,
     "hardness -> method_insufficient": 3629,
     "hardness -> exceedance": 280,
     "hardness -> possible_exceedance": 345,
     "ca+mg -> compliant": 2572,
     "ca+mg -> method_insufficient": 531,
     "ca+mg -> possible_exceedance": 62,
-    "ca+mg -> exceedance": 24,
-    "ca+mg -> indeterminate_unresolved": 447,
-    "hardness -> indeterminate_other": 1
+    "ca+mg -> exceedance": 24
    },
    "7439-92-1": {
-    "tier1-clears-bioavailable -> compliant": 21624,
-    "needs-BLM:pH+DOC-present -> precondition_unmet": 1590,
+    "tier1-clears-bioavailable -> compliant": 21626,
+    "needs-BLM:pH+DOC-present -> precondition_unmet": 1020,
     "tier1-limit-above-standard -> method_insufficient": 5416,
-    "needs-BLM:pH/DOC-missing -> precondition_unmet": 16045
+    "needs-BLM:pH/DOC-missing -> precondition_unmet": 3978,
+    "no bound established -> indeterminate_unresolved": 12635
    },
    "7440-02-0": {
-    "needs-BLM:pH+DOC-present -> precondition_unmet": 3531,
-    "tier1-clears-bioavailable -> compliant": 13842,
-    "needs-BLM:pH/DOC-missing -> precondition_unmet": 21277,
-    "tier1-limit-above-standard -> method_insufficient": 4088
+    "needs-BLM:pH+DOC-present -> precondition_unmet": 2606,
+    "tier1-clears-bioavailable -> compliant": 13845,
+    "needs-BLM:pH/DOC-missing -> precondition_unmet": 9511,
+    "tier1-limit-above-standard -> method_insufficient": 4088,
+    "no bound established -> indeterminate_unresolved": 12688
    }
   },
   "transitions": {
-   "precondition_unmet -> compliant": 55854,
-   "precondition_unmet -> precondition_unmet": 58740,
-   "precondition_unmet -> exceedance": 518,
-   "precondition_unmet -> method_insufficient": 13664,
-   "precondition_unmet -> indeterminate_unresolved": 1884,
-   "precondition_unmet -> possible_exceedance": 407,
-   "precondition_unmet -> indeterminate_other": 1
+   "compliant -> compliant": 53396,
+   "exceedance -> precondition_unmet": 7950,
+   "method_insufficient -> precondition_unmet": 4680,
+   "possible_exceedance -> precondition_unmet": 11424,
+   "exceedance -> exceedance": 518,
+   "method_insufficient -> method_insufficient": 13664,
+   "indeterminate_unresolved -> indeterminate_unresolved": 36565,
+   "exceedance -> possible_exceedance": 201,
+   "possible_exceedance -> compliant": 956,
+   "possible_exceedance -> possible_exceedance": 206,
+   "method_insufficient -> compliant": 1493,
+   "exceedance -> compliant": 15
   },
   "matrix": {
    "7440-43-9": {
@@ -86,63 +90,58 @@
   "scenarios": {
    "data join only": {
     "outcomes": {
-     "compliant": 392137,
-     "precondition_unmet": 108081,
-     "method_insufficient": 125780,
+     "compliant": 392174,
+     "precondition_unmet": 73400,
+     "method_insufficient": 125786,
      "possible_exceedance": 7644,
      "exceedance": 15132,
-     "indeterminate_unresolved": 47351,
-     "indeterminate_other": 43
+     "indeterminate_unresolved": 82032
     },
-    "undecidable_pct": 41.49846014180485
+    "undecidable_pct": 41.49314533273578
    },
    "+ verdict invariant over the classes": {
     "outcomes": {
-     "compliant": 397215,
-     "method_insufficient": 125780,
+     "compliant": 397252,
+     "method_insufficient": 125786,
      "possible_exceedance": 7644,
      "exceedance": 15752,
-     "precondition_unmet": 102383,
-     "indeterminate_unresolved": 47351,
-     "indeterminate_other": 43
+     "precondition_unmet": 67702,
+     "indeterminate_unresolved": 82032
     },
-    "undecidable_pct": 40.67997954516726
+    "undecidable_pct": 40.67466473609818
    },
    "+ bioavailability tier 1": {
     "outcomes": {
-     "compliant": 432681,
-     "method_insufficient": 135284,
+     "compliant": 432723,
+     "method_insufficient": 135290,
      "possible_exceedance": 7644,
      "exceedance": 15752,
-     "precondition_unmet": 57413,
-     "indeterminate_unresolved": 47351,
-     "indeterminate_other": 43
+     "precondition_unmet": 22727,
+     "indeterminate_unresolved": 82032
     },
-    "undecidable_pct": 35.585519587226074
+    "undecidable_pct": 35.57948656071523
    },
    "+ dissolved-fraction rule": {
     "outcomes": {
-     "compliant": 432681,
-     "method_insufficient": 135284,
+     "compliant": 432723,
+     "method_insufficient": 135290,
      "possible_exceedance": 7046,
      "exceedance": 15023,
-     "precondition_unmet": 58740,
-     "indeterminate_unresolved": 47351,
-     "indeterminate_other": 43
+     "precondition_unmet": 24054,
+     "indeterminate_unresolved": 82032
     },
-    "undecidable_pct": 35.69023569023569
+    "undecidable_pct": 35.68420266372485
    },
    "guidance-bounded (headline)": {
     "outcomes": {
-     "compliant": 414130,
-     "precondition_unmet": 87173,
-     "method_insufficient": 126604,
+     "compliant": 414172,
+     "precondition_unmet": 51499,
+     "method_insufficient": 126610,
      "possible_exceedance": 7046,
      "exceedance": 14809,
-     "indeterminate_unresolved": 46363,
-     "indeterminate_other": 43
+     "indeterminate_unresolved": 82032
     },
-    "undecidable_pct": 38.385705749186975
+    "undecidable_pct": 38.37967272267613
    }
   }
  },
@@ -332,8 +331,8 @@
    "ES",
    51.07028480303649
   ],
-  "joined_without_ES_pct": 43.93927013455988,
-  "joined_equal_weight_mean_pct": 58.95900447293215
+  "joined_without_ES_pct": 43.93637070522029,
+  "joined_equal_weight_mean_pct": 58.95582307008245
  },
  "step_2012_2013": {
   "all reporters": {

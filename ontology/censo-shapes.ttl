@@ -328,7 +328,14 @@ from status assessment, which is exactly the verdict this rule materialises.""" 
               FILTER NOT EXISTS {
                 $this censo:requiresCondition ?c .
                 FILTER NOT EXISTS { ?obs censo:conditionSatisfied ?c }
-                FILTER NOT EXISTS { ?c a censo:BioavailabilityCondition }
+                FILTER NOT EXISTS { ?obs censo:conditionScreened ?c }
+              }
+              # and only from the threshold this observation is assessed
+              # against: an annual-average assessment is not set aside by the
+              # maximum-allowable limit of the same substance
+              FILTER NOT EXISTS {
+                ?obs censo:assessableAgainst ?t3 .
+                FILTER (?t3 != $this)
               }
             }""" ] .
 # ONLY AGAINST A THRESHOLD WHOSE OTHER CONDITIONS HOLD. With one threshold per
@@ -361,6 +368,17 @@ results rather than silent passes.""" ;
                     censo:thresholdValue ?tv .
               ?obs censo:hasAnalyte ?a .
               FILTER NOT EXISTS { ?obs censo:conditionSatisfied ?c }
+              # THE VERDICT IS PER OBSERVATION-THRESHOLD PAIR, and this rule
+              # types the OBSERVATION. Without the next line an annual-average
+              # assessment of lead was typed PreconditionUnmet because the
+              # MAXIMUM-ALLOWABLE threshold of the same substance carries the
+              # bioavailability condition -- a verdict drawn from a pair the
+              # graph does not assess. 46 of 1,200 sampled observations
+              # disagreed with the pipeline for exactly that reason.
+              FILTER NOT EXISTS {
+                ?obs censo:assessableAgainst ?t3 .
+                FILTER (?t3 != $this)
+              }
               # a record with no bound has that as its reason
               FILTER NOT EXISTS { ?obs a censo:UnresolvedObservation }
               # another threshold for the analyte whose every condition holds:
@@ -373,16 +391,14 @@ results rather than silent passes.""" ;
                   FILTER NOT EXISTS { ?obs censo:conditionSatisfied ?c3 }
                 }
               }
-              # tier 1: a pass against a bioavailable standard stands, and so
-              # does Article 3(3b)
-              FILTER NOT EXISTS {
-                ?c a censo:BioavailabilityCondition .
-                { ?obs censo:belowThreshold $this }
-                UNION
-                { ?obs a censo:CensoredObservation ;
-                       <http://www.w3.org/ns/sosa/usedProcedure>/censo:limitOfQuantification ?loq .
-                  FILTER (?loq > ?tv) }
-              }
+              # a condition the assessment SCREENED rather than evaluated: the
+              # verdict is the same for every value it could take, which is
+              # what censo:conditionScreened records (CIS Guidance No. 38
+              # tier 1). Stated as one triple because the same exception
+              # written as a nested UNION over $this and the threshold value
+              # did not fire under pySHACL, and left 3 of 1,200 sampled
+              # observations carrying two outcomes.
+              FILTER NOT EXISTS { ?obs censo:conditionScreened ?c }
             }""" ] .
 # 2.4.0: THREE EXCEPTIONS, each one a rule the pipeline already applied. An
 # unmet condition used to type every observation of the analyte, which was true

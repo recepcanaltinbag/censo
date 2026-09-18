@@ -91,12 +91,12 @@ Decomposition of the half-limit column, which is the substitution Article 5(1) o
 ### The join, and the rules that go beyond the guidance
 | step | kind | PreconditionUnmet | Compliant | Exceedance | undecidable |
 |---|---|---|---|---|---|
-| as published | — | 131,068 | 376,827 | 14,505 | 43.8 % |
-| data join only | data | 108,081 | 392,137 | 15,132 | 41.5 % |
-| + verdict invariant over the classes | rule | 102,383 | 397,215 | 15,752 | 40.7 % |
-| + bioavailability tier 1 | rule | 57,413 | 432,681 | 15,752 | 35.6 % |
-| + dissolved-fraction rule | rule | 58,740 | 432,681 | 15,023 | 35.7 % |
-| guidance-bounded (headline) | rule | 87,173 | 414,130 | 14,809 | 38.4 % |
+| row level, as the record reports it | — | 131,068 | 376,827 | 14,505 | 43.8 % |
+| data join only | data | 73,400 | 392,174 | 15,132 | 41.5 % |
+| + verdict invariant over the classes | rule | 67,702 | 397,252 | 15,752 | 40.7 % |
+| + bioavailability tier 1 | rule | 22,727 | 432,723 | 15,752 | 35.6 % |
+| + dissolved-fraction rule | rule | 24,054 | 432,723 | 15,023 | 35.7 % |
+| guidance-bounded (headline) | rule | 51,499 | 414,172 | 14,809 | 38.4 % |
 
 
 ### Composition of the record
@@ -254,8 +254,8 @@ The vocabulary is inside the profile.
 
 **shacl_validation.md**
 
-- graph: `censo-waterbase.ttl` plus the ontology, **678,825 triples**
-- conforms: **False** (9934.7\,s)
+- graph: `censo-waterbase.ttl` plus the ontology, **680,579 triples**
+- conforms: **False** (6627.8\,s)
 - distinct violation types: **1**
 
 
@@ -279,9 +279,9 @@ The vocabulary is inside the profile.
 
 **decision_flowchart.md**
 
-- tests drawn: **8**
-- outcome edges drawn: **10**
-- witnesses executed against the live function: **23**
+- tests drawn: **9**
+- outcome edges drawn: **11**
+- witnesses executed against the live function: **25**
 - mismatches: **0**
 
 
@@ -328,8 +328,8 @@ The vocabulary is inside the profile.
 **audit.md**
 
 - checks: **314**
-- passed: **274**
-- failed: **3**
+- passed: **273**
+- failed: **4**
 - warnings: 1
 - computed but not quoted: 36
 - skipped: 0

@@ -143,7 +143,14 @@ def resolve_metal(r, eqs, cop):
     against the headline; route says which rule decided it.
     """
     cas, status, v, l, matrix = r["cas"], r["status"], r["v"], r["l"], r["matrix"]
+    status, v = art52(status, v, l)
     c = cop.get((r["site"], r["year"]), {})
+    # the bound test and Article 5(2) first, exactly as assess() asks them, so
+    # this function and the cumulative scenarios cannot diverge -- the assertion
+    # in main() compares them on every run and stopped this script when they did
+    probe = bare(status, v, l, eqs[cas])
+    if probe in ("indeterminate_unresolved", "indeterminate_other"):
+        return probe, "no bound established"
     if cas == CD:
         h = c.get("hardness")
         route = "hardness"
@@ -151,10 +158,10 @@ def resolve_metal(r, eqs, cop):
             h = CA_TO_CACO3 * c["ca"] + MG_TO_CACO3 * c["mg"]
             route = "ca+mg"
         if h is not None:
-            o = censo_outcome(status, v, l, cd_class_standard(h))
+            o = bare(status, v, l, cd_class_standard(h))
         else:
-            lo = censo_outcome(status, v, l, CD_T_MIN)
-            hi = censo_outcome(status, v, l, CD_T_MAX)
+            lo = bare(status, v, l, CD_T_MIN)
+            hi = bare(status, v, l, CD_T_MAX)
             if lo == hi and lo in ("compliant", "exceedance"):
                 o, route = lo, "invariant-over-classes"
             else:
@@ -163,7 +170,7 @@ def resolve_metal(r, eqs, cop):
             return "precondition_unmet", "total-not-dissolved"
         return o, route
     # lead, nickel: bioavailable <= dissolved <= total
-    o = censo_outcome(status, v, l, eqs[cas])
+    o = bare(status, v, l, eqs[cas])
     if o == "compliant":
         return "compliant", "tier1-clears-bioavailable"
     if o == "method_insufficient":
@@ -185,9 +192,38 @@ SCENARIOS = ("data join only", "+ verdict invariant over the classes",
 GUIDANCE = "guidance-bounded (headline)"
 
 
+def bare(status, v, l, thr):
+    """The comparison with no applicability step, through assess().
+
+    Imported rather than restated, so that every scenario here carries the
+    bound test and Article 5(2) exactly as the headline does and differs from
+    it only by the rule the row is named for. Calling censo_outcome() directly
+    -- which this did until the headline gained both -- made the first column
+    of the table a different procedure from the last.
+    """
+    return _m.assess(status, v, l, thr, cas="", condition=None,
+                     fraction_rule=False)[0]
+
+
+def art52(status, v, l):
+    """Article 5(2) of Directive 2009/90/EC, as assess() applies it.
+
+    A mean below its own limit is a '<LOQ' result. assess() converts it before
+    anything else, and the metal branches here have to convert it too: without
+    this, five rows whose value sits a floating-point step under their own limit
+    (0.3 against 0.30000001) were Compliant in the headline and
+    PreconditionUnmet in this table, which is exactly the kind of drift the two
+    columns exist to rule out.
+    """
+    if status == "quantified" and v is not None and l is not None and v < l:
+        return "censored", None
+    return status, v
+
+
 def scenario_outcomes(r, eqs, cop):
     """{scenario: outcome} for one Cd/Pb/Ni row, cumulative in SCENARIOS order."""
     cas, status, v, l = r["cas"], r["status"], r["v"], r["l"]
+    status, v = art52(status, v, l)
     c = cop.get((r["site"], r["year"]), {})
     out = {}
     if cas == CD:
@@ -195,18 +231,25 @@ def scenario_outcomes(r, eqs, cop):
         if h is None and c.get("ca") is not None and c.get("mg") is not None:
             h = CA_TO_CACO3 * c["ca"] + MG_TO_CACO3 * c["mg"]
         if h is not None:
-            o1 = o2 = censo_outcome(status, v, l, cd_class_standard(h))
+            o1 = o2 = bare(status, v, l, cd_class_standard(h))
         else:
-            o1 = "precondition_unmet"
-            lo = censo_outcome(status, v, l, CD_T_MIN)
-            hi = censo_outcome(status, v, l, CD_T_MAX)
-            o2 = lo if (lo == hi and lo in ("compliant", "exceedance")) \
+            o1 = bare(status, v, l, CD_T_MIN)
+            o1 = o1 if o1 in ("indeterminate_unresolved",
+                              "indeterminate_other") else "precondition_unmet"
+            lo = bare(status, v, l, CD_T_MIN)
+            hi = bare(status, v, l, CD_T_MAX)
+            o2 = lo if (lo == hi and lo in ("compliant", "exceedance",
+                                            "indeterminate_unresolved",
+                                            "indeterminate_other")) \
                 else "precondition_unmet"
         o3 = o2
     else:
-        o1 = o2 = "precondition_unmet"
-        t = censo_outcome(status, v, l, eqs[cas])
-        o3 = t if t in ("compliant", "method_insufficient") else "precondition_unmet"
+        t = bare(status, v, l, eqs[cas])
+        o1 = o2 = (t if t in ("indeterminate_unresolved", "indeterminate_other")
+                   else "precondition_unmet")
+        o3 = t if t in ("compliant", "method_insufficient",
+                        "indeterminate_unresolved",
+                        "indeterminate_other") else "precondition_unmet"
     o4 = o3
     if o4 in ("exceedance", "possible_exceedance") and not is_dissolved(r["matrix"]):
         o4 = "precondition_unmet"
@@ -220,6 +263,9 @@ def scenario_outcomes(r, eqs, cop):
     # invariant-over-classes verdict and a pass on total metal are our own
     # reasoning and stay in the cumulative rows above as sensitivities.
     dissolved = is_dissolved(r["matrix"])
+    if o4 in ("indeterminate_unresolved", "indeterminate_other"):
+        out[GUIDANCE] = o4
+        return out
     if cas == CD:
         # dissolved only, as for lead and nickel: a pass on a whole-water result
         # (total >= dissolved) is our reasoning, not the Directive's, and the
@@ -374,10 +420,20 @@ def main() -> int:
             for s, o_s in scenario_outcomes(r, eqs, cop).items():
                 scen[s][o_s] += 1
         else:
+            # A substance with no applicability condition is the same verdict in
+            # every scenario -- but it is assess()'s verdict, not the row-level
+            # one. Carrying r["outcome"] here left the unflagged means Article
+            # 5(2) reclassifies in their row-level class, so the guidance row
+            # disagreed with the headline by 41 assessments in a table whose
+            # whole point is that it differs from the headline only by the rule
+            # each row names.
+            o_ = bare(r["status"], r["v"], r["l"], r["thr"])
             for s in scen:
-                scen[s][r["outcome"]] += 1
+                scen[s][o_] += 1
     for r in assessed:
-        o = r["outcome"]
+        # the same reason as in the scenario loop: outside the conditional
+        # metals the join changes nothing, but the verdict is still assess()'s
+        o = bare(r["status"], r["v"], r["l"], r["thr"])
         if r["cas"] in (CD, PB, NI):
             matrices[r["cas"]][r["matrix"] or "(blank)"] += 1
             o2, route = resolve_metal(r, eqs, cop)
@@ -608,7 +664,8 @@ def write_report(o, eqs_rows):
         w("| step | kind | PreconditionUnmet | Compliant | Exceedance | "
           "undecidable |")
         w("|---|---|---|---|---|---|")
-        w(f"| as published | — | {b.get('precondition_unmet', 0):,} | "
+        w(f"| row level, as the record reports it | — | "
+          f"{b.get('precondition_unmet', 0):,} | "
           f"{b.get('compliant', 0):,} | {b.get('exceedance', 0):,} | "
           f"{o['baseline_undecidable_pct']:.1f} % |")
         for i, (s, d) in enumerate(j["scenarios"].items()):

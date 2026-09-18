@@ -184,6 +184,9 @@ assess, load_covariates, is_dissolved = _m.assess, _m.load_covariates, \
 # condition, which is met row by row by the fraction the row reports.
 CLASS_THR = {}
 FRACTION = {}
+# Per CAS: the IRI of the condition the record cannot evaluate, so that a
+# verdict reached by screening it can say which condition was screened.
+COND_IRI = {}
 
 
 def self_test_counterfactual():
@@ -353,6 +356,7 @@ def main() -> int:
             for cas in cas_of.get(a, []):
                 if needs:
                     # the record reports none of the covariates it names
+                    COND_IRI[cas] = qname
                     _cond[cas] = "censo:" + str(
                         next(pkg.objects(c_iri, rdflib.RDF.type), c_iri)
                     ).rsplit("/", 1)[-1]
@@ -572,6 +576,10 @@ def main() -> int:
                 lines.append(f"    censo:conditionSatisfied {FRACTION[cas]} ;")
             if class_cond:
                 lines.append(f"    censo:conditionSatisfied {class_cond} ;")
+            # tier 1: the bioavailability condition was screened, not met --
+            # the verdict is the same for every value it could take
+            if route == "bioavailability tier 1" and cas in COND_IRI:
+                lines.append(f"    censo:conditionScreened {COND_IRI[cas]} ;")
         if m_iri:
             lines.append(f"    sosa:usedProcedure {m_iri} ;")
         if cls == "censo:CensoredObservation" and loq is not None and factor:
