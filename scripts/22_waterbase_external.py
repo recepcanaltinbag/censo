@@ -196,13 +196,19 @@ def detection_status(flag, val_ug, loq_ug):
 UNCERTAINTY_MODELS = ("none", "absolute", "relative")
 
 
-def uncertainty_band(model, val_ug, thr):
-    """Half-width of the interval a legally-minimum method leaves around x."""
+def uncertainty_band(model, val_ug, thr, factor=LEGAL_UNCERTAINTY_AT_EQS):
+    """Half-width of the interval a legally-minimum method leaves around x.
+
+    `factor` is the package's cereg:defaultUncertaintyFactor -- 0.5 under
+    Directive 2009/90/EC, 0 for a jurisdiction that compares without a band.
+    It is an argument because it is the REGULATION's number, and a pipeline
+    that hard-codes it cannot honestly claim the package is swappable.
+    """
     if model == "none":
         return 0.0
     if model == "relative":
-        return LEGAL_UNCERTAINTY_AT_EQS * val_ug
-    return LEGAL_UNCERTAINTY_AT_EQS * thr
+        return factor * val_ug
+    return factor * thr
 
 
 CENSORED_RULES = ("point", "guard")
@@ -210,7 +216,8 @@ CENSORED_RULES = ("point", "guard")
 
 def censo_outcome(status, val_ug, loq_ug, thr, *, uncertainty=True,
                   precondition=None, u_model="absolute",
-                  censored_rule="point", u_reported=None):
+                  censored_rule="point", u_reported=None,
+                  u_factor=LEGAL_UNCERTAINTY_AT_EQS):
     """The compliance outcome for one observation-threshold pair.
 
     Three values -- Compliant, Exceedance, IndeterminateCompliance -- with the
@@ -263,7 +270,7 @@ def censo_outcome(status, val_ug, loq_ug, thr, *, uncertainty=True,
         # sensitivity rather than used.
         if censored_rule == "guard" and uncertainty:
             u = (u_reported if u_reported is not None
-                 else uncertainty_band(u_model, loq_ug, thr))
+                 else uncertainty_band(u_model, loq_ug, thr, u_factor))
             if u > 0 and loq_ug > thr - u:
                 return "possible_exceedance"
         return "compliant"          # the bound clears the standard
@@ -277,7 +284,7 @@ def censo_outcome(status, val_ug, loq_ug, thr, *, uncertainty=True,
             # the record carries one; the largest Article 4(1) permits where it
             # does not. No European release carries one.
             u = (u_reported if u_reported is not None
-                 else uncertainty_band(u_model, val_ug, thr))
+                 else uncertainty_band(u_model, val_ug, thr, u_factor))
             if u > 0 and val_ug - u < thr < val_ug + u:
                 return "possible_exceedance"
         return "exceedance" if val_ug > thr else "compliant"
@@ -437,7 +444,8 @@ def load_covariates(path: Path):
 def assess(status, val_ug, loq_ug, thr, *, cas="", condition=None,
            fraction="", hardness=None, u_model="absolute",
            censored_rule="point", u_reported=None, classes=None,
-           fraction_rule=True):
+           fraction_rule=True, u_factor=LEGAL_UNCERTAINTY_AT_EQS,
+           dissolved_cas=None):
     """(outcome, route, applied threshold) for one observation-threshold pair.
 
     The applicability step, then censo_outcome(). `route` says which rule
@@ -452,7 +460,7 @@ def assess(status, val_ug, loq_ug, thr, *, cas="", condition=None,
     law into it.
     """
     kw = dict(u_model=u_model, censored_rule=censored_rule,
-              u_reported=u_reported)
+              u_reported=u_reported, u_factor=u_factor)
     # A MEAN BELOW ITS OWN LIMIT IS A "<LOQ" RESULT IN LAW. Directive
     # 2009/90/EC, Article 5(2): "Where a calculated mean value of the
     # measurement results ... is below the limits of quantification, the value
@@ -485,7 +493,8 @@ def assess(status, val_ug, loq_ug, thr, *, cas="", condition=None,
     # arises, because one jurisdiction regulates what the other does not.
     if thr is None:
         return "no_threshold_defined", "no standard for this analyte", None
-    if fraction_rule and cas in DISSOLVED_METALS and not is_dissolved(fraction):
+    metals = DISSOLVED_METALS if dissolved_cas is None else dissolved_cas
+    if fraction_rule and cas in metals and not is_dissolved(fraction):
         return "precondition_unmet", "fraction not dissolved", thr
     if condition == "censo:HardnessClassCondition":
         if hardness is None:
@@ -501,6 +510,63 @@ def assess(status, val_ug, loq_ug, thr, *, cas="", condition=None,
     if condition is not None:
         return "precondition_unmet", "condition not evaluable", thr
     return censo_outcome(status, val_ug, loq_ug, thr, **kw), "direct", thr
+
+
+
+def package_decision(path):
+    """The decision rule a regulation package states, read from the package.
+
+    cereg:censoredResultRule and cereg:defaultUncertaintyFactor were emitted by
+    scripts/19 and read by nothing: the pipeline used its own constants, so the
+    claim that swapping a package swaps the rule held for the thresholds and not
+    for the rule. It is read here, by text rather than with rdflib, because this
+    stage runs without it -- the package is a generated file with one triple per
+    line, and a malformed one fails loudly below rather than silently defaulting.
+
+    Returns {'censored_rule', 'u_factor', 'fraction_cas'}; fraction_cas is the
+    set of CAS numbers whose thresholds the package conditions on the dissolved
+    fraction, so even that is the regulation's statement and not ours.
+    """
+    txt = Path(path).read_text(encoding="utf-8", errors="replace")
+    rule = "guard" if "cereg:GuardBanded" in txt else "point"
+    m = re.search(r'cereg:defaultUncertaintyFactor\s+"([0-9.]+)"', txt)
+    factor = float(m.group(1)) if m else LEGAL_UNCERTAINTY_AT_EQS
+    frac_conds = set(re.findall(r'(cereg:[\w.-]+) a censo:FractionCondition', txt))
+    fraction_cas, analyte_cas = set(), {}
+    for block in txt.split("\n\n"):
+        m2 = re.match(r'(cereg:[\w.-]+) a censo:Analyte', block)
+        if m2:
+            analyte_cas[m2.group(1)] = re.findall(r'censo:casNumber "([^"]+)"', block)
+        elif "censo:appliesToAnalyte" in block and any(c in block for c in frac_conds):
+            a = re.search(r'censo:appliesToAnalyte (cereg:[\w.-]+)', block)
+            if a:
+                fraction_cas.add(a.group(1))
+    out = set()
+    for a in fraction_cas:
+        out.update(analyte_cas.get(a, []))
+    # ...and which analytes the package conditions on a covariate it names, so
+    # that a consumer asks the PACKAGE what is conditional rather than a table
+    # of its own. scripts/23 and scripts/24 read this instead of deciding by
+    # jurisdiction name, which is how "the Turkish package states no condition"
+    # came to be a Python branch.
+    kinds = {}
+    for m3 in re.finditer(r'(cereg:[\w.-]+) a (censo:\w*Condition)', txt):
+        kinds[m3.group(1)] = m3.group(2)
+    conditions = {}
+    for block in txt.split("\n\n"):
+        if "censo:appliesToAnalyte" not in block:
+            continue
+        a = re.search(r'censo:appliesToAnalyte (cereg:[\w.-]+)', block)
+        if not a:
+            continue
+        for c in re.findall(r'censo:requiresCondition (cereg:[\w.-]+)', block):
+            kind = kinds.get(c)
+            if kind in ("censo:HardnessClassCondition",
+                        "censo:BioavailabilityCondition"):
+                for cas in analyte_cas.get(a.group(1), []):
+                    conditions.setdefault(cas, kind)
+    return {"censored_rule": rule, "u_factor": factor, "fraction_cas": out,
+            "conditions": conditions}
 
 
 def two_valued(val_ug, loq_ug, censored, thr, k):
@@ -1073,6 +1139,15 @@ def main() -> int:
     hardness_at = load_covariates(path)
     print(f"  hardness joined from the release for {len(hardness_at):,} river "
           f"station-years")
+    # THE DECISION RULE IS THE PACKAGE'S. Read here rather than assumed, so that
+    # "swap the package and the verdicts change" covers the rule and not only
+    # the numbers. The EU package states Article 3(3b)'s point comparison and
+    # the 50 % of Article 4(1); another jurisdiction may state neither.
+    decision = package_decision(ROOT / "ontology" / "reg" /
+                                "eu-2008-105-2026.ttl")
+    print(f"  decision rule from the package: {decision['censored_rule']}, "
+          f"U = {decision['u_factor']:g} T, dissolved fraction required for "
+          f"{len(decision['fraction_cas'])} metal(s)")
 
     rows = open_rows(path)
     try:
@@ -1333,8 +1408,12 @@ def main() -> int:
             applic = dict(cas=cas, condition=cond.get(cas),
                           fraction=get(row, "matrix"),
                           hardness=hardness_at.get((get(row, "site"),
-                                                    get(row, "year")[:4])))
-            outcome, route, t_applied = assess(status, v_ug, l_ug, thr, **applic)
+                                                    get(row, "year")[:4])),
+                          u_factor=decision["u_factor"],
+                          dissolved_cas=decision["fraction_cas"])
+            outcome, route, t_applied = assess(
+                status, v_ug, l_ug, thr,
+                censored_rule=decision["censored_rule"], **applic)
             pop_status[status] += 1
             pop_outcome[outcome] += 1
             pop_route[route][outcome] += 1

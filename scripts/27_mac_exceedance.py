@@ -254,7 +254,8 @@ def self_test() -> int:
 
 
 def verdict(censored, val_ug, loq_ug, mac, *, cas="", condition=None,
-            fraction="", hardness=None, classes=None):
+            fraction="", hardness=None, classes=None, censored_rule="point",
+            u_factor=_m.LEGAL_UNCERTAINTY_AT_EQS, dissolved_cas=None):
     """The verdict for one sample against a maximum-allowable standard.
 
     A thin adapter over censo_outcome, kept only to preserve this stage's
@@ -281,7 +282,8 @@ def verdict(censored, val_ug, loq_ug, mac, *, cas="", condition=None,
     # passes only the hardness-class condition, with the MAC class table.
     out = assess(status, None if censored else val_ug, loq_ug, mac, cas=cas,
                  condition=condition, fraction=fraction, hardness=hardness,
-                 classes=classes)[0]
+                 classes=classes, censored_rule=censored_rule,
+                 u_factor=u_factor, dissolved_cas=dissolved_cas)[0]
     if out == "compliant":
         below_limit = (val_ug is not None and loq_ug is not None
                        and val_ug < loq_ug)
@@ -394,6 +396,11 @@ def main() -> int:
     # sample takes the annual mean hardness of its station and year
     hardness_at = (_m.load_covariates(agg) if agg and agg.exists()
                    and agg.suffix.lower() == ".zip" else {})
+    # the rule the package states, not a constant of this stage
+    decision = _m.package_decision(ROOT / "ontology" / "reg" /
+                                   "eu-2008-105-2026.ttl")
+    print(f"  decision rule from the package: {decision['censored_rule']}, "
+          f"U = {decision['u_factor']:g} T")
 
     print(f"  streaming {src.name} ({src.stat().st_size/1e9:.2f} GB on disk) …",
           flush=True)
@@ -457,7 +464,10 @@ def main() -> int:
                       hardness=hardness_at.get((
                           row[i_site].strip() if i_site is not None else "",
                           str(yr) if yr else "")),
-                      classes=_m.CD_MAC_CLASSES if hc else None)
+                      classes=_m.CD_MAC_CLASSES if hc else None,
+                      censored_rule=decision["censored_rule"],
+                      u_factor=decision["u_factor"],
+                      dissolved_cas=decision["fraction_cas"])
         era = era_of(yr)
         sub = (row[i_lbl].strip() if i_lbl is not None else "") or code
         cty = (row[i_cty].strip() if i_cty is not None else "") or "??"

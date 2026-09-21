@@ -273,7 +273,7 @@ def scenario_outcomes(r, eqs, cop):
         # two -- two different rules for one provision
         g = o1 if dissolved else "precondition_unmet"
     else:
-        t = censo_outcome(status, v, l, eqs[cas])
+        t = bare(status, v, l, eqs[cas])
         g = (t if dissolved and t in ("compliant", "method_insufficient")
              else "precondition_unmet")
     if g in ("exceedance", "possible_exceedance") and not dissolved:
