@@ -92,7 +92,7 @@ footer{margin-top:3rem;padding-top:1.2rem;border-top:1px solid var(--line);
 font-size:.83rem;color:var(--muted)}"""
 
 
-def render_index(version, prev_versions):
+def render_index(version, prev_versions, modules=()):
     """Build index.html from the artefacts, so it cannot say something else."""
     import rdflib
     from rdflib import RDF, RDFS, OWL, URIRef
@@ -153,6 +153,18 @@ def render_index(version, prev_versions):
                      "correspondences to ChEBI and CHMO; not imported by "
                      "the vocabulary, so its commitments are taken only "
                      "when the module is loaded explicitly"))
+    # Each module is versioned on its own line, because it changes for its own
+    # reasons -- ChEBI, or a package's analyte list -- and the version IRI is
+    # inside the file it publishes, so it has to resolve to something.
+    for seg, label, mver, mprev in modules:
+        if mver:
+            rows.append(("https://w3id.org/censo/" + seg + "/" + mver,
+                         "this " + label + " release specifically"))
+        for v in mprev:
+            rows.append(("https://w3id.org/censo/" + seg + "/" + v,
+                         "the " + v + " " + label + " release, unchanged "
+                         "since it was published"))
+
     files = [("censo-full.ttl", "Turtle"), ("censo-full.owl", "RDF/XML"),
              ("censo-full.jsonld", "JSON-LD"),
              ("censo-regulation.ttl", "regulation vocabulary"),
@@ -243,6 +255,16 @@ def render_index(version, prev_versions):
     A("</main></body></html>")
     return "\n".join(H) + "\n"
 
+
+
+# The modules that carry a version IRI of their own, and where each one's
+# release line lives. The segment is the IRI segment, so that the archive path
+# and the w3id rewrite rule cannot drift apart.
+MODULES = [
+    (ONTO / "censo-shapes.ttl",     "shapes",    "shapes"),
+    (ONTO / "censo-regulation.ttl", "reg",       "regulation vocabulary"),
+    (ONTO / "censo-alignment.ttl",  "alignment", "alignment"),
+]
 
 
 def _tracked(path: Path) -> bool:
@@ -338,9 +360,48 @@ def main() -> int:
         pairs.append((core, f"releases/{version}/censo-full.ttl"))
         pairs.append((ONTO / "dist" / "censo-full.owl",
                       f"releases/{version}/censo-full.owl"))
-        missing = [str(s.relative_to(ROOT)) for s, _ in pairs if not s.exists()]
-        if missing:
-            sys.exit("missing sources: " + ", ".join(missing))
+
+    # THE MODULES ARE VERSIONED TOO, and none of them was frozen.
+    #
+    # censo-shapes.ttl, censo-regulation.ttl and censo-alignment.ttl each
+    # declare an owl:versionIRI of their own, and each of those IRIs returned
+    # 404: the w3id catch-all sends them to paths where nothing is served. The
+    # module files were also overwritten in place, so what
+    # https://w3id.org/censo/shapes/2.1.0 would have returned changed three
+    # times under one version IRI. Both halves of that are what a version IRI
+    # rules out, and both are fixed the same way the core's were: freeze the
+    # release, and add the rewrite rule that reaches it.
+    modules = []
+    for src, seg, label in MODULES:
+        if not src.exists():
+            continue
+        mm = re.search(r'owl:versionInfo\s+"([^"]+)"',
+                       src.read_text(encoding="utf-8"))
+        mver = mm.group(1) if mm else None
+        if not mver:
+            continue
+        mf = SITE / "releases" / seg / mver / src.name
+        if mf.exists() and not _tracked(mf) and not args.check:
+            print(f"  releases/{seg}/{mver}/ is untracked, so it has never "
+                  f"been published; rebuilding it rather than refusing")
+            shutil.rmtree(mf.parent)
+        if mf.exists() and digest(mf) != digest(src) \
+                and not (args.check and not _tracked(mf)):
+            sys.exit(
+                f"releases/{seg}/{mver}/{src.name} already exists and differs "
+                f"from the current build.\n"
+                f"A published release is immutable: bump owl:versionInfo for "
+                f"the {label} module (dropping anything it asserts is a MAJOR "
+                f"change), or restore the archived file if the change was "
+                f"unintended.")
+        pairs.append((src, f"releases/{seg}/{mver}/{src.name}"))
+        modules.append((seg, label, mver))
+
+    # Every archive path is settled by here, so this is where the sources are
+    # checked -- once, for all of them.
+    missing = [str(s.relative_to(ROOT)) for s, _ in pairs if not s.exists()]
+    if missing:
+        sys.exit("missing sources: " + ", ".join(missing))
 
     if args.check:
         stale = []
@@ -356,10 +417,19 @@ def main() -> int:
         return 0
 
     SITE.mkdir(parents=True, exist_ok=True)
+    # releases/ now holds the module's line too, under releases/alignment/;
+    # it is not a vocabulary version and must not be listed as one.
+    is_ver = lambda n: re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+", n) is not None
     prev = sorted(d.name for d in (SITE / "releases").glob("*")
-                  if d.is_dir() and d.name != version)
-    (SITE / "index.html").write_text(render_index(version, prev),
-                                     encoding="utf-8")
+                  if d.is_dir() and is_ver(d.name) and d.name != version)
+    mod_rows = []
+    for seg, label, mver in modules:
+        mprev = sorted(d.name for d in (SITE / "releases" / seg).glob("*")
+                       if d.is_dir() and is_ver(d.name) and d.name != mver)
+        mod_rows.append((seg, label, mver, mprev))
+    (SITE / "index.html").write_text(
+        render_index(version, prev, mod_rows),
+        encoding="utf-8")
     for src, dst in pairs:
         d = SITE / dst
         d.parent.mkdir(parents=True, exist_ok=True)

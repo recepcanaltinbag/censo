@@ -161,6 +161,14 @@ PREAMBLE = """\
 # are of different kinds -- an observable property is not the substance, and a
 # datatype property is not a class. The one identity claim here is between two
 # packages' names for the same observable property, which is what it is.
+#
+# 2.0.0, not 1.1.0: the EU package stopped naming the 64 analytes the last
+# Annex I table row had been read as, because those rows were the footnotes
+# listing a group standard's members, not standards of their own. The 44
+# seeAlso triples that pointed at them are gone with them. Removing published
+# assertions is the same kind of change that took the vocabulary from 1.0.0 to
+# 2.0.0, so it takes the same kind of bump -- and 1.0.0 stays retrievable as
+# what it was, under releases/alignment/1.0.0/.
 
 @prefix censo:   <https://w3id.org/censo/> .
 @prefix cereg:   <https://w3id.org/censo/reg/> .
@@ -183,8 +191,8 @@ scripts/20_align_external.py; a CAS number resolving to more than one ChEBI
 class yields no triple.\"\"\"@en ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
     vann:preferredNamespacePrefix "censo" ;
-    owl:versionIRI <https://w3id.org/censo/alignment/1.0.0> ;
-    owl:versionInfo "1.0.0" ;
+    owl:versionIRI <https://w3id.org/censo/alignment/2.0.0> ;
+    owl:versionInfo "2.0.0" ;
     owl:imports <https://w3id.org/censo/> .
 
 """

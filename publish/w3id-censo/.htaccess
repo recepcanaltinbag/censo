@@ -35,6 +35,23 @@ RewriteRule ^reg/eu-2008-105-2026/?$ https://recepcanaltinbag.github.io/censo/re
 RewriteRule ^reg/?$                  https://recepcanaltinbag.github.io/censo/censo-regulation.ttl [R=303,L]
 RewriteRule ^shapes/?$               https://recepcanaltinbag.github.io/censo/censo-shapes.ttl [R=303,L]
 
+RewriteRule ^alignment/?$            https://recepcanaltinbag.github.io/censo/censo-alignment.ttl [R=303,L]
+
+# ---------------------------------------------------------------------------
+# The modules' own release lines. Each of these files declares an
+# owl:versionIRI of its own -- shapes/2.4.0, reg/2.4.0, alignment/2.0.0 -- and
+# every one of them used to 404, because the catch-all at the foot of this file
+# sends them to paths where nothing is served. A version IRI inside a published
+# file that does not resolve is worse than no version IRI at all.
+#
+# The numeric pattern is what keeps these apart from the named packages above:
+# reg/eu-2008-105-2026 is a document, reg/2.4.0 is a release of the vocabulary
+# that describes documents like it.
+# ---------------------------------------------------------------------------
+RewriteRule ^shapes/([0-9]+\.[0-9]+\.[0-9]+)/?$    https://recepcanaltinbag.github.io/censo/releases/shapes/$1/censo-shapes.ttl [R=303,L]
+RewriteRule ^reg/([0-9]+\.[0-9]+\.[0-9]+)/?$       https://recepcanaltinbag.github.io/censo/releases/reg/$1/censo-regulation.ttl [R=303,L]
+RewriteRule ^alignment/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://recepcanaltinbag.github.io/censo/releases/alignment/$1/censo-alignment.ttl [R=303,L]
+
 # ---------------------------------------------------------------------------
 # Latest version.
 #
