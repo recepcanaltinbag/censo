@@ -1,0 +1,519 @@
+@prefix censo: <https://w3id.org/censo/> .
+@prefix cereg: <https://w3id.org/censo/reg/> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix sosa:  <http://www.w3.org/ns/sosa/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix geo:   <http://www.opengis.net/ont/geosparql#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann:  <http://purl.org/vocab/vann/> .
+
+################################################################################
+#  CENSO SHACL shapes — the closed-world complement to the OWL axioms
+#
+#  DIVISION OF LABOUR
+#  ------------------
+#  OWL is open-world, which is exactly right for censoring: not asserting a
+#  detection is not asserting absence. But the same openness means OWL cannot
+#  express "this observation is MISSING its unit" or "no outcome applies here",
+#  because an unasserted fact is merely unknown.
+#
+#  Those are closed-world questions and they belong in SHACL. Two jobs:
+#
+#    1. VALIDATION — reject records that cannot be interpreted. Every shape below
+#       fires on a defect actually present in the source dataset.
+#    2. MATERIALISATION — derive censo:IndeterminateCompliance, which cannot be
+#       inferred by subsumption under OWA (see censo-core.ttl, note 2).
+#
+#  Stating this split explicitly is part of the contribution: it is the honest
+#  answer to "what does the reasoner actually do?"
+################################################################################
+
+<https://w3id.org/censo/shapes> a owl:Ontology ;
+    dcterms:title "CENSO SHACL shapes"@en ;
+    dcterms:description """Closed-world validation and materialisation for CENSO.
+Contains constraints and SPARQL rules, not OWL axioms; the absence of logical
+axioms here is by design, since the point of this file is what OWL cannot
+express."""@en ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    vann:preferredNamespacePrefix "censosh" ;
+    vann:preferredNamespaceUri "https://w3id.org/censo/shapes#" ;
+    owl:versionIRI <https://w3id.org/censo/shapes/2.4.0> ;
+    owl:versionInfo "2.4.0" ;
+    rdfs:seeAlso <https://w3id.org/censo/> .
+
+censo:ObservationShape a sh:NodeShape ;
+    sh:targetClass censo:AssessedObservation ;
+    rdfs:label "Observation integrity" ;
+
+    sh:property [
+        sh:path censo:hasAnalyte ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class censo:Analyte ;
+        sh:message "An observation must concern exactly one analyte. Zero means the substance name failed to join; two means a name collision." ;
+        sh:severity sh:Violation ] ;
+
+    sh:property [
+        sh:path censo:atStation ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:message "An observation must be located at exactly one station." ;
+        sh:severity sh:Violation ] ;
+
+    sh:property [
+        sh:path censo:duringCampaign ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:message "An observation must belong to exactly one campaign; otherwise seasonal comparison is unsound." ;
+        sh:severity sh:Violation ] ;
+
+    sh:property [
+        sh:path sosa:usedProcedure ;
+        sh:minCount 1 ;
+        sh:message "An observation must cite the analytical method used; without it, no detection limit applies and the record is unresolvable." ;
+        sh:severity sh:Violation ] ;
+
+    # Physically impossible. Present in the source data for Be and Sb.
+    sh:property [
+        sh:path censo:reportedValue ;
+        sh:minInclusive 0.0 ;
+        sh:message "Negative concentration reported. Physically impossible; indicates a blank-subtraction or transcription error." ;
+        sh:severity sh:Violation ] ;
+
+    sh:property [
+        sh:path censo:resultLowerBound ;
+        sh:minInclusive 0.0 ; sh:maxCount 1 ; sh:datatype xsd:decimal ;
+        sh:severity sh:Violation ] ;
+
+    sh:property [
+        sh:path censo:resultUpperBound ;
+        sh:minInclusive 0.0 ; sh:maxCount 1 ; sh:datatype xsd:decimal ;
+        sh:severity sh:Violation ] ;
+
+    # Interval sanity: lower must not exceed upper.
+    sh:sparql [
+        sh:message "Result lower bound exceeds upper bound: the interval is empty." ;
+        sh:severity sh:Violation ;
+        sh:select """
+            SELECT $this WHERE {
+              $this <https://w3id.org/censo/resultLowerBound> ?lo ;
+                    <https://w3id.org/censo/resultUpperBound> ?hi .
+              FILTER (?lo > ?hi)
+            }""" ] .
+
+# A non-detection asserts an upper bound and nothing more. Any substitution
+# (half-LOQ, half-LOD) shows up here.
+censo:CensoredObservationShape a sh:NodeShape ;
+    sh:targetClass censo:CensoredObservation ;
+    rdfs:label "Censored observation integrity" ;
+    sh:sparql [
+        sh:message "Censored observation with a non-zero lower bound. A non-detect permits any value down to zero; a positive lower bound is a substituted number, not a measurement." ;
+        sh:severity sh:Violation ;
+        sh:select """
+            SELECT $this WHERE {
+              $this <https://w3id.org/censo/resultLowerBound> ?lo .
+              FILTER (?lo > 0.0)
+            }""" ] .
+
+censo:AnalyticalMethodShape a sh:NodeShape ;
+    sh:targetClass censo:AnalyticalMethod ;
+    rdfs:label "Analytical method integrity" ;
+
+    # A method must state A LIMIT, not specifically a limit of detection.
+    #
+    # This asked for censo:limitOfDetection with sh:minCount 1. No European
+    # monitoring release reports one -- WISE-6 carries procedureLOQValue and
+    # nothing else -- so the only way to satisfy the shape on real data was to
+    # invent the datum, which the ABox builder duly did, at LOQ/3. A shape that
+    # can only be met by manufacturing its own evidence tests nothing.
+    #
+    # What the vocabulary actually claims is that the epistemics belong to the
+    # analytical run and that the bound must be recorded. Either limit records
+    # it; the law regulates the quantification limit (Art. 3(3b) of 2008/105/EC,
+    # Art. 4(1) of 2009/90/EC). So: at least one, each at most once, and the
+    # ordering between them still checked below where both are present.
+    # sh:datatype is the enforceable half of the core's NUMERIC TYPE doctrine.
+    # rdfs:range xsd:decimal does NOT reject an xsd:integer literal -- integer
+    # is derived from decimal, so the range is satisfied and a reasoner says
+    # nothing -- which is how a graph written with bare Turtle numerals passed
+    # every OWL check while carrying the wrong datatype throughout.
+    sh:property [
+        sh:path censo:limitOfDetection ;
+        sh:maxCount 1 ; sh:minInclusive 0.0 ; sh:datatype xsd:decimal ;
+        sh:message "A limit of detection must be a single non-negative xsd:decimal." ;
+        sh:severity sh:Violation ] ;
+
+    sh:property [
+        sh:path censo:limitOfQuantification ;
+        sh:maxCount 1 ; sh:minInclusive 0.0 ; sh:datatype xsd:decimal ;
+        sh:message "A limit of quantification must be a single non-negative xsd:decimal." ;
+        sh:severity sh:Violation ] ;
+
+    sh:property [
+        sh:path censo:limitUnit ;
+        sh:minCount 1 ;
+        sh:message "Detection limits without a unit are not comparable to anything." ;
+        sh:severity sh:Violation ] ;
+
+    sh:property [
+        sh:path censo:calibrationR2 ;
+        sh:minInclusive 0.98 ;
+        sh:message "Calibration R2 below 0.98; the derived detection limits are unreliable." ;
+        sh:severity sh:Warning ] ;
+
+    sh:sparql [
+        sh:message "Limit of quantification is below the limit of detection, which is impossible by definition." ;
+        sh:severity sh:Violation ;
+        sh:select """
+            SELECT $this WHERE {
+              $this <https://w3id.org/censo/limitOfDetection> ?lod ;
+                    <https://w3id.org/censo/limitOfQuantification> ?loq .
+              FILTER (?loq < ?lod)
+            }""" ] .
+
+# Kept as a shape of its own so that its message belongs to it. Declaring the
+# sh:or on AnalyticalMethodShape put a node-level sh:message there, and SHACL
+# attaches a shape's message to every violation the shape raises: a method with
+# LOQ below LOD was reported as also failing to state a limit, which it plainly
+# had. A constraint whose failure message describes a different failure is
+# worse than no message.
+censo:AnalyticalMethodLimitShape a sh:NodeShape ;
+    sh:targetClass censo:AnalyticalMethod ;
+    rdfs:label "A method must state a limit" ;
+    sh:or (
+        [ sh:property [ sh:path censo:limitOfQuantification ; sh:minCount 1 ] ]
+        [ sh:property [ sh:path censo:limitOfDetection ; sh:minCount 1 ] ]
+    ) ;
+    sh:message "A method must state a limit — of quantification, of detection, or both. Without one, nothing bounds what 'not detected' means." ;
+    sh:severity sh:Violation .
+
+censo:ThresholdShape a sh:NodeShape ;
+    sh:targetClass censo:Threshold ;
+    rdfs:label "Threshold integrity" ;
+
+    # xsd:decimal, for the reason the core's NUMERIC TYPE block gives: a legal
+    # limit is published as an exact decimal and compliance turns on exact
+    # comparison. The released packages wrote 16 of these as bare Turtle
+    # integers -- `censo:thresholdValue 10` is xsd:integer -- which no OWL
+    # check can object to and which this constraint now catches.
+    sh:property [
+        sh:path censo:thresholdValue ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:minExclusive 0.0 ;
+        sh:datatype xsd:decimal ;
+        sh:message "A threshold must have exactly one positive xsd:decimal value." ;
+        sh:severity sh:Violation ] ;
+
+    sh:property [
+        sh:path censo:thresholdUnit ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:message "A threshold without a unit cannot be compared to a measurement." ;
+        sh:severity sh:Violation ] ;
+
+    sh:property [
+        sh:path censo:definedBy ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:message "A threshold must cite the regulation that establishes it. An uncited limit is not defensible." ;
+        sh:severity sh:Violation ] .
+
+# Station geometry. Catches the 41 deg 61 min latitude present in the November
+# campaign, which decimal conversion would otherwise absorb silently.
+censo:StationShape a sh:NodeShape ;
+    sh:targetClass sosa:FeatureOfInterest ;
+    rdfs:label "Station geometry" ;
+    sh:property [
+        sh:path geo:lat ;
+        sh:minInclusive -90.0 ; sh:maxInclusive 90.0 ; sh:datatype xsd:double ;
+        sh:message "Latitude outside [-90, 90]." ;
+        sh:severity sh:Violation ] ;
+    sh:property [
+        sh:path geo:long ;
+        sh:minInclusive -180.0 ; sh:maxInclusive 180.0 ; sh:datatype xsd:double ;
+        sh:message "Longitude outside [-180, 180]." ;
+        sh:severity sh:Violation ] .
+
+################################################################################
+#  Materialisation rules
+#
+#  These derive facts OWL cannot, because each depends on the ABSENCE of an
+#  assertion — a closed-world judgement.
+################################################################################
+
+censo:IndeterminateRuleShape a sh:NodeShape ;
+    sh:targetClass censo:AssessedObservation ;
+    rdfs:label "Materialise indeterminate compliance" ;
+    rdfs:comment """Where an observation has been compared against no threshold at
+all, no verdict is supportable. Under OWA this cannot be inferred; here the
+assessment graph is treated as complete, which is legitimate because it is
+produced by a pipeline that ran to completion.""" ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:construct """
+            PREFIX censo: <https://w3id.org/censo/>
+            CONSTRUCT { $this a censo:IndeterminateCompliance , censo:NoThresholdDefined . }
+            WHERE {
+              $this censo:hasAnalyte ?a .
+              FILTER NOT EXISTS { $this censo:assessableAgainst ?t }
+              FILTER NOT EXISTS {
+                ?th a censo:Threshold ; censo:appliesToAnalyte ?a .
+              }
+            }""" ] .
+# THE SECOND FILTER IS NOT REDUNDANT, and its absence was a defect.
+#
+# The rule asked only whether the observation carries censo:assessableAgainst.
+# It does not, for every censo:UnresolvedObservation in the shipped graph --
+# 4,682 of them -- because UnresolvedObservation is a subclass of the complement
+# of that property and the ABox builder must omit the link to stay consistent.
+# So a rule testing the link alone fired on all of them and typed as "no
+# threshold is defined" observations whose analyte carries a European standard.
+# They ALSO matched censo:BoundNotEstablishedRuleShape, correctly, which reaches
+# the threshold through the analyte; the materialised graph therefore gave them
+# two reasons where the pipeline records one, and the wrong one of the two was
+# the reason a reader would most likely believe.
+#
+# NoThresholdDefined means no standard exists for this analyte. That is a fact
+# about the regulation, not about the observation's links, and it has to be
+# asked of the regulation -- which is exactly the reasoning the sibling rule
+# already sets out and this one did not follow.
+
+censo:BoundNotEstablishedRuleShape a sh:NodeShape ;
+    sh:targetClass censo:AssessedObservation ;
+    rdfs:label "Materialise a missing bound" ;
+    rdfs:comment """An assessable observation that establishes no bound to
+compare. A threshold exists and applies, but the record says neither that the
+number is a measurement nor what limit it was measured with, so there is no
+interval to put beside the standard. This is the 6.5 % of assessments the
+pipeline used to leave on the bare parent class, which made
+censo:IndeterminateCompliance directly instantiated and its subclass hierarchy
+incomplete — the largest single reason in this record after the two named
+provisions.
+
+It fires where a threshold EXISTS for the analyte and the observation still
+cannot be compared with it. Note what it must not ask for: censo:assessableAgainst
+on the observation itself. censo:UnresolvedObservation is a subclass of the
+complement of that property — an observation with no detection status may not be
+assessed, which is the axiom scripts/test_axioms.py T5 exercises — so a rule
+conditioned on it would fire on nothing and, worse, would licence an ABox that
+asserts both. The threshold is reached through the analyte instead.""" ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:construct """
+            PREFIX censo: <https://w3id.org/censo/>
+            CONSTRUCT { $this a censo:IndeterminateCompliance ,
+                              censo:BoundNotEstablished . }
+            WHERE {
+              $this a censo:UnresolvedObservation ;
+                    censo:hasAnalyte ?a .
+              ?t a censo:Threshold ; censo:appliesToAnalyte ?a .
+            }""" ] .
+
+censo:MethodInsufficientRuleShape a sh:NodeShape ;
+    sh:targetClass censo:Threshold ;
+    rdfs:label "Materialise method insufficiency" ;
+    rdfs:comment """A threshold below the quantification limit of the method used
+to measure its analyte cannot be assessed against, however clean the data.
+Article 3(3b) of Directive 2008/105/EC requires such a result to be excluded
+from status assessment, which is exactly the verdict this rule materialises.""" ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:construct """
+            PREFIX censo: <https://w3id.org/censo/>
+            CONSTRUCT { ?obs a censo:IndeterminateCompliance , censo:MethodInsufficient . }
+            WHERE {
+              $this censo:appliesToAnalyte ?a ;
+                    censo:thresholdValue ?tv .
+              ?obs a censo:CensoredObservation ;
+                   censo:hasAnalyte ?a ;
+                   <http://www.w3.org/ns/sosa/usedProcedure> ?m .
+              ?m censo:limitOfQuantification ?loq .
+              FILTER (?loq > ?tv)
+              FILTER NOT EXISTS {
+                $this censo:requiresCondition ?c .
+                FILTER NOT EXISTS { ?obs censo:conditionSatisfied ?c }
+                FILTER NOT EXISTS { ?obs censo:conditionScreened ?c }
+              }
+              # and only from the threshold this observation is assessed
+              # against: an annual-average assessment is not set aside by the
+              # maximum-allowable limit of the same substance
+              FILTER NOT EXISTS {
+                ?obs censo:assessableAgainst ?t3 .
+                FILTER (?t3 != $this)
+              }
+            }""" ] .
+# ONLY AGAINST A THRESHOLD WHOSE OTHER CONDITIONS HOLD. With one threshold per
+# cadmium hardness class, a limit of 0.12 ug/L exceeds the class-1 standard and
+# clears the class-4 one; unrestricted, this rule typed a class-4 observation
+# MethodInsufficient because a threshold for other water existed. A fraction or
+# hardness condition the observation does not meet removes the threshold from
+# consideration. A bioavailability condition does not: Article 3(3b) sets the
+# result aside whatever the bioavailable fraction is.
+# The censoring condition is not optional. Article 3(3b) reaches a result
+# "reported as less than the limit of quantification"; without that line the
+# rule sets aside quantified means as well, which deletes exceedances the
+# measurement does establish.
+
+censo:PreconditionRuleShape a sh:NodeShape ;
+    sh:targetClass censo:Threshold ;
+    rdfs:label "Materialise unmet preconditions" ;
+    rdfs:comment """A threshold requiring a condition the observation does not
+satisfy yields no verdict. This is how missing water hardness, missing dissolved
+organic carbon and an unrecorded dissolved/total fraction become explicit
+results rather than silent passes.""" ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:construct """
+            PREFIX censo: <https://w3id.org/censo/>
+            CONSTRUCT { ?obs a censo:IndeterminateCompliance , censo:PreconditionUnmet . }
+            WHERE {
+              $this censo:appliesToAnalyte ?a ;
+                    censo:requiresCondition ?c ;
+                    censo:thresholdValue ?tv .
+              ?obs censo:hasAnalyte ?a .
+              FILTER NOT EXISTS { ?obs censo:conditionSatisfied ?c }
+              # THE VERDICT IS PER OBSERVATION-THRESHOLD PAIR, and this rule
+              # types the OBSERVATION. Without the next line an annual-average
+              # assessment of lead was typed PreconditionUnmet because the
+              # MAXIMUM-ALLOWABLE threshold of the same substance carries the
+              # bioavailability condition -- a verdict drawn from a pair the
+              # graph does not assess. 46 of 1,200 sampled observations
+              # disagreed with the pipeline for exactly that reason.
+              FILTER NOT EXISTS {
+                ?obs censo:assessableAgainst ?t3 .
+                FILTER (?t3 != $this)
+              }
+              # a record with no bound has that as its reason
+              FILTER NOT EXISTS { ?obs a censo:UnresolvedObservation }
+              # another threshold for the analyte whose every condition holds:
+              # the observation's hardness class
+              FILTER NOT EXISTS {
+                ?t2 censo:appliesToAnalyte ?a .
+                FILTER (?t2 != $this)
+                FILTER NOT EXISTS {
+                  ?t2 censo:requiresCondition ?c3 .
+                  FILTER NOT EXISTS { ?obs censo:conditionSatisfied ?c3 }
+                }
+              }
+              # a condition the assessment SCREENED rather than evaluated: the
+              # verdict is the same for every value it could take, which is
+              # what censo:conditionScreened records (CIS Guidance No. 38
+              # tier 1). Stated as one triple because the same exception
+              # written as a nested UNION over $this and the threshold value
+              # did not fire under pySHACL, and left 3 of 1,200 sampled
+              # observations carrying two outcomes.
+              FILTER NOT EXISTS { ?obs censo:conditionScreened ?c }
+            }""" ] .
+# 2.4.0: THREE EXCEPTIONS, each one a rule the pipeline already applied. An
+# unmet condition used to type every observation of the analyte, which was true
+# only while no condition could ever be met. The exceptions are exactly the
+# cases scripts/22_waterbase_external.py assess() decides before or instead of
+# the condition: no bound at all; a hardness class whose threshold the
+# observation is assessed against; and CIS Guidance No. 38 tier 1 on a
+# bioavailable standard, where a pass is accepted and a censored limit above the
+# standard is still Article 3(3b).
+
+censo:CampaignShape a sh:NodeShape ;
+    sh:targetClass censo:Campaign ;
+    sh:property [
+        sh:path censo:reportingYear ;
+        sh:datatype xsd:gYear ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:message "A campaign must state the year it reports for, exactly once and as an xsd:gYear. The year encoded in the campaign's IRI is not data a query can reach." ;
+        sh:severity sh:Violation ] .
+
+
+################################################################################
+#  WHAT MOVED HERE FROM THE VOCABULARY, AND WHY IT BELONGS HERE
+#
+#  Sixteen axioms in censo-core.ttl and censo-regulation.ttl sat outside OWL 2
+#  RL: ten cardinality restrictions, three covering unions and three
+#  equivalences using someValuesFrom. The pipeline ran correctly regardless,
+#  because owlrl applies rules beyond the profile -- which is exactly how a
+#  profile violation stays invisible, and why the claim is now checked by
+#  scripts/12_owl_profile.py instead of asserted.
+#
+#  Three were repaired in place by writing the direction that classifies
+#  (someValuesFrom is free in SUBCLASS position). The rest are here, and the
+#  move is not a workaround. Every one of them asks whether something is
+#  ABSENT -- no station, no unit, no cited source, no fourth outcome -- and
+#  absence is not a conclusion an open-world reasoner is entitled to draw from
+#  a missing triple. They were unenforceable where they stood in a stronger
+#  sense than "the profile forbids them": even in OWL 2 DL, a reasoner would
+#  have found no contradiction in a record that simply did not mention a
+#  station. Here, where the file is read as complete, the question is decidable.
+################################################################################
+
+censo:AnalyticalMethodUnitShape a sh:NodeShape ;
+    sh:targetClass censo:AnalyticalMethod ;
+    rdfs:label "A stated limit needs its unit" ;
+    sh:property [
+        sh:path censo:limitUnit ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:message "A method must state exactly one unit for its limits. A limit without a unit cannot be compared to a standard." ;
+        sh:severity sh:Violation ] .
+
+# The three cardinality restrictions retired from censo:AssessedObservation are
+# NOT restated here. censo:ObservationShape above already targets that class and
+# already requires exactly one analyte, exactly one station and at least one
+# procedure -- so the OWL axioms were not merely outside the profile and inert,
+# they were a second copy of a constraint that was being enforced all along, in
+# the only place it could be. Removing them removed a duplicate, not a check.
+# The 4,646 observations citing no method are found by censo:ObservationShape,
+# as they always were.
+
+# The covering axioms. These are the claims OWL 2 RL cannot hold -- a union may
+# not appear in superclass position -- and they are the claims the vocabulary
+# most wants to make, because they say the taxonomy is COMPLETE. Stated in OWL
+# they would have been unsatisfiability in a profile no reasoner here
+# implements; stated here they are a violation with a message.
+censo:ComplianceOutcomeCoveringShape a sh:NodeShape ;
+    sh:targetClass censo:ComplianceOutcome ;
+    rdfs:label "There is no fourth compliance value" ;
+    sh:or (
+        [ sh:class censo:Exceedance ]
+        [ sh:class censo:Compliant ]
+        [ sh:class censo:IndeterminateCompliance ]
+    ) ;
+    sh:message "A compliance outcome must be an exceedance, compliant, or indeterminate. The Directive admits three values and this vocabulary adds no fourth; a reason for indeterminacy belongs in a subclass of censo:IndeterminateCompliance." ;
+    sh:severity sh:Violation .
+
+censo:AssessedObservationCoveringShape a sh:NodeShape ;
+    sh:targetClass censo:AssessedObservation ;
+    rdfs:label "Detection status is exhaustive" ;
+    sh:or (
+        [ sh:class censo:CensoredObservation ]
+        [ sh:class censo:EstimatedObservation ]
+        [ sh:class censo:QuantifiedObservation ]
+        [ sh:class censo:UnresolvedObservation ]
+    ) ;
+    sh:message "An assessed observation must carry one of the four detection statuses. A result with no status is the two-valued record this vocabulary was written against." ;
+    sh:severity sh:Violation .
+
+censo:DetectedObservationCoveringShape a sh:NodeShape ;
+    sh:targetClass censo:DetectedObservation ;
+    rdfs:label "Detected means estimated or quantified" ;
+    sh:or (
+        [ sh:class censo:EstimatedObservation ]
+        [ sh:class censo:QuantifiedObservation ]
+    ) ;
+    sh:message "A detected observation is either estimated or quantified. Anything else is a detection claim the record cannot support." ;
+    sh:severity sh:Violation .
+
+cereg:GroupThresholdShape a sh:NodeShape ;
+    sh:targetClass cereg:GroupThreshold ;
+    rdfs:label "A group threshold is assessable" ;
+    sh:property [
+        sh:path cereg:appliesToGroup ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class cereg:SubstanceGroup ;
+        sh:message "A group threshold must name exactly one substance group." ;
+        sh:severity sh:Violation ] ;
+    sh:property [
+        sh:path cereg:aggregationFunction ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class cereg:AggregationFunction ;
+        sh:message "A group threshold must state exactly one aggregation function. Without it the standard is a number over a basket with no rule for combining it." ;
+        sh:severity sh:Violation ] .
+
+cereg:RegulationPackageShape a sh:NodeShape ;
+    sh:targetClass cereg:RegulationPackage ;
+    rdfs:label "A package cites its primary source" ;
+    sh:property [
+        sh:path cereg:sourceDocument ;
+        sh:minCount 1 ;
+        sh:message "A regulation package must cite the primary instrument it transcribes. An uncited package is a table of numbers with no authority behind it." ;
+        sh:severity sh:Violation ] .

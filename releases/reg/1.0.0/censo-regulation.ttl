@@ -1,0 +1,316 @@
+@prefix censo:   <https://w3id.org/censo/> .
+@prefix cereg:   <https://w3id.org/censo/reg/> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann:    <http://purl.org/vocab/vann/> .
+@prefix prov:    <http://www.w3.org/ns/prov#> .
+@prefix sosa:    <http://www.w3.org/ns/sosa/> .
+
+################################################################################
+#  CENSO-REG — pluggable, versioned regulation packages
+#
+#  WHY THIS MODULE EXISTS
+#  ----------------------
+#  Thresholds expire. The EU EQS regime has moved 2008/105/EC -> 2013/39/EU ->
+#  the 2026 update adding PFAS, pharmaceuticals, bisphenols and a total-pesticide
+#  standard. Türkiye's YSKY has been amended repeatedly since 2012. Any ontology
+#  that hard-codes threshold values is obsolete on the day it is published.
+#
+#  CENSO-REG therefore treats a regulation as a SEPARATE, SELF-CONTAINED,
+#  VERSIONED MODULE that imports this vocabulary and contributes only
+#  individuals. Nothing in the core or the domain layer needs to change when a
+#  regulation is added, amended or superseded.
+#
+#  Consequences that matter scientifically:
+#    * one dataset can be assessed against SEVERAL regulations at once, and the
+#      DIVERGENCE between them is itself a reportable result;
+#    * a historic survey can be re-assessed under a regulation adopted later;
+#    * substances a regulation covers but the survey never measured become
+#      explicit `censo:IndeterminateCompliance`, instead of silently absent.
+#
+#  HOW TO ADD A JURISDICTION
+#  -------------------------
+#  Create ontology/reg/<code>.ttl, import this module, and declare one
+#  cereg:RegulationPackage plus its thresholds. See ontology/reg/README.md.
+################################################################################
+
+cereg: a owl:Ontology ;
+    dcterms:title "CENSO-REG: pluggable regulation packages for censored observations"@en ;
+    dcterms:description """Vocabulary for expressing environmental quality
+standards as self-contained, versioned, swappable modules, including group and
+derived thresholds such as a total-pesticide sum."""@en ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    vann:preferredNamespacePrefix "cereg" ;
+    vann:preferredNamespaceUri "https://w3id.org/censo/reg/" ;
+    owl:versionIRI <https://w3id.org/censo/reg/1.0.0> ;
+    owl:versionInfo "1.0.0" ;
+    owl:imports <https://w3id.org/censo/> .
+
+################################################################################
+#  1. The package
+################################################################################
+
+cereg:RegulationPackage a owl:Class ;
+    rdfs:subClassOf censo:Regulation , prov:Entity ;
+    rdfs:label "Regulation package"@en ;
+    rdfs:comment """A self-contained set of thresholds attributable to one legal
+instrument at one point in time. Assessment is always relative to a package;
+there is no such thing as an unqualified compliance verdict.
+
+A package is a censo:Regulation -- the same legal instrument, at the granularity
+at which it is versioned, cited and swapped. Declaring them separate classes
+made cereg:definesThreshold and censo:definedBy incoherent as inverses, which
+OOPS! reported as a critical pitfall and which is why an individual previously
+had to be typed as both."""@en .
+
+cereg:Jurisdiction a owl:Class ;
+    rdfs:label "Jurisdiction"@en ;
+    rdfs:comment "A legal territory in which a regulation package applies, identified by an ISO 3166 code or by 'EU'."@en .
+
+cereg:jurisdiction a owl:ObjectProperty ;
+    rdfs:domain cereg:RegulationPackage ;
+    rdfs:range cereg:Jurisdiction ;
+    rdfs:label "jurisdiction"@en ;
+    rdfs:comment "The legal territory in which the package applies (ISO 3166 code or 'EU')."@en .
+
+cereg:inForceFrom a owl:DatatypeProperty ;
+    rdfs:domain cereg:RegulationPackage ;
+    rdfs:range xsd:date ;
+    rdfs:label "in force from"@en ;
+    rdfs:comment "Date of entry into force. Observations predating it can still be assessed against the package, but the result is counterfactual and must be labelled as such."@en .
+
+cereg:inForceUntil a owl:DatatypeProperty ;
+    rdfs:domain cereg:RegulationPackage ;
+    rdfs:range xsd:date ;
+    rdfs:label "in force until"@en ;
+    rdfs:comment "Date the package ceased to apply. Absent means still in force."@en .
+
+cereg:complianceDeadline a owl:DatatypeProperty ;
+    rdfs:domain cereg:RegulationPackage ;
+    rdfs:range xsd:date ;
+    rdfs:label "compliance deadline"@en ;
+    rdfs:comment "Date by which member states or operators must meet the standards; may be long after entry into force."@en .
+
+cereg:supersedes a owl:ObjectProperty ;
+    rdfs:domain cereg:RegulationPackage ;
+    rdfs:range cereg:RegulationPackage ;
+    rdfs:label "supersedes"@en ;
+    rdfs:comment "Names the package this one replaces. Transitive, so the full amendment chain is queryable."@en .
+
+cereg:transposes a owl:ObjectProperty ;
+    rdfs:domain cereg:RegulationPackage ;
+    rdfs:range cereg:RegulationPackage ;
+    rdfs:label "transposes"@en ;
+    rdfs:comment "National package implementing a supranational one, e.g. YSKY transposing the EU EQS Directive. Divergences between the two are meaningful and queryable."@en .
+
+cereg:definesThreshold owl:inverseOf censo:definedBy .
+
+cereg:definesThreshold a owl:ObjectProperty ;
+    rdfs:domain cereg:RegulationPackage ;
+    rdfs:range censo:Threshold ;
+    rdfs:label "defines threshold"@en ;
+    rdfs:comment "Links a package to the thresholds it establishes. The inverse direction (threshold to package) goes through censo:definedBy."@en .
+
+cereg:legalReference a owl:DatatypeProperty ;
+    rdfs:domain cereg:RegulationPackage ;
+    rdfs:range xsd:string ;
+    rdfs:label "legal reference"@en ;
+    rdfs:comment "Citation as published, e.g. 'OJ L 348, 24.12.2008' or 'Resmî Gazete 28483'."@en .
+
+cereg:sourceDocument a owl:ObjectProperty ;
+    rdfs:subPropertyOf prov:hadPrimarySource ;
+    rdfs:domain cereg:RegulationPackage ;
+    rdfs:range prov:Entity ;
+    rdfs:label "source document"@en ;
+    rdfs:comment "Dereferenceable URI of the legal text the values were transcribed from. Required: a threshold without a traceable source is not usable in a regulatory context."@en .
+
+cereg:transcriptionStatus a owl:ObjectProperty ;
+    rdfs:domain censo:Threshold ;
+    rdfs:range cereg:TranscriptionStatus ;
+    rdfs:label "transcription status"@en ;
+    rdfs:comment """Whether a value has been verified against the primary legal
+text. Machine-readable so that unverified values can be excluded from analysis
+rather than trusted by default."""@en .
+
+cereg:TranscriptionStatus a owl:Class ;
+    rdfs:label "Transcription status"@en ;
+    rdfs:comment "How reliably a threshold value was copied from its legal source. Machine-readable so unverified values can be excluded from analysis rather than trusted by default."@en .
+
+cereg:VerifiedAgainstPrimarySource a cereg:TranscriptionStatus ;
+    rdfs:label "verified against primary source"@en .
+
+cereg:TranscribedFromSecondarySource a cereg:TranscriptionStatus ;
+    rdfs:label "transcribed from secondary source"@en ;
+    rdfs:comment "Taken from a project spreadsheet, report or database rather than the legal text. Treat as provisional."@en .
+
+cereg:Unverified a cereg:TranscriptionStatus ;
+    rdfs:label "unverified"@en .
+
+################################################################################
+#  2. Group and derived thresholds
+#
+#  The 2026 EU update introduces a total-pesticide standard of 0.2 ug/L for
+#  surface waters and a sum over 24 PFAS. These cannot be represented as
+#  per-substance limits: the assessed quantity is an AGGREGATE over a substance
+#  group. This is where a concept scheme earns its place — group membership is
+#  knowledge, not a column.
+#
+#  Censoring interacts sharply with aggregation. If 90 of 100 group members are
+#  non-detects, the sum's lower bound counts them as 0 and its upper bound counts
+#  each at its LOD. The upper bound can exceed the standard purely from
+#  accumulated detection limits: an aggregate can be UNDECIDABLE even when every
+#  individual member appears compliant. Existing practice, which substitutes 0,
+#  cannot see this and always reports the optimistic sum.
+################################################################################
+
+cereg:SubstanceGroup a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Substance group"@en ;
+    rdfs:comment "A set of analytes assessed collectively, e.g. 'pesticides total', 'sum of 24 PFAS'."@en .
+
+cereg:memberOfGroup a owl:ObjectProperty ;
+    rdfs:domain censo:Analyte ;
+    rdfs:range cereg:SubstanceGroup ;
+    rdfs:label "member of group"@en ;
+    rdfs:comment "Membership in a collectively assessed set. Group membership is curated knowledge with provenance, not a spreadsheet column."@en .
+
+cereg:GroupThreshold a owl:Class ;
+    rdfs:subClassOf censo:Threshold ;
+    rdfs:label "Group threshold"@en ;
+    rdfs:comment "A threshold applying to an aggregate over a substance group rather than to one analyte."@en .
+
+cereg:appliesToGroup a owl:ObjectProperty ;
+    rdfs:domain cereg:GroupThreshold ;
+    rdfs:range cereg:SubstanceGroup ;
+    rdfs:label "applies to group"@en ;
+    rdfs:comment "The substance group whose aggregate the threshold constrains."@en .
+
+cereg:aggregationFunction a owl:ObjectProperty ;
+    rdfs:domain cereg:GroupThreshold ;
+    rdfs:range cereg:AggregationFunction ;
+    rdfs:label "aggregation function"@en ;
+    rdfs:comment "Function used to combine group members, e.g. sum for the 24-PFAS standard."@en .
+
+cereg:AggregationFunction a owl:Class ;
+    rdfs:label "Aggregation function"@en ;
+    rdfs:comment "How the members of a substance group are combined into the single quantity the threshold applies to."@en .
+
+cereg:Sum a cereg:AggregationFunction ; rdfs:label "sum"@en .
+cereg:Maximum a cereg:AggregationFunction ; rdfs:label "maximum"@en .
+cereg:ArithmeticMean a cereg:AggregationFunction ; rdfs:label "arithmetic mean"@en .
+cereg:ToxicEquivalentSum a cereg:AggregationFunction ;
+    rdfs:label "toxic equivalent sum"@en ;
+    rdfs:comment "Potency-weighted sum, as used for dioxin-like compounds."@en .
+
+cereg:requiresCompleteGroup a owl:DatatypeProperty ;
+    rdfs:domain cereg:GroupThreshold ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "requires complete group"@en ;
+    rdfs:comment """True when every group member must have been measured for the
+aggregate to be assessable. If members are missing from the monitoring panel,
+the aggregate is `censo:IndeterminateCompliance`, not a partial sum. The 24-PFAS
+sum is the obvious case: a survey that measured none of them cannot report
+compliance."""@en .
+
+cereg:groupCoverage a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain cereg:Assessment ;
+    rdfs:range xsd:double ;
+    rdfs:label "group coverage"@en ;
+    rdfs:comment "Fraction of a group's members actually measured. Materialised per assessment; reported alongside every aggregate verdict."@en .
+
+# A group threshold is meaningless without exactly one group and one
+# aggregation function; asserting this lets a reasoner catch malformed packages
+# instead of silently producing an unassessable threshold.
+cereg:GroupThreshold rdfs:subClassOf
+    [ a owl:Restriction ;
+      owl:onProperty cereg:appliesToGroup ;
+      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onClass cereg:SubstanceGroup ] ,
+    [ a owl:Restriction ;
+      owl:onProperty cereg:aggregationFunction ;
+      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onClass cereg:AggregationFunction ] .
+
+# Every package must cite a primary source, otherwise its values are not usable
+# in a regulatory context.
+cereg:RegulationPackage rdfs:subClassOf
+    [ a owl:Restriction ;
+      owl:onProperty cereg:sourceDocument ;
+      owl:minCardinality "1"^^xsd:nonNegativeInteger ] .
+
+cereg:supersedes a owl:TransitiveProperty .
+cereg:memberOfGroup a owl:ObjectProperty .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( cereg:RegulationPackage
+                  cereg:SubstanceGroup
+                  cereg:Assessment
+                  cereg:AggregationFunction
+                  cereg:TranscriptionStatus ) .
+
+# A relevant metabolite retains its parent's pesticidal activity; a non-relevant
+# one does not. The distinction is legally load-bearing under the 2026 update,
+# so it must be an error to assert both.
+cereg:RelevantMetabolite owl:disjointWith cereg:NonRelevantMetabolite .
+
+################################################################################
+#  3. Substance relationships that affect assessment
+################################################################################
+
+cereg:metaboliteOf a owl:ObjectProperty , owl:TransitiveProperty ;
+    rdfs:domain censo:Analyte ;
+    rdfs:range censo:Analyte ;
+    rdfs:label "metabolite of"@en ;
+    rdfs:comment """Degradation or transformation product. Relevant because a
+survey may measure a metabolite while the regulated parent is absent from the
+panel, or vice versa. The 2026 EU update explicitly brings non-relevant
+pesticide metabolites into scope, so this relation carries legal weight."""@en ;
+    skos:example "1-Hydroxyibuprofen metaboliteOf Ibuprofen."@en ;
+    rdfs:seeAlso "Transitive: a transformation product of a transformation product is still one of the parent. NOT symmetric, despite the scanner's suggestion -- the relation has a direction."@en .
+
+cereg:RelevantMetabolite a owl:Class ;
+    rdfs:subClassOf censo:Analyte ;
+    rdfs:label "Relevant metabolite"@en ;
+    rdfs:comment "Metabolite retaining the pesticidal activity of its parent; assessed as a pesticide."@en .
+
+cereg:NonRelevantMetabolite a owl:Class ;
+    rdfs:subClassOf censo:Analyte ;
+    rdfs:label "Non-relevant metabolite"@en ;
+    rdfs:comment "Metabolite without the parent's pesticidal activity; brought into scope by the 2026 EU update under a separate standard."@en .
+
+################################################################################
+#  4. Assessment against a package
+################################################################################
+
+cereg:Assessment a owl:Class ;
+    rdfs:subClassOf prov:Activity ;
+    rdfs:label "Assessment"@en ;
+    rdfs:comment """The act of evaluating observations against one regulation
+package, producing compliance outcomes. Reified so that the same observations
+assessed under two packages yield two comparable, separately attributable
+results."""@en .
+
+cereg:assessedUnder a owl:ObjectProperty ;
+    rdfs:domain cereg:Assessment ;
+    rdfs:range cereg:RegulationPackage ;
+    rdfs:label "assessed under"@en ;
+    rdfs:comment "The regulation package an assessment was carried out against. Mandatory: a verdict without a named package is not interpretable."@en .
+
+cereg:assessmentOutcome a owl:ObjectProperty ;
+    rdfs:domain cereg:Assessment ;
+    rdfs:range censo:ComplianceOutcome ;
+    rdfs:label "assessment outcome"@en ;
+    rdfs:comment "The verdict produced, one of the four compliance outcomes defined in CENSO core."@en .
+
+cereg:NotCoveredBySurvey a owl:Class ;
+    rdfs:subClassOf censo:IndeterminateCompliance ;
+    rdfs:label "Not covered by survey"@en ;
+    rdfs:comment """The regulation defines a threshold for an analyte the
+monitoring programme never measured. Under a closed-world model this is
+invisible; here it is an explicit verdict, which is what makes "assess a 2018
+survey under a 2026 regulation" a well-posed question."""@en ;
+    skos:example "A survey that measured none of the 24 PFAS named by the 2026 standard cannot report compliance with their sum; the aggregate is not assessable rather than zero."@en .
