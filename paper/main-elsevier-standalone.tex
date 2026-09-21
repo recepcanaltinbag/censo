@@ -661,10 +661,10 @@ A \texttt{censo:Analyte} is a \texttt{sosa:ObservableProperty} --- the
 concentration \emph{of} a substance --- and not the substance, whose instances
 are molecules. The two are related by \texttt{rdfs:seeAlso} to the substance's
 ChEBI~\cite{degtyarenko2008chebi} class, in a separate module the vocabulary does not
-import\src{scripts/20\_align\_external.py}: \num{299} of \num{354} analytes
+import\src{scripts/20\_align\_external.py}: \num{255} of \num{290} analytes
 across the two packages resolve to exactly one ChEBI class by CAS registry
-number, \num{26} resolve to more than one and are deliberately left unaligned,
-and \num{29} --- technical mixtures and congener groups such as C10--13
+number, \num{25} resolve to more than one and are deliberately left unaligned,
+and \num{10} --- technical mixtures and congener groups such as C10--13
 chloroalkanes --- have no ChEBI entry at all, which is a fact about what the
 regulation names rather than a gap in the mapping.
 
@@ -847,7 +847,7 @@ self-contained module of individuals with jurisdiction, dates and a
 machine-readable \texttt{transcriptionStatus}, so unverified values can be
 excluded rather than trusted. Two packages are released with the
 ontology\src{scripts/19\_build\_regulation\_packages.py}: \texttt{tr-ysky-2016}
-(\num{434} thresholds) and \texttt{eu-2008-105-2026} (\num{114} thresholds),
+(\num{434} thresholds) and \texttt{eu-2008-105-2026} (\num{111} thresholds),
 both transcribed from the primary legal texts and carrying
 \texttt{VerifiedAgainstPrimarySource}. Each contributes individuals only --- no
 class, no property --- so one loads safely alongside another; the validator
@@ -912,11 +912,24 @@ water domain, and we mark it as such.
 \subsection{What OWL does, and what it does not}
 OWL supplies identity, taxonomy, disjointness, classification and explanation.
 It cannot compare data values, so \texttt{exceeds}, \texttt{possiblyExceeds} and
-\texttt{belowThreshold} are materialised by the rule layer, then classified. The
-open-world assumption that makes CENSO right for censoring blocks inferring
-``none of the above'', so \texttt{IndeterminateCompliance} is materialised under
-a locally closed world in SHACL. We do not claim that a description-logic
-reasoner computes compliance.
+\texttt{belowThreshold} are asserted by the procedure of
+Figure~\ref{fig:decision-flow} and then classified. The open-world assumption
+that makes CENSO right for censoring also blocks inferring ``none of the
+above'', so the four reasons for \texttt{IndeterminateCompliance} that follow
+from the record rather than from a value comparison --- a missing bound, no
+standard for the analyte, Article~3(3b), an unmet precondition --- are
+materialised by SHACL rules under a locally closed world. We do not claim that
+a description-logic reasoner computes compliance.
+
+Those rules are a second implementation of the same decision, and two
+implementations drift unless something compares them. Over a sample of
+\num{1200} observations the rules reconstruct the verdict the pipeline
+recorded, reason subtype included, with \num{0} disagreements --- the
+pipeline's own type assertions being removed from the graph before the rules
+run, so that a rule restating a triple already present is not mistaken for a
+rule deriving it\src{scripts/18b\_rule\_agreement.py}. The comparison runs in
+both directions: a rule firing where the pipeline found the record sufficient
+counts as a disagreement too.
 
 \subsection{What is counted, and what is inferred}
 \label{sec:methods-inference}
@@ -1516,7 +1529,7 @@ times more than the record establishes.
 
 \paragraph{The graph is a materialisation, not the analysis.}
 A reservoir sample of \num{40000} station-years is expressed as RDF
-(\num{532669} triples): a pure-Python triple store cannot hold four million
+(\num{534129} triples): a pure-Python triple store cannot hold four million
 rows, and inflating it would misreport what was reasoned over. \num{11.7}\% of
 its observations are \texttt{UnresolvedObservation}, a state no other surveyed
 vocabulary can express.
@@ -2175,10 +2188,10 @@ than the measurement. Every value is read from the shipped graph and ships in
 
 \subsection{The shipped graph is validated against the shipped shapes}
 \label{sec:results-shacl}
-The published shapes are run over the published graph --- \num{651373} triples
+The published shapes are run over the published graph --- \num{682331} triples
 with the vocabulary loaded --- rather than over a fixture\src{scripts/18\_shacl\_validate.py}.
-The shapes match \num{40000} assessed observations, \num{31167} censored ones,
-\num{1159} analytical methods and \num{537} thresholds, and the run reports
+The shapes match \num{40000} assessed observations, \num{31169} censored ones,
+\num{1451} analytical methods and \num{545} thresholds, and the run reports
 \textbf{one violation type}: \num{4646} observations that cite no analytical
 method. That is the unresolvable population, and it is a property of the record
 rather than of the pipeline. A graph made to conform would have to invent the

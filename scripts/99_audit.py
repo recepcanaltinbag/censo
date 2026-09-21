@@ -2904,6 +2904,32 @@ def check_alignment():
                f"{len(pairs)} owl:sameAs pair(s); {n_chebi} ChEBI pointer(s)")
 
 
+def check_package_threshold_counts(tex_nums):
+    """Own how many thresholds each package carries. Nothing did.
+
+    Section 4 names the two packages and the size of each. The European count
+    was \num{114} and the package holds 111 -- the three that went when the
+    last Annex I table row stopped being read as standards of its own. The
+    drift survived because no check recomputed either number, and an asserted
+    number nothing owns does not merely go stale quietly: the near-match
+    detector, looking for a home for the 118.1 minutes the performance stage
+    measures, offered that 111 was a stale copy of it. Neither number was
+    wrong by then; the pairing was, and it is the fourth time a loose number
+    has done this.
+    """
+    reg = ROOT / "ontology" / "reg"
+    pkgs = sorted(reg.glob("*.ttl")) if reg.exists() else []
+    if not pkgs:
+        record(SKIP, "package threshold counts", "no regulation package")
+        return
+    total = 0
+    for pkg in pkgs:
+        n = pkg.read_text(encoding="utf-8").count("censo:thresholdValue")
+        total += n
+        check_claim(tex_nums, f"thresholds in {pkg.stem}", n)
+    check_claim(tex_nums, "thresholds across both packages", total)
+
+
 def check_alignment_counts(tex_nums):
     """Own the four alignment counts. Nothing did, and all four went stale.
 
@@ -4602,6 +4628,7 @@ def main() -> int:
     check_functional_properties()
     check_alignment()
     check_alignment_counts(nums)
+    check_package_threshold_counts(nums)
     check_graph_matches_population(nums)
     check_reported_intervals(nums)
     check_uncertainty_sensitivity(nums)

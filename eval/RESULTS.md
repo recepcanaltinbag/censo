@@ -254,8 +254,8 @@ The vocabulary is inside the profile.
 
 **shacl_validation.md**
 
-- graph: `censo-waterbase.ttl` plus the ontology, **680,579 triples**
-- conforms: **False** (6627.8\,s)
+- graph: `censo-waterbase.ttl` plus the ontology, **682,331 triples**
+- conforms: **False** (6709.1\,s)
 - distinct violation types: **1**
 
 
@@ -297,7 +297,7 @@ The vocabulary is inside the profile.
 
 **foops_assessment.md**
 
-- retrieved: **2026-09-09**
+- retrieved: **2026-09-21**
 - ontology title as read by the service: **CENSO: an ontology for censored environmental observations**
 - licence as read by the service: **https://creativecommons.org/licenses/by/4.0/**
 - FOOPS! overall score: **0.78**
@@ -308,30 +308,28 @@ The vocabulary is inside the profile.
 
 | stage | value | unit | note |
 |---|---|---|---|
-| triples in the ABox file | **501,110** |  |  |
-| triples after loading ontology + packages | **507,688** |  | 2 regulation package(s) |
-| parse | **80.4** | s |  |
-| peak memory after parse | **614** | MB |  |
-| rdfs:subClassOf type closure | **10.2** | s | 143,685 triples added |
-| triples after closure | **651,373** |  |  |
+| triples in the ABox file | **534,129** |  |  |
+| triples after loading ontology + packages | **540,642** |  | 2 regulation package(s) |
+| parse | **54.6** | s |  |
+| peak memory after parse | **644** | MB |  |
+| rdfs:subClassOf type closure | **10.0** | s | 141,689 triples added |
+| triples after closure | **682,331** |  |  |
 | observations in the published graph | **40,000** |  |  |
-| peak memory after closure | **666** | MB |  |
-| SHACL validation (advanced mode) | **7611.7** | s | conforms=False, 4,646 violation(s) |
-| SHACL validation | **126.9** | min |  |
-| peak memory after SHACL | **1486** | MB |  |
-| end-to-end on the published graph | **128.4** | min | parse + closure + validation |
-| OWL 2 RL closure on the published graph | **>900** | s | did not finish within the budget; not on the production path |
-| peak memory after OWL 2 RL attempt | **1521** | MB |  |
-| full-record streaming assessment | **7.0** | min | exit 0; no graph is built on this path |
+| peak memory after closure | **688** | MB |  |
+| SHACL validation (advanced mode) | **7021.3** | s | conforms=False, 4,646 violation(s) |
+| SHACL validation | **117.0** | min |  |
+| peak memory after SHACL | **1586** | MB |  |
+| end-to-end on the published graph | **118.1** | min | parse + closure + validation |
+| full-record streaming assessment | **4.4** | min | exit 0; no graph is built on this path |
 
 
 **audit.md**
 
-- checks: **314**
-- passed: **273**
-- failed: **4**
+- checks: **346**
+- passed: **298**
+- failed: **0**
 - warnings: 1
-- computed but not quoted: 36
+- computed but not quoted: 47
 - skipped: 0
 
 
