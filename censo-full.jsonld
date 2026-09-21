@@ -1,81 +1,82 @@
 [
   {
-    "@id": "_:n14cd88aa79f24b73a0b51eed76fb855ab22",
+    "@id": "https://w3id.org/censo/Regulation",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://w3id.org/censo/Exceedance"
-      }
-    ],
-    "http://www.w3.org/2002/07/owl#intersectionOf": [
-      {
-        "@list": [
-          {
-            "@id": "http://www.w3.org/ns/sosa/Observation"
-          },
-          {
-            "@id": "_:n14cd88aa79f24b73a0b51eed76fb855ab23"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "@id": "_:n14cd88aa79f24b73a0b51eed76fb855ab23",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Restriction"
-    ],
-    "http://www.w3.org/2002/07/owl#onProperty": [
-      {
-        "@id": "https://w3id.org/censo/exceeds"
-      }
-    ],
-    "http://www.w3.org/2002/07/owl#someValuesFrom": [
-      {
-        "@id": "https://w3id.org/censo/Threshold"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/limitOfQuantification",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#DatatypeProperty",
-      "http://www.w3.org/2002/07/owl#FunctionalProperty"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "Lowest concentration measurable with stated accuracy and precision."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://w3id.org/censo/AnalyticalMethod"
+        "@value": "A dated, versioned legal instrument. Thresholds must cite one, because they change."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "limit of quantification (LOQ)"
+        "@value": "Regulation"
       }
     ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
       {
-        "@id": "http://www.w3.org/2001/XMLSchema#decimal"
+        "@id": "http://www.w3.org/ns/prov#Entity"
       }
     ]
   },
   {
-    "@id": "https://w3id.org/censo/reg/definesThreshold",
+    "@id": "https://w3id.org/censo/appliesToAnalyte",
     "@type": [
       "http://www.w3.org/2002/07/owl#ObjectProperty"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "Links a package to the thresholds it establishes. The inverse direction (threshold to package) goes through censo:definedBy."
+        "@value": "The substance constrained. Group thresholds use cereg:appliesToGroup instead."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/censo/Threshold"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "applies to analyte"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://w3id.org/censo/Analyte"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/LimitWithinUncertaintyBand",
+    "@type": [
+      "https://w3id.org/censo/AssessmentFlag"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "A censored result whose quantification limit clears the\nstandard, T − U < LOQ ≤ T. Article 3(3b) compares the limit with the standard\nas a point, and the verdict is Compliant; a measured value at the same level\nwould be PossibleExceedance. The flag keeps that difference visible without\nmaking the metrological reading the legal one."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "limit within the uncertainty band"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/reg/transposes",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "National package implementing a supranational one, e.g. YSKY transposing the EU EQS Directive. Divergences between the two are meaningful and queryable."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
@@ -86,17 +87,107 @@
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "defines threshold"
+        "@value": "transposes"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://w3id.org/censo/reg/RegulationPackage"
+      }
+    ]
+  },
+  {
+    "@id": "_:n9c2359741e844e67842041d1ef838e94b35",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/censo/Compliant"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "http://www.w3.org/ns/sosa/Observation"
+          },
+          {
+            "@id": "_:n9c2359741e844e67842041d1ef838e94b36"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:n9c2359741e844e67842041d1ef838e94b36",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/censo/belowThreshold"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
       {
         "@id": "https://w3id.org/censo/Threshold"
       }
     ]
   },
   {
-    "@id": "https://w3id.org/censo/atStation",
+    "@id": "https://w3id.org/censo/Exceedance",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Exceedance is established: it holds for every value consistent with the observation."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Exceedance"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/censo/ComplianceOutcome"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/reg/transcriptionStatus",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Whether a value has been verified against the primary legal\ntext. Machine-readable so that unverified values can be excluded from analysis\nrather than trusted by default."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/censo/Threshold"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "transcription status"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://w3id.org/censo/reg/TranscriptionStatus"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/definedBy",
     "@type": [
       "http://www.w3.org/2002/07/owl#FunctionalProperty",
       "http://www.w3.org/2002/07/owl#ObjectProperty"
@@ -104,7 +195,54 @@
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "Where the sample was taken."
+        "@value": "The legal instrument establishing the threshold. Mandatory: an uncited threshold cannot be defended."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/censo/Threshold"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "defined by"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://w3id.org/censo/Regulation"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/reg/CensoredResultRule",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "A way of comparing a censored result with a standard."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Censored result rule"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/duringCampaign",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#FunctionalProperty",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "The sampling campaign the observation belongs to; part of the observation's identity key."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
@@ -115,92 +253,52 @@
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "at station"
+        "@value": "during campaign"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
-        "@id": "http://www.w3.org/ns/sosa/FeatureOfInterest"
+        "@id": "https://w3id.org/censo/Campaign"
       }
     ]
   },
   {
-    "@id": "https://w3id.org/censo/ApplicabilityCondition",
+    "@id": "https://w3id.org/censo/reg/VerifiedAgainstPrimarySource",
+    "@type": [
+      "https://w3id.org/censo/reg/TranscriptionStatus"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "verified against primary source"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/reg/SubstanceGroup",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "A condition that must hold before a threshold may be applied to an observation."
+        "@value": "A set of analytes assessed collectively, e.g. 'pesticides total', 'sum of 24 PFAS'."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "Applicability condition"
+        "@value": "Substance group"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "http://www.w3.org/2004/02/skos/core#Concept"
       }
     ]
   },
   {
-    "@id": "https://w3id.org/censo/reportingYear",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#DatatypeProperty",
-      "http://www.w3.org/2002/07/owl#FunctionalProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "The year a campaign reports for, as data rather than as a\nsubstring of the campaign's identifier.\n\nWithout it a temporal question can only be answered by parsing an IRI, which is\nthe same defect this vocabulary objects to elsewhere: a fact that a reader can\nsee but a query cannot reach. Whether a finding holds in the most recent years\nor only in the archive is not a footnote to a compliance record --- it is what\nseparates a historical artefact from a live problem --- so the record has to be\nable to answer it.\n\nFunctional: a campaign reports for exactly one year."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://w3id.org/censo/Campaign"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "reporting year"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "http://www.w3.org/2001/XMLSchema#gYear"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/reg/jurisdiction",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#ObjectProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "The legal territory in which the package applies (ISO 3166 code or 'EU')."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://w3id.org/censo/reg/RegulationPackage"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "jurisdiction"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "https://w3id.org/censo/reg/Jurisdiction"
-      }
-    ]
-  },
-  {
-    "@id": "http://www.w3.org/ns/sosa/FeatureOfInterest",
+    "@id": "http://www.w3.org/ns/sosa/ObservableProperty",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
@@ -213,25 +311,93 @@
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "Feature of interest"
+        "@value": "Observable property"
       }
     ]
   },
   {
-    "@id": "http://www.w3.org/2004/02/skos/core#definition",
+    "@id": "https://w3id.org/censo/RegulatoryDefaultUncertainty",
     "@type": [
-      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+      "https://w3id.org/censo/UncertaintySource"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "Reused from SKOS; declared here only so that this standalone distribution is self-describing. Its domain and range are SKOS's to state, not ours."
+        "@value": "The largest uncertainty the law permits a method to have, applied because the record reports none."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "Definition"
+        "@value": "regulation package default"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/resultUpperBound",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "http://www.w3.org/2002/07/owl#FunctionalProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Largest concentration consistent with the observation; the LOD when censored."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "http://www.w3.org/ns/sosa/Observation"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "result upper bound"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#decimal"
+      }
+    ]
+  },
+  {
+    "@id": "_:n9c2359741e844e67842041d1ef838e94b31",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/censo/PossibleExceedance"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "http://www.w3.org/ns/sosa/Observation"
+          },
+          {
+            "@id": "_:n9c2359741e844e67842041d1ef838e94b32"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:n9c2359741e844e67842041d1ef838e94b32",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/censo/possiblyExceeds"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/censo/Threshold"
       }
     ]
   },
@@ -254,6 +420,341 @@
     ]
   },
   {
+    "@id": "https://w3id.org/censo/covariateMinimum",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "http://www.w3.org/2002/07/owl#FunctionalProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Inclusive lower end of the covariate range over which the condition holds, in censo:covariateUnit. Annex I's cadmium class 2 is '40 to < 50 mg CaCO3/l': minimum 40."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/censo/ApplicabilityCondition"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "covariate minimum"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#decimal"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/expandedUncertainty",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "http://www.w3.org/2002/07/owl#FunctionalProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Half-width U (coverage factor k = 2) at the level of the\nthreshold, in the unit of the result, with which the verdict on this observation\nwas drawn. It relates to qudt:standardUncertainty u as U = k·u. A reported\nuncertainty stated at another concentration is not converted: it is replaced by\nthe regulatory default, and censo:uncertaintySource says so."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "http://www.w3.org/ns/sosa/Observation"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "expanded uncertainty"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#decimal"
+      }
+    ]
+  },
+  {
+    "@id": "http://www.w3.org/2004/02/skos/core#Concept",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Reused from SKOS; declared here only so that this standalone distribution is self-describing."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Concept"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/resultLowerBound",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "http://www.w3.org/2002/07/owl#FunctionalProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Smallest concentration consistent with the observation; 0 when censored."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "http://www.w3.org/ns/sosa/Observation"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "result lower bound"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#decimal"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#seeAlso": [
+      {
+        "@id": "https://www.w3.org/TR/xmlschema11-2/#decimal"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/requiresCovariate",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "An observable property that must be co-measured for the condition to be evaluable."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/censo/ApplicabilityCondition"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "requires covariate"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/ns/sosa/ObservableProperty"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/AssessmentFlag",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "A verdict-neutral annotation on an assessment."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Assessment flag"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/hasAnalyte",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#FunctionalProperty",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "The substance this observation is about; exactly one."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "http://www.w3.org/ns/sosa/Observation"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "has analyte"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://w3id.org/censo/Analyte"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/reg/ToxicEquivalentSum",
+    "@type": [
+      "https://w3id.org/censo/reg/AggregationFunction"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Potency-weighted sum, as used for dioxin-like compounds."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "toxic equivalent sum"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/limitDefinition",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "How the source defines the limit it reports, in its own\nwords -- a method detection level, a laboratory reporting level, a practical\nquantitation limit. Definitions differ (a multiple of a blank standard\ndeviation, a signal-to-noise ratio, the lowest calibration standard) and are\nnot converted into one another. The verdict does not depend on it: the upper\nbound of a censored result is the limit reported, whatever its definition. What\nit makes visible is a definition changing at one station."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/censo/AnalyticalMethod"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "limit definition"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/limitUnit",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#FunctionalProperty",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Unit of LOD and LOQ. Mandatory: a bare limit is not comparable to anything."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/censo/AnalyticalMethod"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "limit unit"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://qudt.org/schema/qudt/Unit"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/thresholdValue",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "http://www.w3.org/2002/07/owl#FunctionalProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "The numeric limit, meaningful only with its unit and applicability conditions."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/censo/Threshold"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "threshold value"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#decimal"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/reg/TranscribedFromSecondarySource",
+    "@type": [
+      "https://w3id.org/censo/reg/TranscriptionStatus"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Taken from a project spreadsheet, report or database rather than the legal text. Treat as provisional."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "transcribed from secondary source"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/reg/aggregationFunction",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Function used to combine group members, e.g. sum for the 24-PFAS standard."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/censo/reg/GroupThreshold"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "aggregation function"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://w3id.org/censo/reg/AggregationFunction"
+      }
+    ]
+  },
+  {
     "@id": "https://w3id.org/censo/",
     "@type": [
       "http://www.w3.org/2002/07/owl#Ontology"
@@ -266,7 +767,7 @@
     ],
     "http://purl.org/dc/terms/creator": [
       {
-        "@id": "_:n14cd88aa79f24b73a0b51eed76fb855ab1"
+        "@id": "_:n9c2359741e844e67842041d1ef838e94b1"
       }
     ],
     "http://purl.org/dc/terms/description": [
@@ -315,23 +816,628 @@
     ],
     "http://www.w3.org/2002/07/owl#versionIRI": [
       {
-        "@id": "https://w3id.org/censo/2.3.0"
+        "@id": "https://w3id.org/censo/2.4.0"
       }
     ],
     "http://www.w3.org/2002/07/owl#versionInfo": [
       {
-        "@value": "2.3.0"
+        "@value": "2.4.0"
       }
     ]
   },
   {
-    "@id": "_:n14cd88aa79f24b73a0b51eed76fb855ab1",
+    "@id": "_:n9c2359741e844e67842041d1ef838e94b1",
     "@type": [
       "http://xmlns.com/foaf/0.1/Person"
     ],
     "http://xmlns.com/foaf/0.1/name": [
       {
         "@value": "Recep Can Altınbağ"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/AnalyticalMethod",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "A procedure determining the concentration of an analyte,\ncharacterised by a limit of detection and a limit of quantification. The limits\nbelong to the METHOD, not to the substance: the same analyte may be censored at\none laboratory and quantified at another. Attaching limits to the analyte — the\ncommon shortcut — makes cross-laboratory comparison unsound."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Analytical method"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "http://www.w3.org/ns/sosa/Procedure"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "A sosa:Procedure with a detection limit."
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/DetectedObservation",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "The analyte was found, whether or not it could be quantified."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Detected observation"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#disjointWith": [
+      {
+        "@id": "https://w3id.org/censo/CensoredObservation"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/EstimatedObservation",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Detected, but between LOD and LOQ, so the reported magnitude\nis indicative only. Reporting it as a point estimate overstates what the method\nsupports. Datasets frequently contain such values presented as if quantified.\n\nDECLARED AND NEVER POPULATED FROM WISE-6, which is a finding rather than an\noversight. The release has one below-limit flag and no field distinguishing\n\"sought and not found\" from \"found and not quantifiable\", so both arrive as\ncenso:CensoredObservation and this class stays empty. The vocabulary can carry\nthe distinction; this record cannot supply it.\n\nPOPULATED FROM A RECORD THAT CAN SUPPLY IT. The US Water Quality Portal\nrecords a detection condition on each result, and a laboratory comment where\nthe condition is left blank; derived/abox/censo-wqp.ttl carries every estimated\nresult of a California slice (scripts/31_wqp_estimated.py). No result there\ncarries both limits, so the closed interval [LOD, LOQ] is written as far as the\nrecord supplies it.\n\nAND NOT THE HOME FOR AN UNFLAGGED MEAN BELOW ITS OWN LIMIT. Waterbase contains\nannual means reported as quantified with a value below their quantification\nlimit. Until 2.4.0 they were censo:BoundNotEstablished, read as a record\ncontradicting itself. Directive 2009/90/EC, Article 5(2), settles what they are:\n\"where a calculated mean value ... is below the limits of quantification, the\nvalue shall be referred to as 'less than limit of quantification'\". They are\ncensored results bounded by the limit, typed censo:CensoredObservation and\nflagged censo:MeanBelowOwnLimit -- not estimated, because nothing in the record\nsays the substance was detected."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Estimated observation"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "http://www.w3.org/ns/sosa/Observation"
+      },
+      {
+        "@id": "https://w3id.org/censo/AssessedObservation"
+      },
+      {
+        "@id": "https://w3id.org/censo/DetectedObservation"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/reg/appliesToGroup",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "The substance group whose aggregate the threshold constrains."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/censo/reg/GroupThreshold"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "applies to group"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://w3id.org/censo/reg/SubstanceGroup"
+      }
+    ]
+  },
+  {
+    "@id": "http://www.w3.org/ns/sosa/Procedure",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Reused from SOSA; declared here only so that this standalone distribution is self-describing."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Procedure"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/PreconditionUnmet",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Case (c): a required applicability condition is not satisfied."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Precondition unmet"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/censo/IndeterminateCompliance"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/conditionScreened",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "The condition was NOT evaluated, and the verdict holds\nanyway because it is the same for every value the condition could take. That is\na screening step, and it is recorded as one: censo:conditionSatisfied would\nclaim the record supplies what the condition needs, which it does not.\n\nThe case this exists for is the first tier of the Commission's guidance on\nmetal standards: a bioavailable concentration cannot exceed the dissolved one,\nso a dissolved result that clears the bioavailable standard clears it whatever\nthe bioavailability model would say, and a result below a quantification limit\nabove the standard is set aside by Article 3(3b) either way. A reader can ask\nthe graph which verdicts rest on a screen rather than on an evaluated\ncondition, and the rule layer stops short of censo:PreconditionUnmet for\nexactly these."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "http://www.w3.org/ns/sosa/Observation"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "condition screened"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://w3id.org/censo/ApplicabilityCondition"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/UncertaintySource",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Where the uncertainty a verdict was drawn with came from."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Uncertainty source"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/thresholdUnit",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#FunctionalProperty",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Unit of the threshold; must be commensurable with the observation unit before comparison."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/censo/Threshold"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "threshold unit"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://qudt.org/schema/qudt/Unit"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/ComplianceOutcome",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "The verdict of comparing an observation against a threshold.\nTHREE-valued: the standard is met, it is not met, or compliance cannot be\ndetermined. The three are what the Directive itself admits, and the third is\nwhat closed-world models cannot express. The reason a verdict cannot be\ndetermined is carried by the subclasses of IndeterminateCompliance rather than\nby a fourth top value, which would assert a distinction the Directive does not\nmake."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Compliance outcome"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/MeanBelowOwnLimit",
+    "@type": [
+      "https://w3id.org/censo/AssessmentFlag"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Reported as quantified with a value below its quantification limit, and read as a censored result under Directive 2009/90/EC, Article 5(2). The reported number is kept as censo:reportedValue."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "unflagged mean below its own limit"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/Campaign",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "A bounded sampling exercise. Making it explicit lets the same station be compared across time and prevents campaigns being conflated."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Sampling campaign"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "http://www.w3.org/ns/prov#Activity"
+      }
+    ]
+  },
+  {
+    "@id": "http://www.w3.org/ns/sosa/FeatureOfInterest",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Reused from SOSA; declared here only so that this standalone distribution is self-describing."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Feature of interest"
+      }
+    ]
+  },
+  {
+    "@id": "http://www.w3.org/ns/sosa/Observation",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Reused from SOSA; declared here only so that this standalone distribution is self-describing."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Observation"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/reg/legalReference",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Citation as published, e.g. 'OJ L 348, 24.12.2008' or 'Resmî Gazete 28483'."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/censo/reg/RegulationPackage"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "legal reference"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/assessableAgainst",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Materialised when EVERY condition the threshold requires is\nsatisfied for this observation. Only then may a verdict be drawn. Universal\nquantification over a materialised set is a closed-world check, so it lives in\nSHACL, not in OWL."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "http://www.w3.org/ns/sosa/Observation"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "assessable against"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://w3id.org/censo/Threshold"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/reg/PointComparison",
+    "@type": [
+      "https://w3id.org/censo/reg/CensoredResultRule"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "The limit is compared with the standard as a point: Compliant\nif it does not exceed it, MethodInsufficient if it does. This is Article 3(3b)\nof Directive 2008/105/EC, and the EU package's rule."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "point comparison"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/Compliant",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Compliance is established: it holds for every value consistent with the observation."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Compliant"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/censo/ComplianceOutcome"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/possiblyExceeds",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Materialised when resultLowerBound <= thresholdValue < resultUpperBound: the interval straddles the limit."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "http://www.w3.org/ns/sosa/Observation"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "possibly exceeds"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://w3id.org/censo/Threshold"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": [
+      {
+        "@id": "https://w3id.org/censo/assessableAgainst"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#propertyDisjointWith": [
+      {
+        "@id": "https://w3id.org/censo/belowThreshold"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/PossibleExceedance",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "The interval straddles the threshold; the measurement\ncannot decide. A subclass of IndeterminateCompliance recording that the reason\nis the width of the interval, not a defect of the record: unlike the other\nthree, this observation was measured, reported and assessable, and the method\nstill could not answer the question."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Possible exceedance"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/censo/IndeterminateCompliance"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/reg/Unverified",
+    "@type": [
+      "https://w3id.org/censo/reg/TranscriptionStatus"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "unverified"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/IndeterminateCompliance",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "No compliance statement is supportable. The third of the\nthree outcomes the Directive admits, and the only one a two-valued schema has\nnowhere to put. It is ABSTRACT in practice: every instance carries one of the\nsubclasses below, which record WHY no statement is supportable —\n\n(a) NoThresholdDefined  — the regulation sets no limit for this analyte here;\n(b) MethodInsufficient  — the observation is censored and the method's LOQ\n    exceeds the threshold, so compliance cannot be demonstrated even in\n    principle;\n(c) PreconditionUnmet   — a precondition is unmet: unknown fraction, missing\n    bioavailability covariates, unknown hardness class;\n(d) PossibleExceedance  — the result was measured and assessable, and its\n    interval straddles the limit, so the method cannot decide either way;\n(e) BoundNotEstablished — the record states no bound to compare at all;\n(f) CensoredAmbiguous   — censored with the threshold inside [0, LOD], the\n    narrower case at the DETECTION limit, which no monitoring release states.\n\nCase (b) is the sharpest: a laboratory can report \"not detected\" for a substance\nwhose LOQ is a hundredfold above the legal limit, and a closed-world system\nrecords that as compliance.\n\nPRECEDENCE. A censored result whose LOQ exceeds the threshold has an interval\nthat straddles it too, so (b) and (d) both describe it. Article 3(3b) is\ndecisive — the result \"shall not be considered\" — and such an observation is\nrecorded under MethodInsufficient. This is a rule-layer priority and NOT an\nowl:disjointWith axiom between the two: the same observation may legitimately be\nMethodInsufficient against one jurisdiction's standard and PossibleExceedance\nagainst another's, and class-level disjointness would forbid the two-regulation\nassessment this vocabulary exists to support. Exclusivity lives where it always\nhas, on the comparison properties, per observation-threshold pair.\n\nNOTE ON INFERENCE. This class cannot be defined as \"neither of the other two\",\nbecause under the open-world assumption an unasserted property is not a false\none. It is materialised under a locally closed world; see censo-shapes.ttl."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Indeterminate compliance"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/censo/ComplianceOutcome"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#example": [
+      {
+        "@language": "en",
+        "@value": "Imidacloprid measured by a method quantifying at 2.065 µg/L against an EU annual-average standard of 0.0068 µg/L: no result the method could return would decide compliance."
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/UncertaintyAboveLegalMaximum",
+    "@type": [
+      "https://w3id.org/censo/AssessmentFlag"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "A reported expanded uncertainty above 0.5 T: the reported value is used, and the method fails Directive 2009/90/EC, Article 4(1)."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "reported uncertainty above the legal maximum"
+      }
+    ]
+  },
+  {
+    "@id": "http://www.w3.org/ns/prov#Entity",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Reused from PROV-O; declared here only so that this standalone distribution is self-describing."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Entity"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/limitOfQuantification",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "http://www.w3.org/2002/07/owl#FunctionalProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Lowest concentration measurable with stated accuracy and precision."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/censo/AnalyticalMethod"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "limit of quantification (LOQ)"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#decimal"
+      }
+    ]
+  },
+  {
+    "@id": "_:n9c2359741e844e67842041d1ef838e94b18",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AllDisjointProperties"
+    ],
+    "http://www.w3.org/2002/07/owl#members": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/censo/exceeds"
+          },
+          {
+            "@id": "https://w3id.org/censo/possiblyExceeds"
+          },
+          {
+            "@id": "https://w3id.org/censo/belowThreshold"
+          }
+        ]
       }
     ]
   },
@@ -364,139 +1470,6 @@
     ]
   },
   {
-    "@id": "https://w3id.org/censo/requiresCovariate",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#ObjectProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "An observable property that must be co-measured for the condition to be evaluable."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://w3id.org/censo/ApplicabilityCondition"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "requires covariate"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "http://www.w3.org/ns/sosa/ObservableProperty"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/PreconditionUnmet",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Case (c): a required applicability condition is not satisfied."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Precondition unmet"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://w3id.org/censo/IndeterminateCompliance"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/resultUpperBound",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#DatatypeProperty",
-      "http://www.w3.org/2002/07/owl#FunctionalProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Largest concentration consistent with the observation; the LOD when censored."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "http://www.w3.org/ns/sosa/Observation"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "result upper bound"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "http://www.w3.org/2001/XMLSchema#decimal"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/reg/ArithmeticMean",
-    "@type": [
-      "https://w3id.org/censo/reg/AggregationFunction"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "arithmetic mean"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/NoThresholdDefined",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Case (a): the regulation sets no limit for this analyte in this matrix."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "No threshold defined"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://w3id.org/censo/IndeterminateCompliance"
-      }
-    ]
-  },
-  {
-    "@id": "http://www.w3.org/ns/sosa/Observation",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Reused from SOSA; declared here only so that this standalone distribution is self-describing."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Observation"
-      }
-    ]
-  },
-  {
     "@id": "https://w3id.org/censo/reg/GroupThreshold",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
@@ -520,109 +1493,61 @@
     ]
   },
   {
-    "@id": "https://w3id.org/censo/MaximumAllowableThreshold",
+    "@id": "http://www.w3.org/2004/02/skos/core#definition",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Reused from SKOS; declared here only so that this standalone distribution is self-describing. Its domain and range are SKOS's to state, not ours."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Definition"
+      }
+    ]
+  },
+  {
+    "@id": "http://www.w3.org/2004/02/skos/core#example",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Reused from SKOS; declared here only so that this standalone distribution is self-describing. Its domain and range are SKOS's to state, not ours."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Example"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/ApplicabilityCondition",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "Short-term limit (e.g. MAC-EQS); may be compared against a single observation."
+        "@value": "A condition that must hold before a threshold may be applied to an observation."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "Maximum allowable threshold"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://w3id.org/censo/Threshold"
+        "@value": "Applicability condition"
       }
     ]
   },
   {
-    "@id": "https://w3id.org/censo/UnresolvedObservation",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Made, but its detection status cannot be established, typically\nbecause the applicable LOD/LOQ for the analyte-method pair is unknown. Such\nobservations are structurally undecidable and must be excluded from inference\nrather than silently treated as quantified."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Unresolved observation"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "_:n14cd88aa79f24b73a0b51eed76fb855ab2"
-      },
-      {
-        "@id": "http://www.w3.org/ns/sosa/Observation"
-      },
-      {
-        "@id": "https://w3id.org/censo/AssessedObservation"
-      }
-    ]
-  },
-  {
-    "@id": "_:n14cd88aa79f24b73a0b51eed76fb855ab2",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2002/07/owl#complementOf": [
-      {
-        "@id": "_:n14cd88aa79f24b73a0b51eed76fb855ab3"
-      }
-    ]
-  },
-  {
-    "@id": "_:n14cd88aa79f24b73a0b51eed76fb855ab3",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Restriction"
-    ],
-    "http://www.w3.org/2002/07/owl#onProperty": [
-      {
-        "@id": "https://w3id.org/censo/assessableAgainst"
-      }
-    ],
-    "http://www.w3.org/2002/07/owl#someValuesFrom": [
-      {
-        "@id": "https://w3id.org/censo/Threshold"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/Analyte",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "A substance whose concentration is the observed property.\n\nAn Analyte is NOT the substance. It is a sosa:ObservableProperty — the\nconcentration OF a substance — while a chemical ontology's class is the\nsubstance itself, whose instances are molecules. The distinction decides how\nthe two are related: ontology/censo-alignment.ttl points each analyte at its\nChEBI class with rdfs:seeAlso, and reserves owl:sameAs for the relation that IS\nan identity, between two regulation packages' names for one observable\nproperty. That is what lets a European and a Turkish package resolve to one\nthing, which is the precondition for comparing them.\n\nThis comment used to claim the alignment was made with skos:exactMatch. It was\nmade with nothing at all: the only occurrence of skos:exactMatch in the whole\nontology was inside this sentence, and the comparison worked by joining CAS\nstrings in Python. The alignment module now exists and the audit checks that\nevery substance the dual-regulation analysis treats as co-regulated is\nreconciled by it."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Analyte"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "http://www.w3.org/ns/sosa/ObservableProperty"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/hasAnalyte",
+    "@id": "https://w3id.org/censo/reg/censoredResultRule",
     "@type": [
       "http://www.w3.org/2002/07/owl#FunctionalProperty",
       "http://www.w3.org/2002/07/owl#ObjectProperty"
@@ -630,156 +1555,23 @@
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "The substance this observation is about; exactly one."
+        "@value": "How the upper bound of a censored result is compared with a standard under this package."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
       {
-        "@id": "http://www.w3.org/ns/sosa/Observation"
+        "@id": "https://w3id.org/censo/reg/RegulationPackage"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "has analyte"
+        "@value": "censored result rule"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
-        "@id": "https://w3id.org/censo/Analyte"
-      }
-    ]
-  },
-  {
-    "@id": "_:n14cd88aa79f24b73a0b51eed76fb855ab26",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://w3id.org/censo/PossibleExceedance"
-      }
-    ],
-    "http://www.w3.org/2002/07/owl#intersectionOf": [
-      {
-        "@list": [
-          {
-            "@id": "http://www.w3.org/ns/sosa/Observation"
-          },
-          {
-            "@id": "_:n14cd88aa79f24b73a0b51eed76fb855ab27"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "@id": "_:n14cd88aa79f24b73a0b51eed76fb855ab27",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Restriction"
-    ],
-    "http://www.w3.org/2002/07/owl#onProperty": [
-      {
-        "@id": "https://w3id.org/censo/possiblyExceeds"
-      }
-    ],
-    "http://www.w3.org/2002/07/owl#someValuesFrom": [
-      {
-        "@id": "https://w3id.org/censo/Threshold"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/limitUnit",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#FunctionalProperty",
-      "http://www.w3.org/2002/07/owl#ObjectProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Unit of LOD and LOQ. Mandatory: a bare limit is not comparable to anything."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://w3id.org/censo/AnalyticalMethod"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "limit unit"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "http://qudt.org/schema/qudt/Unit"
-      }
-    ]
-  },
-  {
-    "@id": "_:n14cd88aa79f24b73a0b51eed76fb855ab17",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#AllDisjointClasses"
-    ],
-    "http://www.w3.org/2002/07/owl#members": [
-      {
-        "@list": [
-          {
-            "@id": "https://w3id.org/censo/CensoredObservation"
-          },
-          {
-            "@id": "https://w3id.org/censo/EstimatedObservation"
-          },
-          {
-            "@id": "https://w3id.org/censo/QuantifiedObservation"
-          },
-          {
-            "@id": "https://w3id.org/censo/UnresolvedObservation"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/PossibleExceedance",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "The interval straddles the threshold; the measurement\ncannot decide. A subclass of IndeterminateCompliance recording that the reason\nis the width of the interval, not a defect of the record: unlike the other\nthree, this observation was measured, reported and assessable, and the method\nstill could not answer the question."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Possible exceedance"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://w3id.org/censo/IndeterminateCompliance"
-      }
-    ]
-  },
-  {
-    "@id": "http://www.w3.org/ns/prov#hadPrimarySource",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#ObjectProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Reused from PROV-O; declared here only so that this standalone distribution is self-describing. Its domain and range are PROV-O's to state, not ours."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Had primary source"
+        "@id": "https://w3id.org/censo/reg/CensoredResultRule"
       }
     ]
   },
@@ -812,7 +1604,36 @@
     ]
   },
   {
-    "@id": "http://www.w3.org/ns/prov#Entity",
+    "@id": "https://w3id.org/censo/reportingYear",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "http://www.w3.org/2002/07/owl#FunctionalProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "The year a campaign reports for, as data rather than as a\nsubstring of the campaign's identifier.\n\nWithout it a temporal question can only be answered by parsing an IRI, which is\nthe same defect this vocabulary objects to elsewhere: a fact that a reader can\nsee but a query cannot reach. Whether a finding holds in the most recent years\nor only in the archive is not a footnote to a compliance record --- it is what\nseparates a historical artefact from a live problem --- so the record has to be\nable to answer it.\n\nFunctional: a campaign reports for exactly one year."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/censo/Campaign"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "reporting year"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#gYear"
+      }
+    ]
+  },
+  {
+    "@id": "http://www.w3.org/ns/prov#Activity",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
@@ -825,25 +1646,272 @@
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "Entity"
+        "@value": "Activity"
       }
     ]
   },
   {
-    "@id": "http://xmlns.com/foaf/0.1/Person",
+    "@id": "http://www.w3.org/2004/02/skos/core#scopeNote",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Reused from SKOS; declared here only so that this standalone distribution is self-describing. Its domain and range are SKOS's to state, not ours."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Scope note"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/reg/AggregationFunction",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "Reused from FOAF; declared here only so that this standalone distribution is self-describing."
+        "@value": "How the members of a substance group are combined into the single quantity the threshold applies to."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "Person"
+        "@value": "Aggregation function"
+      }
+    ]
+  },
+  {
+    "@id": "_:n9c2359741e844e67842041d1ef838e94b27",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/censo/Exceedance"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "http://www.w3.org/ns/sosa/Observation"
+          },
+          {
+            "@id": "_:n9c2359741e844e67842041d1ef838e94b28"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:n9c2359741e844e67842041d1ef838e94b28",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/censo/exceeds"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/censo/Threshold"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/reg/RegulationPackage",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "A self-contained set of thresholds attributable to one legal\ninstrument at one point in time. Assessment is always relative to a package;\nthere is no such thing as an unqualified compliance verdict.\n\nA package is a censo:Regulation -- the same legal instrument, at the granularity\nat which it is versioned, cited and swapped. Declaring them separate classes\nmade cereg:definesThreshold and censo:definedBy incoherent as inverses, which\nOOPS! reported as a critical pitfall and which is why an individual previously\nhad to be typed as both."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Regulation package"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "http://www.w3.org/ns/prov#Entity"
+      },
+      {
+        "@id": "https://w3id.org/censo/Regulation"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/FractionCondition",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "The threshold refers to one fraction of the water sample.\nUnder EU law the water standards for cadmium, lead, mercury and nickel refer to\nthe dissolved concentration, the phase passing a 0.45 µm filter (Directive\n2008/105/EC, Annex I, Part B, point 3). A result on another fraction is not a\nmeasurement of the quantity the standard is written on and supports no verdict.\n\nRETIRED AND RESTORED. An earlier version declared this class and retired it\nbecause no shipped graph exercised it: every metal assessment was\ncenso:PreconditionUnmet for want of hardness, so the fraction was never the\nquestion. Joining the hardness the record reports elsewhere made it the\nquestion, and the record answers it -- roughly half of the metal station-years\nin Waterbase are whole-water results."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Fraction condition"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/censo/ApplicabilityCondition"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/reg/TranscriptionStatus",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "How reliably a threshold value was copied from its legal source. Machine-readable so unverified values can be excluded from analysis rather than trusted by default."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Transcription status"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/atStation",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#FunctionalProperty",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Where the sample was taken."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "http://www.w3.org/ns/sosa/Observation"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "at station"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/ns/sosa/FeatureOfInterest"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/reg/defaultUncertaintyFactor",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "http://www.w3.org/2002/07/owl#FunctionalProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "U / T applied to a measured value when the record reports no\nuncertainty: 0.5 under Directive 2009/90/EC, Article 4(1), which permits an\nexpanded uncertainty of 50 % at the level of the standard. Zero is simple\nacceptance -- a point comparison with no band."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/censo/reg/RegulationPackage"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "default uncertainty factor"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#decimal"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/Analyte",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "A substance whose concentration is the observed property.\n\nAn Analyte is NOT the substance. It is a sosa:ObservableProperty — the\nconcentration OF a substance — while a chemical ontology's class is the\nsubstance itself, whose instances are molecules. The distinction decides how\nthe two are related: ontology/censo-alignment.ttl points each analyte at its\nChEBI class with rdfs:seeAlso, and reserves owl:sameAs for the relation that IS\nan identity, between two regulation packages' names for one observable\nproperty. That is what lets a European and a Turkish package resolve to one\nthing, which is the precondition for comparing them.\n\nThis comment used to claim the alignment was made with skos:exactMatch. It was\nmade with nothing at all: the only occurrence of skos:exactMatch in the whole\nontology was inside this sentence, and the comparison worked by joining CAS\nstrings in Python. The alignment module now exists and the audit checks that\nevery substance the dual-regulation analysis treats as co-regulated is\nreconciled by it."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Analyte"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "http://www.w3.org/ns/sosa/ObservableProperty"
+      }
+    ]
+  },
+  {
+    "@id": "_:n9c2359741e844e67842041d1ef838e94b10",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AllDisjointClasses"
+    ],
+    "http://www.w3.org/2002/07/owl#members": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/censo/reg/RegulationPackage"
+          },
+          {
+            "@id": "https://w3id.org/censo/reg/SubstanceGroup"
+          },
+          {
+            "@id": "https://w3id.org/censo/reg/AggregationFunction"
+          },
+          {
+            "@id": "https://w3id.org/censo/reg/TranscriptionStatus"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/Threshold",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "A concentration limit set by a regulation, together with the conditions under which it may lawfully be applied."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Threshold"
       }
     ]
   },
@@ -886,208 +1954,14 @@
     ]
   },
   {
-    "@id": "https://w3id.org/censo/assessableAgainst",
+    "@id": "https://w3id.org/censo/reg/definesThreshold",
     "@type": [
       "http://www.w3.org/2002/07/owl#ObjectProperty"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "Materialised when EVERY condition the threshold requires is\nsatisfied for this observation. Only then may a verdict be drawn. Universal\nquantification over a materialised set is a closed-world check, so it lives in\nSHACL, not in OWL."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "http://www.w3.org/ns/sosa/Observation"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "assessable against"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "https://w3id.org/censo/Threshold"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/censoringRecovered",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#DatatypeProperty",
-      "http://www.w3.org/2002/07/owl#FunctionalProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "True when the detection status was RECONSTRUCTED after the\nfact, typically because the source recorded a non-detection as 0 and the status\nwas recovered by joining the analyte's LOD. Such observations carry an extra\nassumption and must remain distinguishable from those whose censoring was\nrecorded at source."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "http://www.w3.org/ns/sosa/Observation"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "censoring recovered"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "http://www.w3.org/2001/XMLSchema#boolean"
-      }
-    ]
-  },
-  {
-    "@id": "http://www.w3.org/2004/02/skos/core#example",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#AnnotationProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Reused from SKOS; declared here only so that this standalone distribution is self-describing. Its domain and range are SKOS's to state, not ours."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Example"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/thresholdValue",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#DatatypeProperty",
-      "http://www.w3.org/2002/07/owl#FunctionalProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "The numeric limit, meaningful only with its unit and applicability conditions."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://w3id.org/censo/Threshold"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "threshold value"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "http://www.w3.org/2001/XMLSchema#decimal"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/reg/Unverified",
-    "@type": [
-      "https://w3id.org/censo/reg/TranscriptionStatus"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "unverified"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/reg/memberOfGroup",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#ObjectProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Membership in a collectively assessed set. Group membership is curated knowledge with provenance, not a spreadsheet column."
-      },
-      {
-        "@language": "en",
-        "@value": "The group standards this analyte counts towards. Emitted by\nevery package that declares a group threshold, because a sum standard whose\nmembership is not stated cannot be assessed: the question \"was all of it\nmeasured\" has no answer, and the answer is what decides between an aggregate\nverdict and censo:IndeterminateCompliance.\n\nThis replaces cereg:groupCoverage, which was declared as the FRACTION of a\ngroup actually measured, domained on a reified assessment, ranged xsd:double --\nand emitted by the package builder as the integer COUNT of declared members, on\nthe group. Three mismatches in one triple. The count it really carried is\nderivable from these memberships with COUNT, so the property is gone rather\nthan renamed, and the coverage the manuscript reports is an analysis result\nthat belongs in the analysis and not in the regulation package."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://w3id.org/censo/Analyte"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "member of group"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "https://w3id.org/censo/reg/SubstanceGroup"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/determinesAnalyte",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#ObjectProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "The analyte this method measures. One method may cover many analytes, each with its own limits, so limits are asserted per method-analyte pair."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://w3id.org/censo/AnalyticalMethod"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "determines analyte"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "https://w3id.org/censo/Analyte"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/reg/Jurisdiction",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "A legal territory in which a regulation package applies, identified by an ISO 3166 code or by 'EU'."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Jurisdiction"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/reg/sourceDocument",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#ObjectProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Dereferenceable URI of the legal text the values were transcribed from. Required: a threshold without a traceable source is not usable in a regulatory context."
+        "@value": "Links a package to the thresholds it establishes. The inverse direction (threshold to package) goes through censo:definedBy."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
@@ -1098,248 +1972,76 @@
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "source document"
+        "@value": "defines threshold"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "http://www.w3.org/ns/prov#Entity"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": [
-      {
-        "@id": "http://www.w3.org/ns/prov#hadPrimarySource"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/reg/Sum",
-    "@type": [
-      "https://w3id.org/censo/reg/AggregationFunction"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "sum"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/reg/TranscriptionStatus",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "How reliably a threshold value was copied from its legal source. Machine-readable so unverified values can be excluded from analysis rather than trusted by default."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Transcription status"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/MethodInsufficient",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Case (b): the observation is CENSORED and its\nlimitOfQuantification exceeds the thresholdValue, so Article 3(3b) of Directive\n2008/105/EC provides that the result \"shall not be considered\" for status\nassessment. The censoring condition is part of the case: a quantified result\nabove the standard is evidence of exceedance whatever the method's limit was, and\nis not set aside by this provision."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Method insufficient"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://w3id.org/censo/IndeterminateCompliance"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#scopeNote": [
-      {
-        "@language": "en",
-        "@value": "Article 3(3b) is written about the limit of\nQUANTIFICATION, and this class is scoped to it.\n\nA narrower case exists in principle: a threshold falling below the limit of\nDETECTION, where the measurement cannot even establish presence. An earlier\nversion declared censo:CensoredAmbiguous for it. No European monitoring release\nstates a detection limit -- WISE-6 carries procedureLOQValue and nothing else --\nso no row can be shown to be in that case, and a class no data can reach is a\npromise rather than a term. It is retired, on the same rule that retired\ncenso:ClassBoundaryThreshold and censo:FractionCondition, and the distinction is\nrecorded here instead: where a release does report a detection limit, the\nnarrower case is the one where the threshold falls below it, and it is strictly\ninside this class."
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/Compliant",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Compliance is established: it holds for every value consistent with the observation."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Compliant"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://w3id.org/censo/ComplianceOutcome"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/Exceedance",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Exceedance is established: it holds for every value consistent with the observation."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Exceedance"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://w3id.org/censo/ComplianceOutcome"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/DetectedObservation",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "The analyte was found, whether or not it could be quantified."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Detected observation"
-      }
-    ],
-    "http://www.w3.org/2002/07/owl#disjointWith": [
-      {
-        "@id": "https://w3id.org/censo/CensoredObservation"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/reg/AggregationFunction",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "How the members of a substance group are combined into the single quantity the threshold applies to."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Aggregation function"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/resultLowerBound",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#DatatypeProperty",
-      "http://www.w3.org/2002/07/owl#FunctionalProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Smallest concentration consistent with the observation; 0 when censored."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "http://www.w3.org/ns/sosa/Observation"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "result lower bound"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "http://www.w3.org/2001/XMLSchema#decimal"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#seeAlso": [
-      {
-        "@id": "https://www.w3.org/TR/xmlschema11-2/#decimal"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/MatrixCondition",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Restricts the threshold to a matrix: inland surface water, coastal water, biota, sediment."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Matrix condition"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://w3id.org/censo/ApplicabilityCondition"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/reg/transcriptionStatus",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#ObjectProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Whether a value has been verified against the primary legal\ntext. Machine-readable so that unverified values can be excluded from analysis\nrather than trusted by default."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
       {
         "@id": "https://w3id.org/censo/Threshold"
       }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/LimitAbovePerformanceCriterion",
+    "@type": [
+      "https://w3id.org/censo/AssessmentFlag"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "The method fails the performance criterion of Directive 2009/90/EC, Article 4(1), whatever the verdict."
+      }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "transcription status"
+        "@value": "limit of quantification above 30 % of the standard"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/casNumber",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Preferred join key across heterogeneous sources; more\nreliable than trade or trivial names.\n\nNOT owl:FunctionalProperty, and the correction is worth recording. It was\ndeclared functional, and the released EU package violates that on three\nentries, because Annex I names more than one registry number for a single\nregulated substance: diclofenac as the free acid (15307-86-5) and as the sodium\nsalt (15307-79-6), and likewise acetamiprid and imidacloprid. A regulatory\nentry is not a single chemical species, and the data were right.\n\nThe violation was invisible. A functional datatype property with two distinct\nliterals on one subject makes the ontology inconsistent under DL semantics, but\nOWL 2 RL derives owl:sameAs between the literals and stops there, so owlrl\nreports no owl:Nothing and the audit's package-consistency check passed on every\nrun. scripts/99_audit.py::check_functional_properties now looks directly."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/censo/Analyte"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "CAS registry number"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
-        "@id": "https://w3id.org/censo/reg/TranscriptionStatus"
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ]
+  },
+  {
+    "@id": "http://xmlns.com/foaf/0.1/Person",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Reused from FOAF; declared here only so that this standalone distribution is self-describing."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Person"
       }
     ]
   },
@@ -1385,82 +2087,203 @@
     ]
   },
   {
-    "@id": "https://w3id.org/censo/Campaign",
+    "@id": "_:n9c2359741e844e67842041d1ef838e94b22",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AllDisjointClasses"
+    ],
+    "http://www.w3.org/2002/07/owl#members": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/censo/CensoredObservation"
+          },
+          {
+            "@id": "https://w3id.org/censo/EstimatedObservation"
+          },
+          {
+            "@id": "https://w3id.org/censo/QuantifiedObservation"
+          },
+          {
+            "@id": "https://w3id.org/censo/UnresolvedObservation"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/CensoredObservation",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "A bounded sampling exercise. Making it explicit lets the same station be compared across time and prevents campaigns being conflated."
+        "@value": "The analyte was sought and the result was reported as below a\nreporting limit L. Asserts only that the true concentration lies in [0, L]. It\ndoes NOT assert absence, and storing such an observation as 0 destroys the\ndistinction and biases every derived aggregate downwards.\n\nWHICH LIMIT L IS, and why this comment used to say the wrong one. It said\n[0, LOD]. Everything that acts on this class uses the limit of QUANTIFICATION:\nthe rule in censo:MethodInsufficientRuleShape compares LOQ with the threshold,\nbecause Article 3(3b) of Directive 2008/105/EC is written on a result \"reported\nas less than the limit of quantification\"; and the WISE-6 flag this class is\npopulated from is a below-LOQ flag. Stated as LOD, the class would let a\nnon-detection with LOD <= T < LOQ be Compliant on its own interval and\nMethodInsufficient by the rule at the same time. L is the limit the result was\nreported against, and under the Directive that is the quantification limit.\n\nWHAT THIS CLASS THEREFORE CONTAINS that its name does not say. A concentration\nbetween LOD and LOQ was DETECTED and could not be quantified: an estimated\nvalue, censo:EstimatedObservation. WISE-6 gives it the same flag as a true\nnon-detection and no field separates them, so both arrive here. The vocabulary\ncan express the difference and this record cannot supply it -- which is the\npaper's own thesis turned on its own ABox, and the reason\ncenso:EstimatedObservation is declared and never populated."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "Sampling campaign"
+        "@value": "Censored observation"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
       {
-        "@id": "http://www.w3.org/ns/prov#Activity"
+        "@id": "_:n9c2359741e844e67842041d1ef838e94b4"
+      },
+      {
+        "@id": "_:n9c2359741e844e67842041d1ef838e94b5"
+      },
+      {
+        "@id": "http://www.w3.org/ns/sosa/Observation"
+      },
+      {
+        "@id": "https://w3id.org/censo/AssessedObservation"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "Observation whose result is reported as below the reporting limit of the method used, without asserting absence."
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#example": [
+      {
+        "@language": "en",
+        "@value": "Atrazine sought and reported below a quantification limit of 0.02 µg/L: the concentration lies in [0, 0.02], which is not the same claim as zero."
       }
     ]
   },
   {
-    "@id": "https://w3id.org/censo/reg/aggregationFunction",
+    "@id": "_:n9c2359741e844e67842041d1ef838e94b4",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#hasValue": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#decimal",
+        "@value": "0.0"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/censo/resultLowerBound"
+      }
+    ]
+  },
+  {
+    "@id": "_:n9c2359741e844e67842041d1ef838e94b5",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#complementOf": [
+      {
+        "@id": "_:n9c2359741e844e67842041d1ef838e94b6"
+      }
+    ]
+  },
+  {
+    "@id": "_:n9c2359741e844e67842041d1ef838e94b6",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/censo/exceeds"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/censo/Threshold"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/assessmentFlag",
     "@type": [
       "http://www.w3.org/2002/07/owl#ObjectProperty"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "Function used to combine group members, e.g. sum for the 24-PFAS standard."
+        "@value": "An annotation on an assessment that never changes its\nverdict. Flags carry what a legal reading and a metrological reading disagree\nabout, so that the verdict stays the Directive's and the disagreement stays\nqueryable."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
       {
-        "@id": "https://w3id.org/censo/reg/GroupThreshold"
+        "@id": "http://www.w3.org/ns/sosa/Observation"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "aggregation function"
+        "@value": "assessment flag"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
-        "@id": "https://w3id.org/censo/reg/AggregationFunction"
+        "@id": "https://w3id.org/censo/AssessmentFlag"
       }
     ]
   },
   {
-    "@id": "https://w3id.org/censo/QuantifiedObservation",
+    "@id": "https://w3id.org/censo/MethodInsufficient",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "Detected at or above the limit of quantification; the magnitude is usable."
+        "@value": "Case (b): the observation is CENSORED and its\nlimitOfQuantification exceeds the thresholdValue, so Article 3(3b) of Directive\n2008/105/EC provides that the result \"shall not be considered\" for status\nassessment. The censoring condition is part of the case: a quantified result\nabove the standard is evidence of exceedance whatever the method's limit was, and\nis not set aside by this provision."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "Quantified observation"
+        "@value": "Method insufficient"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
       {
-        "@id": "http://www.w3.org/ns/sosa/Observation"
+        "@id": "https://w3id.org/censo/IndeterminateCompliance"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#scopeNote": [
+      {
+        "@language": "en",
+        "@value": "Article 3(3b) is written about the limit of\nQUANTIFICATION, and this class is scoped to it.\n\nA narrower case exists in principle: a threshold falling below the limit of\nDETECTION, where the measurement cannot even establish presence. An earlier\nversion declared censo:CensoredAmbiguous for it. No European monitoring release\nstates a detection limit -- WISE-6 carries procedureLOQValue and nothing else --\nso no row can be shown to be in that case, and a class no data can reach is a\npromise rather than a term. It is retired, on the same rule that retired\ncenso:ClassBoundaryThreshold (censo:FractionCondition, retired by the same rule,\nwas restored in 2.4.0 once data reached it), and the distinction is\nrecorded here instead: where a release does report a detection limit, the\nnarrower case is the one where the threshold falls below it, and it is strictly\ninside this class."
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/reg/memberOfGroup",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Membership in a collectively assessed set. Group membership is curated knowledge with provenance, not a spreadsheet column."
       },
       {
-        "@id": "https://w3id.org/censo/AssessedObservation"
-      },
+        "@language": "en",
+        "@value": "The group standards this analyte counts towards. Emitted by\nevery package that declares a group threshold, because a sum standard whose\nmembership is not stated cannot be assessed: the question \"was all of it\nmeasured\" has no answer, and the answer is what decides between an aggregate\nverdict and censo:IndeterminateCompliance.\n\nThis replaces cereg:groupCoverage, which was declared as the FRACTION of a\ngroup actually measured, domained on a reified assessment, ranged xsd:double --\nand emitted by the package builder as the integer COUNT of declared members, on\nthe group. Three mismatches in one triple. The count it really carried is\nderivable from these memberships with COUNT, so the property is gone rather\nthan renamed, and the coverage the manuscript reports is an analysis result\nthat belongs in the analysis and not in the regulation package."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
       {
-        "@id": "https://w3id.org/censo/DetectedObservation"
+        "@id": "https://w3id.org/censo/Analyte"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "member of group"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://w3id.org/censo/reg/SubstanceGroup"
       }
     ]
   },
@@ -1498,265 +2321,32 @@
     ]
   },
   {
-    "@id": "https://w3id.org/censo/AnnualAverageThreshold",
+    "@id": "_:n9c2359741e844e67842041d1ef838e94b15",
     "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
+      "http://www.w3.org/2002/07/owl#AllDisjointClasses"
     ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Long-term limit (e.g. AA-EQS). Applies to a temporal mean, not\nto a single sample; comparing one grab sample against it is a category error that\nthis class exists to make visible."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Annual average threshold"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://w3id.org/censo/Threshold"
-      }
-    ]
-  },
-  {
-    "@id": "_:n14cd88aa79f24b73a0b51eed76fb855ab30",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://w3id.org/censo/Compliant"
-      }
-    ],
-    "http://www.w3.org/2002/07/owl#intersectionOf": [
+    "http://www.w3.org/2002/07/owl#members": [
       {
         "@list": [
           {
-            "@id": "http://www.w3.org/ns/sosa/Observation"
+            "@id": "https://w3id.org/censo/AnnualAverageThreshold"
           },
           {
-            "@id": "_:n14cd88aa79f24b73a0b51eed76fb855ab31"
+            "@id": "https://w3id.org/censo/MaximumAllowableThreshold"
           }
         ]
       }
     ]
   },
   {
-    "@id": "_:n14cd88aa79f24b73a0b51eed76fb855ab31",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Restriction"
-    ],
-    "http://www.w3.org/2002/07/owl#onProperty": [
-      {
-        "@id": "https://w3id.org/censo/belowThreshold"
-      }
-    ],
-    "http://www.w3.org/2002/07/owl#someValuesFrom": [
-      {
-        "@id": "https://w3id.org/censo/Threshold"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/reg/TranscribedFromSecondarySource",
-    "@type": [
-      "https://w3id.org/censo/reg/TranscriptionStatus"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Taken from a project spreadsheet, report or database rather than the legal text. Treat as provisional."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "transcribed from secondary source"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/EstimatedObservation",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Detected, but between LOD and LOQ, so the reported magnitude\nis indicative only. Reporting it as a point estimate overstates what the method\nsupports. Datasets frequently contain such values presented as if quantified."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Estimated observation"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "http://www.w3.org/ns/sosa/Observation"
-      },
-      {
-        "@id": "https://w3id.org/censo/AssessedObservation"
-      },
-      {
-        "@id": "https://w3id.org/censo/DetectedObservation"
-      }
-    ]
-  },
-  {
-    "@id": "http://www.w3.org/2004/02/skos/core#scopeNote",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#AnnotationProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Reused from SKOS; declared here only so that this standalone distribution is self-describing. Its domain and range are SKOS's to state, not ours."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Scope note"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/ComplianceOutcome",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "The verdict of comparing an observation against a threshold.\nTHREE-valued: the standard is met, it is not met, or compliance cannot be\ndetermined. The three are what the Directive itself admits, and the third is\nwhat closed-world models cannot express. The reason a verdict cannot be\ndetermined is carried by the subclasses of IndeterminateCompliance rather than\nby a fourth top value, which would assert a distinction the Directive does not\nmake."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Compliance outcome"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/reg/VerifiedAgainstPrimarySource",
-    "@type": [
-      "https://w3id.org/censo/reg/TranscriptionStatus"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "verified against primary source"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/reg/transposes",
+    "@id": "https://w3id.org/censo/requiresCondition",
     "@type": [
       "http://www.w3.org/2002/07/owl#ObjectProperty"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "National package implementing a supranational one, e.g. YSKY transposing the EU EQS Directive. Divergences between the two are meaningful and queryable."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://w3id.org/censo/reg/RegulationPackage"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "transposes"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "https://w3id.org/censo/reg/RegulationPackage"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/possiblyExceeds",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#ObjectProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Materialised when resultLowerBound <= thresholdValue < resultUpperBound: the interval straddles the limit."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "http://www.w3.org/ns/sosa/Observation"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "possibly exceeds"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "https://w3id.org/censo/Threshold"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": [
-      {
-        "@id": "https://w3id.org/censo/assessableAgainst"
-      }
-    ],
-    "http://www.w3.org/2002/07/owl#propertyDisjointWith": [
-      {
-        "@id": "https://w3id.org/censo/belowThreshold"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/reg/appliesToGroup",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#ObjectProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "The substance group whose aggregate the threshold constrains."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://w3id.org/censo/reg/GroupThreshold"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "applies to group"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "https://w3id.org/censo/reg/SubstanceGroup"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/appliesToAnalyte",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#ObjectProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "The substance constrained. Group thresholds use cereg:appliesToGroup instead."
+        "@value": "A precondition of the threshold. Unmet preconditions yield no verdict, not a default pass."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
@@ -1767,17 +2357,17 @@
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "applies to analyte"
+        "@value": "requires condition"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
-        "@id": "https://w3id.org/censo/Analyte"
+        "@id": "https://w3id.org/censo/ApplicabilityCondition"
       }
     ]
   },
   {
-    "@id": "https://w3id.org/censo/limitOfDetection",
+    "@id": "https://w3id.org/censo/censoringRecovered",
     "@type": [
       "http://www.w3.org/2002/07/owl#DatatypeProperty",
       "http://www.w3.org/2002/07/owl#FunctionalProperty"
@@ -1785,23 +2375,110 @@
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "Lowest concentration reliably distinguishable from a blank.\nBelow it, presence can be neither asserted nor denied. Expressed in\ncenso:limitUnit."
+        "@value": "True when the detection status was RECONSTRUCTED after the\nfact, typically because the source recorded a non-detection as 0 and the status\nwas recovered by joining the analyte's LOD. Such observations carry an extra\nassumption and must remain distinguishable from those whose censoring was\nrecorded at source."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
       {
-        "@id": "https://w3id.org/censo/AnalyticalMethod"
+        "@id": "http://www.w3.org/ns/sosa/Observation"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "limit of detection (LOD)"
+        "@value": "censoring recovered"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
-        "@id": "http://www.w3.org/2001/XMLSchema#decimal"
+        "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ]
+  },
+  {
+    "@id": "http://www.w3.org/ns/prov#hadPrimarySource",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Reused from PROV-O; declared here only so that this standalone distribution is self-describing. Its domain and range are PROV-O's to state, not ours."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Had primary source"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/MatrixCondition",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Restricts the threshold to a matrix: inland surface water, coastal water, biota, sediment."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Matrix condition"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/censo/ApplicabilityCondition"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/BoundNotEstablished",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Case (e): the record establishes no bound to compare against\nthe threshold. Either nothing says whether the number is a measurement — neither\na censoring flag nor a limit is reported, so no interval can be built — or the\nresult is flagged as below a limit the record does not state. The distinction from\nMethodInsufficient matters: there the bound is known and known to be too wide,\nhere there is no bound at all, and the two call for different repairs."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Bound not established"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/censo/IndeterminateCompliance"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/MaximumAllowableThreshold",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Short-term limit (e.g. MAC-EQS); may be compared against a single observation."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Maximum allowable threshold"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/censo/Threshold"
       }
     ]
   },
@@ -1818,20 +2495,139 @@
     ]
   },
   {
-    "@id": "http://www.w3.org/ns/prov#Activity",
+    "@id": "https://w3id.org/censo/reg/jurisdiction",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "The legal territory in which the package applies (ISO 3166 code or 'EU')."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/censo/reg/RegulationPackage"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "jurisdiction"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://w3id.org/censo/reg/Jurisdiction"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/uncertaintySource",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#FunctionalProperty",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Whether censo:expandedUncertainty was reported with the result or supplied as the regulation package's default."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "http://www.w3.org/ns/sosa/Observation"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "uncertainty source"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://w3id.org/censo/UncertaintySource"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/BioavailabilityCondition",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "Reused from PROV-O; declared here only so that this standalone distribution is self-describing."
+        "@value": "The threshold is a bioavailable concentration (as for nickel\nand lead under EU law) and requires hardness, dissolved organic carbon and pH\nfor normalisation.\n\nNOT \"no statement is possible\", which is what this comment said until 2.4.0.\nThe bioavailable concentration cannot exceed the dissolved one, so a dissolved\nresult that clears the standard clears it for the bioavailable fraction too:\nthe first tier of CIS Guidance No. 38 (2019), section 2.2.1, which compares the\ndissolved annual average directly with the bioavailable standard. Only that\npass is decided without the covariates -- an apparent exceedance needs a\nbioavailability model and stays censo:PreconditionUnmet -- and the rule layer\nstates the exception in censo:PreconditionRuleShape."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "Activity"
+        "@value": "Bioavailability condition"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/censo/ApplicabilityCondition"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/determinesAnalyte",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "The analyte this method measures. One method may cover many analytes, each with its own limits, so limits are asserted per method-analyte pair."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/censo/AnalyticalMethod"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "determines analyte"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://w3id.org/censo/Analyte"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/QuantifiedObservation",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Detected at or above the limit of quantification; the magnitude is usable."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Quantified observation"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "http://www.w3.org/ns/sosa/Observation"
+      },
+      {
+        "@id": "https://w3id.org/censo/AssessedObservation"
+      },
+      {
+        "@id": "https://w3id.org/censo/DetectedObservation"
       }
     ]
   },
@@ -1886,113 +2682,30 @@
     ],
     "http://www.w3.org/2002/07/owl#versionIRI": [
       {
-        "@id": "https://w3id.org/censo/reg/2.1.0"
+        "@id": "https://w3id.org/censo/reg/2.4.0"
       }
     ],
     "http://www.w3.org/2002/07/owl#versionInfo": [
       {
-        "@value": "2.3.0"
+        "@value": "2.4.0"
       }
     ]
   },
   {
-    "@id": "https://w3id.org/censo/reg/RegulationPackage",
+    "@id": "https://w3id.org/censo/HardnessClassCondition",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "A self-contained set of thresholds attributable to one legal\ninstrument at one point in time. Assessment is always relative to a package;\nthere is no such thing as an unqualified compliance verdict.\n\nA package is a censo:Regulation -- the same legal instrument, at the granularity\nat which it is versioned, cited and swapped. Declaring them separate classes\nmade cereg:definesThreshold and censo:definedBy incoherent as inverses, which\nOOPS! reported as a critical pitfall and which is why an individual previously\nhad to be typed as both."
+        "@value": "The threshold varies by water hardness class, as for cadmium.\nWithout a hardness measurement the applicable class — and therefore the\napplicable threshold — is unknown.\n\nA package states one threshold per class, each requiring its own condition\nindividual with the class's covariate range (censo:covariateMinimum,\ncenso:covariateMaximum). An observation satisfies the condition of the class its\nwater falls in, and is assessed against that threshold alone. Monitoring\nreleases rarely report hardness on the measurement row; they often report it,\nor calcium and magnesium, on rows of their own at the same station and time,\nand that join is what supplies the class."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "Regulation package"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "http://www.w3.org/ns/prov#Entity"
-      },
-      {
-        "@id": "https://w3id.org/censo/Regulation"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/requiresCondition",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#ObjectProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "A precondition of the threshold. Unmet preconditions yield no verdict, not a default pass."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://w3id.org/censo/Threshold"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "requires condition"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "https://w3id.org/censo/ApplicabilityCondition"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/AnalyticalMethod",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "A procedure determining the concentration of an analyte,\ncharacterised by a limit of detection and a limit of quantification. The limits\nbelong to the METHOD, not to the substance: the same analyte may be censored at\none laboratory and quantified at another. Attaching limits to the analyte — the\ncommon shortcut — makes cross-laboratory comparison unsound."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Analytical method"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "http://www.w3.org/ns/sosa/Procedure"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "A sosa:Procedure with a detection limit."
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/BioavailabilityCondition",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "The threshold is a bioavailable concentration (as for nickel,\nlead, copper and zinc under EU EQS) and requires hardness, dissolved organic\ncarbon and pH for normalisation. Absent those covariates, no compliance\nstatement is possible."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Bioavailability condition"
+        "@value": "Hardness class condition"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
@@ -2002,158 +2715,55 @@
     ]
   },
   {
-    "@id": "_:n14cd88aa79f24b73a0b51eed76fb855ab13",
+    "@id": "https://w3id.org/censo/covariateMaximum",
     "@type": [
-      "http://www.w3.org/2002/07/owl#AllDisjointProperties"
-    ],
-    "http://www.w3.org/2002/07/owl#members": [
-      {
-        "@list": [
-          {
-            "@id": "https://w3id.org/censo/exceeds"
-          },
-          {
-            "@id": "https://w3id.org/censo/possiblyExceeds"
-          },
-          {
-            "@id": "https://w3id.org/censo/belowThreshold"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/duringCampaign",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#FunctionalProperty",
-      "http://www.w3.org/2002/07/owl#ObjectProperty"
+      "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "http://www.w3.org/2002/07/owl#FunctionalProperty"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "The sampling campaign the observation belongs to; part of the observation's identity key."
+        "@value": "Exclusive upper end of the covariate range over which the condition holds; absent for an open-ended class such as cadmium class 5, '≥ 200 mg CaCO3/l'."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
       {
-        "@id": "http://www.w3.org/ns/sosa/Observation"
+        "@id": "https://w3id.org/censo/ApplicabilityCondition"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "during campaign"
+        "@value": "covariate maximum"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
-        "@id": "https://w3id.org/censo/Campaign"
+        "@id": "http://www.w3.org/2001/XMLSchema#decimal"
       }
     ]
   },
   {
-    "@id": "https://w3id.org/censo/Threshold",
+    "@id": "https://w3id.org/censo/ReportedUncertainty",
     "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "A concentration limit set by a regulation, together with the conditions under which it may lawfully be applied."
-      }
+      "https://w3id.org/censo/UncertaintySource"
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "Threshold"
+        "@value": "reported with the result"
       }
     ]
   },
   {
-    "@id": "https://w3id.org/censo/CensoredObservation",
+    "@id": "https://w3id.org/censo/reg/ArithmeticMean",
     "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "The analyte was sought and not detected. Asserts only that the\ntrue concentration lies in [0, LOD]. It does NOT assert absence. Storing such an\nobservation as 0 destroys the distinction and biases every derived aggregate\ndownwards."
-      }
+      "https://w3id.org/censo/reg/AggregationFunction"
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "Censored observation"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "_:n14cd88aa79f24b73a0b51eed76fb855ab4"
-      },
-      {
-        "@id": "_:n14cd88aa79f24b73a0b51eed76fb855ab5"
-      },
-      {
-        "@id": "http://www.w3.org/ns/sosa/Observation"
-      },
-      {
-        "@id": "https://w3id.org/censo/AssessedObservation"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "Observation whose result is below the method's limit of detection."
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#example": [
-      {
-        "@language": "en",
-        "@value": "Atrazine sought and not detected by a method whose limit of detection is 0.02 µg/L: the concentration lies in [0, 0.02], which is not the same claim as zero."
-      }
-    ]
-  },
-  {
-    "@id": "_:n14cd88aa79f24b73a0b51eed76fb855ab4",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Restriction"
-    ],
-    "http://www.w3.org/2002/07/owl#hasValue": [
-      {
-        "@type": "http://www.w3.org/2001/XMLSchema#decimal",
-        "@value": "0.0"
-      }
-    ],
-    "http://www.w3.org/2002/07/owl#onProperty": [
-      {
-        "@id": "https://w3id.org/censo/resultLowerBound"
-      }
-    ]
-  },
-  {
-    "@id": "_:n14cd88aa79f24b73a0b51eed76fb855ab5",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2002/07/owl#complementOf": [
-      {
-        "@id": "_:n14cd88aa79f24b73a0b51eed76fb855ab6"
-      }
-    ]
-  },
-  {
-    "@id": "_:n14cd88aa79f24b73a0b51eed76fb855ab6",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Restriction"
-    ],
-    "http://www.w3.org/2002/07/owl#onProperty": [
-      {
-        "@id": "https://w3id.org/censo/exceeds"
-      }
-    ],
-    "http://www.w3.org/2002/07/owl#someValuesFrom": [
-      {
-        "@id": "https://w3id.org/censo/Threshold"
+        "@value": "arithmetic mean"
       }
     ]
   },
@@ -2186,192 +2796,20 @@
     ]
   },
   {
-    "@id": "https://w3id.org/censo/casNumber",
+    "@id": "https://w3id.org/censo/reg/GuardBanded",
     "@type": [
-      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+      "https://w3id.org/censo/reg/CensoredResultRule"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "Preferred join key across heterogeneous sources; more\nreliable than trade or trivial names.\n\nNOT owl:FunctionalProperty, and the correction is worth recording. It was\ndeclared functional, and the released EU package violates that on three\nentries, because Annex I names more than one registry number for a single\nregulated substance: diclofenac as the free acid (15307-86-5) and as the sodium\nsalt (15307-79-6), and likewise acetamiprid and imidacloprid. A regulatory\nentry is not a single chemical species, and the data were right.\n\nThe violation was invisible. A functional datatype property with two distinct\nliterals on one subject makes the ontology inconsistent under DL semantics, but\nOWL 2 RL derives owl:sameAs between the literals and stops there, so owlrl\nreports no owl:Nothing and the audit's package-consistency check passed on every\nrun. scripts/99_audit.py::check_functional_properties now looks directly."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://w3id.org/censo/Analyte"
+        "@value": "The uncertainty band applies to the limit as it does to a\nmeasured value, so a limit within U of the standard yields PossibleExceedance. A\nprecautionary reading in which a non-detection is never decided more strongly\nthan a measurement at the same level; not the Directive's."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "CAS registry number"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "http://www.w3.org/2001/XMLSchema#string"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/conditionSatisfied",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#ObjectProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Materialised by the rule layer when the observation demonstrably meets the condition."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "http://www.w3.org/ns/sosa/Observation"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "condition satisfied"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "https://w3id.org/censo/ApplicabilityCondition"
-      }
-    ]
-  },
-  {
-    "@id": "_:n14cd88aa79f24b73a0b51eed76fb855ab34",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#AllDisjointClasses"
-    ],
-    "http://www.w3.org/2002/07/owl#members": [
-      {
-        "@list": [
-          {
-            "@id": "https://w3id.org/censo/reg/RegulationPackage"
-          },
-          {
-            "@id": "https://w3id.org/censo/reg/SubstanceGroup"
-          },
-          {
-            "@id": "https://w3id.org/censo/reg/AggregationFunction"
-          },
-          {
-            "@id": "https://w3id.org/censo/reg/TranscriptionStatus"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/reg/legalReference",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#DatatypeProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Citation as published, e.g. 'OJ L 348, 24.12.2008' or 'Resmî Gazete 28483'."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://w3id.org/censo/reg/RegulationPackage"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "legal reference"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "http://www.w3.org/2001/XMLSchema#string"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/BoundNotEstablished",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Case (e): the record establishes no bound to compare against\nthe threshold. Either nothing says whether the number is a measurement — neither\na censoring flag nor a limit is reported, so no interval can be built — or the\nnumber contradicts the limit reported beside it. The distinction from\nMethodInsufficient matters: there the bound is known and known to be too wide,\nhere there is no bound at all, and the two call for different repairs."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Bound not established"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://w3id.org/censo/IndeterminateCompliance"
-      }
-    ]
-  },
-  {
-    "@id": "http://www.w3.org/2004/02/skos/core#Concept",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Reused from SKOS; declared here only so that this standalone distribution is self-describing."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Concept"
-      }
-    ]
-  },
-  {
-    "@id": "_:n14cd88aa79f24b73a0b51eed76fb855ab10",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#AllDisjointClasses"
-    ],
-    "http://www.w3.org/2002/07/owl#members": [
-      {
-        "@list": [
-          {
-            "@id": "https://w3id.org/censo/AnnualAverageThreshold"
-          },
-          {
-            "@id": "https://w3id.org/censo/MaximumAllowableThreshold"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/Regulation",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "A dated, versioned legal instrument. Thresholds must cite one, because they change."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Regulation"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "http://www.w3.org/ns/prov#Entity"
+        "@value": "guard-banded comparison"
       }
     ]
   },
@@ -2404,25 +2842,83 @@
     ]
   },
   {
-    "@id": "http://www.w3.org/ns/sosa/Procedure",
+    "@id": "https://w3id.org/censo/AnnualAverageThreshold",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "Reused from SOSA; declared here only so that this standalone distribution is self-describing."
+        "@value": "Long-term limit (e.g. AA-EQS). Applies to a temporal mean, not\nto a single sample; comparing one grab sample against it is a category error that\nthis class exists to make visible."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "Procedure"
+        "@value": "Annual average threshold"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/censo/Threshold"
       }
     ]
   },
   {
-    "@id": "https://w3id.org/censo/thresholdUnit",
+    "@id": "https://w3id.org/censo/reg/Jurisdiction",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "A legal territory in which a regulation package applies, identified by an ISO 3166 code or by 'EU'."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Jurisdiction"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/reg/Sum",
+    "@type": [
+      "https://w3id.org/censo/reg/AggregationFunction"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "sum"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/NoThresholdDefined",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Case (a): the regulation sets no limit for this analyte in this matrix."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "No threshold defined"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/censo/IndeterminateCompliance"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/covariateUnit",
     "@type": [
       "http://www.w3.org/2002/07/owl#FunctionalProperty",
       "http://www.w3.org/2002/07/owl#ObjectProperty"
@@ -2430,18 +2926,18 @@
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "Unit of the threshold; must be commensurable with the observation unit before comparison."
+        "@value": "Unit of censo:covariateMinimum and censo:covariateMaximum. A class boundary without a unit cannot be compared with a measured hardness."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
       {
-        "@id": "https://w3id.org/censo/Threshold"
+        "@id": "https://w3id.org/censo/ApplicabilityCondition"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "threshold unit"
+        "@value": "covariate unit"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
@@ -2451,142 +2947,148 @@
     ]
   },
   {
-    "@id": "https://w3id.org/censo/HardnessClassCondition",
+    "@id": "https://w3id.org/censo/UnresolvedObservation",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "The threshold varies by water hardness class, as for cadmium.\nWithout a hardness measurement the applicable class — and therefore the\napplicable threshold — is unknown."
+        "@value": "Made, but its detection status cannot be established, typically\nbecause the applicable LOD/LOQ for the analyte-method pair is unknown. Such\nobservations are structurally undecidable and must be excluded from inference\nrather than silently treated as quantified."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "Hardness class condition"
+        "@value": "Unresolved observation"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
       {
-        "@id": "https://w3id.org/censo/ApplicabilityCondition"
+        "@id": "_:n9c2359741e844e67842041d1ef838e94b2"
+      },
+      {
+        "@id": "http://www.w3.org/ns/sosa/Observation"
+      },
+      {
+        "@id": "https://w3id.org/censo/AssessedObservation"
       }
     ]
   },
   {
-    "@id": "https://w3id.org/censo/IndeterminateCompliance",
+    "@id": "_:n9c2359741e844e67842041d1ef838e94b2",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#complementOf": [
+      {
+        "@id": "_:n9c2359741e844e67842041d1ef838e94b3"
+      }
+    ]
+  },
+  {
+    "@id": "_:n9c2359741e844e67842041d1ef838e94b3",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/censo/assessableAgainst"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/censo/Threshold"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/censo/limitOfDetection",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "http://www.w3.org/2002/07/owl#FunctionalProperty"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "No compliance statement is supportable. The third of the\nthree outcomes the Directive admits, and the only one a two-valued schema has\nnowhere to put. It is ABSTRACT in practice: every instance carries one of the\nsubclasses below, which record WHY no statement is supportable —\n\n(a) NoThresholdDefined  — the regulation sets no limit for this analyte here;\n(b) MethodInsufficient  — the observation is censored and the method's LOQ\n    exceeds the threshold, so compliance cannot be demonstrated even in\n    principle;\n(c) PreconditionUnmet   — a precondition is unmet: unknown fraction, missing\n    bioavailability covariates, unknown hardness class;\n(d) PossibleExceedance  — the result was measured and assessable, and its\n    interval straddles the limit, so the method cannot decide either way;\n(e) BoundNotEstablished — the record states no bound to compare at all;\n(f) CensoredAmbiguous   — censored with the threshold inside [0, LOD], the\n    narrower case at the DETECTION limit, which no monitoring release states.\n\nCase (b) is the sharpest: a laboratory can report \"not detected\" for a substance\nwhose LOQ is a hundredfold above the legal limit, and a closed-world system\nrecords that as compliance.\n\nPRECEDENCE. A censored result whose LOQ exceeds the threshold has an interval\nthat straddles it too, so (b) and (d) both describe it. Article 3(3b) is\ndecisive — the result \"shall not be considered\" — and such an observation is\nrecorded under MethodInsufficient. This is a rule-layer priority and NOT an\nowl:disjointWith axiom between the two: the same observation may legitimately be\nMethodInsufficient against one jurisdiction's standard and PossibleExceedance\nagainst another's, and class-level disjointness would forbid the two-regulation\nassessment this vocabulary exists to support. Exclusivity lives where it always\nhas, on the comparison properties, per observation-threshold pair.\n\nNOTE ON INFERENCE. This class cannot be defined as \"neither of the other two\",\nbecause under the open-world assumption an unasserted property is not a false\none. It is materialised under a locally closed world; see censo-shapes.ttl."
+        "@value": "Lowest concentration reliably distinguishable from a blank.\nBelow it, presence can be neither asserted nor denied. Expressed in\ncenso:limitUnit."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/censo/AnalyticalMethod"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "Indeterminate compliance"
+        "@value": "limit of detection (LOD)"
       }
     ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+    "http://www.w3.org/2000/01/rdf-schema#range": [
       {
-        "@id": "https://w3id.org/censo/ComplianceOutcome"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#example": [
-      {
-        "@language": "en",
-        "@value": "Imidacloprid measured by a method quantifying at 2.065 µg/L against an EU annual-average standard of 0.0068 µg/L: no result the method could return would decide compliance."
+        "@id": "http://www.w3.org/2001/XMLSchema#decimal"
       }
     ]
   },
   {
-    "@id": "https://w3id.org/censo/definedBy",
+    "@id": "https://w3id.org/censo/reg/sourceDocument",
     "@type": [
-      "http://www.w3.org/2002/07/owl#FunctionalProperty",
       "http://www.w3.org/2002/07/owl#ObjectProperty"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "The legal instrument establishing the threshold. Mandatory: an uncited threshold cannot be defended."
+        "@value": "Dereferenceable URI of the legal text the values were transcribed from. Required: a threshold without a traceable source is not usable in a regulatory context."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
       {
-        "@id": "https://w3id.org/censo/Threshold"
+        "@id": "https://w3id.org/censo/reg/RegulationPackage"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "defined by"
+        "@value": "source document"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
-        "@id": "https://w3id.org/censo/Regulation"
+        "@id": "http://www.w3.org/ns/prov#Entity"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": [
+      {
+        "@id": "http://www.w3.org/ns/prov#hadPrimarySource"
       }
     ]
   },
   {
-    "@id": "https://w3id.org/censo/reg/SubstanceGroup",
+    "@id": "https://w3id.org/censo/conditionSatisfied",
     "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "A set of analytes assessed collectively, e.g. 'pesticides total', 'sum of 24 PFAS'."
+        "@value": "Materialised by the rule layer when the observation demonstrably meets the condition."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "http://www.w3.org/ns/sosa/Observation"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "Substance group"
+        "@value": "condition satisfied"
       }
     ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+    "http://www.w3.org/2000/01/rdf-schema#range": [
       {
-        "@id": "http://www.w3.org/2004/02/skos/core#Concept"
-      }
-    ]
-  },
-  {
-    "@id": "http://www.w3.org/ns/sosa/ObservableProperty",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Reused from SOSA; declared here only so that this standalone distribution is self-describing."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Observable property"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/censo/reg/ToxicEquivalentSum",
-    "@type": [
-      "https://w3id.org/censo/reg/AggregationFunction"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Potency-weighted sum, as used for dioxin-like compounds."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "toxic equivalent sum"
+        "@id": "https://w3id.org/censo/ApplicabilityCondition"
       }
     ]
   }

@@ -39,8 +39,8 @@ express."""@en ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
     vann:preferredNamespacePrefix "censosh" ;
     vann:preferredNamespaceUri "https://w3id.org/censo/shapes#" ;
-    owl:versionIRI <https://w3id.org/censo/shapes/2.1.0> ;
-    owl:versionInfo "2.3.0" ;
+    owl:versionIRI <https://w3id.org/censo/shapes/2.4.0> ;
+    owl:versionInfo "2.4.0" ;
     rdfs:seeAlso <https://w3id.org/censo/> .
 
 censo:ObservationShape a sh:NodeShape ;
@@ -250,8 +250,29 @@ produced by a pipeline that ran to completion.""" ;
             PREFIX censo: <https://w3id.org/censo/>
             CONSTRUCT { $this a censo:IndeterminateCompliance , censo:NoThresholdDefined . }
             WHERE {
+              $this censo:hasAnalyte ?a .
               FILTER NOT EXISTS { $this censo:assessableAgainst ?t }
+              FILTER NOT EXISTS {
+                ?th a censo:Threshold ; censo:appliesToAnalyte ?a .
+              }
             }""" ] .
+# THE SECOND FILTER IS NOT REDUNDANT, and its absence was a defect.
+#
+# The rule asked only whether the observation carries censo:assessableAgainst.
+# It does not, for every censo:UnresolvedObservation in the shipped graph --
+# 4,682 of them -- because UnresolvedObservation is a subclass of the complement
+# of that property and the ABox builder must omit the link to stay consistent.
+# So a rule testing the link alone fired on all of them and typed as "no
+# threshold is defined" observations whose analyte carries a European standard.
+# They ALSO matched censo:BoundNotEstablishedRuleShape, correctly, which reaches
+# the threshold through the analyte; the materialised graph therefore gave them
+# two reasons where the pipeline records one, and the wrong one of the two was
+# the reason a reader would most likely believe.
+#
+# NoThresholdDefined means no standard exists for this analyte. That is a fact
+# about the regulation, not about the observation's links, and it has to be
+# asked of the regulation -- which is exactly the reasoning the sibling rule
+# already sets out and this one did not follow.
 
 censo:BoundNotEstablishedRuleShape a sh:NodeShape ;
     sh:targetClass censo:AssessedObservation ;
@@ -304,7 +325,26 @@ from status assessment, which is exactly the verdict this rule materialises.""" 
                    <http://www.w3.org/ns/sosa/usedProcedure> ?m .
               ?m censo:limitOfQuantification ?loq .
               FILTER (?loq > ?tv)
+              FILTER NOT EXISTS {
+                $this censo:requiresCondition ?c .
+                FILTER NOT EXISTS { ?obs censo:conditionSatisfied ?c }
+                FILTER NOT EXISTS { ?obs censo:conditionScreened ?c }
+              }
+              # and only from the threshold this observation is assessed
+              # against: an annual-average assessment is not set aside by the
+              # maximum-allowable limit of the same substance
+              FILTER NOT EXISTS {
+                ?obs censo:assessableAgainst ?t3 .
+                FILTER (?t3 != $this)
+              }
             }""" ] .
+# ONLY AGAINST A THRESHOLD WHOSE OTHER CONDITIONS HOLD. With one threshold per
+# cadmium hardness class, a limit of 0.12 ug/L exceeds the class-1 standard and
+# clears the class-4 one; unrestricted, this rule typed a class-4 observation
+# MethodInsufficient because a threshold for other water existed. A fraction or
+# hardness condition the observation does not meet removes the threshold from
+# consideration. A bioavailability condition does not: Article 3(3b) sets the
+# result aside whatever the bioavailable fraction is.
 # The censoring condition is not optional. Article 3(3b) reaches a result
 # "reported as less than the limit of quantification"; without that line the
 # rule sets aside quantified means as well, which deletes exceedances the
@@ -324,10 +364,50 @@ results rather than silent passes.""" ;
             CONSTRUCT { ?obs a censo:IndeterminateCompliance , censo:PreconditionUnmet . }
             WHERE {
               $this censo:appliesToAnalyte ?a ;
-                    censo:requiresCondition ?c .
+                    censo:requiresCondition ?c ;
+                    censo:thresholdValue ?tv .
               ?obs censo:hasAnalyte ?a .
               FILTER NOT EXISTS { ?obs censo:conditionSatisfied ?c }
+              # THE VERDICT IS PER OBSERVATION-THRESHOLD PAIR, and this rule
+              # types the OBSERVATION. Without the next line an annual-average
+              # assessment of lead was typed PreconditionUnmet because the
+              # MAXIMUM-ALLOWABLE threshold of the same substance carries the
+              # bioavailability condition -- a verdict drawn from a pair the
+              # graph does not assess. 46 of 1,200 sampled observations
+              # disagreed with the pipeline for exactly that reason.
+              FILTER NOT EXISTS {
+                ?obs censo:assessableAgainst ?t3 .
+                FILTER (?t3 != $this)
+              }
+              # a record with no bound has that as its reason
+              FILTER NOT EXISTS { ?obs a censo:UnresolvedObservation }
+              # another threshold for the analyte whose every condition holds:
+              # the observation's hardness class
+              FILTER NOT EXISTS {
+                ?t2 censo:appliesToAnalyte ?a .
+                FILTER (?t2 != $this)
+                FILTER NOT EXISTS {
+                  ?t2 censo:requiresCondition ?c3 .
+                  FILTER NOT EXISTS { ?obs censo:conditionSatisfied ?c3 }
+                }
+              }
+              # a condition the assessment SCREENED rather than evaluated: the
+              # verdict is the same for every value it could take, which is
+              # what censo:conditionScreened records (CIS Guidance No. 38
+              # tier 1). Stated as one triple because the same exception
+              # written as a nested UNION over $this and the threshold value
+              # did not fire under pySHACL, and left 3 of 1,200 sampled
+              # observations carrying two outcomes.
+              FILTER NOT EXISTS { ?obs censo:conditionScreened ?c }
             }""" ] .
+# 2.4.0: THREE EXCEPTIONS, each one a rule the pipeline already applied. An
+# unmet condition used to type every observation of the analyte, which was true
+# only while no condition could ever be met. The exceptions are exactly the
+# cases scripts/22_waterbase_external.py assess() decides before or instead of
+# the condition: no bound at all; a hardness class whose threshold the
+# observation is assessed against; and CIS Guidance No. 38 tier 1 on a
+# bioavailable standard, where a pass is accepted and a censored limit above the
+# standard is still Article 3(3b).
 
 censo:CampaignShape a sh:NodeShape ;
     sh:targetClass censo:Campaign ;
