@@ -93,10 +93,10 @@ A \texttt{censo:Analyte} is a \texttt{sosa:ObservableProperty} --- the
 concentration \emph{of} a substance --- and not the substance, whose instances
 are molecules. The two are related by \texttt{rdfs:seeAlso} to the substance's
 ChEBI~\cite{degtyarenko2008chebi} class, in a separate module the vocabulary does not
-import\src{scripts/20\_align\_external.py}: \num{299} of \num{354} analytes
+import\src{scripts/20\_align\_external.py}: \num{255} of \num{290} analytes
 across the two packages resolve to exactly one ChEBI class by CAS registry
-number, \num{26} resolve to more than one and are deliberately left unaligned,
-and \num{29} --- technical mixtures and congener groups such as C10--13
+number, \num{25} resolve to more than one and are deliberately left unaligned,
+and \num{10} --- technical mixtures and congener groups such as C10--13
 chloroalkanes --- have no ChEBI entry at all, which is a fact about what the
 regulation names rather than a gap in the mapping.
 
@@ -344,11 +344,24 @@ water domain, and we mark it as such.
 \subsection{What OWL does, and what it does not}
 OWL supplies identity, taxonomy, disjointness, classification and explanation.
 It cannot compare data values, so \texttt{exceeds}, \texttt{possiblyExceeds} and
-\texttt{belowThreshold} are materialised by the rule layer, then classified. The
-open-world assumption that makes CENSO right for censoring blocks inferring
-``none of the above'', so \texttt{IndeterminateCompliance} is materialised under
-a locally closed world in SHACL. We do not claim that a description-logic
-reasoner computes compliance.
+\texttt{belowThreshold} are asserted by the procedure of
+Figure~\ref{fig:decision-flow} and then classified. The open-world assumption
+that makes CENSO right for censoring also blocks inferring ``none of the
+above'', so the four reasons for \texttt{IndeterminateCompliance} that follow
+from the record rather than from a value comparison --- a missing bound, no
+standard for the analyte, Article~3(3b), an unmet precondition --- are
+materialised by SHACL rules under a locally closed world. We do not claim that
+a description-logic reasoner computes compliance.
+
+Those rules are a second implementation of the same decision, and two
+implementations drift unless something compares them. Over a sample of
+\num{1200} observations the rules reconstruct the verdict the pipeline
+recorded, reason subtype included, with \num{0} disagreements --- the
+pipeline's own type assertions being removed from the graph before the rules
+run, so that a rule restating a triple already present is not mistaken for a
+rule deriving it\src{scripts/18b\_rule\_agreement.py}. The comparison runs in
+both directions: a rule firing where the pipeline found the record sufficient
+counts as a disagreement too.
 
 \subsection{What is counted, and what is inferred}
 \label{sec:methods-inference}

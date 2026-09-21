@@ -955,6 +955,18 @@ def check_staleness():
             if dep.exists() and shacl.stat().st_mtime < dep.stat().st_mtime:
                 stale.append(f"eval/shacl_validation.md older than {dep.name}")
 
+    # The rule-layer comparison has the same inputs and the same reason to be
+    # current: a stale "0 disagreements" says the rules agreed with a pipeline
+    # that has since been changed, which is the drift it exists to catch.
+    agree = EVAL / "rule_agreement.md"
+    if agree.exists():
+        for dep in (ROOT / "ontology" / "censo-shapes.ttl",
+                    ROOT / "derived" / "abox" / "censo-waterbase.ttl",
+                    SCRIPTS / "22_waterbase_external.py",
+                    SCRIPTS / "18b_rule_agreement.py"):
+            if dep.exists() and agree.stat().st_mtime < dep.stat().st_mtime:
+                stale.append(f"eval/rule_agreement.md older than {dep.name}")
+
     # The regulation packages are an input to everything downstream of them,
     # and they are edited by a script of their own, so a package rebuild has
     # to invalidate the analyses that read it.
@@ -2429,6 +2441,47 @@ def check_paper_hygiene(tex):
 # them.
 
 
+def check_rule_agreement(tex_nums):
+    """The rule layer and the pipeline must reach the same verdict.
+
+    The vocabulary publishes four SHACL rules that derive a verdict from the
+    record; every number in the manuscript comes from the Python procedure
+    instead, because a triple store cannot hold four million rows. A reader who
+    loads the shapes gets the rules, so if the two disagree the artefact
+    contradicts the paper -- silently, since nothing reads the other's output.
+
+    This is a gate on the comparison, not a second copy of it: the comparison
+    needs pyshacl over the graph, which is four minutes, and lives in
+    scripts/18b_rule_agreement.py. check_no_stale_artefacts keeps the report
+    honest about WHICH graph and which procedure it compared.
+    """
+    p = EVAL / "rule_agreement.md"
+    if not p.exists():
+        record(FAIL, "the rules and the pipeline agree",
+               "eval/rule_agreement.md missing; "
+               "run scripts/18b_rule_agreement.py")
+        return
+    src = p.read_text(encoding="utf-8")
+    m = re.search(r"\*\*disagreements:\s*([\d,]+)\*\*", src)
+    n_s = re.search(r"observations sampled:\s*\*\*([\d,]+)\*\*", src)
+    if not m or not n_s:
+        record(FAIL, "the rules and the pipeline agree",
+               "eval/rule_agreement.md states no disagreement count")
+        return
+    n_bad = int(m.group(1).replace(",", ""))
+    n_obs = int(n_s.group(1).replace(",", ""))
+    check_claim(tex_nums, "rule-agreement sample size", n_obs)
+    check_claim(tex_nums, "rule-agreement disagreements", n_bad)
+    if n_bad:
+        record(FAIL, "the rules and the pipeline agree",
+               f"{n_bad:,} of {n_obs:,} sampled observations receive a "
+               f"different verdict from the rule layer than the pipeline "
+               f"recorded — see eval/rule_agreement.md")
+    else:
+        record(OK, "the rules and the pipeline agree",
+               f"{n_obs:,} sampled observations, no disagreement")
+
+
 def check_shacl_conformance(tex_nums):
     """The shipped graph must satisfy the shapes the ontology publishes.
 
@@ -2849,6 +2902,58 @@ def check_alignment():
         record(OK, "the alignment reconciles every co-regulated substance",
                f"{len(wanted)} co-regulated CAS, all reachable through "
                f"{len(pairs)} owl:sameAs pair(s); {n_chebi} ChEBI pointer(s)")
+
+
+def check_alignment_counts(tex_nums):
+    """Own the four alignment counts. Nothing did, and all four went stale.
+
+    Section 4 states how many analytes reach exactly one ChEBI class, how many
+    reach more than one, and how many reach none. When the EU package stopped
+    naming the 64 analytes that had been read out of Annex I's footnote rows,
+    every one of those counts moved -- 299/354/26/29 became 255/290/25/10 --
+    and the manuscript went on printing the old ones, because no check owned
+    them and the near-match detector only fires on a quantity something
+    recomputes.
+
+    Recomputed here from the packages and the ChEBI flat files with the same
+    join scripts/20_align_external.py uses, rather than read back out of
+    eval/alignment.md: a number checked against the report that printed it is
+    checked against itself. The ChEBI cache is a download, so a tree without it
+    SKIPs rather than fails -- the alignment file it would have verified is
+    still shipped.
+    """
+    sys.path.insert(0, str(ROOT / "scripts"))
+    try:
+        import importlib
+        al = importlib.import_module("20_align_external")
+    except Exception as e:                                   # noqa: BLE001
+        record(SKIP, "alignment counts", f"cannot import the aligner: {e}")
+        return
+    pkgs = al.read_analytes()
+    c2c, _ = al.cas_to_chebi(offline=True)
+    if not pkgs or not c2c:
+        record(SKIP, "alignment counts",
+               "ChEBI flat files not cached in derived/interim/chebi")
+        return
+    one = amb = none = 0
+    for _, analytes in pkgs.items():
+        for _, (_, cas) in analytes.items():
+            if not cas:
+                continue
+            hits = set()
+            for c in cas:
+                hits |= c2c.get(c, set())
+            if len(hits) == 1:
+                one += 1
+            elif len(hits) > 1:
+                amb += 1
+            else:
+                none += 1
+    check_claim(tex_nums, "analytes pointed at exactly one ChEBI class", one)
+    check_claim(tex_nums, "analytes with a CAS across both packages",
+                one + amb + none)
+    check_claim(tex_nums, "analytes whose CAS is ambiguous in ChEBI", amb)
+    check_claim(tex_nums, "analytes with no ChEBI entry", none)
 
 
 def check_graph_matches_population(tex_nums):
@@ -4353,6 +4458,102 @@ def check_series_figures(tex_nums):
                         int(d["station_years_differing"]))
 
 
+def check_disaggregated_coverage(tex_nums):
+    """Section 3's coverage claim, owned by the data that produced it.
+
+    The manuscript states how far the disaggregated release reaches --
+    1,234,302 of 4,170,005 river station-years -- and nothing recomputed either
+    number. An asserted number with no owner is not merely unchecked: the
+    near-match detector reads it as a stale copy of whatever computed value
+    happens to sit within ten per cent of it, and fails a check that is right.
+    That is exactly how "metals: samples" came to report a mismatch against a
+    coverage figure it has nothing to do with.
+    """
+    rows = load("disaggregated_coverage.csv")
+    if not rows:
+        record(SKIP, "disaggregated coverage claims",
+               "disaggregated_coverage.csv missing (needs the release)")
+        return
+    v = {r["quantity"]: r["value"] for r in rows}
+
+    def val(k):
+        try:
+            return float(v[k])
+        except (KeyError, ValueError, TypeError):
+            return None
+
+    for label, key, as_int in (
+            ("aggregated river station-years",
+             "aggregated_river_station_years", True),
+            ("station-years the disaggregated release reaches",
+             "station_years_covered", True),
+            ("disaggregated river samples", "disaggregated_river_samples", True),
+            ("disaggregated sample records", "disaggregated_rows_total", True),
+            ("coverage of the disaggregated release %", "coverage_pct", False),
+            ("samples per covered station-year, median",
+             "samples_per_covered_median", True)):
+        x = val(key)
+        if x is not None:
+            check_claim(tex_nums, label, int(x) if as_int else x)
+    record(OK, "the coverage claim is owned",
+           f"{len(rows)} quantities recomputed from the release")
+
+
+def check_station_geometry(tex_nums):
+    """The station counts the map and its caption state, from the station table.
+
+    Same reason as above: Figure 2's caption names a number of stations, and
+    until now no check produced it.
+    """
+    rows = load("waterbase_stations.csv")
+    if not rows:
+        record(SKIP, "station counts are owned", "waterbase_stations.csv missing")
+        return
+    geo = sum(1 for r in rows if (r.get("lat") or "").strip()
+              and (r.get("lon") or "").strip())
+    record(INFO, "stations in the graph", f"{len(rows):,}")
+    check_claim(tex_nums, "stations carrying a geometry", geo)
+    record(OK, "station counts are owned", f"{geo:,} of {len(rows):,} with a geometry")
+
+
+
+def check_applicability_routes(tex_nums):
+    """How each standard's applicability was decided, owned.
+
+    Section 5 names the three strata the join leaves behind -- whole-water
+    results, cadmium without a hardness, lead and nickel that only a model could
+    decide -- and the discussion repeats them. They come from one table and
+    nothing recomputed them, which left the largest of the three looking, to the
+    near-match detector, like a stale copy of a SHACL timing.
+    """
+    rows = load("applicability_routes.csv")
+    if not rows:
+        record(SKIP, "applicability routes are owned",
+               "applicability_routes.csv missing")
+        return
+    by = {}
+    for r in rows:
+        by[r["route"]] = by.get(r["route"], 0) + int(r["n"])
+    # ONLY the three the manuscript names. Claiming the others would repeat the
+    # defect this check was added to fix: a computed value the text never quotes
+    # is not an error, but asserting it as a claim makes the near-match detector
+    # hunt for a stale copy and blame an unrelated number.
+    LABEL = {
+        "fraction not dissolved": "a fraction other than the dissolved one",
+        "no hardness reported": "cadmium with no hardness for its station-year",
+        "bioavailability model required": "lead or nickel needing a model",
+    }
+    for route, n in sorted(by.items(), key=lambda kv: -kv[1]):
+        lbl = LABEL.get(route)
+        if lbl:
+            check_claim(tex_nums, f"route: {lbl}", n)
+        else:
+            record(INFO, f"route: {route}", f"{n:,} (computed, not quoted)")
+    record(OK, "applicability routes are owned",
+           f"{len(by)} route(s), {sum(by.values()):,} assessments")
+
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--verbose", action="store_true")
@@ -4400,6 +4601,7 @@ def main() -> int:
     check_no_dead_terms()
     check_functional_properties()
     check_alignment()
+    check_alignment_counts(nums)
     check_graph_matches_population(nums)
     check_reported_intervals(nums)
     check_uncertainty_sensitivity(nums)
@@ -4425,8 +4627,12 @@ def main() -> int:
     check_every_figure_is_placed()
     check_published_build_is_deterministic()
     check_shacl_conformance(nums)
+    check_rule_agreement(nums)
     check_abox_datatypes()
     check_report_indeterminate_total()
+    check_disaggregated_coverage(nums)
+    check_station_geometry(nums)
+    check_applicability_routes(nums)
     resolve_pending_claims()
 
     n_fail = sum(1 for s, _, _ in results if s == FAIL)

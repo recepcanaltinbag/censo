@@ -546,7 +546,7 @@ times more than the record establishes.
 
 \paragraph{The graph is a materialisation, not the analysis.}
 A reservoir sample of \num{40000} station-years is expressed as RDF
-(\num{532669} triples): a pure-Python triple store cannot hold four million
+(\num{534129} triples): a pure-Python triple store cannot hold four million
 rows, and inflating it would misreport what was reasoned over. \num{11.7}\% of
 its observations are \texttt{UnresolvedObservation}, a state no other surveyed
 vocabulary can express.
@@ -1149,10 +1149,10 @@ than the measurement. Every value is read from the shipped graph and ships in
 
 \subsection{The shipped graph is validated against the shipped shapes}
 \label{sec:results-shacl}
-The published shapes are run over the published graph --- \num{651373} triples
+The published shapes are run over the published graph --- \num{682331} triples
 with the vocabulary loaded --- rather than over a fixture\src{scripts/18\_shacl\_validate.py}.
-The shapes match \num{40000} assessed observations, \num{31167} censored ones,
-\num{1159} analytical methods and \num{537} thresholds, and the run reports
+The shapes match \num{40000} assessed observations, \num{31169} censored ones,
+\num{1451} analytical methods and \num{545} thresholds, and the run reports
 \textbf{one violation type}: \num{4646} observations that cite no analytical
 method. That is the unresolvable population, and it is a property of the record
 rather than of the pipeline. A graph made to conform would have to invent the

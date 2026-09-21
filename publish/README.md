@@ -39,3 +39,42 @@ curl -sIL -H "Accept: application/rdf+xml" https://w3id.org/censo/ | grep -i loc
 <https://foops.linkeddata.es/> — paste `https://w3id.org/censo/`, not a file
 upload. Uploading a file cannot score Findability or Accessibility, so the
 result would understate the ontology and tell you nothing you can act on.
+
+## Publishing a new release
+
+The site is a checkout of the repository GitHub Pages serves, in
+`publish/site`. `scripts/97_assemble_publish.py` writes into it; it does not
+commit, because a push is a publication and should be one deliberate act:
+
+```bash
+python scripts/97_assemble_publish.py          # rebuild
+python scripts/97_assemble_publish.py --check  # exit 1 if the site is stale
+cd publish/site && git add -A && git commit && git push
+```
+
+The script refuses to overwrite a release directory git already tracks. That
+guard is the whole point: `https://w3id.org/censo/2.3.0` must keep returning
+the 2.3.0 axioms after 2.4.0 is published, and the same holds for the modules'
+own version IRIs — `shapes/2.4.0`, `reg/2.4.0`, `alignment/2.0.0` — which are
+frozen under `releases/<module>/<version>/`. If a build differs from a tracked
+release, the version is what has to change, not the archive.
+
+## Changing the w3id rules
+
+`w3id-censo/.htaccess` in this repository is the source; the file the redirect
+actually uses lives in the w3id.org repository, so **editing it here changes
+nothing until a pull request carries it over**. That is the manual step:
+
+1. Fork <https://github.com/perma-id/w3id.org> (or pull your existing fork)
+2. Replace `censo/.htaccess` with this one
+3. Open the pull request, and check the new rules once it is merged:
+
+```bash
+for u in shapes/2.4.0 reg/2.4.0 alignment alignment/2.0.0; do
+  curl -sIL -o /dev/null -w "%{http_code} $u\n" "https://w3id.org/censo/$u"
+done
+```
+
+Until it is merged those four IRIs return 404 through w3id, while the files
+themselves are already served at
+`https://recepcanaltinbag.github.io/censo/releases/...`.

@@ -448,6 +448,10 @@ def main() -> int:
     print(f"  sampled into the graph                : {len(reservoir):,}")
     # the hardness join scripts/22 made, from the same cache
     hardness_at = load_covariates(path)
+    # and the rule the package states, so the graph is built with the
+    # regulation's decision rule rather than this script's constant
+    decision = _m.package_decision(ROOT / "ontology" / "reg" /
+                                   "eu-2008-105-2026.ttl")
 
     out = [PREAMBLE]
     tally = defaultdict(int)
@@ -497,7 +501,10 @@ def main() -> int:
         hardness = hardness_at.get((site, year[:4]))
         outcome, route, t_used = assess(status, v_ug, l_ug, thr, cas=cas,
                                         condition=_cond.get(cas),
-                                        fraction=fraction, hardness=hardness)
+                                        fraction=fraction, hardness=hardness,
+                                        censored_rule=decision["censored_rule"],
+                                        u_factor=decision["u_factor"],
+                                        dissolved_cas=decision["fraction_cas"])
         # Article 5(2) of Directive 2009/90/EC: a mean below its limit is a
         # '<LOQ' result, so it is written as the censored result it is
         mean_below_limit = (status == "quantified" and v_ug is not None
@@ -518,7 +525,24 @@ def main() -> int:
         # nothing.
         m_iri = None
         if loq is not None and factor:
-            key = (a_iri, round(loq * factor, 6))
+            # THE KEY IS THE EXACT LIMIT, and rounding it to six places made
+            # the graph contradict itself.
+            #
+            # Waterbase stores limits as 32-bit floats, so the same limit
+            # arrives as both 0.1 and 0.1000000015. Rounded, those shared one
+            # censo:AnalyticalMethod, which published whichever of the two
+            # created it -- while the verdict for each row was decided from
+            # the row's own value. Glyphosate's standard is 0.1: obs-23858 was
+            # typed censo:MethodInsufficient from a limit of 0.1000000015,
+            # beside a method individual asserting a limit of 0.1, which does
+            # not exceed the standard and does not support that verdict.
+            # scripts/18b_rule_agreement.py caught it, because the rule layer
+            # reads the published limit and refused to fire.
+            #
+            # Two method individuals for two limits reported a hundredth of a
+            # nanogram apart is the honest outcome: the record says what it
+            # says, and the verdict beside it follows from it.
+            key = (a_iri, loq * factor)
             m_iri = methods.get(key)
             if m_iri is None:
                 m_iri = f"wb:method-{len(methods)}"
@@ -608,7 +632,7 @@ def main() -> int:
             # interval a lawful method could have -- and the outcome it
             # produces is "cannot be decided by a method that merely meets the
             # legal minimum", which is exactly what PossibleExceedance means.
-            u = LEGAL_UNCERTAINTY_AT_EQS * t_used
+            u = decision["u_factor"] * t_used
             lines.append(f"    censo:resultLowerBound "
                          f"{lit(max(0.0, val*factor - u))} ;")
             lines.append(f"    censo:resultUpperBound "
@@ -633,7 +657,7 @@ def main() -> int:
                          "censo:LimitAbovePerformanceCriterion ;")
         if (cls == "censo:CensoredObservation" and outcome == "compliant"
                 and l_ug is not None
-                and l_ug > t_used - LEGAL_UNCERTAINTY_AT_EQS * t_used):
+                and l_ug > t_used - decision["u_factor"] * t_used):
             lines.append("    censo:assessmentFlag "
                          "censo:LimitWithinUncertaintyBand ;")
         if mean_below_limit:
