@@ -1020,6 +1020,37 @@ def check_staleness():
             if behind:
                 stale.append("figure artefact(s) older than their data: " +
                              ", ".join(sorted(behind)))
+
+    # The supplementary tables are the only way a reader outside this
+    # repository can recompute a number, and scripts/98_supplementary.py
+    # copies them out of derived/processed/. That copy is exactly where a
+    # stale artefact hides: S13_reasoning_cost.csv went on describing a graph
+    # of 501,110 triples for a day after the graph became 534,129, and this
+    # check did not look at the directory at all. 98 --check says the same
+    # thing; it is said here so that one run of the audit sees it.
+    # Each file against ITS OWN source, taken from the mapping the generator
+    # uses: comparing the directory against the newest table in
+    # derived/processed/ would report S4 stale because an unrelated analysis
+    # re-ran, and a check that cries wolf is one nobody reads.
+    sup = PAPER / "supplementary"
+    if sup.exists():
+        sys.path.insert(0, str(SCRIPTS))
+        behind_sup = []
+        try:
+            import importlib
+            gen = importlib.import_module("98_supplementary")
+            sup_pairs = ([(PROC / s, sup / d) for s, d in gen.COPIES]
+                         + [(EVAL / s, sup / d) for s, d in gen.EVAL_COPIES])
+        except Exception:                                    # noqa: BLE001
+            sup_pairs = []
+        for src, dst in sup_pairs:
+            if src.exists() and dst.exists() \
+                    and dst.stat().st_mtime < src.stat().st_mtime:
+                behind_sup.append(f"{dst.name} older than {src.name}")
+        if behind_sup:
+            stale.append("; ".join(sorted(behind_sup))
+                         + " — re-run scripts/98_supplementary.py")
+
     if stale:
         record(FAIL, "no stale artefacts", "; ".join(stale))
     else:
