@@ -485,7 +485,12 @@
                   Guidance for implementing Environmental Quality Standards
                   ({EQS}) for metals},
   year         = {2019},
-  howpublished = {\url{https://circabc.europa.eu/sd/a/a705289f-7001-4c7d-ac7c-1cf8140e2117/Guidance%20No%2038%20-%20Technical%20guidance%20for%20EQS%20for%20metals.pdf}},
+  % The %20s are ESCAPED. BibTeX copies the field into the .bbl verbatim,
+  % TeX reads that file, and a bare %% comments out the rest of the line --
+  % here the closing brace of \url, which ended the compile with "File ended
+  % while scanning use of \@firstofone" and left every reference sorted after
+  % this one undefined.
+  howpublished = {\url{https://circabc.europa.eu/sd/a/a705289f-7001-4c7d-ac7c-1cf8140e2117/Guidance\%20No\%2038\%20-\%20Technical\%20guidance\%20for\%20EQS\%20for\%20metals.pdf}},
   note         = {Consideration of metal bioavailability and natural background
                   concentrations in assessing compliance}
 }

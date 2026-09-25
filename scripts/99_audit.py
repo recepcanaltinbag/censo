@@ -2472,6 +2472,58 @@ def check_paper_hygiene(tex):
 # them.
 
 
+def check_latex_hazards():
+    r"""The three ways this manuscript has stopped a compile, as a check.
+
+    Nothing in this repository compiles the paper -- elsarticle is not
+    installed here and the author builds on Overleaf -- so a LaTeX error is
+    found at submission time, by a person, which is the worst place and the
+    worst moment for it. These three are cheap to test and each cost a compile:
+
+      * a blank line inside \caption{}: a \par where LaTeX allows none, which
+        ends in "Paragraph ended before \NR@gettitle was complete";
+      * a bare % in a .bib field: BibTeX copies it into the .bbl verbatim and
+        TeX then comments out the rest of the line, closing brace included --
+        every reference sorted after that entry goes undefined, which is how
+        three citations came to read [?] with nothing wrong with them;
+      * \footnote inside \caption: a float cannot carry a footnote, and with
+        hyperref it does not degrade, it stops. \src knows where it is and
+        goes inline inside a float; a literal \footnote does not.
+    """
+    bad = []
+    tex_files = sorted((PAPER / "sections").glob("*.tex"))
+    main = PAPER / "main-elsevier.tex"
+    if main.exists():
+        tex_files.append(main)
+    for f in tex_files:
+        src = f.read_text(encoding="utf-8")
+        for m in re.finditer(r"\\caption\{", src):
+            i, depth = m.end(), 1
+            while i < len(src) and depth:
+                depth += (src[i] == "{") - (src[i] == "}")
+                i += 1
+            body = src[m.end():i - 1]
+            line = src[:m.start()].count("\n") + 1
+            if re.search(r"\n[ \t]*\n", body):
+                bad.append(f"{f.name}:{line} blank line inside a caption")
+            if r"\footnote" in body:
+                bad.append(f"{f.name}:{line} footnote inside a caption")
+    bib = PAPER / "refs.bib"
+    if bib.exists():
+        for n, line in enumerate(bib.read_text(encoding="utf-8").splitlines(), 1):
+            if line.lstrip().startswith("%"):
+                continue
+            if re.search(r"(?<!\\)%", line):
+                bad.append(f"refs.bib:{n} unescaped percent sign in a field")
+    if bad:
+        record(FAIL, "no LaTeX hazards", "; ".join(bad[:6])
+               + (f" (+{len(bad) - 6} more)" if len(bad) > 6 else ""))
+    else:
+        record(OK, "no LaTeX hazards",
+               f"{len(tex_files)} source file(s) and refs.bib: no blank line "
+               f"or footnote in a caption, no unescaped percent sign")
+
+
 def check_rule_agreement(tex_nums):
     """The rule layer and the pipeline must reach the same verdict.
 
@@ -4686,6 +4738,7 @@ def main() -> int:
     check_published_build_is_deterministic()
     check_shacl_conformance(nums)
     check_rule_agreement(nums)
+    check_latex_hazards()
     check_abox_datatypes()
     check_report_indeterminate_total()
     check_disaggregated_coverage(nums)

@@ -68,16 +68,41 @@
 % Unresolved values. Deliberately loud; none may survive to submission.
 \newcommand{\pending}[1]{\textcolor{red}{\textbf{[TO COMPUTE: #1]}}}
 % Values that came from a script; the argument is the file that produced them.
-\newcommand{\src}[1]{\,\footnote{Produced by \texttt{#1}.}}
+%
+% INSIDE A FLOAT IT IS NOT A FOOTNOTE. A \footnote in a figure caption cannot be
+% typeset -- the note would have to land on whichever page the float does, which
+% LaTeX does not know when the caption is read -- and with hyperref loaded it
+% does not degrade, it stops the compile: "Argument of \Hy@tempa has an extra }"
+% four times over, one per caption that cites its script. \@captype is defined
+% exactly inside a float, so the note goes inline there and stays a footnote in
+% the body, and every caption keeps saying which script drew it.
+\makeatletter
+\DeclareRobustCommand{\src}[1]{%
+  \ifx\@captype\@undefined
+    \,\footnote{Produced by \texttt{#1}.}%
+  \else
+    \ (Produced by \texttt{#1}.)%
+  \fi}
+\makeatother
 
-% elsarticle provides NO `highlights` environment, and an undefined
-% environment inside frontmatter takes the whole frontmatter down with it --
-% which is why the abstract was not appearing at all. Elsevier wants highlights
-% as a separate upload; defining it here keeps the manuscript self-contained
-% and visible to the editor.
-\newenvironment{highlights}
-  {\section*{Highlights}\begin{itemize}\setlength{\itemsep}{0pt}}
-  {\end{itemize}}
+% An undefined environment inside frontmatter takes the whole frontmatter down
+% with it -- which is why the abstract was not appearing at all. Elsevier wants
+% highlights as a separate upload; defining one here keeps the manuscript
+% self-contained and visible to the editor.
+%
+% ONLY IF THE CLASS HAS NONE. elsarticle 3.x defines `highlights` itself, and a
+% plain \newenvironment against it stops the compile at "Command \highlights
+% already defined" -- taking the frontmatter down exactly as the missing
+% environment once did, on the current class a submission system or Overleaf
+% supplies. Where the class has it, the class's version is the one Elsevier
+% typesets, so it wins.
+\makeatletter
+\@ifundefined{highlights}{%
+  \newenvironment{highlights}
+    {\section*{Highlights}\begin{itemize}\setlength{\itemsep}{0pt}}
+    {\end{itemize}}%
+}{}
+\makeatother
 
 \journal{Environmental Modelling \& Software}
 
@@ -760,7 +785,10 @@ record states, and a row whose unit is unrecognised is excluded rather than
 assumed\src{scripts/22\_waterbase\_external.py}. The rules in the shipped
 shapes compare the two numbers directly, which is correct only because that
 conversion has already happened.
-
+%
+% NO BLANK LINE HERE. A \par inside \caption is not a long caption, it is an
+% error -- "Paragraph ended before \NR@gettitle was complete" -- and it stopped
+% the compile of this manuscript.
 The half-width $U$ in the last test is the reported expanded uncertainty where
 the record carries one and $T/2$ where it does not, and $T/2$ is not a
 threshold the Directive states. It is the \emph{widest} uncertainty
