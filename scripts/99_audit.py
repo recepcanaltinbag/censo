@@ -2254,7 +2254,10 @@ def check_latex_preflight():
     SUPPLIED = {"threeparttable": {"threeparttable", "tablenotes"},
                 "subcaption": {"subfigure", "subtable"},
                 "amsmath": {"multline", "split", "cases"},
-                "listings": {"lstlisting"}, "algorithm": {"algorithm"}}
+                "listings": {"lstlisting"}, "algorithm": {"algorithm"},
+                # Two tables hold phrases in nine columns and only a column
+                # that wraps keeps them inside the page.
+                "tabularx": {"tabularx"}}
     NEEDS = {"\\linenumbers": "lineno", "\\num{": "siunitx", "\\si{": "siunitx",
              "\\toprule": "booktabs", "\\url{": "hyperref",
              "\\textcolor": "xcolor", "\\includegraphics": "graphicx",
@@ -3472,13 +3475,23 @@ def check_gap_matrix_figure(tex_nums):
         if n and any(r["ontology"].startswith(c) for c in CITED):
             check_claim(tex_nums, f"entities declared, {r['ontology']}", n)
 
-    cens = [r["ontology"] for r in rows if int(r.get("censoring") or 0)]
+    # AMONG THE SURVEYED SET. The claim is that no published vocabulary can
+    # express a censored result, not that exactly one row in the table carries
+    # the concept: CENSO 2.4.0 gave the regulation module cereg:censoredResultRule,
+    # so two of OUR OWN rows carry it now, and a count over every row read that
+    # as the argument collapsing.
+    cens = [r["ontology"] for r in ext if int(r.get("censoring") or 0)]
+    ours_cens = [r["ontology"] for r in ours if int(r.get("censoring") or 0)]
     bound = {r["ontology"]: (r.get("lod_bound_to") or "").strip()
              for r in rows if (r.get("lod_bound_to") or "").strip() not in ("", "0")}
     bad = []
-    if len(cens) != 1 or "this work" not in cens[0]:
-        bad.append(f"a censored result is now carried by {len(cens)}: "
-                   f"{', '.join(cens) or 'none'}")
+    if cens:
+        bad.append(f"a censored result is now carried by {len(cens)} surveyed "
+                   f"vocabular{'y' if len(cens) == 1 else 'ies'}: "
+                   f"{', '.join(cens)}")
+    if not ours_cens:
+        bad.append("no module of this work carries a censored result, which "
+                   "is the comparison's whole claim")
     on_result = [k for k, v in bound.items() if v == "result"]
     if len(on_result) != 1 or "this work" not in on_result[0]:
         bad.append("the limit is bound to the result by "
@@ -3489,7 +3502,8 @@ def check_gap_matrix_figure(tex_nums):
                    "cases in the parsed set")
     record(FAIL if bad else OK, "the comparison matrix holds",
            "; ".join(bad) if bad else
-           f"{len(ext)} external, one censored result, limit bound on the "
+           f"{len(ext)} external, none of them carrying a censored result, "
+           f"limit bound on the "
            f"sensor / method / result in {len(bound)} vocabularies")
 
 
@@ -4463,6 +4477,15 @@ def check_measured_performance(tex_nums):
                   "SHACL validation (advanced mode)"):
         if num(stage) is None:
             bad.append(f"no measurement for {stage}")
+    # Every stage the subsection quotes, so none of them is a loose number for
+    # the near-match detector to pin on an unrelated percentage -- which the
+    # parse time, 54.6 s, was pinned on twice the moment it was written down.
+    for stage, label in (("parse", "parse seconds"),
+                         ("rdfs:subClassOf type closure", "closure seconds")):
+        secs = num(stage)
+        if secs is not None:
+            check_claim(tex_nums, label, secs)
+
     obs = num("observations in the published graph")
     if obs:
         check_claim(tex_nums, "observations in the published graph", obs)
@@ -4477,6 +4500,29 @@ def check_measured_performance(tex_nums):
         # seconds, so whichever run the CSV holds is the one the text must
         # quote, and a stale figure fails here rather than in review.
         check_claim(tex_nums, "SHACL seconds on the published graph", shacl)
+    # The triples, the memory peak and the machine, because the implementation
+    # subsection quotes all three. The machine is not recomputed -- the audit
+    # may run somewhere else entirely, and the paper reports the machine that
+    # produced the measurements -- so it is read from the same report the text
+    # cites, which is what makes those two numbers owned rather than loose. An
+    # unowned number in the text is not inert: the memory size 63 was offered
+    # as a stale copy of two unrelated percentages on the run that added it.
+    asserted = num("triples in the ABox file")
+    if asserted:
+        check_claim(tex_nums, "triples in the ABox file", asserted)
+    peak = num("peak memory after SHACL")
+    if peak:
+        check_claim(tex_nums, "peak memory, MB", peak)
+    md = EVAL / "pipeline_performance.md"
+    if md.exists():
+        txt = md.read_text(encoding="utf-8")
+        m = re.search(r"@\s*([0-9.]+)GHz", txt)
+        if m:
+            check_claim(tex_nums, "CPU clock, GHz", float(m.group(1)))
+        m = re.search(r"system memory \|\s*([0-9]+)\s*GB", txt)
+        if m:
+            check_claim(tex_nums, "system memory, GB", int(m.group(1)))
+
     e2e = num("end-to-end on the published graph")
     parts = [num("parse"), num("rdfs:subClassOf type closure"),
              num("SHACL validation (advanced mode)")]

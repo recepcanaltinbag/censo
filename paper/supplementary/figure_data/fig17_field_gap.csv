@@ -20,5 +20,5 @@ QUDT schema,239,,0,0,0,0,1,1
 STATO (statistics),1162,,0,0,1,0,1,0
 CHMO (chemical methods),3438,method,1,0,1,1,0,0
 AFO (Allotrope),3864,,0,0,1,0,1,1
-CENSO (this work),51,result,1,1,1,1,1,1
-CENSO-REG (this work),17,,0,0,0,0,1,0
+CENSO (this work),62,result,1,1,1,1,1,1
+CENSO-REG (this work),20,,0,1,0,0,1,0

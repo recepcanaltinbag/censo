@@ -295,17 +295,34 @@ def main() -> int:
          r"outcome.}",
          r"\label{tab:exchange}",
          r"\scriptsize\setlength{\tabcolsep}{3.5pt}",
-         r"\begin{tabular}{l l c c l c c c}",
+         # tabularx, and not a plain tabular with l columns: three of these
+         # cells are phrases -- "untyped observation parameter", "the method;
+         # bound on the result" -- and an l column cannot break a line, so the
+         # table set 234 pt wider than the page and ran off it. The X columns
+         # take whatever is left after the six narrow ones and wrap inside it,
+         # which holds whatever a standard is later found to call its field.
+         r"\begin{tabularx}{\textwidth}{@{}"
+         r">{\raggedright\arraybackslash}X"
+         r">{\raggedright\arraybackslash}X"
+         r"c c"
+         r">{\raggedright\arraybackslash}X"
+         r"c c c@{}}",
          r"\toprule",
-         r"Standard & Form & censoring & detected, not quant. & limit held on & "
-         r"standard & verdict & applic. \\",
+         # The marks' headers are stacked, and that is what leaves the three
+         # text columns room. An X column takes what the fixed ones leave, so
+         # a header as long as "detected, not quant." set on one line was
+         # squeezing "SeaDataNet" out of its own cell.
+         r"Standard & Form & \shortstack[l]{cen-\\soring} & "
+         r"\shortstack[l]{detected,\\not quant.} & limit held on & "
+         r"\shortstack[l]{stan-\\dard} & verdict & "
+         r"\shortstack[l]{applic-\\ability} \\",
          r"\midrule"]
     for name, row in table.items():
         tex_name = name.replace("&", r"\&")
         nm = (r"\textbf{" + tex_name + "}") if "this work" in name else tex_name
         T.append(f"{nm} & {FORM[name]} & " + " & ".join(
             cell(row[c]) for c in COLUMNS) + r" \\")
-    T += [r"\bottomrule", r"\end{tabular}", r"\end{table*}"]
+    T += [r"\bottomrule", r"\end{tabularx}", r"\end{table*}"]
     TEX.mkdir(parents=True, exist_ok=True)
     (TEX / "tab_exchange.tex").write_text("\n".join(T) + "\n", encoding="utf-8")
     print("\n".join(L[:12 + len(table)]))

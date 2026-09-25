@@ -414,3 +414,32 @@ without touching an axiom. Three are absence from a public registry, which no
 edit to the file achieves. Neither kind bears on the modelling claims made here;
 the full report is in \texttt{eval/foops\_assessment.md} and the cached service
 response beside it, so the figure can be re-derived without a network.
+
+\subsection{Implementation and cost}
+\label{sec:methods-impl}
+The pipeline is a set of Python stages of three kinds. A \emph{streaming}
+stage reads the released archive row by row and never builds a graph: it is
+arithmetic on four reported fields, and it is where every population count in
+this paper comes from. An \emph{ABox} stage expresses a reservoir sample of the
+same records as RDF. A \emph{rule} stage materialises \texttt{rdfs:subClassOf}
+type assertions to a fixed point and then runs SHACL in advanced mode, which
+adds the indeterminate outcomes and validates the result against the published
+shapes. There is no JVM, no triple store and no external reasoner: rdflib,
+pyshacl and owlrl install with \texttt{pip}, which is the whole dependency set.
+
+The figures below were measured on one machine --- a \num{2.40}\,GHz Xeon
+E5645 with \num{63}\,GB of memory, Python \texttt{3.8.10}, rdflib
+\texttt{7.6.0} and pyshacl \texttt{0.28.1} --- and are reported with the
+versions that produced them, so that a reader can judge what the
+approach costs rather than trust that it is
+feasible\src{scripts/14b\_pipeline\_performance.py}. The published graph holds
+\num{534129} asserted triples over \num{40000} observations, rising to
+\num{682331} once the type closure has run. Parsing takes \num{54.6}\,s and
+the closure \num{10.0}\,s; SHACL takes \num{117.0}\,min at a peak of
+\num{1586}\,MB, so the graph path completes in \num{118.1}\,min end to end.
+Assessing every one of the \num{696168} station-years a European standard
+reaches takes \num{4.4}\,min, because that path builds no graph at all.
+
+That asymmetry is the reason for the division of labour, and it is measured in
+Section~\ref{sec:results-cq} rather than assumed here: the graph is a
+queryable subset of an assessment that does not need one.

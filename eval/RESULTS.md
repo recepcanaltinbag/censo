@@ -217,8 +217,8 @@ Decomposition of the half-limit column, which is the substitution Article 5(1) o
 | STATO (statistics) | 1162 | — | — | — | — | **yes** | **yes** | — |
 | ENVO | 7208 | — | — | — | — | — | — | — |
 | ExO (exposure) | 195 | — | — | — | — | — | — | — |
-| CENSO (this work) | 51 | **the result** | **yes** | **yes** | **yes** | **yes** | **yes** | **yes** |
-| CENSO-REG (this work) | 17 | — | — | — | — | **yes** | — | — |
+| CENSO (this work) | 62 | **the result** | **yes** | **yes** | **yes** | **yes** | **yes** | **yes** |
+| CENSO-REG (this work) | 20 | — | — | **yes** | — | **yes** | — | — |
 | Project ontology 2018 | 123 | unclear | **yes** | — | — | — | — | — |
 
 
@@ -342,11 +342,11 @@ Every sampled observation receives the same verdict from the rule layer that the
 
 **audit.md**
 
-- checks: **346**
-- passed: **298**
-- failed: **0**
+- checks: **347**
+- passed: **297**
+- failed: **7**
 - warnings: 1
-- computed but not quoted: 47
+- computed but not quoted: 42
 - skipped: 0
 
 

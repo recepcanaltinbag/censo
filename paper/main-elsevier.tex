@@ -27,6 +27,9 @@
 \usepackage{graphicx}
 \graphicspath{{figures/}}
 \usepackage{booktabs}
+% tabularx: the exchange-standards table has three columns of phrases
+% and six of marks, and only a column that can wrap keeps it inside the page.
+\usepackage{tabularx}
 \usepackage{longtable}
 \usepackage{amsmath,amssymb}
 \usepackage{siunitx}
@@ -48,6 +51,9 @@
 % ask after; pdflatex substitutes a valid shape and the printed page is
 % unaffected. A log notice is cheaper than a line in the margin.
 \emergencystretch=3em
+% seqsplit: a sha256 offers a typesetter no break point, and the two digests
+% in the data statement each set ~8 mm past the measure without it.
+\usepackage{seqsplit}
 \usepackage[htt]{hyphenat}
 
 % Unresolved values. Deliberately loud; none may survive to submission.
@@ -197,6 +203,10 @@ appears somewhere, and fails if any claim cannot be reproduced.
 \input{sections/05-results}
 \input{sections/06-discussion}
 \input{sections/07-conclusions}
+
+\section*{Funding}
+This research did not receive any specific grant from funding agencies in the
+public, commercial, or not-for-profit sectors.
 
 \section*{Declaration of competing interest}
 The authors declare no competing financial interests or personal relationships
