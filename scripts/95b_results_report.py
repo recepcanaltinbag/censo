@@ -256,6 +256,11 @@ def main() -> int:
             ("axiom_tests.md", "- cases", "##"),
             ("owl_profile.md", "- axioms", "##"),
             ("shacl_validation.md", "- graph:", "**What the shapes"),
+            # The rule layer against the pipeline. It belongs beside the SHACL
+            # run: both say what the shipped artefact does when someone loads
+            # it rather than what the analysis did in Python, and a reader
+            # weighing the shapes wants the second answer as much as the first.
+            ("rule_agreement.md", "- observations sampled", "##"),
             ("competency_questions.md", "- questions", "##"),
             ("decision_flowchart.md", "- tests drawn", "##"),
             ("oops_assessment.md", "| pitfall", "**Reused external"),

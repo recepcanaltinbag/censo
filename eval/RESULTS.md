@@ -259,6 +259,23 @@ The vocabulary is inside the profile.
 - distinct violation types: **1**
 
 
+**rule_agreement.md**
+
+- observations sampled: **1,200** of 40,000 (1 in 33, by IRI)
+- rule materialisation: 272.9\,s
+- verdicts the rules implement: `BoundNotEstablished`, `IndeterminateCompliance`, `MethodInsufficient`, `NoThresholdDefined`, `PreconditionUnmet`
+- verdicts they do not, where silence is the right answer: `Compliant`, `Exceedance`, `IndeterminateCompliance, PossibleExceedance`
+- **disagreements: 0**
+
+Every sampled observation receives the same verdict from the rule layer that the pipeline recorded, reason subtype included. The rules reconstruct it from the record: the pipeline's own type assertions are removed from the graph before they run.
+
+| verdict, from the rules alone | n |
+|---|---|
+| — | 757 |
+| IndeterminateCompliance, MethodInsufficient | 232 |
+| BoundNotEstablished, IndeterminateCompliance | 121 |
+| IndeterminateCompliance, PreconditionUnmet | 90 |
+
 **competency_questions.md**
 
 - questions: **20**
